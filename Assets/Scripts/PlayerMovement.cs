@@ -2,22 +2,37 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+/* For double jumps:
+ * vars for keeping track of total possible jumps and amount done so far
+ * cancels jump action if already jumped to capacity
+ * increments current jumps after a jump, resets on ground collision
+ * also has option for less velocity if jump was not the first.
+ */
+
 public class PlayerMovement : MonoBehaviour
 {
     public GameObject playerSprite;
 
     public float moveSpeed;
     public float jumpSpeed;
+    public float doubleJumpSpeed;
+    public int totalJumps;
     public Rigidbody2D playerRigidbody;
 
     private Vector2 playerInput;
     private bool canJump;
     private bool shouldJump;
+    private int currentJumps;
 
 
     void Start()
     {
         playerRigidbody = GetComponent<Rigidbody2D> ();
+        // stops player from flipping everywhere
+        playerRigidbody.freezeRotation = true;
+
+        currentJumps = 0;
     }
 
     void Update()
@@ -31,6 +46,8 @@ public class PlayerMovement : MonoBehaviour
             canJump = false;
             shouldJump = true;
         }
+
+        
     }
 
     void FixedUpdate()
@@ -41,13 +58,29 @@ public class PlayerMovement : MonoBehaviour
            playerRigidbody.velocity = new Vector2(playerInput.x * moveSpeed, playerRigidbody.velocity.y);
         }
 
-        //performs jump if was pressed, adds upward force.
-        if (shouldJump)
+        //performs jump if was pressed and haven't jumped too many times, adds upward force.
+
+        if (currentJumps >= totalJumps)
+        {
+            shouldJump = false;
+        }
+        else if (shouldJump)
         {
             playerRigidbody.AddForce(Vector2.up * jumpSpeed, ForceMode2D.Impulse);
             shouldJump = false;
+            canJump = true;
+            currentJumps++;
+            Debug.Log("jumps: " + currentJumps);
         }
-      
+        else if (shouldJump && currentJumps > 0)
+        {
+            playerRigidbody.AddForce(Vector2.up * doubleJumpSpeed, ForceMode2D.Impulse);
+            shouldJump = false;
+            canJump = true;
+            currentJumps++;
+            Debug.Log(currentJumps);
+        }
+
     }
 
     //detects if player hits ground, which re enables ability to jump
@@ -56,6 +89,7 @@ public class PlayerMovement : MonoBehaviour
         Debug.Log("Collision");
         canJump = true;
         shouldJump = false;
+        currentJumps = 0;
         
     }
 }
