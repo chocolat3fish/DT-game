@@ -8,4 +8,10 @@ EditorBuildSettings:
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000
+  - enabled: 1
+    path: Assets/Scenes/Character Movement with animation.unity
+    guid: 8da405e47547946c29d1f275a511409f
+  - enabled: 1
+    path: Assets/Scenes/New Scene Test.unity
+    guid: 2f305606e765c7f4d931edf63e0326ff
   m_configObjects: {}

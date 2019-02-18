@@ -5,7 +5,7 @@ using UnityEngine;
 public class CameraMovement : MonoBehaviour
 {
     public Transform player;
-
+    public OnSpawn onSpawn;
     public float smoothSpeed;
     public float adjustSmoothSpeed;
     public Vector3 offset;
@@ -14,13 +14,15 @@ public class CameraMovement : MonoBehaviour
 
     private void Start()
     {
+        while (!onSpawn.StartCameraMovement)
+        {
+
+        }
         savedOffset = offset;
     }
 
     void FixedUpdate()
     {
-
-        //smooths the movement of the camera as it follows the camera
         adjustedOffset = Vector3.Lerp(offset, savedOffset, adjustSmoothSpeed);
         Vector3 desiredPosition = player.position + adjustedOffset;
         Vector3 smoothPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);
@@ -28,5 +30,8 @@ public class CameraMovement : MonoBehaviour
 
         transform.position = smoothPositionFinal;
         savedOffset = adjustedOffset;
+        
+        //smooths the movement of the camera as it follows the camera
+        
     }
 }
