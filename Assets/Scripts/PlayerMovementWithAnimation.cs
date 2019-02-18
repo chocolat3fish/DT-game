@@ -15,6 +15,7 @@ public class PlayerMovementWithAnimation : MonoBehaviour
     public GameObject playerSprite;
     public Animator animator;
     public SpriteRenderer spriteRenderer;
+    public CameraMovement cameraMovement;
 
     public float moveSpeed;
     public float jumpSpeed;
@@ -30,6 +31,8 @@ public class PlayerMovementWithAnimation : MonoBehaviour
 
     void Start()
     {
+        
+             
         playerRigidbody = GetComponent<Rigidbody2D>();
         // stops player from flipping everywhere
         playerRigidbody.freezeRotation = true;
@@ -62,15 +65,30 @@ public class PlayerMovementWithAnimation : MonoBehaviour
         //tells animator what the speed is as a positive value so it can then activate the running/walking animation
         animator.SetFloat("Speed", Mathf.Abs(playerRigidbody.velocity.x));
 
-        //makes the character face the correct direction.
+        //makes the character face the correct direction. and offests the camera depening on which way you are moving
         if(playerRigidbody.velocity.x < -0.01)
         {
             spriteRenderer.flipX = true;
+            cameraMovement.offset.x = -2f;
         }
         if (playerRigidbody.velocity.x > 0.01)
         {
             spriteRenderer.flipX = false;
+            cameraMovement.offset.x = 2f;
         }
+        if (playerRigidbody.velocity.y < -0.01)
+        {
+            cameraMovement.offset.y = -1f;
+        }
+        if (playerRigidbody.velocity.y > 0.01)
+        {
+            cameraMovement.offset.y = 1f;
+        }
+        if (playerRigidbody.velocity.y < 0.05f && playerRigidbody.velocity.y > -0.05)
+        {
+            cameraMovement.offset.y = 0f;
+        }
+
 
 
         //performs jump if was pressed and haven't jumped too many times, adds upward force.

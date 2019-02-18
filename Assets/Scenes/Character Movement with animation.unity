@@ -250,8 +250,8 @@ CapsuleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.03439808, y: -0.2522533}
-  m_Size: {x: 1.5259571, y: 2.5579}
+  m_Offset: {x: -0.03439808, y: 0.101626635}
+  m_Size: {x: 1.5259571, y: 1.8501401}
   m_Direction: 0
 --- !u!114 &1347226478
 MonoBehaviour:
@@ -265,6 +265,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3bac5b867d1fa45f6a3bcc6d240712f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  boxCollider2D: {fileID: 2104623961}
 --- !u!1 &1461446048
 GameObject:
   m_ObjectHideFlags: 0
@@ -318,7 +319,7 @@ EdgeCollider2D:
   m_EdgeRadius: 0
   m_Points:
   - {x: 8.000504, y: -1.9999523}
-  - {x: -7.998618, y: -1.9999372}
+  - {x: -7.990341, y: -1.9992683}
   - {x: -7.980288, y: 3.9983933}
   - {x: -5.9684477, y: 4.01828}
   - {x: -5.975931, y: 4.996293}
@@ -2175,6 +2176,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 2104623958}
   smoothSpeed: 0.05
+  adjustSmoothSpeed: 0.85
   offset: {x: 0, y: 0, z: 0}
 --- !u!1 &2104623955
 GameObject:
@@ -2314,6 +2316,7 @@ MonoBehaviour:
   playerSprite: {fileID: 2104623955}
   animator: {fileID: 2104623956}
   spriteRenderer: {fileID: 2104623957}
+  cameraMovement: {fileID: 1894587565}
   moveSpeed: 7
   jumpSpeed: 6
   doubleJumpSpeed: 0.6
