@@ -7,6 +7,8 @@ public class OnSpawn : MonoBehaviour
     private string previousScene;
     public GameObject[] gameObjects;
     public Transform player;
+    public Camera camera;
+    public CameraMovement cameraMovement;
     public bool StartCameraMovement;
     // Start is called before the first frame update
     void Start()
@@ -17,7 +19,9 @@ public class OnSpawn : MonoBehaviour
             if (door.name == previousScene)
             {
                 player.transform.position = door.transform.position;
-                StartCameraMovement = true;
+
+                camera.transform.position = player.transform.position;
+
             }
         }
     }

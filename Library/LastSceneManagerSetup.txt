@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Scenes/Character Movement with animation.unity
+- path: Assets/Scenes/New Scene Test.unity
   isLoaded: 1
   isActive: 1

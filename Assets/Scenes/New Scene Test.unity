@@ -144,6 +144,8 @@ MonoBehaviour:
   gameObjects:
   - {fileID: 1347226474}
   player: {fileID: 2104623958}
+  camera: {fileID: 1894587563}
+  cameraMovement: {fileID: 0}
   StartCameraMovement: 0
 --- !u!4 &1225225356
 Transform:
@@ -2228,6 +2230,7 @@ MonoBehaviour:
   smoothSpeed: 0.05
   adjustSmoothSpeed: 0.85
   offset: {x: 0, y: 0, z: 0}
+  savedOffset: {x: 0, y: 0, z: 0}
 --- !u!1 &2104623955
 GameObject:
   m_ObjectHideFlags: 0
