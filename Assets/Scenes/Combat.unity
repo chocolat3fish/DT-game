@@ -2099,11 +2099,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8cab4c02ef4ee884c89996b0d40a2f98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameObjects:
-  - {fileID: 0}
+  gameObjects: []
   player: {fileID: 2104623958}
   camera: {fileID: 1894587563}
-  cameraMovement: {fileID: 0}
+  cameraMovement: {fileID: 1894587565}
   StartCameraMovement: 0
 --- !u!4 &1972303108
 Transform:
@@ -2266,9 +2265,8 @@ MonoBehaviour:
   DetectorRight: {fileID: 6085984925231701112, guid: 122627b002d2a4781b6a76b6fbfb059f,
     type: 3}
   DetectorLeft: {fileID: 138136685, guid: df3fe0b579f5b4a7cb517f16200b76e4, type: 3}
-  attackSpeed: 0.5
+  attackSpeed: 0.001
   nextAttack: 0
-  detectorTime: 1
 --- !u!61 &2104623961
 BoxCollider2D:
   m_ObjectHideFlags: 0
