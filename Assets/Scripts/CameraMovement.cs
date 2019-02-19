@@ -28,7 +28,5 @@ public class CameraMovement : MonoBehaviour
         transform.position = smoothPositionFinal;
         savedOffset = adjustedOffset;
         
-
-        
     }
 }
