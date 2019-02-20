@@ -26,8 +26,8 @@ public class PlayerControls : MonoBehaviour
 
     //projectiles for either side, variables for original 
     //detectors are prefabs
-    public GameObject DetectorRight;
-    public GameObject DetectorLeft;
+    public BoxCollider2D DetectorRight;
+    public BoxCollider2D DetectorLeft;
     public float attackSpeed;
     public float nextAttack;
     Vector2 detectorPos;
@@ -49,6 +49,8 @@ public class PlayerControls : MonoBehaviour
         playerRigidbody = GetComponent<Rigidbody2D>();
         // stops player from flipping everywhere
         playerRigidbody.freezeRotation = true;
+        DetectorLeft.enabled = false;
+        DetectorRight.enabled = false;
 
         currentJumps = 0;
     }
@@ -69,7 +71,7 @@ public class PlayerControls : MonoBehaviour
         {
             //on attack press, shoot function and set cooldown
             nextAttack = Time.time + attackSpeed;
-            Detect();
+            StartCoroutine(Detect());
         }
 
 
@@ -109,11 +111,11 @@ public class PlayerControls : MonoBehaviour
         //if player moving exceedingly fast, pushes the camera ahead to keep player visible
         if (playerRigidbody.velocity.y < -(jumpSpeed + 2))
         {
-            cameraMovement.offset.y = -4f;
+            cameraMovement.offset.y = -5f;
         }
         if (playerRigidbody.velocity.y > jumpSpeed + 2)
         {
-            cameraMovement.offset.y = 4f;
+            cameraMovement.offset.y = 5f;
         }
         if (playerRigidbody.velocity.y < 0.05f && playerRigidbody.velocity.y > -0.05)
         {
@@ -174,20 +176,22 @@ public class PlayerControls : MonoBehaviour
     }
 
     //shoots projectile
-    void Detect()
-    {
-        detectorPos = transform.position;
+    IEnumerator Detect()
+    {   
+        if(facingLeft)
+        {
+            DetectorLeft.enabled = true;
+            yield return new WaitForSecondsRealtime(0.5f);
+            DetectorLeft.enabled = false;
+            Debug.Log("Attack left");
+        }
         if (facingRight)
         {
-            //creates clone, moves it to a safe distance from the player
-            detectorPos += new Vector2(1f, 0);
-            Instantiate(DetectorRight, detectorPos, Quaternion.identity);
-        }
+            DetectorRight.enabled = true;
+            yield return new WaitForSecondsRealtime(0.5f);
+            DetectorRight.enabled = false;
+            Debug.Log("Attack right");
 
-        if (facingLeft)
-        {
-            detectorPos += new Vector2(-1f, 0);
-            Instantiate(DetectorLeft, detectorPos, Quaternion.identity);
         }
     }
 }
