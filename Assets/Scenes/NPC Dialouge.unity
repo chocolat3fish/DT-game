@@ -622,7 +622,7 @@ GameObject:
   - component: {fileID: 1347226477}
   - component: {fileID: 1347226478}
   m_Layer: 0
-  m_Name: Character Movement with animation Door
+  m_Name: Character Controls
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

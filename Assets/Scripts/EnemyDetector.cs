@@ -11,6 +11,7 @@ public class EnemyDetector : MonoBehaviour
     Rigidbody2D detectorRb;
 
 
+
     void Start()
     {
         detectorRb = GetComponent<Rigidbody2D>();

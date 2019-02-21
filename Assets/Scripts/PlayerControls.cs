@@ -24,6 +24,11 @@ public class PlayerControls : MonoBehaviour
     public int totalJumps;
     public Rigidbody2D playerRigidbody;
 
+    //Temporary for another script (TrainingEnemy)
+    //will make this reliant on weapons later on
+
+    public float playerDamage = 1f;
+
     //projectiles for either side, variables for original 
     //detectors are prefabs
     public BoxCollider2D DetectorRight;
@@ -111,11 +116,11 @@ public class PlayerControls : MonoBehaviour
         //if player moving exceedingly fast, pushes the camera ahead to keep player visible
         if (playerRigidbody.velocity.y < -(jumpSpeed + 2))
         {
-            cameraMovement.offset.y = -5f;
+            cameraMovement.offset.y = -4.5f;
         }
         if (playerRigidbody.velocity.y > jumpSpeed + 2)
         {
-            cameraMovement.offset.y = 5f;
+            cameraMovement.offset.y = 4.5f;
         }
         if (playerRigidbody.velocity.y < 0.05f && playerRigidbody.velocity.y > -0.05)
         {

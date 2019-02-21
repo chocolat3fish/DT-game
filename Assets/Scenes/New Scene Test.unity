@@ -315,7 +315,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 2104623955}
-  nextScene: Character Movement with animation
+  nextScene: Character Control
   currentScene: New Scene Test
 --- !u!1 &1461446048
 GameObject:
@@ -2375,6 +2375,10 @@ MonoBehaviour:
   doubleJumpSpeed: 0.6
   totalJumps: 2
   playerRigidbody: {fileID: 2104623959}
+  DetectorRight: {fileID: 0}
+  DetectorLeft: {fileID: 0}
+  attackSpeed: 0
+  nextAttack: 0
 --- !u!61 &2104623961
 BoxCollider2D:
   m_ObjectHideFlags: 0
