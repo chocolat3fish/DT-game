@@ -2912,11 +2912,14 @@ MonoBehaviour:
   OverlayPanel: {fileID: 1535663929}
   toTalkPanel: {fileID: 1268679766}
   Player: {fileID: 2104623955}
-  NPCName: Jason
-  sentences:
-  - Hello
-  - I'm Jason
-  - Nice to Meet you
+  isTalking: 0
+  canContinueDialouge: 0
+  dialouge:
+    NPCName: Jason
+    sentences:
+    - 'Hello '
+    - I'm Jason
+    - Nice to meet you
 --- !u!212 &1627806679
 SpriteRenderer:
   m_ObjectHideFlags: 0

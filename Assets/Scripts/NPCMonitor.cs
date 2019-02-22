@@ -11,10 +11,10 @@ public class NPCMonitor : MonoBehaviour
 
     public GameObject Player;
 
-    public string NPCName;
-    public string[] sentences;
+
     public bool isTalking;
     public bool canContinueDialouge;
+    public Dialouge dialouge;
 
     private float dialougeBoxQueryTime;
     private bool dialougeBoxQuery;
@@ -79,18 +79,20 @@ public class NPCMonitor : MonoBehaviour
     {
         dialougeBoxOpen = true;
         OverlayPanel.SetActive(true);
-        overlayNameText.text = NPCName;
-        overlayMainText.text = sentences[0];
+        overlayNameText.text = dialouge.NPCName;
         currentSentenceIndex = 0;
         isTalking = true;
         canContinueDialouge = false;
         dialougeBoxQuery = true;
         dialougeBoxQueryTime = Time.time;
 
+        overlayNameText.text = dialouge.NPCName;
+        StartCoroutine(AddChars(dialouge.sentences[0], overlayMainText));
+
     }
     private void Update()
     {
-        if(dialougeBoxQuery && (dialougeBoxQueryTime < (Time.time - 1f)))
+        if(dialougeBoxQuery && (dialougeBoxQueryTime < (Time.time - 0.5f)))
         {
             dialougeBoxQuery = false;
             canContinueDialouge = true;
@@ -102,14 +104,14 @@ public class NPCMonitor : MonoBehaviour
         if(canContinueDialouge)
         {
             currentSentenceIndex++;
-            if (currentSentenceIndex == sentences.Length)
+            if (currentSentenceIndex == dialouge.sentences.Length)
             {
                 EndDialouge();
             }
             else
             {
-
-                overlayMainText.text = sentences[currentSentenceIndex];
+                StopAllCoroutines();
+                StartCoroutine(AddChars(dialouge.sentences[currentSentenceIndex], overlayMainText));
                 canContinueDialouge = false;
                 dialougeBoxQuery = true;
                 dialougeBoxQueryTime = Time.time;
@@ -121,11 +123,21 @@ public class NPCMonitor : MonoBehaviour
     }
     private void EndDialouge()
     {
+        StopAllCoroutines();
         dialougeBoxOpen = false;
         OverlayPanel.SetActive(false);
         isTalking = false;
         canContinueDialouge = false;
     }
 
-    
+    IEnumerator AddChars(string sentence, Text text)
+    {
+        text.text = "";
+        foreach (char ch in sentence)
+        {
+            text.text += ch;
+            yield return null;
+            
+        }
+    }
 }
