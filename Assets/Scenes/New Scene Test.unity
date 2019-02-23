@@ -218,7 +218,7 @@ GameObject:
   - component: {fileID: 1347226477}
   - component: {fileID: 1347226478}
   m_Layer: 0
-  m_Name: Character Movement with animation Door
+  m_Name: Character Control Door
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2375,6 +2375,7 @@ MonoBehaviour:
   doubleJumpSpeed: 0.6
   totalJumps: 2
   playerRigidbody: {fileID: 2104623959}
+  playerDamage: 1
   DetectorRight: {fileID: 0}
   DetectorLeft: {fileID: 0}
   attackSpeed: 0

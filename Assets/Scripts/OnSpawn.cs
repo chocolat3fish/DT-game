@@ -21,7 +21,7 @@ public class OnSpawn : MonoBehaviour
                 player.transform.position = door.transform.position;
 
                 camera.transform.position = player.transform.position;
-
+             
             }
         }
     }

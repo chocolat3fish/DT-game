@@ -14,4 +14,16 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/New Scene Test.unity
     guid: 2f305606e765c7f4d931edf63e0326ff
+  - enabled: 1
+    path: Assets/Scenes/basic movement.unity
+    guid: e5a55a65e68b9df41acfc90581eba8cd
+  - enabled: 1
+    path: Assets/Scenes/Boot Up.unity
+    guid: b98f52e9d913003429e8b25f964f9334
+  - enabled: 1
+    path: Assets/Scenes/Combat.unity
+    guid: e2c3e356fdacf496d8c357cb5b0af710
+  - enabled: 1
+    path: Assets/Scenes/NPC Dialouge.unity
+    guid: 36d7aadca1dbbf044a6c89297bea8f28
   m_configObjects: {}
