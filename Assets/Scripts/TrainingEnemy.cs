@@ -8,9 +8,9 @@ public class TrainingEnemy : MonoBehaviour
     Rigidbody2D enemyRigidbody;
 
     public string enemyName;
-
+    GameObject enemys;
     public float totalHealth;
-    public static float currentHealth;
+    public float currentHealth;
 
     void Start()
     {
@@ -20,5 +20,6 @@ public class TrainingEnemy : MonoBehaviour
         enemyRigidbody.constraints = RigidbodyConstraints2D.FreezeAll;
 
     }
+
 
 }

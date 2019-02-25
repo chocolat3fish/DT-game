@@ -186,17 +186,28 @@ public class PlayerControls : MonoBehaviour
         if(facingLeft)
         {
             DetectorLeft.enabled = true;
-            yield return new WaitForSecondsRealtime(0.5f);
+            yield return null;
             DetectorLeft.enabled = false;
             Debug.Log("Attack left");
         }
         if (facingRight)
         {
             DetectorRight.enabled = true;
-            yield return new WaitForSecondsRealtime(0.5f);
+            yield return null;
             DetectorRight.enabled = false;
             Debug.Log("Attack right");
 
         }
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        Debug.Log("trigger");
+        if(collision.gameObject.tag == "Enemy")
+        {
+            TrainingEnemy enemy = collision.gameObject.GetComponent<TrainingEnemy>();
+            enemy.totalHealth--;
+        }
+    }
+   
 }
