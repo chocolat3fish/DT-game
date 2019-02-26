@@ -94,7 +94,7 @@ public class PlayerControls : MonoBehaviour
 
         //makes the character face the correct direction. and offests the camera depening on which way you are moving
         //determines whether facing left or right
-        if(playerRigidbody.velocity.x < -0.01)
+        if (playerRigidbody.velocity.x < -0.01)
         {
             spriteRenderer.flipX = true;
             cameraMovement.offset.x = -2f;
@@ -110,7 +110,7 @@ public class PlayerControls : MonoBehaviour
 
             facingLeft = false;
             facingRight = true;
-           
+
         }
 
         //if player moving exceedingly fast, pushes the camera ahead to keep player visible
@@ -182,8 +182,8 @@ public class PlayerControls : MonoBehaviour
 
     //shoots projectile
     IEnumerator Detect()
-    {   
-        if(facingLeft)
+    {
+        if (facingLeft)
         {
             DetectorLeft.enabled = true;
             yield return null;
@@ -203,11 +203,12 @@ public class PlayerControls : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Debug.Log("trigger");
-        if(collision.gameObject.tag == "Enemy")
+        if (collision.gameObject.tag == "Enemy")
         {
             TrainingEnemy enemy = collision.gameObject.GetComponent<TrainingEnemy>();
-            enemy.totalHealth--;
+            enemy.currentHealth -= playerDamage;
         }
+
     }
-   
+
 }
