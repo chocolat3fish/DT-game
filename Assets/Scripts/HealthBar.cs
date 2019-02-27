@@ -6,13 +6,13 @@ public class HealthBar : MonoBehaviour
 {
 
     Vector3 localScale;
-    private TrainingEnemy parent;
+    private EnemyMonitor parent;
 
     void Start()
     {
         //sets scale to default
         localScale = transform.localScale;
-        parent = GetComponentInParent<TrainingEnemy>();
+        parent = GetComponentInParent<EnemyMonitor>();
     }
 
     void Update()
