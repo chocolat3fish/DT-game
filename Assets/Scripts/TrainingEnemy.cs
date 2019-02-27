@@ -15,6 +15,9 @@ public class TrainingEnemy : MonoBehaviour
     void Start()
     {
         enemyRigidbody = GetComponent<Rigidbody2D>();
+
+        //Fixes issue of having to move before being able to attack it again. Likely better solution but will work for now.
+        enemyRigidbody.sleepMode = RigidbodySleepMode2D.NeverSleep;
         currentHealth = totalHealth;
 
         enemyRigidbody.constraints = RigidbodyConstraints2D.FreezeAll;
