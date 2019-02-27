@@ -8,6 +8,7 @@ public class PersistantGameManager : MonoBehaviour
     public static PersistantGameManager Instance { get; private set; }
 
     public PlayerStats playerStats;
+    public int Test = 11;
 
     private void Awake()
     {
