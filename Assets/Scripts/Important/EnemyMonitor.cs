@@ -15,6 +15,8 @@ public class EnemyMonitor : MonoBehaviour
 
     public Enemy enemyStats;
 
+    public LootItem lootItem;
+
     void Start()
     {
 
@@ -42,7 +44,12 @@ public class EnemyMonitor : MonoBehaviour
 
     public void EnemyDeath()
     {
-        LootManager.DropItem(itemChance);
+        //not done, will apply new values to the loot object
+        Weapon newWeapon = LootManager.DropItem(itemChance);
+        lootItem.newItemName = newWeapon.itemName;
+        lootItem.newItemDamage = newWeapon.itemDamage;
+        lootItem.newItemSpeed = newWeapon.itemSpeed;
+
         Destroy(gameObject);
 
     }

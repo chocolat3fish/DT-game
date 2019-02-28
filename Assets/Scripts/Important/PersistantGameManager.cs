@@ -10,7 +10,6 @@ public class PersistantGameManager : MonoBehaviour
     public Weapon currentWeapon;
 
     public PlayerStats playerStats;
-    public int Test = 11;
 
     private void Awake()
     {

@@ -7,6 +7,7 @@ public class LootManager : MonoBehaviour
     //uses random from system rather than unityengine, allows for random.Next()
 
     private static System.Random random = new System.Random();
+
     public static Weapon DropItem(int chance)
     {
         int randomChance = random.Next(0, 100);

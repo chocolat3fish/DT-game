@@ -24,16 +24,13 @@ public class PlayerControls : MonoBehaviour
     public int totalJumps;
     public Rigidbody2D playerRigidbody;
 
-    //Temporary for another script (TrainingEnemy)
-    //will make this reliant on weapons later on
+    //reliant on PersistantGameManager and PlayerMonitor
+    public float playerDamage;
+    public float attackSpeed;
+    
 
-    public float playerDamage = 1f;
-
-    //projectiles for either side, variables for original 
-    //detectors are prefabs
     public BoxCollider2D DetectorRight;
     public BoxCollider2D DetectorLeft;
-    public float attackSpeed;
     public float nextAttack;
     Vector2 detectorPos;
 
@@ -50,7 +47,8 @@ public class PlayerControls : MonoBehaviour
     void Start()
     {
 
-
+        playerDamage = PlayerMonitor.currentWeapon.itemDamage;
+        attackSpeed = PlayerMonitor.currentWeapon.itemSpeed;
         playerRigidbody = GetComponent<Rigidbody2D>();
         // stops player from flipping everywhere
         playerRigidbody.freezeRotation = true;
@@ -58,6 +56,7 @@ public class PlayerControls : MonoBehaviour
         DetectorRight.enabled = false;
 
         currentJumps = 0;
+       
     }
 
     void Update()
@@ -145,7 +144,6 @@ public class PlayerControls : MonoBehaviour
             shouldJump = false;
             canJump = true;
             currentJumps++;
-            Debug.Log("jumps: " + currentJumps);
         }
         else if (shouldJump && currentJumps > 0)
         {
@@ -161,7 +159,6 @@ public class PlayerControls : MonoBehaviour
     //detects if player hits ground, which re enables ability to jump
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log("Collision");
         canJump = true;
         shouldJump = false;
         currentJumps = 0;
@@ -173,7 +170,6 @@ public class PlayerControls : MonoBehaviour
     private void OnCollisionExit2D(Collision2D collision)
     {
         animator.SetBool("IsJumping", true);
-        Debug.Log("Fall");
     }
     private void OnCollisionStay2D(Collision2D collision)
     {
