@@ -6,10 +6,10 @@ public class TestGiveItem : MonoBehaviour
 {
 
 
-    void Start()
+    public static void GiveItem()
     {
-        PersistantGameManager.Instance.currentWeapon = new Weapon("Sword", 2f, 0.5f);
-        PlayerMonitor.UpdateWeapon();
+        PersistantGameManager.Instance.playerIventory[PersistantGameManager.Instance.currentIndex] = new Weapon("Sword", 2f, 0.5f);
+        PersistantGameManager.Instance.playerIventory[1] = new Weapon("Knife", 1f, 0.25f);
         Debug.Log("Add sword");
     }
 

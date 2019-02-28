@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1226106938924304396}
   - component: {fileID: 585608419467236076}
-  - component: {fileID: 4727668919297527891}
   m_Layer: 0
   m_Name: Loot Drop
   m_TagString: Loot
@@ -80,18 +79,3 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &4727668919297527891
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4242005004080712964}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 386681011a73840a8a08056e2ae7b732, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  newItemName: 
-  newItemDamage: 0
-  newItemSpeed: 0

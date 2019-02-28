@@ -12,6 +12,7 @@ public class Weapon
     public string itemName;
     public float itemDamage;
     public float itemSpeed;
+    public int inventoryIndex;
 
     public Weapon(string itemName, float itemDamage, float itemSpeed)
     {

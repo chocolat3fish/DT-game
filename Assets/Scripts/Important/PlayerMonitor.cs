@@ -16,6 +16,8 @@ public class PlayerMonitor : MonoBehaviour
     {
         Debug.Log("updating weapon");
         currentWeapon = PersistantGameManager.Instance.currentWeapon;
+        playerControls.playerDamage = currentWeapon.itemDamage;
+        playerControls.attackSpeed = currentWeapon.itemSpeed;
 
     }
 }
