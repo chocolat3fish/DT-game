@@ -5,23 +5,25 @@ using UnityEngine;
 public class PlayerHeathBar : MonoBehaviour
 {
     Vector3 localScale;
-    private float currentHealth = 5f * 1000f;
+    public GameObject player;
+    private PlayerControls playerControls;
     void Start()
     {
         //sets scale to default
         localScale = transform.localScale;
+        playerControls = player.GetComponent<PlayerControls>();
 
     }
 
-    /*void Update()
+    void Update()
     {
         //as health depletes, scales the x value down relative to health
-        localScale.x = currentHealth;
+        localScale.x = playerControls.currentHealth/10;
         transform.localScale = localScale;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
 
-    }*/
+    }
 }

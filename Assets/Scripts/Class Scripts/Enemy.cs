@@ -9,4 +9,5 @@ public class Enemy
     public string enemyName;
     public float enemyDamage;
     public float enemyHealth;
+    public float attackSpeed;
 }

@@ -33,7 +33,7 @@ public class PlayerControls : MonoBehaviour
     public BoxCollider2D DetectorLeft;
     public float nextAttack;
     Vector2 detectorPos;
-
+    public float currentHealth;
 
     private Vector2 playerInput;
     private bool canJump;
@@ -46,9 +46,6 @@ public class PlayerControls : MonoBehaviour
 
     void Start()
     {
-
-        playerDamage = PlayerMonitor.currentWeapon.itemDamage;
-        attackSpeed = PlayerMonitor.currentWeapon.itemSpeed;
         playerRigidbody = GetComponent<Rigidbody2D>();
         // stops player from flipping everywhere
         playerRigidbody.freezeRotation = true;
@@ -195,6 +192,7 @@ public class PlayerControls : MonoBehaviour
 
         }
     }
+
 
     private void OnTriggerEnter2D(Collider2D collision)
     {

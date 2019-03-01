@@ -12,8 +12,11 @@ public class EnemyMonitor : MonoBehaviour
     public float currentHealth;
     private float enemyDamage;
     public int itemChance;
-
+    private float distanceToPlayer;
+    public GameObject player;
+    public PlayerControls playerControls;
     public Enemy enemyStats;
+    private bool attacking = false;
 
     public LootItem lootItem;
 
@@ -21,6 +24,7 @@ public class EnemyMonitor : MonoBehaviour
     {
 
         enemyRigidbody = GetComponent<Rigidbody2D>();
+        playerControls = player.GetComponent<PlayerControls>();
 
         totalHealth = enemyStats.enemyHealth;
         enemyName = enemyStats.enemyName;
@@ -31,6 +35,7 @@ public class EnemyMonitor : MonoBehaviour
         currentHealth = totalHealth;
 
         enemyRigidbody.constraints = RigidbodyConstraints2D.FreezeAll;
+        StartCoroutine(Attack());
 
     }
 
@@ -40,19 +45,45 @@ public class EnemyMonitor : MonoBehaviour
         {
             EnemyDeath();
         }
+        distanceToPlayer = Vector2.Distance(transform.position, player.transform.position);
+        if(distanceToPlayer <= 2f && !attacking)
+        {
+            attacking = true;
+        }
+        else if(distanceToPlayer > 2f && attacking)
+        {
+            attacking = false;
+        }
+
     }
 
     public void EnemyDeath()
     {
         //not done, will apply new values to the loot object
-        Weapon newWeapon = LootManager.DropItem(itemChance);
+        /*Weapon newWeapon = LootManager.DropItem(itemChance);
         lootItem.newItemName = newWeapon.itemName;
         lootItem.newItemDamage = newWeapon.itemDamage;
-        lootItem.newItemSpeed = newWeapon.itemSpeed;
-
+        lootItem.newItemSpeed = newWeapon.itemSpeed;*/
         Destroy(gameObject);
 
     }
+    IEnumerator Attack()
+    {
+        while (true) 
+        {   
+            yield return new WaitForSeconds(enemyStats.attackSpeed);
+            if (attacking)
+            {
+                playerControls.currentHealth -= enemyStats.enemyDamage;
+            }
+        }
+
+
+
+    
+    }
+
+
 
 
 }
