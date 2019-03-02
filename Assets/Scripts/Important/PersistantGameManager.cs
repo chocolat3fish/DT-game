@@ -12,7 +12,23 @@ public class PersistantGameManager : MonoBehaviour
     public Weapon currentWeapon;
     public List<Weapon> playerIventory = new List<Weapon>();
     public PlayerStats playerStats;
+    public bool compareScreenOpen = false;
+    public Weapon comparingWeapon;
+    public PlayerControls player;
 
+    public string currentScene;
+
+    private IEnumerator CasualPlayerWeaponChecker()
+    {
+        while (true)
+        {
+            if(player.playerDamage != currentWeapon.itemDamage)
+            {
+                PlayerMonitor.UpdateWeapon();
+            }
+            yield return new WaitForSeconds(1);
+        }
+    }
 
     private void Awake()
     {
@@ -25,6 +41,7 @@ public class PersistantGameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        currentScene = SceneManager.GetActiveScene().name;
     }
     private void Start()
     {
@@ -33,6 +50,9 @@ public class PersistantGameManager : MonoBehaviour
             playerIventory.Add(null);
         }
         TestGiveItem.GiveItem();
+        player = FindObjectOfType<PlayerControls>();
+        StartCoroutine(CasualPlayerWeaponChecker());
+        
     }
     void Update()
     {
@@ -64,6 +84,13 @@ public class PersistantGameManager : MonoBehaviour
         if(currentWeapon.itemName == "")
         {
             changeItem(99);
+        }
+
+        if(currentScene != SceneManager.GetActiveScene().ToString())
+        {
+            player = FindObjectOfType<PlayerControls>();
+            StartCoroutine(CasualPlayerWeaponChecker());
+            currentScene = SceneManager.GetActiveScene().name;
         }
 
     }

@@ -12,9 +12,15 @@ public class EnemyMonitor : MonoBehaviour
     public float currentHealth;
     private float enemyDamage;
     public int itemChance;
+
+
+    public string lootDropPreFabName;
+    
+    
+
     private float distanceToPlayer;
     public GameObject player;
-    public PlayerControls playerControls;
+    private PlayerControls playerControls;
     public Enemy enemyStats;
     private bool attacking = false;
 
@@ -60,10 +66,15 @@ public class EnemyMonitor : MonoBehaviour
     public void EnemyDeath()
     {
         //not done, will apply new values to the loot object
-        /*Weapon newWeapon = LootManager.DropItem(itemChance);
-        lootItem.newItemName = newWeapon.itemName;
-        lootItem.newItemDamage = newWeapon.itemDamage;
-        lootItem.newItemSpeed = newWeapon.itemSpeed;*/
+        Weapon newWeapon = LootManager.DropItem(itemChance);
+        if(newWeapon != null)
+        {
+            GameObject lootDropInstance = Instantiate(Resources.Load(lootDropPreFabName), transform.position, Quaternion.identity) as GameObject;
+            LootDropMonitor lootDropInstanceMonitor = lootDropInstance.GetComponent<LootDropMonitor>();
+            lootDropInstanceMonitor.player = player;
+            lootDropInstanceMonitor.newItemStats = newWeapon;
+        }
+        
         Destroy(gameObject);
 
     }
@@ -71,9 +82,10 @@ public class EnemyMonitor : MonoBehaviour
     {
         while (true) 
         {   
-            yield return new WaitForSeconds(enemyStats.attackSpeed);
-            if (attacking)
+            
+            if (attacking && Time.timeScale != 0)
             {
+                yield return new WaitForSeconds(enemyStats.attackSpeed);
                 playerControls.currentHealth -= enemyStats.enemyDamage;
             }
         }

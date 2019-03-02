@@ -212,10 +212,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentHealth: 0
   itemChance: 100
+  player: {fileID: 2104623955}
   enemyStats:
     enemyName: Evil Door
     enemyDamage: 1
     enemyHealth: 15
+    attackSpeed: 0
 --- !u!212 &603987000
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2872,6 +2874,7 @@ MonoBehaviour:
   DetectorRight: {fileID: 1734038415}
   DetectorLeft: {fileID: 1569865085}
   nextAttack: 1
+  currentHealth: 0
 --- !u!61 &2104623961
 BoxCollider2D:
   m_ObjectHideFlags: 0
