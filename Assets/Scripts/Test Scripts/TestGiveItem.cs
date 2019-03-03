@@ -8,11 +8,11 @@ public class TestGiveItem : MonoBehaviour
 
     public static void GiveItem()
     {
-        PersistantGameManager.Instance.playerIventory[0] = new Weapon("Short Sword", 2f, 0.5f, 1);
-        PersistantGameManager.Instance.playerIventory[1] = new Weapon("Knife", 1f, 0.25f, 0.5f);
-        PersistantGameManager.Instance.playerIventory[2] = new Weapon("Spear", 4f, 0.75f, 2);
-        PersistantGameManager.Instance.playerIventory[3] = new Weapon("Long Sword", 3f, 0.6f, 1.5f);
-        PersistantGameManager.Instance.playerIventory[4] = new Weapon("Axe", 10f, 2f, 1.5f);
+        PersistantGameManager.Instance.playerInventory[0] = new Weapon("Short Sword", 2f, 0.5f, 1);
+        PersistantGameManager.Instance.playerInventory[1] = new Weapon("Knife", 1f, 0.25f, 0.5f);
+        PersistantGameManager.Instance.playerInventory[2] = new Weapon("Spear", 4f, 0.75f, 2);
+        PersistantGameManager.Instance.playerInventory[3] = new Weapon("Long Sword", 3f, 0.6f, 1.5f);
+        PersistantGameManager.Instance.playerInventory[4] = new Weapon("Axe", 10f, 2f, 1.5f);
         Debug.Log("Add sword");
 
     }

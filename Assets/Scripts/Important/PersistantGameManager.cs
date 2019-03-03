@@ -10,7 +10,7 @@ public class PersistantGameManager : MonoBehaviour
     public int currentIndex = 0;
     public int previousIndex = 0;
     public Weapon currentWeapon;
-    public List<Weapon> playerIventory = new List<Weapon>();
+    public List<Weapon> playerInventory = new List<Weapon>();
     public PlayerStats playerStats;
     public bool compareScreenOpen = false;
     public Weapon comparingWeapon;
@@ -36,7 +36,7 @@ public class PersistantGameManager : MonoBehaviour
     {
         for(int i = 0; i <5; i++)
         {
-            playerIventory.Add(null);
+            playerInventory.Add(null);
         }
         TestGiveItem.GiveItem();
         player = FindObjectOfType<PlayerControls>();
@@ -86,15 +86,15 @@ public class PersistantGameManager : MonoBehaviour
     {   
         if(index == 99)
         {
-            currentWeapon = playerIventory[0];
+            currentWeapon = playerInventory[0];
             previousIndex = 0;
         }
         else if(index != previousIndex && index < 5 && index > -1)
         {
             
-            if(playerIventory[index] != null )
+            if(playerInventory[index] != null )
             {
-                currentWeapon = playerIventory[index];
+                currentWeapon = playerInventory[index];
                 previousIndex = currentIndex;
             }
             

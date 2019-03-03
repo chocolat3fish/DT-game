@@ -13,6 +13,7 @@ public class EnemyMonitor : MonoBehaviour
     private float enemyDamage;
     public int itemChance;
     public int weaponValue;
+    public float attackRange;
 
 
     public string lootDropPreFabName;
@@ -54,12 +55,15 @@ public class EnemyMonitor : MonoBehaviour
         {
             EnemyDeath();
         }
+
         distanceToPlayer = Vector2.Distance(transform.position, player.transform.position);
-        if(distanceToPlayer <= 2f && !attacking)
+
+        if(distanceToPlayer <= attackRange && !attacking)
         {
             attacking = true;
         }
-        else if(distanceToPlayer > 2f && attacking)
+
+        else if(distanceToPlayer > attackRange && attacking)
         {
             attacking = false;
         }

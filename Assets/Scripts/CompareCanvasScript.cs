@@ -11,8 +11,9 @@ public class CompareCanvasScript : MonoBehaviour
     public GameObject currentWeaponPanel;
     public GameObject newWeaponPanel;
 
-    public Canvas[] canvases;
+    public List<Canvas> canvases = new List<Canvas>();
     private List<Canvas> turnedOnCanvases = new List<Canvas>();
+    public Canvas[] removeCanvas;
 
     private Text cWNOutput;
     private Text cWDOutput;
@@ -48,7 +49,20 @@ public class CompareCanvasScript : MonoBehaviour
         NWPButton.onClick.AddListener(ChooseNewWeapon);
 
 
-        canvases = GameObject.FindObjectsOfType<Canvas>();
+        Canvas[] tempCanvases = FindObjectsOfType<Canvas>();
+        foreach(Canvas canvas in tempCanvases)
+        {
+            canvases.Add(canvas);
+        }
+
+        foreach (Canvas canvas in canvases)
+        {
+            if (canvas.gameObject.tag == "Enemy Health Bar")
+            {
+                canvases.Remove(canvas);
+            }
+        }
+
 
     }
 
@@ -110,7 +124,7 @@ public class CompareCanvasScript : MonoBehaviour
         Weapon tempWeapon = PersistantGameManager.Instance.currentWeapon;
         PersistantGameManager.Instance.currentWeapon = PersistantGameManager.Instance.comparingWeapon;
         PersistantGameManager.Instance.comparingWeapon = tempWeapon;
-        PersistantGameManager.Instance.playerIventory[PersistantGameManager.Instance.currentIndex] = PersistantGameManager.Instance.currentWeapon;
+        PersistantGameManager.Instance.playerInventory[PersistantGameManager.Instance.currentIndex] = PersistantGameManager.Instance.currentWeapon;
 
         ContinueGame();
     }

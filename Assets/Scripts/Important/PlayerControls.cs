@@ -18,8 +18,6 @@ public class PlayerControls : MonoBehaviour
 
     public CameraMovement cameraMovement;
 
-
-
     public float range = 1;
 
     public float moveSpeed;
@@ -38,6 +36,7 @@ public class PlayerControls : MonoBehaviour
     public float nextAttack;
     Vector2 detectorPos;
     public float currentHealth;
+    public float totalHealth;
 
     private Vector2 playerInput;
     private bool canJump;
@@ -59,7 +58,8 @@ public class PlayerControls : MonoBehaviour
         DetectorRight.enabled = false;
 
         currentJumps = 0;
-       
+
+        currentHealth = totalHealth;
     }
 
 

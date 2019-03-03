@@ -8,6 +8,7 @@ TagManager:
   - Enemy
   - Loot
   - Canvas
+  - Enemy Health Bar
   layers:
   - Default
   - TransparentFX

@@ -17,9 +17,9 @@ public class PlaceHolderInventoryscript : MonoBehaviour
         if(whatAreYouDoing < 6)
         {
 
-                if (PersistantGameManager.Instance.playerIventory[whatAreYouDoing - 1] != null)
+                if (PersistantGameManager.Instance.playerInventory[whatAreYouDoing - 1] != null)
                 {
-                    output.text = whatAreYouDoing + ": " + PersistantGameManager.Instance.playerIventory[whatAreYouDoing - 1].itemName;
+                    output.text = whatAreYouDoing + ": " + PersistantGameManager.Instance.playerInventory[whatAreYouDoing - 1].itemName;
                 }
         }
         else if (whatAreYouDoing == 6)
