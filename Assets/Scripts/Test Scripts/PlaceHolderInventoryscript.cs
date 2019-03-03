@@ -44,6 +44,13 @@ public class PlaceHolderInventoryscript : MonoBehaviour
             }
 
         }
+        else if (whatAreYouDoing == 9)
+        {
+            if (PersistantGameManager.Instance.currentWeapon != null)
+            {
+                output.text = PersistantGameManager.Instance.currentWeapon.itemRange.ToString();
+            }
+        }
     }
 
 

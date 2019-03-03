@@ -18,6 +18,10 @@ public class PlayerControls : MonoBehaviour
 
     public CameraMovement cameraMovement;
 
+
+
+    public float range = 1;
+
     public float moveSpeed;
     public float jumpSpeed;
     public float doubleJumpSpeed;
@@ -47,6 +51,8 @@ public class PlayerControls : MonoBehaviour
     void Start()
     {
         playerRigidbody = GetComponent<Rigidbody2D>();
+
+        
         // stops player from flipping everywhere
         playerRigidbody.freezeRotation = true;
         DetectorLeft.enabled = false;
@@ -55,6 +61,7 @@ public class PlayerControls : MonoBehaviour
         currentJumps = 0;
        
     }
+
 
     void Update()
     {
@@ -74,12 +81,6 @@ public class PlayerControls : MonoBehaviour
             nextAttack = Time.time + attackSpeed;
             StartCoroutine(Detect());
         }
-
-
-    }
-
-    void FixedUpdate()
-    {
         //changes x axis speed and keeps current y axis velocity
         if (playerInput != Vector2.zero)
         {
@@ -151,6 +152,10 @@ public class PlayerControls : MonoBehaviour
             Debug.Log(currentJumps);
         }
 
+        playerDamage = PersistantGameManager.Instance.currentWeapon.itemDamage;
+        attackSpeed = PersistantGameManager.Instance.currentWeapon.itemSpeed;
+        range = PersistantGameManager.Instance.currentWeapon.itemRange;
+        
     }
 
     //detects if player hits ground, which re enables ability to jump

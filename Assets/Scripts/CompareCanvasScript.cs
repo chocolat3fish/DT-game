@@ -17,9 +17,11 @@ public class CompareCanvasScript : MonoBehaviour
     private Text cWNOutput;
     private Text cWDOutput;
     private Text cWSOutput;
+    private Text cWROutput;
     private Text nWNOutput;
     private Text nWDOutput;
     private Text nWSOutput;
+    private Text nWROutput;
 
     public Button CWPButton;
     public Button NWPButton;
@@ -32,9 +34,12 @@ public class CompareCanvasScript : MonoBehaviour
         cWNOutput = currentWeaponPanel.transform.Find("CWN").gameObject.GetComponent<Text>();
         cWDOutput = currentWeaponPanel.transform.Find("CWD").gameObject.GetComponent<Text>();
         cWSOutput = currentWeaponPanel.transform.Find("CWS").gameObject.GetComponent<Text>();
+        cWROutput = currentWeaponPanel.transform.Find("CWR").gameObject.GetComponent<Text>();
+
         nWNOutput = newWeaponPanel.transform.Find("NWN").gameObject.GetComponent<Text>();
         nWDOutput = newWeaponPanel.transform.Find("NWD").gameObject.GetComponent<Text>();
         nWSOutput = newWeaponPanel.transform.Find("NWS").gameObject.GetComponent<Text>();
+        nWROutput = newWeaponPanel.transform.Find("NWR").gameObject.GetComponent<Text>();
 
         CWPButton = currentWeaponPanel.transform.Find("Button").GetComponent<Button>();
         NWPButton = newWeaponPanel.transform.Find("Button").GetComponent<Button>();
@@ -92,10 +97,12 @@ public class CompareCanvasScript : MonoBehaviour
         cWNOutput.text = PersistantGameManager.Instance.currentWeapon.itemName;
         cWDOutput.text = PersistantGameManager.Instance.currentWeapon.itemDamage.ToString();
         cWSOutput.text = PersistantGameManager.Instance.currentWeapon.itemSpeed.ToString();
+        cWROutput.text = PersistantGameManager.Instance.currentWeapon.itemRange.ToString();
 
         nWNOutput.text = PersistantGameManager.Instance.comparingWeapon.itemName;
         nWDOutput.text = PersistantGameManager.Instance.comparingWeapon.itemDamage.ToString();
         nWSOutput.text = PersistantGameManager.Instance.comparingWeapon.itemSpeed.ToString();
+        nWROutput.text = PersistantGameManager.Instance.comparingWeapon.itemRange.ToString();
     }
 
     public void ChooseNewWeapon()
@@ -103,8 +110,8 @@ public class CompareCanvasScript : MonoBehaviour
         Weapon tempWeapon = PersistantGameManager.Instance.currentWeapon;
         PersistantGameManager.Instance.currentWeapon = PersistantGameManager.Instance.comparingWeapon;
         PersistantGameManager.Instance.comparingWeapon = tempWeapon;
+        PersistantGameManager.Instance.playerIventory[PersistantGameManager.Instance.currentIndex] = PersistantGameManager.Instance.currentWeapon;
 
-        PlayerMonitor.UpdateWeapon();
         ContinueGame();
     }
 

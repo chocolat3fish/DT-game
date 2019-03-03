@@ -18,17 +18,6 @@ public class PersistantGameManager : MonoBehaviour
 
     public string currentScene;
 
-    private IEnumerator CasualPlayerWeaponChecker()
-    {
-        while (true)
-        {
-            if(player.playerDamage != currentWeapon.itemDamage)
-            {
-                PlayerMonitor.UpdateWeapon();
-            }
-            yield return new WaitForSeconds(1);
-        }
-    }
 
     private void Awake()
     {
@@ -51,7 +40,7 @@ public class PersistantGameManager : MonoBehaviour
         }
         TestGiveItem.GiveItem();
         player = FindObjectOfType<PlayerControls>();
-        StartCoroutine(CasualPlayerWeaponChecker());
+
         
     }
     void Update()
@@ -89,7 +78,6 @@ public class PersistantGameManager : MonoBehaviour
         if(currentScene != SceneManager.GetActiveScene().ToString())
         {
             player = FindObjectOfType<PlayerControls>();
-            StartCoroutine(CasualPlayerWeaponChecker());
             currentScene = SceneManager.GetActiveScene().name;
         }
 
@@ -100,7 +88,6 @@ public class PersistantGameManager : MonoBehaviour
         {
             currentWeapon = playerIventory[0];
             previousIndex = 0;
-            PlayerMonitor.UpdateWeapon();
         }
         else if(index != previousIndex && index < 5 && index > -1)
         {
@@ -109,7 +96,6 @@ public class PersistantGameManager : MonoBehaviour
             {
                 currentWeapon = playerIventory[index];
                 previousIndex = currentIndex;
-                PlayerMonitor.UpdateWeapon();
             }
             
         }

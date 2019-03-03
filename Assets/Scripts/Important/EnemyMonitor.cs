@@ -12,6 +12,7 @@ public class EnemyMonitor : MonoBehaviour
     public float currentHealth;
     private float enemyDamage;
     public int itemChance;
+    public int weaponValue;
 
 
     public string lootDropPreFabName;
@@ -29,16 +30,18 @@ public class EnemyMonitor : MonoBehaviour
     void Start()
     {
 
-        enemyRigidbody = GetComponent<Rigidbody2D>();
+        enemyRigidbody = gameObject.GetComponent<Rigidbody2D>();
         playerControls = player.GetComponent<PlayerControls>();
+        
 
         totalHealth = enemyStats.enemyHealth;
         enemyName = enemyStats.enemyName;
         enemyDamage = enemyStats.enemyDamage;
 
+        currentHealth = totalHealth;
         //Fixes issue of having to move before being able to attack it again. Likely better solution but will work for now.
         enemyRigidbody.sleepMode = RigidbodySleepMode2D.NeverSleep;
-        currentHealth = totalHealth;
+        
 
         enemyRigidbody.constraints = RigidbodyConstraints2D.FreezeAll;
         StartCoroutine(Attack());
@@ -66,7 +69,7 @@ public class EnemyMonitor : MonoBehaviour
     public void EnemyDeath()
     {
         //not done, will apply new values to the loot object
-        Weapon newWeapon = LootManager.DropItem(itemChance);
+        Weapon newWeapon = LootManager.DropItem(itemChance, weaponValue);
         if(newWeapon != null)
         {
             GameObject lootDropInstance = Instantiate(Resources.Load(lootDropPreFabName), transform.position, Quaternion.identity) as GameObject;
@@ -81,8 +84,8 @@ public class EnemyMonitor : MonoBehaviour
     IEnumerator Attack()
     {
         while (true) 
-        {   
-            
+        {
+            yield return new WaitForSeconds(.5f);
             if (attacking && Time.timeScale != 0)
             {
                 yield return new WaitForSeconds(enemyStats.attackSpeed);
