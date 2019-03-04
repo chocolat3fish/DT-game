@@ -26,6 +26,8 @@ public class CompareCanvasScript : MonoBehaviour
 
     public Button CWPButton;
     public Button NWPButton;
+
+    public bool takeEInputForContinue;
     private void Awake()
     {
         
@@ -52,16 +54,11 @@ public class CompareCanvasScript : MonoBehaviour
         Canvas[] tempCanvases = FindObjectsOfType<Canvas>();
         foreach(Canvas canvas in tempCanvases)
         {
+            if(canvas.gameObject.tag == "Enemy Health Bar") { continue; }
             canvases.Add(canvas);
         }
 
-        foreach (Canvas canvas in canvases)
-        {
-            if (canvas.gameObject.tag == "Enemy Health Bar")
-            {
-                canvases.Remove(canvas);
-            }
-        }
+
 
 
     }
@@ -73,9 +70,11 @@ public class CompareCanvasScript : MonoBehaviour
     }
     private void Update()
     {
-        if(detecting)
+        takeEInputForContinue = true;
+        if (detecting)
         {
-            
+
+
             if (PersistantGameManager.Instance.compareScreenOpen)
             {
                 
@@ -96,14 +95,17 @@ public class CompareCanvasScript : MonoBehaviour
                 detecting = false;
                 Time.timeScale = 0;
                 Debug.Log("3");
+                takeEInputForContinue = false;
             }
         }
-        else if(!detecting && !PersistantGameManager.Instance.compareScreenOpen)
+        if(Input.GetKeyDown(KeyCode.E) && !detecting && takeEInputForContinue && PersistantGameManager.Instance.compareScreenOpen)
         {
-            currentWeaponPanel.SetActive(false);
-            newWeaponPanel.SetActive(false);
-            detecting = true;
-        }
+            takeEInputForContinue = false;
+        ContinueGame(); }
+
+
+
+
 
     }
     private void UpdateData()
@@ -141,6 +143,9 @@ public class CompareCanvasScript : MonoBehaviour
                 canvas.gameObject.SetActive(true);
             }
         }
+        currentWeaponPanel.SetActive(false);
+        newWeaponPanel.SetActive(false);
+        detecting = true;
         Time.timeScale = 1;
         PersistantGameManager.Instance.compareScreenOpen = false;
     }

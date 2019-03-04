@@ -1073,7 +1073,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentHealth: 0
   itemChance: 100
-  weaponValue: 3
+  weaponValue: 1998
   attackRange: 2
   lootDropPreFabName: Loot Drop
   player: {fileID: 2104623955}
@@ -1575,6 +1575,7 @@ MonoBehaviour:
   removeCanvas: []
   CWPButton: {fileID: 0}
   NWPButton: {fileID: 0}
+  takeEInputForContinue: 0
 --- !u!1 &803446556
 GameObject:
   m_ObjectHideFlags: 0

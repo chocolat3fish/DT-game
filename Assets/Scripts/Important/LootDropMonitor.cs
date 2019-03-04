@@ -7,7 +7,7 @@ public class LootDropMonitor : MonoBehaviour
     public GameObject player;
     private BoxCollider2D playerBoxCollider2D;
 
-    public GameObject compareCanvas;
+    public CompareCanvasScript compareCanvas;
     public Weapon newItemStats;
 
     public bool waitingForChange = false;
@@ -15,12 +15,17 @@ public class LootDropMonitor : MonoBehaviour
     public float distanceToPlayer;
 
 
+    private void Awake()
+    {
+        compareCanvas = FindObjectOfType<CompareCanvasScript>();
+    }
+
     private void Update()
     {
         distanceToPlayer = Vector2.Distance(player.transform.position, transform.position);
         if(distanceToPlayer < 2f && Input.GetKeyDown(KeyCode.E))
         {
-            if(!PersistantGameManager.Instance.compareScreenOpen)
+            if(!PersistantGameManager.Instance.compareScreenOpen && compareCanvas.takeEInputForContinue)
             {
                 
                 PersistantGameManager.Instance.comparingWeapon = newItemStats;
