@@ -126,7 +126,7 @@ public class CompareCanvasScript : MonoBehaviour
         Weapon tempWeapon = PersistantGameManager.Instance.currentWeapon;
         PersistantGameManager.Instance.currentWeapon = PersistantGameManager.Instance.comparingWeapon;
         PersistantGameManager.Instance.comparingWeapon = tempWeapon;
-        PersistantGameManager.Instance.playerInventory[PersistantGameManager.Instance.currentIndex] = PersistantGameManager.Instance.currentWeapon;
+        PersistantGameManager.Instance.playerWeaponInventory[PersistantGameManager.Instance.currentIndex] = PersistantGameManager.Instance.currentWeapon;
 
         ContinueGame();
     }

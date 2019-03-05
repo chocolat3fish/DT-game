@@ -37,6 +37,7 @@ public class PlayerControls : MonoBehaviour
     Vector2 detectorPos;
     public float currentHealth;
     public float totalHealth;
+    public float defence;
 
     private Vector2 playerInput;
     private bool canJump;
@@ -155,6 +156,7 @@ public class PlayerControls : MonoBehaviour
         playerDamage = PersistantGameManager.Instance.currentWeapon.itemDamage;
         attackSpeed = PersistantGameManager.Instance.currentWeapon.itemSpeed;
         range = PersistantGameManager.Instance.currentWeapon.itemRange;
+        defence = PersistantGameManager.Instance.currentArmor.defence;
         
     }
 

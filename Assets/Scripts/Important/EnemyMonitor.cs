@@ -93,7 +93,13 @@ public class EnemyMonitor : MonoBehaviour
             if (attacking && Time.timeScale != 0)
             {
                 yield return new WaitForSeconds(enemyStats.attackSpeed);
-                playerControls.currentHealth -= enemyStats.enemyDamage;
+                float enemyAtackDamage = enemyStats.enemyDamage - playerControls.defence;
+                if(enemyAtackDamage < 0.1)
+                {
+
+                    enemyAtackDamage = 0.1f;
+                }
+                playerControls.currentHealth -= enemyAtackDamage;
             }
         }
 
