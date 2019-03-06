@@ -11,7 +11,6 @@ public class PersistantGameManager : MonoBehaviour
     public int previousIndex = 0;
     public Weapon currentWeapon;
     public List<Weapon> playerWeaponInventory = new List<Weapon>();
-    public PlayerStats playerStats;
     public bool compareScreenOpen = false;
     public Weapon comparingWeapon;
     public Armour currentArmour;
@@ -19,7 +18,11 @@ public class PersistantGameManager : MonoBehaviour
     public List<Armour> playerArmourInventory = new List<Armour>();
     public PlayerControls player;
 
+    public PlayerStats playerStats;
+    public bool checkExp;
+
     public string currentScene;
+
 
 
     private void Awake()
@@ -82,6 +85,17 @@ public class PersistantGameManager : MonoBehaviour
         {
             player = FindObjectOfType<PlayerControls>();
             currentScene = SceneManager.GetActiveScene().name;
+        }
+
+        if (checkExp)
+        {
+
+            //Temporary values
+            if (playerStats.playerExperience <= 10)
+            {
+                playerStats.playerLevel = 1;
+
+            }
         }
 
     }

@@ -67,6 +67,16 @@ public class PlaceHolderInventoryscript : MonoBehaviour
             }
             else { output.text = ""; }
         }
+
+        else if (whatAreYouDoing == 11)
+        {
+            output.text = PersistantGameManager.Instance.playerStats.playerLevel.ToString();
+        }
+
+        else if (whatAreYouDoing == 12)
+        {
+            output.text = PersistantGameManager.Instance.playerStats.playerExperience.ToString();
+        }
     }
 
 

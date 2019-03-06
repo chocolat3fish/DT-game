@@ -15,6 +15,8 @@ public class EnemyMonitor : MonoBehaviour
     public int weaponValue;
     public float attackRange;
 
+    public float xpEarnings;
+
 
     public string lootDropPreFabName;
     
@@ -80,8 +82,11 @@ public class EnemyMonitor : MonoBehaviour
             LootDropMonitor lootDropInstanceMonitor = lootDropInstance.GetComponent<LootDropMonitor>();
             lootDropInstanceMonitor.player = player;
             lootDropInstanceMonitor.newItemStats = newWeapon;
+
         }
-        
+
+        GiveExp(xpEarnings);
+
         Destroy(gameObject);
 
     }
@@ -102,13 +107,15 @@ public class EnemyMonitor : MonoBehaviour
                 playerControls.currentHealth -= enemyAtackDamage;
             }
         }
-
-
-
-    
     }
 
+    public void GiveExp(float xpValue)
+    {
 
-
+        //Will add Calculation here when ready to balance
+        //This is a temporary value
+        xpValue = enemyStats.enemyHealth * enemyStats.enemyDamage;
+        PersistantGameManager.Instance.playerStats.playerExperience += xpValue;
+    }
 
 }

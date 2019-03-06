@@ -21,19 +21,20 @@ public class Save_ReadData : MonoBehaviour
             playerStats = JsonMapper.ToObject<PlayerStats>(jsonDataFromFile);
             Debug.Log(playerStats);
             Debug.Log("Complete");
-            health = playerStats.health;
-            xp = playerStats.xp;
-            gold = playerStats.gold;
+            //health = playerStats.health;
+            //xp = playerStats.xp;
+            //gold = playerStats.gold;
+
 
         }
         else
         {
-            playerStats = PlayerStats.PlayerStatsConstrutor(1,2,3);
+            //playerStats = PlayerStats.PlayerStatsConstrutor(1,2,3);
             playerJson = JsonMapper.ToJson(playerStats);
             File.WriteAllText(Application.dataPath + "/SavedData/Player.json", playerJson.ToString());
-            health = playerStats.health;
-            xp = playerStats.xp;
-            gold = playerStats.gold;
+            //health = playerStats.health;
+            //xp = playerStats.xp;
+            //gold = playerStats.gold;
             SaveObjectToFile<PlayerStats>(playerStats, "Player");
         }
 
