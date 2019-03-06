@@ -40,7 +40,9 @@ public class PersistantGameManager : MonoBehaviour
     }
     private void Start()
     {
-        for(int i = 0; i <5; i++)
+
+        //Shortened to 3 weapons
+        for(int i = 0; i <3; i++)
         {
             playerWeaponInventory.Add(null);
         }
@@ -54,31 +56,35 @@ public class PersistantGameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             currentIndex = 0;
-            changeItem(currentIndex);
+            ChangeItem(currentIndex);
         }
         else if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             currentIndex = 1;
-            changeItem(currentIndex);
+            ChangeItem(currentIndex);
         }
         else if (Input.GetKeyDown(KeyCode.Alpha3))
         {
             currentIndex = 2;
-            changeItem(currentIndex);
+            ChangeItem(currentIndex);
         }
+        //Shortened to 3 items
+        /*
         else if (Input.GetKeyDown(KeyCode.Alpha4))
         {
             currentIndex = 3;
-            changeItem(currentIndex);
+            ChangeItem(currentIndex);
         }
         else if (Input.GetKeyDown(KeyCode.Alpha5))
         {
             currentIndex = 4;
-            changeItem(currentIndex);
+            ChangeItem(currentIndex);
         }
+        */
+
         if(currentWeapon.itemName == "")
         {
-            changeItem(99);
+            ChangeItem(99);
         }
 
         if(currentScene != SceneManager.GetActiveScene().ToString())
@@ -91,7 +97,7 @@ public class PersistantGameManager : MonoBehaviour
         {
 
             //Temporary values
-            if (playerStats.playerExperience <= 10)
+            if (playerStats.playerExperience >= 10)
             {
                 playerStats.playerLevel = 1;
 
@@ -99,14 +105,15 @@ public class PersistantGameManager : MonoBehaviour
         }
 
     }
-    public void changeItem(int index)
+    public void ChangeItem(int index)
     {   
         if(index == 99)
         {
             currentWeapon = playerWeaponInventory[0];
             previousIndex = 0;
         }
-        else if(index != previousIndex && index < 5 && index > -1)
+        //shortened to 3 items
+        else if(index != previousIndex && index < 3 && index > -1)
         {
             
             if(playerWeaponInventory[index] != null )

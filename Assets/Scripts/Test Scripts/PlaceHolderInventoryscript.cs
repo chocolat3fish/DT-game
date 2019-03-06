@@ -14,74 +14,72 @@ public class PlaceHolderInventoryscript : MonoBehaviour
 
     private void Update()
     {
-        if(whatAreYouDoing < 6)
+
+        if (whatAreYouDoing < 6)
         {
 
-                if (PersistantGameManager.Instance.playerWeaponInventory[whatAreYouDoing - 1] != null)
+            if (PersistantGameManager.Instance.playerWeaponInventory[whatAreYouDoing - 1] != null)
+            {
+                output.text = whatAreYouDoing + ": " + PersistantGameManager.Instance.playerWeaponInventory[whatAreYouDoing - 1].itemName;
+            }
+            else { output.text = ""; }
+        }
+
+        switch (whatAreYouDoing)
+        {
+
+            case 6:
+                if (PersistantGameManager.Instance.currentWeapon != null)
                 {
-                    output.text = whatAreYouDoing + ": " + PersistantGameManager.Instance.playerWeaponInventory[whatAreYouDoing - 1].itemName;
+                    output.text = (PersistantGameManager.Instance.currentIndex + 1) + ": " + PersistantGameManager.Instance.currentWeapon.itemName;
+                }
+
+                else { output.text = ""; }
+
+                break;
+
+            case 7:
+                if (PersistantGameManager.Instance.currentWeapon != null)
+                {
+                    output.text = PersistantGameManager.Instance.currentWeapon.itemDamage.ToString();
                 }
                 else { output.text = ""; }
-        }
-        else if (whatAreYouDoing == 6)
-        {
-            if (PersistantGameManager.Instance.currentWeapon != null)
-            {
-                output.text = (PersistantGameManager.Instance.currentIndex + 1) + ": " + PersistantGameManager.Instance.currentWeapon.itemName;
-            }
-            else { output.text = ""; }
-        }
-        
 
-        else if (whatAreYouDoing == 7)
-        { 
-            if(PersistantGameManager.Instance.currentWeapon != null)
-            {
-                output.text = PersistantGameManager.Instance.currentWeapon.itemDamage.ToString();
-            }
-            else { output.text = ""; }
+                break;
 
-        }
-        else if (whatAreYouDoing == 8)
-        {
-            if (PersistantGameManager.Instance.currentWeapon != null)
-            {
-                output.text = PersistantGameManager.Instance.currentWeapon.itemSpeed.ToString();
-            }
-            else { output.text = ""; }
+            case 8:
+                if (PersistantGameManager.Instance.currentWeapon != null)
+                {
+                    output.text = PersistantGameManager.Instance.currentWeapon.itemSpeed.ToString();
+                }
+                else { output.text = ""; }
 
-        }
-        else if (whatAreYouDoing == 9)
-        {
-            if (PersistantGameManager.Instance.currentWeapon != null)
-            {
-                output.text = PersistantGameManager.Instance.currentWeapon.itemRange.ToString();
-            }
-            else { output.text = ""; }
-        }
-        else if (whatAreYouDoing == 10)
-        {
-            if (PersistantGameManager.Instance.currentArmour != null)
-            {
-                output.text = PersistantGameManager.Instance.currentArmour.armourType;
-            }
-            else { output.text = ""; }
-        }
+                break;
 
-        else if (whatAreYouDoing == 11)
-        {
-            output.text = PersistantGameManager.Instance.playerStats.playerLevel.ToString();
-        }
+            case 9:
+                if (PersistantGameManager.Instance.currentWeapon != null)
+                {
+                    output.text = PersistantGameManager.Instance.currentWeapon.itemRange.ToString();
+                }
+                else { output.text = ""; }
+                break;
 
-        else if (whatAreYouDoing == 12)
-        {
-            output.text = PersistantGameManager.Instance.playerStats.playerExperience.ToString();
+            case 10:
+                if (PersistantGameManager.Instance.currentArmour != null)
+                {
+                    output.text = PersistantGameManager.Instance.currentArmour.armourType;
+                }
+                else { output.text = ""; }
+
+                break;
+
+            case 11:
+                output.text = PersistantGameManager.Instance.playerStats.playerLevel.ToString();
+                break;
+
+            case 12:
+                output.text = PersistantGameManager.Instance.playerStats.playerExperience.ToString();
+                break;
         }
     }
-
-
-
-
-
-
 }

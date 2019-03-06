@@ -81,7 +81,7 @@ public class LootManager : MonoBehaviour
             }
             else if (randomNumber == 1 && allowsShortSwords)
             {
-                weaponType = "ShortSword";
+                weaponType = "Short Sword";
                 minD = 1;
                 if (weaponValue >= 30) { maxD = 30; }
                 else { maxD = weaponValue; }
@@ -94,7 +94,7 @@ public class LootManager : MonoBehaviour
             }
             else if (randomNumber == 2 && allowsLongSwords)
             {
-                weaponType = "LongSword";
+                weaponType = "Long Sword";
                 minD = 1;
                 if (weaponValue >= 40) { maxD = 40; }
                 else { maxD = weaponValue; }
@@ -138,7 +138,7 @@ public class LootManager : MonoBehaviour
         float newDamage = (random.Next(minD, (maxD + 5)));
         if (newDamage > maxD) { newDamage = maxD; }
         newDamage += powerBoost;
-        if(newDamage == 0) { newDamage = 1; }
+        if (newDamage == 0) { newDamage = 1; }
 
         float newAttackSpeed = (random.Next((int)((minAS- 0.25f) * 100), (int)(maxAS * 100)))/100.0f;
         newAttackSpeed = (float)(Math.Round(newAttackSpeed,2));

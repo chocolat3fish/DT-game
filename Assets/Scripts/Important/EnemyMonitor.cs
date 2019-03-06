@@ -116,6 +116,7 @@ public class EnemyMonitor : MonoBehaviour
         //This is a temporary value
         xpValue = enemyStats.enemyHealth * enemyStats.enemyDamage;
         PersistantGameManager.Instance.playerStats.playerExperience += xpValue;
+        PersistantGameManager.Instance.checkExp = true;
     }
 
 }
