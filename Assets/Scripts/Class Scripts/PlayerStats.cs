@@ -6,26 +6,26 @@ using System;
 [Serializable]
 public class PlayerStats
 {
-    /*
+    
     public int health { get; set; }
     public int xp { get; set; }
     public int gold { get; set; }
-
-    
-    public static PlayerStats PlayerStatsConstrutor(int health, int xp, int gold)
-    {
-        PlayerStats playerStatsConstructor = new PlayerStats
-        {
-            health = health,
-            xp = xp,
-            gold = gold
-        };
-
-        return playerStatsConstructor;
-    }
-    */
-
     public int playerLevel;
     public float playerExperience;
+
+    public PlayerStats(int health, int xp, int gold, int playerLevel, float playerExperience)
+    {
+
+
+        this.health = health;
+        this.xp = xp;
+        this.gold = gold;
+        this.playerLevel = playerLevel;
+        this.playerExperience = playerExperience;
+        
+}
+   
+
+    
 }
 
