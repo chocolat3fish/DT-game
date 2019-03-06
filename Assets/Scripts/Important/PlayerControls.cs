@@ -156,7 +156,7 @@ public class PlayerControls : MonoBehaviour
         playerDamage = PersistantGameManager.Instance.currentWeapon.itemDamage;
         attackSpeed = PersistantGameManager.Instance.currentWeapon.itemSpeed;
         range = PersistantGameManager.Instance.currentWeapon.itemRange;
-        defence = PersistantGameManager.Instance.currentArmor.defence;
+        defence = PersistantGameManager.Instance.currentArmour.defence;
         
     }
 

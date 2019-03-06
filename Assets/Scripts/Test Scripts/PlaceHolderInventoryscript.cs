@@ -61,9 +61,9 @@ public class PlaceHolderInventoryscript : MonoBehaviour
         }
         else if (whatAreYouDoing == 10)
         {
-            if (PersistantGameManager.Instance.currentArmor != null)
+            if (PersistantGameManager.Instance.currentArmour != null)
             {
-                output.text = PersistantGameManager.Instance.currentArmor.armorType;
+                output.text = PersistantGameManager.Instance.currentArmour.armourType;
             }
             else { output.text = ""; }
         }

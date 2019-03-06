@@ -4,14 +4,14 @@ using UnityEngine;
 using System;
 
 [Serializable]
-public class Armor 
+public class Armour 
 {
-    public string armorType;
+    public string armourType;
     public float defence;
 
-    public Armor(string armorType, float defence)
+    public Armour(string armorType, float defence)
     {
-        this.armorType = armorType;
+        this.armourType = armorType;
         this.defence = defence;
     }
    

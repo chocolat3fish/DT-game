@@ -14,9 +14,9 @@ public class PersistantGameManager : MonoBehaviour
     public PlayerStats playerStats;
     public bool compareScreenOpen = false;
     public Weapon comparingWeapon;
-    public Armor currentArmor;
-    public Armor comparingArmour;
-    public List<Armor> playerArmorInventory = new List<Armor>();
+    public Armour currentArmour;
+    public Armour comparingArmour;
+    public List<Armour> playerArmourInventory = new List<Armour>();
     public PlayerControls player;
 
     public string currentScene;
