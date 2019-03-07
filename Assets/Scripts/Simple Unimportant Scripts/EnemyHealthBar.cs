@@ -5,13 +5,13 @@ using UnityEngine;
 public class EnemyHealthBar : MonoBehaviour
 {
 
-    Vector3 localScale;
+    float sizeOfBar;
     private EnemyMonitor parent;
 
     void Start()
     {
         //sets scale to default
-        localScale = transform.localScale;
+        sizeOfBar = transform.localScale.x;
         parent = GetComponentInParent<EnemyMonitor>();
     }
 
@@ -19,7 +19,7 @@ public class EnemyHealthBar : MonoBehaviour
     {
         //as health depletes, scales the x value down relative to health
         //uses a Lerp to smooth the depletion
-        localScale.x = parent.currentHealth / parent.enemyStats.enemyHealth;
-        transform.localScale = Vector3.Lerp(transform.localScale, new Vector3(localScale.x, transform.localScale.y, transform.localScale.z), 0.1f);
+        sizeOfBar = parent.currentHealth / parent.enemyStats.enemyHealth;
+        gameObject.transform.localScale = Vector3.Lerp(transform.localScale, new Vector3(sizeOfBar, transform.localScale.y, transform.localScale.z), 0.1f);
     }
 }

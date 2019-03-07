@@ -24,12 +24,17 @@ public class DetectorMonitors : MonoBehaviour
         playerCollider2D = gameObject.GetComponent<BoxCollider2D>();
     }
 
-    
+    private void Start()
+    {
+        //Sets the initial size of the the detectors
+        leftCollider.size = new Vector2(playerControls.range, 2);
+        rightCollider.size = new Vector2(playerControls.range, 2);
+    }
     void Update()
     {
         //Changes the size of the colliders based on the range of the players current weapon
-        leftCollider.size = new Vector2(playerControls.range, playerControls.gameObject.transform.localScale.y);
-        rightCollider.size = new Vector2(playerControls.range, playerControls.gameObject.transform.localScale.y);
+        leftCollider.size = new Vector2(playerControls.range, leftCollider.size.y);
+        rightCollider.size = new Vector2(playerControls.range, leftCollider.size.y);
 
         //Keeps the box coliders 0.1 units of the main players box colider regardless of the size
         leftCollider.offset = new Vector2((playerControls.range / -2) - ((playerCollider2D.size.x / 2) + 0.1f), leftCollider.offset.y);

@@ -12,11 +12,10 @@ using UnityEngine;
 
 public class PlayerControls : MonoBehaviour
 {
-    public GameObject playerSprite;
-    public Animator animator;
-    public SpriteRenderer spriteRenderer;
+    private Animator animator;
+    private SpriteRenderer spriteRenderer;
 
-    public CameraMovement cameraMovement;
+    private CameraMovement cameraMovement;
 
     public float range = 1;
 
@@ -24,17 +23,17 @@ public class PlayerControls : MonoBehaviour
     public float jumpSpeed;
     public float doubleJumpSpeed;
     public int totalJumps;
-    public Rigidbody2D playerRigidbody;
+    private Rigidbody2D playerRigidbody;
 
     //reliant on PersistantGameManager and PlayerMonitor
     public float playerDamage;
     public float attackSpeed;
     
 
-    public BoxCollider2D DetectorRight;
-    public BoxCollider2D DetectorLeft;
+    private BoxCollider2D rightDetector;
+    private BoxCollider2D leftDetector;
     public float nextAttack;
-    Vector2 detectorPos;
+    private Vector2 detectorPos;
     public float currentHealth;
     public float totalHealth;
     public float defence;
@@ -47,7 +46,15 @@ public class PlayerControls : MonoBehaviour
     private bool facingRight;
     private bool facingLeft;
 
-
+    private void Awake()
+    {
+        animator = gameObject.GetComponent<Animator>();
+        spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+        cameraMovement = FindObjectOfType<CameraMovement>();
+        playerRigidbody = gameObject.GetComponent<Rigidbody2D>();
+        leftDetector = gameObject.transform.Find("Left Detector").GetComponent<BoxCollider2D>();
+        rightDetector = gameObject.transform.Find("Right Detector").GetComponent<BoxCollider2D>();
+    }
     void Start()
     {
         playerRigidbody = GetComponent<Rigidbody2D>();
@@ -55,8 +62,8 @@ public class PlayerControls : MonoBehaviour
         
         // stops player from flipping everywhere
         playerRigidbody.freezeRotation = true;
-        DetectorLeft.enabled = false;
-        DetectorRight.enabled = false;
+        leftDetector.enabled = false;
+        rightDetector.enabled = false;
 
         currentJumps = 0;
 
@@ -185,16 +192,16 @@ public class PlayerControls : MonoBehaviour
     {
         if (facingLeft)
         {
-            DetectorLeft.enabled = true;
+            leftDetector.enabled = true;
             yield return null;
-            DetectorLeft.enabled = false;
+            leftDetector.enabled = false;
             Debug.Log("Attack left");
         }
         if (facingRight)
         {
-            DetectorRight.enabled = true;
+            rightDetector.enabled = true;
             yield return null;
-            DetectorRight.enabled = false;
+            rightDetector.enabled = false;
             Debug.Log("Attack right");
 
         }

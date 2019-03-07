@@ -9,7 +9,7 @@ using UnityEngine;
 
 //Serializable means it can be seen as a variable in the inspector
 [Serializable]
-public class Dialouge
+public class Dialogue
 {
     public string NPCName;
     public string[] sentences;

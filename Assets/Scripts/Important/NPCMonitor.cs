@@ -3,18 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+//******MUST BE CHILDED TO A GAMEOBJECT ACTING AS A NPC IT MUST HAVE A TO TALK CANVAS CHILDED AND A CANVAS NAMED "Dialouge Canvas" IN THE SCENE******\\
+
+//A script that monitors an npc and opens certain canvas at the right time as well as controlling dialouge
 public class NPCMonitor : MonoBehaviour
 {   
     //different panels in game 
-    public GameObject OverlayPanel;
-    public GameObject toTalkPanel;
+    private GameObject overlayPanel;
+    private GameObject toTalkPanel;
 
-    public GameObject Player;
+    private GameObject player;
 
 
     public bool isTalking;
     public bool canContinueDialouge;
-    public Dialouge dialouge;
+    public Dialogue dialogue;
 
     private float dialougeBoxQueryTime;
     private bool dialougeBoxQuery;
@@ -26,20 +29,39 @@ public class NPCMonitor : MonoBehaviour
     private Button overlayContinueButton;
     private Text overlayNameText;
 
+    private void Awake()
+    {
+        Canvas[] canvases = FindObjectsOfType<Canvas>();
+        foreach(Canvas canvas in canvases)
+        {
+            if(canvas.gameObject.name == "Canvas")
+            {
+                toTalkPanel = canvas.gameObject;
+            }
+            else if (canvas.gameObject.name == "Dialogue Canvas")
+            {
+                overlayPanel = canvas.gameObject.transform.Find("Panel").gameObject;
+            }
+        }
+        player = FindObjectOfType<PlayerControls>().gameObject;
+    }
+
     private void Start()
     {
-        OverlayPanel.SetActive(false);
+        overlayPanel.SetActive(false);
         toTalkPanel.SetActive(false);
         dialougeBoxOpen = false;
 
-        overlayMainText = OverlayPanel.transform.Find("Text").GetComponent<Text>();
-        overlayContinueButton = OverlayPanel.transform.Find("Button").GetComponent<Button>();
-        overlayNameText = OverlayPanel.transform.Find("Name").Find("Text").GetComponent<Text>();
+        
+
+        overlayMainText = overlayPanel.transform.Find("Text").GetComponent<Text>();
+        overlayContinueButton = overlayPanel.transform.Find("Button").GetComponent<Button>();
+        overlayNameText = overlayPanel.transform.Find("Name").Find("Text").GetComponent<Text>();
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
-        float distance = Vector2.Distance(Player.transform.position, transform.position);
+        float distance = Vector2.Distance(player.transform.position, transform.position);
         if (distance < 3f)
         {
             if (!toTalkPanel.activeSelf)
@@ -50,12 +72,12 @@ public class NPCMonitor : MonoBehaviour
         }
         else
         {
-            if(toTalkPanel.activeSelf)
+            if (toTalkPanel.activeSelf)
             {
                 toTalkPanel.SetActive(false);
             }
             canTalk = false;
-            if(dialougeBoxOpen)
+            if (dialougeBoxOpen)
             {
                 EndDialouge();
             }
@@ -69,63 +91,61 @@ public class NPCMonitor : MonoBehaviour
                     CreateDialougBox();
                     Debug.Log("dialouge box open");
                 }
-                 
+
             }
 
         }
+        {
+            if (dialougeBoxQuery && (dialougeBoxQueryTime < (Time.time - 0.2f)))
+            {
+                dialougeBoxQuery = false;
+                canContinueDialouge = true;
+                print(Time.time);
+            }
+        }
     }
+        public void ContinueDialouge()
+        {
+            if (canContinueDialouge)
+            {
+                currentSentenceIndex++;
+                if (currentSentenceIndex == dialogue.sentences.Length)
+                {
+                    EndDialouge();
+                }
+                else
+                {
+                    StopAllCoroutines();
+                    StartCoroutine(AddChars(dialogue.sentences[currentSentenceIndex], overlayMainText));
+                    canContinueDialouge = false;
+                    dialougeBoxQuery = true;
+                    dialougeBoxQueryTime = Time.time;
+
+                }
+            }
+        }
 
     private void CreateDialougBox()
     {
         dialougeBoxOpen = true;
-        OverlayPanel.SetActive(true);
-        overlayNameText.text = dialouge.NPCName;
+        overlayPanel.SetActive(true);
+        overlayNameText.text = dialogue.NPCName;
         currentSentenceIndex = 0;
         isTalking = true;
         canContinueDialouge = false;
         dialougeBoxQuery = true;
         dialougeBoxQueryTime = Time.time;
 
-        overlayNameText.text = dialouge.NPCName;
-        StartCoroutine(AddChars(dialouge.sentences[0], overlayMainText));
+        overlayNameText.text = dialogue.NPCName;
+        StartCoroutine(AddChars(dialogue.sentences[0], overlayMainText));
 
     }
-    private void Update()
-    {
-        if(dialougeBoxQuery && (dialougeBoxQueryTime < (Time.time - 0.5f)))
-        {
-            dialougeBoxQuery = false;
-            canContinueDialouge = true;
-            print(Time.time);
-        }
-    }
-    public void ContinueDialouge()
-    {   
-        if(canContinueDialouge)
-        {
-            currentSentenceIndex++;
-            if (currentSentenceIndex == dialouge.sentences.Length)
-            {
-                EndDialouge();
-            }
-            else
-            {
-                StopAllCoroutines();
-                StartCoroutine(AddChars(dialouge.sentences[currentSentenceIndex], overlayMainText));
-                canContinueDialouge = false;
-                dialougeBoxQuery = true;
-                dialougeBoxQueryTime = Time.time;
 
-            }
-        }
-        
-        
-    }
     private void EndDialouge()
     {
         StopAllCoroutines();
         dialougeBoxOpen = false;
-        OverlayPanel.SetActive(false);
+        overlayPanel.SetActive(false);
         isTalking = false;
         canContinueDialouge = false;
     }

@@ -9,24 +9,24 @@ EditorBuildSettings:
     path: 
     guid: 00000000000000000000000000000000
   - enabled: 1
-    path: Assets/Scenes/Character Control.unity
+    path: Assets/SavedData/Scenes/Character Control.unity
     guid: 8da405e47547946c29d1f275a511409f
   - enabled: 1
-    path: Assets/Scenes/New Scene Test.unity
+    path: Assets/SavedData/Scenes/New Scene Test.unity
     guid: 2f305606e765c7f4d931edf63e0326ff
   - enabled: 1
-    path: Assets/Scenes/basic movement.unity
+    path: Assets/SavedData/Scenes/basic movement.unity
     guid: e5a55a65e68b9df41acfc90581eba8cd
   - enabled: 1
-    path: Assets/Scenes/Boot Up.unity
+    path: Assets/SavedData/Scenes/Boot Up.unity
     guid: b98f52e9d913003429e8b25f964f9334
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000
   - enabled: 1
-    path: Assets/Scenes/NPC Dialouge.unity
+    path: Assets/SavedData/Scenes/NPC Dialouge.unity
     guid: 36d7aadca1dbbf044a6c89297bea8f28
   - enabled: 1
-    path: Assets/Scenes/Character Control with enemy attack.unity
+    path: Assets/SavedData/Scenes/Character Control with enemy attack.unity
     guid: 3a4485a82a8a84cbd8472b7251ec6e8c
   m_configObjects: {}

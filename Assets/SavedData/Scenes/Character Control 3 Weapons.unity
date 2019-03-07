@@ -227,8 +227,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 472.80002, y: 267.34}
-  m_SizeDelta: {x: 960, y: 540}
+  m_AnchoredPosition: {x: 1.6, y: 3.07}
+  m_SizeDelta: {x: 2.594, y: 0.707}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &34287780
 MonoBehaviour:
@@ -763,7 +763,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &357935674
 GameObject:
@@ -1227,18 +1227,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77621813b48d04d3fba942c0b465370e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentHealth: 0
-  itemChance: 100
-  weaponValue: 1998
-  attackRange: 2
+  currentHealth: 2.04
   xpEarnings: 750
-  lootDropPreFabName: Loot Drop
-  player: {fileID: 2104623955}
   enemyStats:
-    enemyName: Evil Door
-    enemyDamage: 1
+    enemyName: StickMan
+    enemyDamage: 2
     enemyHealth: 15
     attackSpeed: 1
+    attackRange: 0
+  itemChance: 100
+  weaponValue: 1998
 --- !u!212 &603987000
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1326,7 +1324,7 @@ RectTransform:
   m_Children:
   - {fileID: 34287779}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1528,7 +1526,7 @@ RectTransform:
   - {fileID: 2041815903}
   - {fileID: 1784352602}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1571,8 +1569,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 475.62, y: 279.06}
-  m_SizeDelta: {x: 960, y: 540}
+  m_AnchoredPosition: {x: 1.6, y: 2.855}
+  m_SizeDelta: {x: 2.5735, y: 0.69}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &678791725
 MonoBehaviour:
@@ -1807,7 +1805,7 @@ RectTransform:
   - {fileID: 966280631}
   - {fileID: 1465233214}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1962,7 +1960,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -471.21802, y: -264.51984}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 2.3398, y: 0.2944}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &808667710
@@ -2720,7 +2718,7 @@ Transform:
   m_Children:
   - {fileID: 1461446049}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1347226474
 GameObject:
@@ -2801,7 +2799,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!70 &1347226477
 CapsuleCollider2D:
@@ -2913,18 +2911,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77621813b48d04d3fba942c0b465370e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentHealth: 0
+  currentHealth: 2.88
+  xpEarnings: 290
+  enemyStats:
+    enemyName: Evil Door
+    enemyDamage: 1
+    enemyHealth: 15
+    attackSpeed: 1
+    attackRange: 0
   itemChance: 100
   weaponValue: 1662
-  attackRange: 2
-  xpEarnings: 290
-  lootDropPreFabName: Loot Drop
-  player: {fileID: 2104623955}
-  enemyStats:
-    enemyName: Evil Guy
-    enemyDamage: 1
-    enemyHealth: 2500
-    attackSpeed: 1
 --- !u!212 &1348077151
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2986,7 +2982,7 @@ RectTransform:
   m_Children:
   - {fileID: 678791724}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -5554,7 +5550,11 @@ MonoBehaviour:
     defence: 0
   playerArmourInventory: []
   player: {fileID: 0}
+  camera: {fileID: 0}
   playerStats:
+    health: 0
+    xp: 0
+    gold: 0
     playerLevel: 1
     playerExperience: 0
   checkExp: 0
@@ -5572,7 +5572,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1651858279
 GameObject:
@@ -6206,7 +6206,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -474.03, y: -276.19}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 2.3398, y: 0.2944}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1820669294
@@ -6712,7 +6712,7 @@ Transform:
   m_LocalScale: {x: 0.4, y: 1.05, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1894587565
 MonoBehaviour:
@@ -6726,12 +6726,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83db00ea8e87a45149bed5f06c2034d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 2104623958}
-  onSpawn: {fileID: 1972303107}
   smoothSpeed: 0.05
   adjustSmoothSpeed: 0.85
-  offset: {x: 0, y: 0, z: 0}
-  savedOffset: {x: 0, y: 0, z: 0}
+  offset: {x: 0, y: 0}
+  savedOffset: {x: 0, y: 0}
 --- !u!1 &1906369747
 GameObject:
   m_ObjectHideFlags: 0
@@ -6811,55 +6809,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1906369747}
   m_CullTransparentMesh: 0
---- !u!1 &1972303106
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1972303108}
-  - component: {fileID: 1972303107}
-  m_Layer: 0
-  m_Name: Scene Manager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1972303107
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1972303106}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8cab4c02ef4ee884c89996b0d40a2f98, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gameObjects:
-  - {fileID: 1347226474}
-  player: {fileID: 2104623958}
-  camera: {fileID: 1894587563}
-  cameraMovement: {fileID: 0}
-  StartCameraMovement: 0
---- !u!4 &1972303108
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1972303106}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 16.544792, y: 5.0941286, z: -0.23040581}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1987379525
 GameObject:
   m_ObjectHideFlags: 0
@@ -7226,7 +7175,7 @@ Transform:
   - {fileID: 1569865084}
   - {fileID: 1734038414}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &2104623959
 Rigidbody2D:

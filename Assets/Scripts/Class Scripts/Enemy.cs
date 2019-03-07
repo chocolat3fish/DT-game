@@ -13,4 +13,5 @@ public class Enemy
     public float enemyDamage;
     public float enemyHealth;
     public float attackSpeed;
+    public float attackRange;
 }

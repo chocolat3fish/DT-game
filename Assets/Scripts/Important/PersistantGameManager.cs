@@ -40,6 +40,7 @@ public class PersistantGameManager : MonoBehaviour
             Destroy(gameObject);
         }
         currentScene = SceneManager.GetActiveScene().name;
+        
     }
     private void Start()
     {
@@ -51,8 +52,9 @@ public class PersistantGameManager : MonoBehaviour
         }
         TestGiveItem.GiveItem();
         player = FindObjectOfType<PlayerControls>();
+        currentWeapon = playerWeaponInventory[1];
 
-        
+
     }
     void Update()
     {
