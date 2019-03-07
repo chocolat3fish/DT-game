@@ -1231,7 +1231,7 @@ MonoBehaviour:
   itemChance: 100
   weaponValue: 1998
   attackRange: 2
-  xpEarnings: 0
+  xpEarnings: 750
   lootDropPreFabName: Loot Drop
   player: {fileID: 2104623955}
   enemyStats:
@@ -2917,7 +2917,7 @@ MonoBehaviour:
   itemChance: 100
   weaponValue: 1662
   attackRange: 2
-  xpEarnings: 65.19
+  xpEarnings: 290
   lootDropPreFabName: Loot Drop
   player: {fileID: 2104623955}
   enemyStats:
@@ -5555,10 +5555,11 @@ MonoBehaviour:
   playerArmourInventory: []
   player: {fileID: 0}
   playerStats:
-    playerLevel: 0
+    playerLevel: 1
     playerExperience: 0
   checkExp: 0
   currentScene: 
+  totalExperience: 300
 --- !u!4 &1645279220
 Transform:
   m_ObjectHideFlags: 0
