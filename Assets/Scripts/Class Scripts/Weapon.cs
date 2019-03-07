@@ -3,17 +3,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//A class that stores all the information for a weapon
+
+//Serializable means it can be seen as a variable in the inspector
 [Serializable]
 public class Weapon
-{
-
-
+{ 
 
     public string itemName;
     public float itemDamage;
     public float itemSpeed;
     public float itemRange;
 
+    //Weapon Constructor
     public Weapon(string itemName, float itemDamage, float itemSpeed, float itemRange)
     {
         this.itemName = itemName;

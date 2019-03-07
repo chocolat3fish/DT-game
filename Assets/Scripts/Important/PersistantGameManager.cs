@@ -17,6 +17,7 @@ public class PersistantGameManager : MonoBehaviour
     public Armour comparingArmour;
     public List<Armour> playerArmourInventory = new List<Armour>();
     public PlayerControls player;
+    public Camera camera;
 
     public PlayerStats playerStats;
     public bool checkExp;
@@ -82,15 +83,14 @@ public class PersistantGameManager : MonoBehaviour
         }
         */
 
-        if(currentWeapon.itemName == "")
+        if(currentWeapon == null)
         {
             ChangeItem(99);
         }
 
         if(currentScene != SceneManager.GetActiveScene().ToString())
         {
-            player = FindObjectOfType<PlayerControls>();
-            currentScene = SceneManager.GetActiveScene().name;
+            OnSceneChange();
         }
 
         if (checkExp)
@@ -125,5 +125,21 @@ public class PersistantGameManager : MonoBehaviour
         }
     }
    
+    private void OnSceneChange()
+    {
+        player = FindObjectOfType<PlayerControls>();
+        camera = FindObjectOfType<Camera>();
+        DoorMonitor[] doors = FindObjectsOfType<DoorMonitor>();
+        foreach (DoorMonitor door in doors)
+        {
+            if (door.gameObject.name.Replace(" Door","") == currentScene)
+            {
+                player.transform.position = door.transform.position;
+                camera.transform.position = new Vector3(player.transform.position.x, player.transform.position.y , -10f);
 
+            }
+        }
+
+        currentScene = SceneManager.GetActiveScene().name;
+    }
 }

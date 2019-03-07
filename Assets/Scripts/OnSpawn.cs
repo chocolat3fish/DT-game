@@ -5,7 +5,7 @@ using UnityEngine;
 public class OnSpawn : MonoBehaviour
 {
     private string previousScene;
-    public GameObject[] gameObjects;
+    public GameObject[] doors;
     public Transform player;
     public Camera camera;
     public CameraMovement cameraMovement;
@@ -14,7 +14,7 @@ public class OnSpawn : MonoBehaviour
     void Start()
     {
         previousScene = PlayerPrefs.GetString("Previous Scene");
-        foreach (GameObject door in gameObjects)
+        foreach (GameObject door in doors)
         {
             if (door.name == previousScene)
             {
