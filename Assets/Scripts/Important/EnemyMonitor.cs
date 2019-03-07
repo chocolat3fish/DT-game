@@ -111,10 +111,9 @@ public class EnemyMonitor : MonoBehaviour
 
     public void GiveExp(float xpValue)
     {
-
         //Will add Calculation here when ready to balance
         //This is a temporary value
-        xpValue = enemyStats.enemyHealth * enemyStats.enemyDamage;
+        //xpValue = enemyStats.enemyHealth * enemyStats.enemyDamage;
         PersistantGameManager.Instance.playerStats.playerExperience += xpValue;
         PersistantGameManager.Instance.checkExp = true;
     }

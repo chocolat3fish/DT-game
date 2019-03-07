@@ -23,6 +23,8 @@ public class PersistantGameManager : MonoBehaviour
 
     public string currentScene;
 
+    public float totalExperience;
+
 
 
     private void Awake()
@@ -97,9 +99,19 @@ public class PersistantGameManager : MonoBehaviour
         {
 
             //Temporary values
-            if (playerStats.playerExperience >= 10)
+            if (playerStats.playerExperience >= totalExperience)
             {
-                playerStats.playerLevel = 1;
+                int levels = 0;
+
+                while (playerStats.playerExperience > totalExperience)
+                {
+                    levels += 1;
+                    playerStats.playerExperience -= 300; 
+                }
+
+
+                playerStats.playerLevel += levels;
+
 
             }
         }
