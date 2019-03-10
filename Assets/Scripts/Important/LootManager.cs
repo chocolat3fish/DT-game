@@ -3,40 +3,58 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//******MUST BE CHILDED TO THE LOOT DROP PREFAB******\\
+
+//A script that can be referneced by other scrits and controlls loot drops
 public class LootManager : MonoBehaviour
 {
     
 
-    //uses random from system rather than unityengine, allows for random.Next()
-
+    //uses random from system rather than unityengine, allows for random.Next() 
+    //which genreates a random number between ranges
     private static System.Random random = new System.Random();
 
+    //The main referenced method that controls wether a weapon is dropped
+    //Based off a chance out of 100 and the value of the weapon
     public static Weapon DropItem(int chance, int weaponValue)
     {
+        //Generates a random number between 1 and 100 
         int randomChance = random.Next(0, 100);
 
+        //Checks if the chance is bigger that the generated number
+        //This gives a n% where n is chance
         if (chance > randomChance)
         {
+            //calls the method that generates the weapon based off the weapon value
             return GenerateWeapon(weaponValue);
         }
         else
         {
+            //If nothing should be dropped based of the chance return nothing
             return null;
         }
     }
+
+    //A method called by the Drop item script to find a weapon based off a weapon value
     public static Weapon GenerateWeapon(int weaponValue)
     {
+        //Wether it has is still choosing the type of weapon to use
         bool selectingTypeOfWeapon = true;
 
+        //Different weapons that can be selected
         bool allowsDaggers = true;
         bool allowsShortSwords = false;
         bool allowsLongSwords = false;
         bool allowsLances = false;
         bool allowsAxes = false;
 
+        //how much damage to add to the weapon at the end
         int powerBoost = 0;
+
+        //A random number
         int randomNumber;
 
+        //Information for 
         float minAS = 0, maxAS = 0, minR = 0, maxR = 0;
         int minD = 0, maxD = 0;
 
