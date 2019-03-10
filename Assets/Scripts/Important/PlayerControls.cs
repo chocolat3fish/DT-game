@@ -43,6 +43,8 @@ public class PlayerControls : MonoBehaviour
     private bool shouldJump;
     private int currentJumps;
 
+    [HideInInspector] public float timeOfAttack = 0;
+
     private bool facingRight;
     private bool facingLeft;
 
@@ -83,11 +85,12 @@ public class PlayerControls : MonoBehaviour
             shouldJump = true;
         }
 
-        if (Input.GetKeyDown(KeyCode.W) && Time.time > nextAttack)
+        if (Input.GetKeyDown(KeyCode.W))
         {
             //on attack press, shoot function and set cooldown
-            nextAttack = Time.time + attackSpeed;
             StartCoroutine(Detect());
+            
+            
         }
         //changes x axis speed and keeps current y axis velocity
         if (playerInput != Vector2.zero)
@@ -157,7 +160,6 @@ public class PlayerControls : MonoBehaviour
             shouldJump = false;
             canJump = true;
             currentJumps++;
-            Debug.Log(currentJumps);
         }
 
         playerDamage = PersistantGameManager.Instance.currentWeapon.itemDamage;
@@ -195,14 +197,12 @@ public class PlayerControls : MonoBehaviour
             leftDetector.enabled = true;
             yield return null;
             leftDetector.enabled = false;
-            Debug.Log("Attack left");
         }
         if (facingRight)
         {
             rightDetector.enabled = true;
             yield return null;
             rightDetector.enabled = false;
-            Debug.Log("Attack right");
 
         }
     }
@@ -210,13 +210,26 @@ public class PlayerControls : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("trigger");
+
         if (collision.gameObject.tag == "Enemy")
         {
             EnemyMonitor enemy = collision.gameObject.GetComponent<EnemyMonitor>();
-            enemy.currentHealth -= playerDamage;
+            float newPlayerDamage = calculatePlayerDamage();
+            enemy.currentHealth -= newPlayerDamage;
         }
 
+    }
+    private float calculatePlayerDamage()
+    {
+        float timeSinceAttack = Time.time - timeOfAttack;
+        if(timeSinceAttack > attackSpeed)
+        {
+            timeOfAttack = Time.time;
+            return playerDamage * 1.2f;
+        }
+        float newPlayerDamage = playerDamage * (timeSinceAttack / attackSpeed);
+        timeOfAttack = Time.time;
+        return newPlayerDamage;
     }
 
 }

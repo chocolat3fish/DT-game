@@ -20,10 +20,10 @@ public class EnemyMonitor : MonoBehaviour
     public float xpEarnings;
 
     //Distance to player
-    private float distanceToPlayer;
+    public float distanceToPlayer;
 
     //The player
-    private GameObject player;
+    public GameObject player;
     private PlayerControls playerControls;
     //All enemy stats (name, damage, health, speed , range)
     public Enemy enemyStats;

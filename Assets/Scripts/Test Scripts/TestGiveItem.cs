@@ -15,7 +15,6 @@ public class TestGiveItem : MonoBehaviour
         //PersistantGameManager.Instance.playerWeaponInventory[3] = new Weapon("Long Sword", 3f, 0.6f, 1.5f);
         //PersistantGameManager.Instance.playerWeaponInventory[4] = new Weapon("Axe", 10f, 2f, 1.5f);
         PersistantGameManager.Instance.currentArmour = new Armour("Wooden", 0.5f);
-        Debug.Log("Add sword");
 
     }
 
