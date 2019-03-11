@@ -11,21 +11,17 @@ public class PlayerStats
 {
 
     public int health;
-    public int xp;
-    public int gold;
     public int playerLevel;
     public float playerExperience;
+    public int playerSkillPoints;
 
     //PlayerStats Constructor
-    public PlayerStats(int health, int xp, int gold, int playerLevel, float playerExperience)
+    public PlayerStats(int health, int playerLevel, float playerExperience, int playerSkillPoints)
     {
-
-
         this.health = health;
-        this.xp = xp;
-        this.gold = gold;
         this.playerLevel = playerLevel;
         this.playerExperience = playerExperience;
+        this.playerSkillPoints = playerSkillPoints;
         
 }
    

@@ -11,9 +11,10 @@ public class CompareCanvasScript : MonoBehaviour
     public GameObject currentWeaponPanel;
     public GameObject newWeaponPanel;
 
-    public List<Canvas> canvases = new List<Canvas>();
-    private List<Canvas> turnedOnCanvases = new List<Canvas>();
-    public Canvas[] removeCanvas;
+    //Testing not removing canvases 
+    //public List<Canvas> canvases = new List<Canvas>();
+    //private List<Canvas> turnedOnCanvases = new List<Canvas>();
+    //public Canvas[] removeCanvas;
 
     private Text cWNOutput;
     private Text cWDOutput;
@@ -47,17 +48,17 @@ public class CompareCanvasScript : MonoBehaviour
         CWPButton = currentWeaponPanel.transform.Find("Button").GetComponent<Button>();
         NWPButton = newWeaponPanel.transform.Find("Button").GetComponent<Button>();
 
-        CWPButton.onClick.AddListener(ContinueGame);
-        NWPButton.onClick.AddListener(ChooseNewWeapon);
+        //CWPButton.onClick.AddListener(ContinueGame);
+        //NWPButton.onClick.AddListener(ChooseNewWeapon);
 
-
+        /*
         Canvas[] tempCanvases = FindObjectsOfType<Canvas>();
         foreach(Canvas canvas in tempCanvases)
         {
             if(canvas.gameObject.tag == "Enemy Health Bar") { continue; }
             canvases.Add(canvas);
         }
-
+        */
 
 
 
@@ -77,7 +78,7 @@ public class CompareCanvasScript : MonoBehaviour
 
             if (PersistantGameManager.Instance.compareScreenOpen)
             {
-                
+                /*
                 turnedOnCanvases = new List<Canvas>();
                 foreach (Canvas canvas in canvases)
                 {
@@ -87,6 +88,7 @@ public class CompareCanvasScript : MonoBehaviour
                         canvas.gameObject.SetActive(false);
                     }
                 }
+                */
                 UpdateData();
                 Debug.Log("1");
                 currentWeaponPanel.SetActive(true);
@@ -97,11 +99,30 @@ public class CompareCanvasScript : MonoBehaviour
                 Debug.Log("3");
                 takeEInputForContinue = false;
             }
+
+
         }
-        if(Input.GetKeyDown(KeyCode.E) && !detecting && takeEInputForContinue && PersistantGameManager.Instance.compareScreenOpen)
+
+        if (PersistantGameManager.Instance.compareScreenOpen)
+        {
+            UpdateData();
+        }
+
+        if (Input.GetKeyDown(KeyCode.E) && !detecting && takeEInputForContinue && PersistantGameManager.Instance.compareScreenOpen)
         {
             takeEInputForContinue = false;
-        ContinueGame(); }
+            ContinueGame(); 
+        }
+
+        if (Input.GetKeyDown(KeyCode.K) && !detecting && PersistantGameManager.Instance.compareScreenOpen)
+        {
+            ContinueGame();
+        }
+
+        if (Input.GetKeyDown(KeyCode.L) && !detecting && PersistantGameManager.Instance.compareScreenOpen)
+        {
+            ChooseNewWeapon();
+        }
 
 
 
@@ -123,6 +144,7 @@ public class CompareCanvasScript : MonoBehaviour
 
     public void ChooseNewWeapon()
     {
+        Debug.Log("weapon switch");
         Weapon tempWeapon = PersistantGameManager.Instance.currentWeapon;
         PersistantGameManager.Instance.currentWeapon = PersistantGameManager.Instance.comparingWeapon;
         PersistantGameManager.Instance.comparingWeapon = tempWeapon;
@@ -136,6 +158,7 @@ public class CompareCanvasScript : MonoBehaviour
         currentWeaponPanel.SetActive(false);
         newWeaponPanel.SetActive(false);
 
+        /*
         foreach (Canvas canvas in turnedOnCanvases )
         {
             if(canvas.gameObject != gameObject)
@@ -143,8 +166,10 @@ public class CompareCanvasScript : MonoBehaviour
                 canvas.gameObject.SetActive(true);
             }
         }
+
         currentWeaponPanel.SetActive(false);
         newWeaponPanel.SetActive(false);
+        */       
         detecting = true;
         Time.timeScale = 1;
         PersistantGameManager.Instance.compareScreenOpen = false;

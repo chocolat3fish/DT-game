@@ -80,6 +80,15 @@ public class PlaceHolderInventoryscript : MonoBehaviour
             case 12:
                 output.text = PersistantGameManager.Instance.playerStats.playerExperience.ToString();
                 break;
+
+            case 13:
+                output.text = (PersistantGameManager.Instance.totalExperience - PersistantGameManager.Instance.playerStats.playerExperience).ToString();
+                break;
+
+            case 14:
+                output.text = PersistantGameManager.Instance.playerStats.playerSkillPoints.ToString();
+                break;
         }
     }
+            
 }

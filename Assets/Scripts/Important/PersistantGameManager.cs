@@ -11,7 +11,7 @@ public class PersistantGameManager : MonoBehaviour
     public int previousIndex = 0;
     public Weapon currentWeapon;
     public List<Weapon> playerWeaponInventory = new List<Weapon>();
-    public bool compareScreenOpen = false;
+    public bool compareScreenOpen;
     public Weapon comparingWeapon;
     public Armour currentArmour;
     public Armour comparingArmour;
@@ -104,17 +104,17 @@ public class PersistantGameManager : MonoBehaviour
             if (playerStats.playerExperience >= totalExperience)
             {
                 int levels = 0;
+                int skillPoints = 0;
 
                 while (playerStats.playerExperience > totalExperience)
                 {
                     levels += 1;
+                    skillPoints += 1;
                     playerStats.playerExperience -= 300; 
                 }
 
-
+                playerStats.playerSkillPoints += skillPoints;
                 playerStats.playerLevel += levels;
-
-
             }
         }
 
