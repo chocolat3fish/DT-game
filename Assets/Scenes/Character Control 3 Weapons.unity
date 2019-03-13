@@ -1918,8 +1918,6 @@ MonoBehaviour:
   isActive: 0
   currentWeaponPanel: {fileID: 0}
   newWeaponPanel: {fileID: 0}
-  canvases: []
-  removeCanvas: []
   CWPButton: {fileID: 0}
   NWPButton: {fileID: 0}
   takeEInputForContinue: 0
@@ -5644,12 +5642,13 @@ MonoBehaviour:
   playerArmourInventory: []
   player: {fileID: 0}
   camera: {fileID: 0}
+  saveButton: {fileID: 0}
+  loadButton: {fileID: 0}
   playerStats:
     health: 0
-    xp: 0
-    gold: 0
     playerLevel: 1
     playerExperience: 0
+    playerSkillPoints: 0
   checkExp: 0
   currentScene: 
   totalExperience: 300

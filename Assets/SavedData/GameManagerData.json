@@ -1,0 +1,42 @@
+{
+  "currentIndex": 0,
+  "currentWeapon": {
+    "itemName": "Short Sword",
+    "itemDamage": 2.0,
+    "itemSpeed": 0.5,
+    "itemRange": 1.0
+  },
+  "playerWeaponInventory": [
+    {
+      "itemName": "Short Sword",
+      "itemDamage": 2.0,
+      "itemSpeed": 0.5,
+      "itemRange": 1.0
+    },
+    {
+      "itemName": "Knife",
+      "itemDamage": 1.0,
+      "itemSpeed": 0.25,
+      "itemRange": 0.5
+    },
+    {
+      "itemName": "Spear",
+      "itemDamage": 4.0,
+      "itemSpeed": 0.75,
+      "itemRange": 2.0
+    }
+  ],
+  "currentArmour": {
+    "armourType": "Steel",
+    "defence": 150
+  },
+  "playerArmourInventory": [],
+  "playerStats": {
+    "health": 0,
+    "playerLevel": 1,
+    "playerExperience": 15000.0,
+    "playerSkillPoints": 0
+  },
+  "totalExperience": 300.0,
+  "currentScene": "Character Control 3 Weapons"
+}

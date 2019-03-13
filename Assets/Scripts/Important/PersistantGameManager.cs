@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using LitJson;
+using System.IO;
+using UnityEngine.UI;
+using Newtonsoft.Json;
 public class PersistantGameManager : MonoBehaviour
 {
     public static PersistantGameManager Instance { get; private set; }
@@ -18,6 +20,8 @@ public class PersistantGameManager : MonoBehaviour
     public List<Armour> playerArmourInventory = new List<Armour>();
     public PlayerControls player;
     public Camera camera;
+
+    public bool tripleJump;
 
     public PlayerStats playerStats;
     public bool checkExp;
@@ -52,7 +56,9 @@ public class PersistantGameManager : MonoBehaviour
         }
         TestGiveItem.GiveItem();
         player = FindObjectOfType<PlayerControls>();
-        currentWeapon = playerWeaponInventory[1];
+        currentWeapon = playerWeaponInventory[0];
+        LoadDataFromSave();
+
 
 
     }
@@ -138,7 +144,38 @@ public class PersistantGameManager : MonoBehaviour
             
         }
     }
-   
+   public void SaveGameManagerData()
+    {
+        GameManagerData data = new GameManagerData();
+        data.currentIndex = currentIndex;
+        data.currentWeapon = currentWeapon;
+        data.playerWeaponInventory = playerWeaponInventory;
+        data.currentArmour = currentArmour;
+        data.playerArmourInventory = playerArmourInventory;
+        data.playerStats = playerStats;
+        data.totalExperience = totalExperience;
+        data.currentScene = currentScene;
+        File.WriteAllText(Application.dataPath + "/SavedData/GameManagerData.json", JsonConvert.SerializeObject(data, Formatting.Indented));
+        Debug.Log("Saved");
+
+    }
+    public void LoadDataFromSave()
+    {
+        string jsonData = File.ReadAllText(Application.dataPath + "/SavedData/GameManagerData.json");
+        GameManagerData data = JsonConvert.DeserializeObject<GameManagerData>(jsonData);
+        currentIndex = data.currentIndex;
+        playerWeaponInventory = data.playerWeaponInventory;
+        currentArmour = data.currentArmour;
+        playerArmourInventory = data.playerArmourInventory;
+        playerStats = data.playerStats;
+        totalExperience = data.totalExperience;
+        SceneManager.LoadScene(data.currentScene);
+        currentScene = data.currentScene;
+        checkExp = true;
+        Debug.Log("Load");
+    }
+
+
     private void OnSceneChange()
     {
         player = FindObjectOfType<PlayerControls>();
