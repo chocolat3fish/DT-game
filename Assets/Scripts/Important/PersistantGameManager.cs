@@ -54,10 +54,11 @@ public class PersistantGameManager : MonoBehaviour
         {
             playerWeaponInventory.Add(null);
         }
+
         TestGiveItem.GiveItem();
         player = FindObjectOfType<PlayerControls>();
         currentWeapon = playerWeaponInventory[0];
-        LoadDataFromSave();
+        //LoadDataFromSave();
 
 
 

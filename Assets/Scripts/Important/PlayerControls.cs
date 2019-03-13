@@ -42,7 +42,7 @@ public class PlayerControls : MonoBehaviour
     private bool canJump;
     private bool shouldJump;
     private int currentJumps;
-    private bool doneOnce;
+    private bool givenTripleJump;
 
     [HideInInspector] public float timeOfAttack = 0;
 
@@ -51,7 +51,6 @@ public class PlayerControls : MonoBehaviour
 
     private void Awake()
     {
-        doneOnce = false; 
         animator = gameObject.GetComponent<Animator>();
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         cameraMovement = FindObjectOfType<CameraMovement>();
@@ -78,10 +77,10 @@ public class PlayerControls : MonoBehaviour
     void Update()
     {
 
-        if (PersistantGameManager.Instance.tripleJump == true && !doneOnce)
+        if (PersistantGameManager.Instance.tripleJump == true && !givenTripleJump)
         {
             totalJumps += 1;
-            doneOnce = true;
+            givenTripleJump = true;
         }
 
         // Recieves player input as x and y vector
@@ -152,6 +151,7 @@ public class PlayerControls : MonoBehaviour
         {
             shouldJump = false;
         }
+
         else if (shouldJump)
         {
             //tells animator to start jumping animation
