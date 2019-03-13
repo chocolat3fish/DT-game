@@ -19,6 +19,8 @@ public class PersistantGameManager : MonoBehaviour
     public PlayerControls player;
     public Camera camera;
 
+    public bool tripleJump;
+
     public PlayerStats playerStats;
     public bool checkExp;
 

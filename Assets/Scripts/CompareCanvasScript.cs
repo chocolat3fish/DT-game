@@ -174,6 +174,5 @@ public class CompareCanvasScript : MonoBehaviour
         Time.timeScale = 1;
         PersistantGameManager.Instance.compareScreenOpen = false;
     }
-    
 
 }
