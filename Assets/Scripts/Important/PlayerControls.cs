@@ -28,7 +28,8 @@ public class PlayerControls : MonoBehaviour
     //reliant on PersistantGameManager and PlayerMonitor
     public float playerDamage;
     public float attackSpeed;
-    
+    public float magicCooldown;
+
 
     private BoxCollider2D rightDetector;
     private BoxCollider2D leftDetector;
@@ -44,10 +45,12 @@ public class PlayerControls : MonoBehaviour
     private int currentJumps;
     private bool givenTripleJump;
 
-    [HideInInspector] public float timeOfAttack = 0;
+    [HideInInspector] public float timeOfAttack, timeOfMagic;
 
     private bool facingRight;
     private bool facingLeft;
+
+    private bool useFireball;
 
     private void Awake()
     {
@@ -97,9 +100,16 @@ public class PlayerControls : MonoBehaviour
         {
             //on attack press, shoot function and set cooldown
             StartCoroutine(Detect());
-            
-            
+               
         }
+
+        if (Input.GetKeyDown(KeyCode.Q) && PersistantGameManager.Instance.fireball)
+        {
+            //on attack press, fireball function and set cooldown
+            StartCoroutine(Fireball());
+        }
+
+
         //changes x axis speed and keeps current y axis velocity
         if (playerInput != Vector2.zero)
         {
@@ -216,19 +226,49 @@ public class PlayerControls : MonoBehaviour
         }
     }
 
+    IEnumerator Fireball()
+    {
+        if (facingLeft)
+        {
+            useFireball = true;
+            leftDetector.enabled = true;
+            yield return null;
+            useFireball = false;
+            leftDetector.enabled = false;
+
+
+        }
+        if (facingRight)
+        {
+            useFireball = true;
+            rightDetector.enabled = true;
+            yield return null;
+            useFireball = false;
+            rightDetector.enabled = false;
+
+        }
+    }
+
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
 
-        if (collision.gameObject.tag == "Enemy")
+        if (collision.gameObject.tag == "Enemy" && !useFireball)
         {
             EnemyMonitor enemy = collision.gameObject.GetComponent<EnemyMonitor>();
-            float newPlayerDamage = calculatePlayerDamage();
+            float newPlayerDamage = CalculatePlayerDamage();
             enemy.currentHealth -= newPlayerDamage;
+        }
+        else if (collision.gameObject.tag == "Enemy" && useFireball)
+        {
+            EnemyMonitor enemy = collision.gameObject.GetComponent<EnemyMonitor>();
+            float newPlayerDamage = CalculateFireballDamage();
+            enemy.currentHealth -= newPlayerDamage;
+
         }
 
     }
-    private float calculatePlayerDamage()
+    private float CalculatePlayerDamage()
     {
         float timeSinceAttack = Time.time - timeOfAttack;
         if(timeSinceAttack > attackSpeed)
@@ -241,4 +281,19 @@ public class PlayerControls : MonoBehaviour
         return newPlayerDamage;
     }
 
+    private float CalculateFireballDamage()
+    {
+        float timeSinceMagic = Time.time - timeOfMagic;
+        float magicDamage;
+        if (timeSinceMagic > magicCooldown)
+        {
+            timeOfMagic = Time.time;
+            magicDamage = playerDamage * 2f;
+            return magicDamage * 2f;
+
+        }
+        return magicDamage = 0;
+
+
+    }
 }

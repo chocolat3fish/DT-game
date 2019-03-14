@@ -21,7 +21,11 @@ public class PersistantGameManager : MonoBehaviour
     public PlayerControls player;
     public Camera camera;
 
+    public GameObject magicBar;
+
+    public bool hasMagic;
     public bool tripleJump;
+    public bool fireball;
 
     public PlayerStats playerStats;
     public bool checkExp;
@@ -94,7 +98,20 @@ public class PersistantGameManager : MonoBehaviour
         }
         */
 
-        if(currentWeapon == null)
+        //Hides the magic cooldown if player has not unlocked any magic skills
+        if (hasMagic == true)
+        {
+            magicBar.SetActive(true);
+        }
+
+        else if (hasMagic == false)
+        {
+            magicBar.SetActive(false);
+        }
+
+
+
+        if (currentWeapon == null)
         {
             ChangeItem(99);
         }
