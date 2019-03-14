@@ -29,6 +29,13 @@ public class LootDropMonitor : MonoBehaviour
         //Gets Components
         player = FindObjectOfType<PlayerControls>().gameObject;
         compareCanvas = FindObjectOfType<CompareCanvasScript>();
+        Physics2D.IgnoreCollision(GetComponent<BoxCollider2D>(), player.GetComponent<BoxCollider2D>());
+        EnemyMonitor[] enemies = FindObjectsOfType<EnemyMonitor>();
+        foreach(EnemyMonitor m in enemies)
+        {
+            Physics2D.IgnoreCollision(GetComponent<BoxCollider2D>(), m.GetComponent<BoxCollider2D>());
+        }
+
     }
 
     private void Update()

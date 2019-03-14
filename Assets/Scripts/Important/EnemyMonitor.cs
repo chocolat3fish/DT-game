@@ -55,7 +55,7 @@ public class EnemyMonitor : MonoBehaviour
         enemyRigidbody.constraints = RigidbodyConstraints2D.FreezeRotation;
 
         //Starts the Attack routinue
-        StartCoroutine(Attack());
+        //StartCoroutine(Attack());
 
     }
 
@@ -67,7 +67,7 @@ public class EnemyMonitor : MonoBehaviour
             //runs the death method
             EnemyDeath();
         }
-        
+        /*
         //gets the distance to player
         distanceToPlayer = Vector2.Distance(transform.position, player.transform.position);
 
@@ -81,6 +81,7 @@ public class EnemyMonitor : MonoBehaviour
         {
             attacking = false;
         }
+        */
 
     }
 
@@ -106,12 +107,12 @@ public class EnemyMonitor : MonoBehaviour
 
         //Gives the player XP
         GiveExp(xpEarnings);
-        
+
         //Kills the player
-        Destroy(gameObject);
-
+        Destroy(transform.parent.gameObject);
     }
-
+    //Obselete
+    /*
     //The Attack Co-Routine Temporary will be revised eventully
     IEnumerator Attack()
     {
@@ -146,7 +147,7 @@ public class EnemyMonitor : MonoBehaviour
             }
         }
     }
-
+    */
     public void GiveExp(float xpValue)
     {
         //Will add Calculation here when ready to balance
@@ -156,4 +157,28 @@ public class EnemyMonitor : MonoBehaviour
         PersistantGameManager.Instance.checkExp = true;
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        Debug.Log("Trigger");
+        if (collision.gameObject == player)
+        {
+            if ((Time.timeScale) != 0f)
+            {
+                Debug.Log("yes");
+                //calculates how much damage to apply to the character
+                float enemyAtackDamage = enemyStats.enemyDamage - playerControls.defence;
+
+                // if the players defence cancels out the enemys attack to much i.e. making it negative sets the damage to 0.1
+                if (enemyAtackDamage < 0.1)
+                {
+                    enemyAtackDamage = 0.1f;
+                }
+
+                //Applys the Damage
+                playerControls.currentHealth -= enemyAtackDamage;
+            }
+
+        }
+
+    }
 }

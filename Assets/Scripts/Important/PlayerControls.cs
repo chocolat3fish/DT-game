@@ -57,6 +57,12 @@ public class PlayerControls : MonoBehaviour
         playerRigidbody = gameObject.GetComponent<Rigidbody2D>();
         leftDetector = gameObject.transform.Find("Left Detector").GetComponent<BoxCollider2D>();
         rightDetector = gameObject.transform.Find("Right Detector").GetComponent<BoxCollider2D>();
+        EnemyMonitor[] enemyColliders = FindObjectsOfType<EnemyMonitor>();
+        foreach(EnemyMonitor m in enemyColliders)
+        {
+            Physics2D.IgnoreCollision(gameObject.GetComponent<BoxCollider2D>(), m.GetComponent<BoxCollider2D>());
+        }
+
     }
     void Start()
     {
@@ -217,18 +223,8 @@ public class PlayerControls : MonoBehaviour
     }
 
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
 
-        if (collision.gameObject.tag == "Enemy")
-        {
-            EnemyMonitor enemy = collision.gameObject.GetComponent<EnemyMonitor>();
-            float newPlayerDamage = calculatePlayerDamage();
-            enemy.currentHealth -= newPlayerDamage;
-        }
-
-    }
-    private float calculatePlayerDamage()
+    public float calculatePlayerDamage()
     {
         float timeSinceAttack = Time.time - timeOfAttack;
         if(timeSinceAttack > attackSpeed)
