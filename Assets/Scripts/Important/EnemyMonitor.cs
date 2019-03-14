@@ -25,6 +25,7 @@ public class EnemyMonitor : MonoBehaviour
     //The player
     public GameObject player;
     private PlayerControls playerControls;
+    private EnemyAttacks enemyAttacks;
     //All enemy stats (name, damage, health, speed , range)
     public Enemy enemyStats;
 
@@ -108,8 +109,18 @@ public class EnemyMonitor : MonoBehaviour
         //Gives the player XP
         GiveExp(xpEarnings);
 
-        //Kills the player
-        Destroy(transform.parent.gameObject);
+        //Kills the enemy
+        if (transform.parent != null && transform.parent.GetComponent<EnemyAttacks>().patrol == true)
+        {
+            Destroy(transform.parent.gameObject);
+        }
+        else
+        {
+            Debug.Log("no parent");
+            Destroy(transform.gameObject);
+        }
+
+
     }
     //Obselete
     /*

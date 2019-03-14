@@ -1643,7 +1643,7 @@ MonoBehaviour:
     attackSpeed: 1
     attackRange: 2
   itemChance: 100
-  weaponValue: 1998
+  weaponValue: 2000
 --- !u!212 &603987000
 SpriteRenderer:
   m_ObjectHideFlags: 0
