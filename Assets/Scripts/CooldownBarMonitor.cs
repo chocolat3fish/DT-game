@@ -16,8 +16,7 @@ public class CooldownBarMonitor : MonoBehaviour
 
     void Update()
     {
-        //as health depletes, scales the x value down relative to health
-        //uses a Lerp to smooth the depletion
+        //depletes bar on attack, refills relative to current attack speed
         float sizeOfBar = (Time.time - playerControls.timeOfAttack) / playerControls.attackSpeed;
         if(sizeOfBar > 1f)
         {

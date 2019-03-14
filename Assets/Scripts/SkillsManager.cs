@@ -8,10 +8,12 @@ public class SkillsManager : MonoBehaviour
     public Color hasSkill;
 
     public Button tripleJumpButton;
+    public Button fireballButton;
 
     void Awake()
     {
         tripleJumpButton = gameObject.transform.Find("TJB").GetComponent<Button>();
+        fireballButton = gameObject.transform.Find("FBB").GetComponent<Button>();
 
         /*
         if (PersistantGameManager.Instance.tripleJump)
@@ -21,13 +23,9 @@ public class SkillsManager : MonoBehaviour
         }
         */
     }
+    
 
-    void Update()
-    {
-        
-    }
-
-    public void giveTripleJump()
+    public void GiveTripleJump()
     {
         if (PersistantGameManager.Instance.playerStats.playerSkillPoints >= 1)
         {
@@ -38,5 +36,19 @@ public class SkillsManager : MonoBehaviour
             tripleJumpButton.interactable = false;
         }
 
+    }
+
+    public void GiveFireball()
+    {
+        if (PersistantGameManager.Instance.playerStats.playerSkillPoints >= 1)
+        {
+            PersistantGameManager.Instance.fireball = true;
+            PersistantGameManager.Instance.playerStats.playerSkillPoints -= 1;
+            fireballButton.GetComponent<Image>().color = hasSkill;
+
+            fireballButton.interactable = false;
+            PersistantGameManager.Instance.hasMagic = true;
+
+        }
     }
 }
