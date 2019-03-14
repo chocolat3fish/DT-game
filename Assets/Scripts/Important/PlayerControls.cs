@@ -257,17 +257,24 @@ public class PlayerControls : MonoBehaviour
 
 
 
-    public float calculatePlayerDamage()
+    public float CalculatePlayerDamage()
     {
-        float timeSinceAttack = Time.time - timeOfAttack;
-        if(timeSinceAttack > attackSpeed)
+        if (useFireball)
         {
-            timeOfAttack = Time.time;
-            return playerDamage * 1.2f;
+            return (CalculateFireballDamage());
         }
-        float newPlayerDamage = playerDamage * (timeSinceAttack / attackSpeed);
-        timeOfAttack = Time.time;
-        return newPlayerDamage;
+        else
+        {
+            float timeSinceAttack = Time.time - timeOfAttack;
+            if (timeSinceAttack > attackSpeed)
+            {
+                timeOfAttack = Time.time;
+                return playerDamage * 1.2f;
+            }
+            float newPlayerDamage = playerDamage * (timeSinceAttack / attackSpeed);
+            timeOfAttack = Time.time;
+            return newPlayerDamage;
+        }
     }
 
     private float CalculateFireballDamage()
