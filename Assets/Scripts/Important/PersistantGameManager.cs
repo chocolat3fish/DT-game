@@ -26,6 +26,7 @@ public class PersistantGameManager : MonoBehaviour
     public bool hasMagic;
     public bool tripleJump;
     public bool fireball;
+    public bool gripWalls;
 
     public PlayerStats playerStats;
     public bool checkExp;

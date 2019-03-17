@@ -9,11 +9,13 @@ public class SkillsManager : MonoBehaviour
 
     public Button tripleJumpButton;
     public Button fireballButton;
+    public Button gripWallButton;
 
     void Awake()
     {
         tripleJumpButton = gameObject.transform.Find("TJB").GetComponent<Button>();
         fireballButton = gameObject.transform.Find("FBB").GetComponent<Button>();
+        gripWallButton = gameObject.transform.Find("GWB").GetComponent<Button>();
 
         /*
         if (PersistantGameManager.Instance.tripleJump)
@@ -48,6 +50,19 @@ public class SkillsManager : MonoBehaviour
 
             fireballButton.interactable = false;
             PersistantGameManager.Instance.hasMagic = true;
+
+        }
+    }
+
+    public void GiveGripWall()
+    {
+        if (PersistantGameManager.Instance.playerStats.playerSkillPoints >= 1)
+        {
+            PersistantGameManager.Instance.gripWalls = true;
+            PersistantGameManager.Instance.playerStats.playerSkillPoints -= 1;
+            gripWallButton.GetComponent<Image>().color = hasSkill;
+
+            gripWallButton.interactable = false;
 
         }
     }

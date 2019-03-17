@@ -197,11 +197,35 @@ public class PlayerControls : MonoBehaviour
     //detects if player hits ground, which re enables ability to jump
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        canJump = true;
-        shouldJump = false;
-        currentJumps = 0;
-        // tells animator to stop playing Jump animation
-        animator.SetBool("IsJumping", false);
+        if(collision.gameObject.tag == "Floor")
+        {
+            canJump = true;
+            shouldJump = false;
+            currentJumps = 0;
+            // tells animator to stop playing Jump animation
+            animator.SetBool("IsJumping", false);
+            Debug.Log("floor");
+        }
+        else if(collision.gameObject.tag == "Wall" && PersistantGameManager.Instance.gripWalls)
+        {
+            collision.collider.sharedMaterial = (PhysicsMaterial2D)Resources.Load("PhysicsMaterials/WallGrippy");
+            canJump = true;
+            shouldJump = false;
+            currentJumps = 0;
+            // tells animator to stop playing Jump animation
+            animator.SetBool("IsJumping", false);
+            Debug.Log("wall grippy");
+        }
+        else if(collision.gameObject.tag == "Wall" && !PersistantGameManager.Instance.gripWalls)
+        {
+            collision.collider.sharedMaterial = (PhysicsMaterial2D)Resources.Load("PhysicsMaterials/WallSlippery");
+            Debug.Log("wall slippery");
+            canJump = false;
+            shouldJump = false;
+            
+        }
+        
+        
 
 
     }

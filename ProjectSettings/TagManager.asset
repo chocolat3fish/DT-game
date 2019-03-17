@@ -9,6 +9,9 @@ TagManager:
   - Loot
   - Canvas
   - Enemy Health Bar
+  - Floor
+  - Wall
+  - Roof
   layers:
   - Default
   - TransparentFX
