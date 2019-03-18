@@ -13,8 +13,10 @@ public class LootDropMonitor : MonoBehaviour
     //The script that controls the compare canvas
     public CompareCanvasScript compareCanvas;
 
+    public int type;
     //The new weapon the loot item is holding
     public Weapon itemStats;
+    public Consumable consumable;
 
     //The Bool that tells the script to check weither the compare screen has closed and should now take the disregared item
     public bool waitingForChange = false;
@@ -65,7 +67,7 @@ public class LootDropMonitor : MonoBehaviour
             }
 
             //If the compare Screen is not currently open, the compare canvas wont close on a "E" press and this is the closest loot drop
-            if (!PersistantGameManager.Instance.compareScreenOpen && compareCanvas.takeEInputForContinue && closestLootDrop == this)
+            if (!PersistantGameManager.Instance.compareScreenOpen && compareCanvas.takeEInputForContinue && closestLootDrop == this && type == 0)
             {
                 //Sets the weapon to compare as the weapon this is storing
                 PersistantGameManager.Instance.comparingWeapon = itemStats;
@@ -75,6 +77,12 @@ public class LootDropMonitor : MonoBehaviour
 
                 //Tells the script that is needs to wait for the comapre screen to close
                 waitingForChange = true;
+            }
+            if (!PersistantGameManager.Instance.compareScreenOpen && compareCanvas.takeEInputForContinue && closestLootDrop == this && type == 1)
+            {
+                //Sets the weapon to compare as the weapon this is storing
+                PersistantGameManager.Instance.playerItemInventory.Add(consumable);
+                Destroy(gameObject);
             }
         }
 

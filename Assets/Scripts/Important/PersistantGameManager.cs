@@ -13,11 +13,12 @@ public class PersistantGameManager : MonoBehaviour
     public int previousIndex = 0;
     public Weapon currentWeapon;
     public List<Weapon> playerWeaponInventory = new List<Weapon>();
+    [SerializeField]
+    public List<Consumable> playerItemInventory = new List<Consumable>();
     public bool compareScreenOpen;
     public Weapon comparingWeapon;
     public Armour currentArmour;
     public Armour comparingArmour;
-    public List<Armour> playerArmourInventory = new List<Armour>();
     public PlayerControls player;
     public Camera camera;
 
@@ -170,7 +171,6 @@ public class PersistantGameManager : MonoBehaviour
         data.currentWeapon = currentWeapon;
         data.playerWeaponInventory = playerWeaponInventory;
         data.currentArmour = currentArmour;
-        data.playerArmourInventory = playerArmourInventory;
         data.playerStats = playerStats;
         data.totalExperience = totalExperience;
         data.currentScene = currentScene;
@@ -185,7 +185,6 @@ public class PersistantGameManager : MonoBehaviour
         currentIndex = data.currentIndex;
         playerWeaponInventory = data.playerWeaponInventory;
         currentArmour = data.currentArmour;
-        playerArmourInventory = data.playerArmourInventory;
         playerStats = data.playerStats;
         totalExperience = data.totalExperience;
         SceneManager.LoadScene(data.currentScene);

@@ -1868,6 +1868,7 @@ MonoBehaviour:
     attackRange: 2
   itemChance: 100
   weaponValue: 2000
+  itemValue: 50
 --- !u!212 &603987000
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4498,6 +4499,7 @@ MonoBehaviour:
     attackRange: 0
   itemChance: 100
   weaponValue: 1662
+  itemValue: 0
 --- !u!212 &1348077151
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -7820,6 +7822,7 @@ MonoBehaviour:
     itemSpeed: 0.41
     itemRange: 0.27
   playerWeaponInventory: []
+  playerItemInventory: []
   compareScreenOpen: 0
   comparingWeapon:
     itemName: 
@@ -7832,14 +7835,13 @@ MonoBehaviour:
   comparingArmour:
     armourType: 
     defence: 0
-  playerArmourInventory: []
   player: {fileID: 0}
   camera: {fileID: 0}
   magicBar: {fileID: 1580937054}
   hasMagic: 0
   tripleJump: 0
   fireball: 0
-  gripWalls: 0
+  gripWalls: 1
   playerStats:
     health: 0
     playerLevel: 1

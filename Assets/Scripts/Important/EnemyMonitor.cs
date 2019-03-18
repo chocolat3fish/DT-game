@@ -35,6 +35,7 @@ public class EnemyMonitor : MonoBehaviour
     //Stats for lootdrop
     public int itemChance;
     public int weaponValue;
+    public int itemValue;
 
     //Name of the loot drop prefab
     private string lootDropPreFabName = "Loot Drop";
@@ -90,10 +91,10 @@ public class EnemyMonitor : MonoBehaviour
     public void EnemyDeath()
     {
         //Gets the new weapon based off the drop chance and the value of weapon, if a weapon is not going to be droped it returns null
-        Weapon newWeapon = LootManager.DropItem(itemChance, weaponValue);
+        LootItem newItem = LootManager.DropItem(itemChance, itemValue,  weaponValue);
 
         //runs if there is a weapon stored in new weapon
-        if(newWeapon != null)
+        if(newItem != null)
         {
             //Instatiates the loot drop prefab at the poition of the enemy takes a local "Gameobject copy" 
             GameObject lootDropInstance = Instantiate(Resources.Load(lootDropPreFabName), transform.position, Quaternion.identity) as GameObject;
@@ -101,8 +102,19 @@ public class EnemyMonitor : MonoBehaviour
             //gets the LootDropMonitor from the newly created Loot Drop
             LootDropMonitor lootDropInstanceMonitor = lootDropInstance.GetComponent<LootDropMonitor>();
 
+            if(newItem.type == 0)
+            {
+                lootDropInstanceMonitor.type = 0;
+                lootDropInstanceMonitor.itemStats = newItem.newWeapon; 
+            }
+            else if(newItem.type == 1)
+            {
+                lootDropInstanceMonitor.type = 1;
+                lootDropInstanceMonitor.consumable= newItem.consumable;
+            }
+
             //Tells the Loot Drop what weapon it should store
-            lootDropInstanceMonitor.itemStats = newWeapon;
+
 
         }
 

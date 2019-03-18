@@ -16,7 +16,7 @@ public class LootManager : MonoBehaviour
 
     //The main referenced method that controls wether a weapon is dropped
     //Based off a chance out of 100 and the value of the weapon
-    public static Weapon DropItem(int chance, int weaponValue)
+    public static LootItem DropItem(int chance, int itemValue, int weaponValue)
     {
         //Generates a random number between 1 and 100 
         int randomChance = random.Next(0, 100);
@@ -25,8 +25,25 @@ public class LootManager : MonoBehaviour
         //This gives a n% where n is chance
         if (chance > randomChance)
         {
+            randomChance = random.Next(0, 100);
+            if (randomChance > 60)
+            {
+                LootItem lootItem = new LootItem();
+                lootItem.type = 0;
+                lootItem.newWeapon = GenerateWeapon(weaponValue);
+                return lootItem;
+            }
+            else
+            {
+                LootItem lootItem = new LootItem();
+                lootItem.type = 1;
+                lootItem.consumable = GenerateConsumable(itemValue);
+                return lootItem;
+            }
+
+
             //calls the method that generates the weapon based off the weapon value
-            return GenerateWeapon(weaponValue);
+
         }
         else
         {
@@ -175,4 +192,53 @@ public class LootManager : MonoBehaviour
 
     
     }
+    public static Consumable GenerateConsumable(int value)
+    {
+        int randomChance = random.Next(0, 100);
+        if (randomChance < 50)
+        {
+            if (value < 20)
+            {
+                Consumable consumable = new Consumable();
+                consumable.type = "20%H";
+                return consumable;
+            }
+            else if (value < 50)
+            {
+                Consumable consumable = new Consumable();
+                consumable.type = "50%H";
+                return consumable;
+            }
+            else
+            {
+                Consumable consumable = new Consumable();
+                consumable.type = "100%H";
+                return consumable;
+            }
+        }
+        else
+        {
+
+        }
+        if (value < 20)
+        {
+            Consumable consumable = new Consumable();
+            consumable.type = "20%A";
+            return consumable;
+        }
+        else if (value < 50)
+        {
+            Consumable consumable = new Consumable();
+            consumable.type = "50%A";
+            return consumable;
+        }
+        else
+        {
+            Consumable consumable = new Consumable();
+            consumable.type = "100%A";
+            return consumable;
+        }
+
+    }
+
 }

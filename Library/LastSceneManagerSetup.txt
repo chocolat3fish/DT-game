@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Scenes/Character Control 3 Weapons.unity
+- path: Assets/Scenes/Character Control with New Map setup.unity
   isLoaded: 1
   isActive: 1
