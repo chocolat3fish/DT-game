@@ -17,7 +17,7 @@ public class PersistantGameManager : MonoBehaviour
     public Weapon comparingWeapon;
     public Armour currentArmour;
     public Armour comparingArmour;
-    public List<Armour> playerArmourInventory = new List<Armour>();
+    public List<LootItem> playerItemInventory = new List<LootItem>();
     public PlayerControls player;
     public Camera camera;
 
@@ -35,6 +35,7 @@ public class PersistantGameManager : MonoBehaviour
 
     public float totalExperience;
 
+    public string equippedItemOne, equippedItemTwo;
 
 
     private void Awake()
@@ -170,7 +171,6 @@ public class PersistantGameManager : MonoBehaviour
         data.currentWeapon = currentWeapon;
         data.playerWeaponInventory = playerWeaponInventory;
         data.currentArmour = currentArmour;
-        data.playerArmourInventory = playerArmourInventory;
         data.playerStats = playerStats;
         data.totalExperience = totalExperience;
         data.currentScene = currentScene;
@@ -185,7 +185,6 @@ public class PersistantGameManager : MonoBehaviour
         currentIndex = data.currentIndex;
         playerWeaponInventory = data.playerWeaponInventory;
         currentArmour = data.currentArmour;
-        playerArmourInventory = data.playerArmourInventory;
         playerStats = data.playerStats;
         totalExperience = data.totalExperience;
         SceneManager.LoadScene(data.currentScene);
