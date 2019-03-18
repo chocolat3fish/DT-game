@@ -88,6 +88,17 @@ public class PlaceHolderInventoryscript : MonoBehaviour
             case 14:
                 output.text = PersistantGameManager.Instance.playerStats.playerSkillPoints.ToString();
                 break;
+
+            case 15:
+                //left item + number of that item, uncomment when ready
+                output.text = PersistantGameManager.Instance.equippedItemOne; //+ "(x" +  + ")";
+                break;
+
+            case 16:
+                //right item + number of that item, uncomment when ready
+                output.text = PersistantGameManager.Instance.equippedItemTwo; //+ "(x" +  + ")";
+                break;
+
         }
     }
             

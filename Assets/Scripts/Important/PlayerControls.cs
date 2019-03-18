@@ -220,7 +220,6 @@ public class PlayerControls : MonoBehaviour
         {
             collision.collider.sharedMaterial = (PhysicsMaterial2D)Resources.Load("PhysicsMaterials/WallSlippery");
             Debug.Log("wall slippery");
-            canJump = false;
             shouldJump = false;
             
         }

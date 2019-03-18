@@ -36,6 +36,7 @@ public class PersistantGameManager : MonoBehaviour
 
     public float totalExperience;
 
+    public string equippedItemOne, equippedItemTwo;
 
 
     private void Awake()
@@ -50,7 +51,7 @@ public class PersistantGameManager : MonoBehaviour
             Destroy(gameObject);
         }
         currentScene = SceneManager.GetActiveScene().name;
-        
+
     }
     private void Start()
     {
@@ -136,7 +137,7 @@ public class PersistantGameManager : MonoBehaviour
                 {
                     levels += 1;
                     skillPoints += 1;
-                    playerStats.playerExperience -= 300; 
+                    playerStats.playerExperience -= 300;
                 }
 
                 playerStats.playerSkillPoints += skillPoints;
@@ -146,7 +147,7 @@ public class PersistantGameManager : MonoBehaviour
 
     }
     public void ChangeItem(int index)
-    {   
+    {
         if(index == 99)
         {
             currentWeapon = playerWeaponInventory[0];
@@ -155,13 +156,13 @@ public class PersistantGameManager : MonoBehaviour
         //shortened to 3 items
         else if(index != previousIndex && index < 3 && index > -1)
         {
-            
+
             if(playerWeaponInventory[index] != null )
             {
                 currentWeapon = playerWeaponInventory[index];
                 previousIndex = currentIndex;
             }
-            
+
         }
     }
    public void SaveGameManagerData()
