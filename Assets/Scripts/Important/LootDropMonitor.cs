@@ -81,7 +81,7 @@ public class LootDropMonitor : MonoBehaviour
             if (!PersistantGameManager.Instance.compareScreenOpen && compareCanvas.takeEInputForContinue && closestLootDrop == this && type == 1)
             {
                 //Sets the weapon to compare as the weapon this is storing
-                PersistantGameManager.Instance.playerItemInventory.Add(consumable);
+                PersistantGameManager.Instance.ammountOfItems[consumable.type] =+ 1;
                 Destroy(gameObject);
             }
         }

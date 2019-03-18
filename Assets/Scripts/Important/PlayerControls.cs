@@ -29,6 +29,8 @@ public class PlayerControls : MonoBehaviour
     public float playerDamage;
     public float attackSpeed;
     public float magicCooldown;
+    public float TimeOfItemOneUse, itemOneCooldown = 1;
+    public float TimeOfItemTwoUse, itemTwoCooldown = 1;
 
 
     private BoxCollider2D rightDetector;
@@ -187,6 +189,20 @@ public class PlayerControls : MonoBehaviour
             currentJumps++;
         }
 
+        if(Input.GetKeyDown(KeyCode.H) && PersistantGameManager.Instance.ammountOfItems[PersistantGameManager.Instance.equippedItemOne] > 0 && Time.time > (TimeOfItemOneUse + itemOneCooldown))
+        {
+            TimeOfItemOneUse = Time.time;
+            PersistantGameManager.Instance.ammountOfItems[PersistantGameManager.Instance.equippedItemOne] -= 1;
+            UseItem(PersistantGameManager.Instance.equippedItemOne);
+        }
+        if (Input.GetKeyDown(KeyCode.H) && PersistantGameManager.Instance.ammountOfItems[PersistantGameManager.Instance.equippedItemTwo] > 0 && Time.time > (TimeOfItemTwoUse + itemTwoCooldown))
+        {
+            TimeOfItemTwoUse = Time.time;
+            PersistantGameManager.Instance.ammountOfItems[PersistantGameManager.Instance.equippedItemTwo] -= 1;
+            UseItem(PersistantGameManager.Instance.equippedItemTwo);
+        }
+
+
         playerDamage = PersistantGameManager.Instance.currentWeapon.itemDamage;
         attackSpeed = PersistantGameManager.Instance.currentWeapon.itemSpeed;
         range = PersistantGameManager.Instance.currentWeapon.itemRange;
@@ -313,6 +329,33 @@ public class PlayerControls : MonoBehaviour
         }
         return magicDamage = 0;
 
+
+    }
+    private void UseItem(string type)
+    {
+        if(type == "20%H")
+        {
+            currentHealth += totalHealth * 0.2f;
+            if(currentHealth > totalHealth)
+            {
+                currentHealth = totalHealth;
+            }
+
+        }
+        else if (type == "50%H")
+        {
+            currentHealth += totalHealth * 0.5f;
+            if (currentHealth > totalHealth)
+            {
+                currentHealth = totalHealth;
+            }
+
+        }
+        else if (type == "100%H")
+        {
+            currentHealth = totalHealth;
+
+        }
 
     }
 }

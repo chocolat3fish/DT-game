@@ -13,8 +13,15 @@ public class PersistantGameManager : MonoBehaviour
     public int previousIndex = 0;
     public Weapon currentWeapon;
     public List<Weapon> playerWeaponInventory = new List<Weapon>();
-    [SerializeField]
-    public List<Consumable> playerItemInventory = new List<Consumable>();
+    public Dictionary<string, int> ammountOfItems = new Dictionary<string, int>()
+    {
+        {"20%H", 0},
+        {"50%H", 0},
+        {"100%H", 0},
+        //{"20%A", 0},
+        //{"50%A", 0},
+        //{"100%A", 0}
+    };
     public bool compareScreenOpen;
     public Weapon comparingWeapon;
     public Armour currentArmour;
@@ -67,8 +74,6 @@ public class PersistantGameManager : MonoBehaviour
         currentWeapon = playerWeaponInventory[0];
         //LoadDataFromSave();
 
-
-
     }
     void Update()
     {
@@ -87,6 +92,31 @@ public class PersistantGameManager : MonoBehaviour
             currentIndex = 2;
             ChangeItem(currentIndex);
         }
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            equippedItemOne = "20%H";
+        }
+        else if (Input.GetKeyDown(KeyCode.X))
+        {
+            equippedItemOne = "50%H";
+        }
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            equippedItemOne = "100%H";
+        }
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            equippedItemOne = "20%H";
+        }
+        if (Input.GetKeyDown(KeyCode.N))
+        {
+            equippedItemOne = "50%H";
+        }
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            equippedItemOne = "100%H";
+        }
+
         //Shortened to 3 items
         /*
         else if (Input.GetKeyDown(KeyCode.Alpha4))

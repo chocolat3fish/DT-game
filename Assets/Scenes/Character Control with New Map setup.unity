@@ -2611,9 +2611,9 @@ MonoBehaviour:
     enemyHealth: 15
     attackSpeed: 1
     attackRange: 2
-  itemChance: 100
+  itemChance: 0
   weaponValue: 2000
-  itemValue: 50
+  itemValue: 70
 --- !u!212 &603987000
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -9874,7 +9874,6 @@ MonoBehaviour:
     itemSpeed: 0.41
     itemRange: 0.27
   playerWeaponInventory: []
-  playerItemInventory: []
   compareScreenOpen: 0
   comparingWeapon:
     itemName: 
@@ -9902,8 +9901,8 @@ MonoBehaviour:
   checkExp: 0
   currentScene: 
   totalExperience: 300
-  equippedItemOne: 
-  equippedItemTwo: 
+  equippedItemOne: 20%H
+  equippedItemTwo: 50%H
 --- !u!4 &1645279220
 Transform:
   m_ObjectHideFlags: 0
@@ -10615,7 +10614,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -7.375, y: -250.56}
+  m_AnchoredPosition: {x: -7.375, y: -250.55981}
   m_SizeDelta: {x: -502.75, y: -516.43}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1784352603
@@ -11728,7 +11727,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -14.700989, y: 209.46}
+  m_AnchoredPosition: {x: -14.701172, y: 209.45996}
   m_SizeDelta: {x: -839.1, y: -501.18}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2041815904
@@ -11994,6 +11993,10 @@ MonoBehaviour:
   playerDamage: 1
   attackSpeed: 1
   magicCooldown: 5
+  TimeOfItemOneUse: 0
+  itemOneCooldown: 1
+  TimeOfItemTwoUse: 0
+  itemTwoCooldown: 1
   nextAttack: 1
   currentHealth: 10
   totalHealth: 10
