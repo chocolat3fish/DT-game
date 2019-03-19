@@ -25,7 +25,7 @@ public class CharacterCanvasScript : MonoBehaviour
 
     void Update()
     {
-
+        /*
         if (freeze)
         {
             Time.timeScale = 0;
@@ -33,19 +33,24 @@ public class CharacterCanvasScript : MonoBehaviour
         else
         {
             Time.timeScale = 1;
-        }
+        }*/
 
-        if (Input.GetKeyDown(KeyCode.U) && !isActive && skillsPanel.activeSelf == false)
+
+        if (Input.GetKeyDown(KeyCode.U) && !isActive && skillsPanel.activeSelf == false && PersistantGameManager.Instance.menuScreenOpen == false && PersistantGameManager.Instance.compareScreenOpen == false)
         {
             mainPanel.SetActive(true);
             isActive = true;
             freeze = true;
+            PersistantGameManager.Instance.characterScreenOpen = true;
+            Time.timeScale = 0;
         }
         else if (Input.GetKeyDown(KeyCode.U) && isActive)
         {
             mainPanel.SetActive(false);
             isActive = false;
             freeze = false;
+            PersistantGameManager.Instance.characterScreenOpen = false;
+            Time.timeScale = 1;
         }
 
         else if (Input.GetKeyDown(KeyCode.U) && !isActive && skillsPanel.activeSelf == true)
@@ -53,6 +58,8 @@ public class CharacterCanvasScript : MonoBehaviour
             skillsPanel.SetActive(false);
             isActive = false;
             freeze = false;
+            PersistantGameManager.Instance.characterScreenOpen = false;
+            Time.timeScale = 1;
         }
 
         if (mainPanel.activeSelf && Input.GetKeyDown(KeyCode.K))

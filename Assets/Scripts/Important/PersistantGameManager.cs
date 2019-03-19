@@ -23,6 +23,8 @@ public class PersistantGameManager : MonoBehaviour
         //{"100%A", 0}
     };
     public bool compareScreenOpen;
+    public bool characterScreenOpen;
+    public bool menuScreenOpen;
     public Weapon comparingWeapon;
     public Armour currentArmour;
     public Armour comparingArmour;
@@ -106,15 +108,15 @@ public class PersistantGameManager : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.B))
         {
-            equippedItemOne = "20%H";
+            equippedItemTwo = "20%H";
         }
         if (Input.GetKeyDown(KeyCode.N))
         {
-            equippedItemOne = "50%H";
+            equippedItemTwo = "50%H";
         }
         if (Input.GetKeyDown(KeyCode.M))
         {
-            equippedItemOne = "100%H";
+            equippedItemTwo = "100%H";
         }
 
         //Shortened to 3 items
