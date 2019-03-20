@@ -17,11 +17,17 @@ public class PersistantGameManager : MonoBehaviour
     {
         {"20%H", 0},
         {"50%H", 0},
-        {"100%H", 0},
-        //{"20%A", 0},
-        //{"50%A", 0},
-        //{"100%A", 0}
+        {"100%H", 2},
+        {"20%A", 0},
+        {"50%A", 0},
+        {"100%A", 2}
     };
+    public bool potionIsActive;
+    public string activePotionType;
+    public float currentAttackMultiplier = 1;
+    public float timeOfAttackMultiplierChange;
+    public float healthPotionUseTime;
+    public float potionCoolDownTime;
     public bool compareScreenOpen;
     public bool characterScreenOpen;
     public bool menuScreenOpen;
@@ -32,7 +38,6 @@ public class PersistantGameManager : MonoBehaviour
     public Camera camera;
 
     public GameObject magicBar;
-
     public bool hasMagic;
     public bool tripleJump;
     public bool fireball;
@@ -61,6 +66,7 @@ public class PersistantGameManager : MonoBehaviour
         }
         currentScene = SceneManager.GetActiveScene().name;
 
+
     }
     private void Start()
     {
@@ -79,6 +85,13 @@ public class PersistantGameManager : MonoBehaviour
     }
     void Update()
     {
+        if(Time.time > timeOfAttackMultiplierChange + 30)
+        {
+            currentAttackMultiplier = 1;
+            potionIsActive = false;
+
+        }
+
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             currentIndex = 0;
@@ -108,15 +121,15 @@ public class PersistantGameManager : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.B))
         {
-            equippedItemTwo = "20%H";
+            equippedItemTwo = "20%A";
         }
         if (Input.GetKeyDown(KeyCode.N))
         {
-            equippedItemTwo = "50%H";
+            equippedItemTwo = "50%A";
         }
         if (Input.GetKeyDown(KeyCode.M))
         {
-            equippedItemTwo = "100%H";
+            equippedItemTwo = "100%A";
         }
 
         //Shortened to 3 items

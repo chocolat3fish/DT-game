@@ -17,7 +17,7 @@ public class MenuCanvasScript : MonoBehaviour
     private Text wD1Output, wD2Output, wD3Output;
     private Text wS1Output, wS2Output, wS3Output;
     private Text wR1Output, wR2Output, wR3Output;
-    private Text fullHOutput, halfHOutput, fifthHOutput;
+    public Text fullHOutput, halfHOutput, fifthHOutput, fullAOutput, halfAOutput, fifthAOutput;
 
 
     void Awake()
@@ -51,6 +51,14 @@ public class MenuCanvasScript : MonoBehaviour
         fifthHOutput = consumablesPanel.transform.Find("20HQ").gameObject.GetComponent<Text>();
         halfHOutput = consumablesPanel.transform.Find("50HQ").gameObject.GetComponent<Text>();
         fullHOutput = consumablesPanel.transform.Find("100HQ").gameObject.GetComponent<Text>();
+
+        //fifthA = 20% (one fifth) Attack
+        //halfA = 50% Attack
+        //fullA = 100% Attack
+        fifthAOutput = consumablesPanel.transform.Find("20AQ").gameObject.GetComponent<Text>();
+        halfAOutput = consumablesPanel.transform.Find("50AQ").gameObject.GetComponent<Text>();
+        fullAOutput = consumablesPanel.transform.Find("100AQ").gameObject.GetComponent<Text>();
+
 
     }
 
@@ -197,6 +205,10 @@ public class MenuCanvasScript : MonoBehaviour
         fifthHOutput.text = PersistantGameManager.Instance.amountOfItems["20%H"].ToString();
         halfHOutput.text = PersistantGameManager.Instance.amountOfItems["50%H"].ToString();
         fullHOutput.text = PersistantGameManager.Instance.amountOfItems["100%H"].ToString();
+
+        fifthAOutput.text = PersistantGameManager.Instance.amountOfItems["20%A"].ToString();
+        halfAOutput.text = PersistantGameManager.Instance.amountOfItems["50%A"].ToString();
+        fullAOutput.text = PersistantGameManager.Instance.amountOfItems["100%A"].ToString();
 
     }
 

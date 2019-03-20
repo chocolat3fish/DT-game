@@ -189,8 +189,8 @@ public class LootManager : MonoBehaviour
     public static Consumable GenerateConsumable(int value)
     {
         int randomChance = random.Next(0, 100);
-        //if (randomChance < 50)
-        //{
+        if (randomChance < 50)
+        {
             if (value < 20)
             {
                 Consumable consumable = new Consumable();
@@ -209,8 +209,8 @@ public class LootManager : MonoBehaviour
                 consumable.type = "100%H";
                 return consumable;
             }
-        //}
-        /*
+        }
+
         else
         {
             if (value < 20)
@@ -232,7 +232,7 @@ public class LootManager : MonoBehaviour
                 return consumable;
             }
         }
-        */
+
 
     }
 

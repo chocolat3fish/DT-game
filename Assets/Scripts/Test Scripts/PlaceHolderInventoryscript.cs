@@ -98,6 +98,9 @@ public class PlaceHolderInventoryscript : MonoBehaviour
                 //right item + number of that item, uncomment when ready
                 output.text = PersistantGameManager.Instance.equippedItemTwo + " x " + PersistantGameManager.Instance.amountOfItems[PersistantGameManager.Instance.equippedItemTwo] + " (J)";
                 break;
+            case 17:
+                output.text = PersistantGameManager.Instance.activePotionType + " Potion";
+                break;
 
         }
     }

@@ -192,13 +192,11 @@ public class PlayerControls : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.H) && PersistantGameManager.Instance.amountOfItems[PersistantGameManager.Instance.equippedItemOne] > 0 && Time.time > (TimeOfItemOneUse + itemOneCooldown))
         {
             TimeOfItemOneUse = Time.time;
-            PersistantGameManager.Instance.amountOfItems[PersistantGameManager.Instance.equippedItemOne] -= 1;
             UseItem(PersistantGameManager.Instance.equippedItemOne);
         }
-        if (Input.GetKeyDown(KeyCode.H) && PersistantGameManager.Instance.amountOfItems[PersistantGameManager.Instance.equippedItemTwo] > 0 && Time.time > (TimeOfItemTwoUse + itemTwoCooldown))
+        if (Input.GetKeyDown(KeyCode.J) && PersistantGameManager.Instance.amountOfItems[PersistantGameManager.Instance.equippedItemTwo] > 0 && Time.time > (TimeOfItemTwoUse + itemTwoCooldown))
         {
             TimeOfItemTwoUse = Time.time;
-            PersistantGameManager.Instance.amountOfItems[PersistantGameManager.Instance.equippedItemTwo] -= 1;
             UseItem(PersistantGameManager.Instance.equippedItemTwo);
         }
 
@@ -220,7 +218,7 @@ public class PlayerControls : MonoBehaviour
             currentJumps = 0;
             // tells animator to stop playing Jump animation
             animator.SetBool("IsJumping", false);
-            Debug.Log("floor");
+
         }
         else if(collision.gameObject.tag == "Wall" && PersistantGameManager.Instance.gripWalls)
         {
@@ -230,12 +228,11 @@ public class PlayerControls : MonoBehaviour
             currentJumps = 0;
             // tells animator to stop playing Jump animation
             animator.SetBool("IsJumping", false);
-            Debug.Log("wall grippy");
+
         }
         else if(collision.gameObject.tag == "Wall" && !PersistantGameManager.Instance.gripWalls)
         {
             collision.collider.sharedMaterial = (PhysicsMaterial2D)Resources.Load("PhysicsMaterials/WallSlippery");
-            Debug.Log("wall slippery");
             shouldJump = false;
             
         }
@@ -300,7 +297,7 @@ public class PlayerControls : MonoBehaviour
     {
         if (useFireball)
         {
-            return (CalculateFireballDamage());
+            return (CalculateFireballDamage() * PersistantGameManager.Instance.currentAttackMultiplier);
         }
         else
         {
@@ -308,11 +305,11 @@ public class PlayerControls : MonoBehaviour
             if (timeSinceAttack > attackSpeed)
             {
                 timeOfAttack = Time.time;
-                return playerDamage * 1.2f;
+                return playerDamage * 1.2f * PersistantGameManager.Instance.currentAttackMultiplier;
             }
             float newPlayerDamage = playerDamage * (timeSinceAttack / attackSpeed);
             timeOfAttack = Time.time;
-            return newPlayerDamage;
+            return newPlayerDamage * PersistantGameManager.Instance.currentAttackMultiplier;
         }
     }
 
@@ -333,28 +330,75 @@ public class PlayerControls : MonoBehaviour
     }
     private void UseItem(string type)
     {
-        if(type == "20%H")
+        if(type == "20%H" && Time.timeScale != 0 && PersistantGameManager.Instance.player.currentHealth != PersistantGameManager.Instance.player.totalHealth)
+        { 
+                currentHealth += totalHealth * 0.2f;
+                if (currentHealth > totalHealth)
+                {
+                    currentHealth = totalHealth;
+                }
+                PersistantGameManager.Instance.amountOfItems["20%H"] -= 1;
+                PersistantGameManager.Instance.healthPotionUseTime = Time.time;
+            
+        }
+        else if (type == "50%H" && Time.timeScale != 0 && PersistantGameManager.Instance.player.currentHealth != PersistantGameManager.Instance.player.totalHealth)
         {
-            currentHealth += totalHealth * 0.2f;
-            if(currentHealth > totalHealth)
-            {
-                currentHealth = totalHealth;
-            }
+
+                currentHealth += totalHealth * 0.5f;
+                if (currentHealth > totalHealth)
+                {
+                    currentHealth = totalHealth;
+                }
+                PersistantGameManager.Instance.amountOfItems["50%A"] -= 1;
+                PersistantGameManager.Instance.healthPotionUseTime = Time.time;
 
         }
-        else if (type == "50%H")
+        else if (type == "100%H" && Time.timeScale != 0 && PersistantGameManager.Instance.player.currentHealth != PersistantGameManager.Instance.player.totalHealth)
         {
-            currentHealth += totalHealth * 0.5f;
-            if (currentHealth > totalHealth)
-            {
+
                 currentHealth = totalHealth;
-            }
+                PersistantGameManager.Instance.amountOfItems["100%H"] -= 1;
+                PersistantGameManager.Instance.healthPotionUseTime = Time.time;
+
 
         }
-        else if (type == "100%H")
-        {
-            currentHealth = totalHealth;
 
+        if (type == "20%A" && Time.timeScale != 0)
+        {
+            if (!PersistantGameManager.Instance.potionIsActive)
+            {
+                PersistantGameManager.Instance.activePotionType = "Attack";
+                PersistantGameManager.Instance.potionIsActive = true;
+                PersistantGameManager.Instance.currentAttackMultiplier = 1.2f;
+                PersistantGameManager.Instance.timeOfAttackMultiplierChange = Time.time;
+                PersistantGameManager.Instance.amountOfItems["20%A"] -= 1;
+                PersistantGameManager.Instance.potionCoolDownTime = 30;
+            }
+        }
+        else if (type == "50%A" && Time.timeScale != 0)
+        {
+            if (!PersistantGameManager.Instance.potionIsActive)
+            {
+                PersistantGameManager.Instance.activePotionType = "Attack";
+                PersistantGameManager.Instance.potionIsActive = true;
+                PersistantGameManager.Instance.currentAttackMultiplier = 1.5f;
+                PersistantGameManager.Instance.timeOfAttackMultiplierChange = Time.time;
+                PersistantGameManager.Instance.amountOfItems["50%A"] -= 1;
+                PersistantGameManager.Instance.potionCoolDownTime = 30;
+            }
+        }
+        else if (type == "100%A" && Time.timeScale != 0)
+        {
+            if (!PersistantGameManager.Instance.potionIsActive)
+            {
+                PersistantGameManager.Instance.activePotionType = "Attack";
+                PersistantGameManager.Instance.potionIsActive = true;
+                PersistantGameManager.Instance.currentAttackMultiplier = 2;
+                PersistantGameManager.Instance.timeOfAttackMultiplierChange = Time.time;
+                PersistantGameManager.Instance.amountOfItems["100%A"] -= 1;
+                PersistantGameManager.Instance.potionCoolDownTime = 30;
+
+            }
         }
 
     }
