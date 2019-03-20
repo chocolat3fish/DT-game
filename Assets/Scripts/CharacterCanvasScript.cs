@@ -9,6 +9,8 @@ public class CharacterCanvasScript : MonoBehaviour
     public GameObject mainPanel;
     public GameObject skillsPanel;
 
+    private bool openSkills, closeSkills;
+
     void Awake()
     {
         mainPanel = gameObject.transform.Find("Character Panel").gameObject;
@@ -62,22 +64,36 @@ public class CharacterCanvasScript : MonoBehaviour
             Time.timeScale = 1;
         }
 
-        if (mainPanel.activeSelf && Input.GetKeyDown(KeyCode.K))
+        if (mainPanel.activeSelf && Input.GetKeyDown(KeyCode.K) && skillsPanel.activeSelf == false)
         {
-            OpenSkillMenu();
+            openSkills = true;
+            closeSkills = false;
         }
 
 
-        if (skillsPanel.activeSelf && Input.GetKeyDown(KeyCode.L))
+        if (skillsPanel.activeSelf && Input.GetKeyDown(KeyCode.K) && skillsPanel.activeSelf == true)
         {
-            CloseSkillMenu();
+            closeSkills = true;
+            openSkills = false;
         }
-
-
-
 
 
     }
+
+    private void LateUpdate()
+    {
+        if (openSkills)
+        {
+            OpenSkillMenu();
+            openSkills = false;
+        }
+        else if (closeSkills)
+        {
+            CloseSkillMenu();
+            closeSkills = false;
+        }
+    }
+
 
     public void OpenSkillMenu()
     {

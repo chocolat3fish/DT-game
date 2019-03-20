@@ -13,7 +13,7 @@ public class PersistantGameManager : MonoBehaviour
     public int previousIndex = 0;
     public Weapon currentWeapon;
     public List<Weapon> playerWeaponInventory = new List<Weapon>();
-    public Dictionary<string, int> ammountOfItems = new Dictionary<string, int>()
+    public Dictionary<string, int>amountOfItems = new Dictionary<string, int>()
     {
         {"20%H", 0},
         {"50%H", 0},

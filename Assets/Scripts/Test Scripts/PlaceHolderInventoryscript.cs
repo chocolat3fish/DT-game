@@ -91,12 +91,12 @@ public class PlaceHolderInventoryscript : MonoBehaviour
 
             case 15:
                 //left item + number of that item, uncomment when ready
-                output.text = PersistantGameManager.Instance.equippedItemOne + " x " + PersistantGameManager.Instance.ammountOfItems[PersistantGameManager.Instance.equippedItemOne] + " (H)";
+                output.text = PersistantGameManager.Instance.equippedItemOne + " x " + PersistantGameManager.Instance.amountOfItems[PersistantGameManager.Instance.equippedItemOne] + " (H)";
                 break;
 
             case 16:
                 //right item + number of that item, uncomment when ready
-                output.text = PersistantGameManager.Instance.equippedItemTwo + " x " + PersistantGameManager.Instance.ammountOfItems[PersistantGameManager.Instance.equippedItemTwo] + " (J)";
+                output.text = PersistantGameManager.Instance.equippedItemTwo + " x " + PersistantGameManager.Instance.amountOfItems[PersistantGameManager.Instance.equippedItemTwo] + " (J)";
                 break;
 
         }

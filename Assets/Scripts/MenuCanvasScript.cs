@@ -11,10 +11,13 @@ public class MenuCanvasScript : MonoBehaviour
     public GameObject itemsPanel;
     public GameObject consumablesPanel;
 
+    private bool openItems, closeItems, openConsumables, closeConsumables;
+
     private Text sW1Output, sW2Output, sW3Output;
     private Text wD1Output, wD2Output, wD3Output;
     private Text wS1Output, wS2Output, wS3Output;
     private Text wR1Output, wR2Output, wR3Output;
+    private Text fullHOutput, halfHOutput, fifthHOutput;
 
 
     void Awake()
@@ -22,6 +25,11 @@ public class MenuCanvasScript : MonoBehaviour
         mainPanel = gameObject.transform.Find("MainPanel").gameObject;
         itemsPanel = gameObject.transform.Find("ItemsPanel").gameObject;
         consumablesPanel = gameObject.transform.Find("ConsumablesPanel").gameObject;
+
+        //SW = show weapon
+        //WD = weapon damage
+        //WS = weapon speed
+        //WR = weapon range
 
         sW1Output = itemsPanel.transform.Find("SW1").gameObject.GetComponent<Text>();
         sW2Output = itemsPanel.transform.Find("SW2").gameObject.GetComponent<Text>();
@@ -36,6 +44,14 @@ public class MenuCanvasScript : MonoBehaviour
         wR2Output = itemsPanel.transform.Find("WR2").gameObject.GetComponent<Text>();
         wR3Output = itemsPanel.transform.Find("WR3").gameObject.GetComponent<Text>();
 
+        //fifthH = 20% (one fifth) health
+        //halfH = 50% health
+        //fullH = 100% health
+
+        fifthHOutput = consumablesPanel.transform.Find("20HQ").gameObject.GetComponent<Text>();
+        halfHOutput = consumablesPanel.transform.Find("50HQ").gameObject.GetComponent<Text>();
+        fullHOutput = consumablesPanel.transform.Find("100HQ").gameObject.GetComponent<Text>();
+
     }
 
     void Start()
@@ -43,23 +59,15 @@ public class MenuCanvasScript : MonoBehaviour
         mainPanel.SetActive(false);
         itemsPanel.SetActive(false);
         consumablesPanel.SetActive(false);
+        openItems = false;
+        closeItems = false;
+        closeConsumables = false;
+        openConsumables = false;
 
     }
 
     void Update()
-    {
-        /*
-        if (freeze)
-        {
-            Time.timeScale = 0;
-        }
-        else
-        {
-            Time.timeScale = 1;
-        }
-        */
-
-
+    { 
         if (Input.GetKeyDown(KeyCode.Tab) && isActive == false && PersistantGameManager.Instance.characterScreenOpen == false && PersistantGameManager.Instance.compareScreenOpen == false)
         {
             mainPanel.SetActive(true);
@@ -83,19 +91,61 @@ public class MenuCanvasScript : MonoBehaviour
         }
 
 
-        if (mainPanel.activeSelf && Input.GetKeyDown(KeyCode.L) && itemsPanel.activeSelf == false)
+        if (mainPanel.activeSelf && Input.GetKeyDown(KeyCode.L) && itemsPanel.activeSelf == true)
         {
+
+            closeItems = true;
+            openItems = false;
+
+        }
+        else if (mainPanel.activeSelf && Input.GetKeyDown(KeyCode.L) && itemsPanel.activeSelf == false)
+        {
+            openItems = true;
+            closeItems = false;
+        }
+
+
+        if (mainPanel.gameObject.activeSelf && Input.GetKeyDown(KeyCode.K) && consumablesPanel.activeSelf == true)
+        {
+            closeConsumables = true;
+            openConsumables = false;
+        }
+        if (mainPanel.gameObject.activeSelf && Input.GetKeyDown(KeyCode.K) && consumablesPanel.activeSelf == false)
+        {
+            openConsumables = true;
+            closeConsumables = false;
+        }
+
+
+    }
+
+    private void LateUpdate()
+    {
+        if (openItems == true)
+        {
+            Debug.Log("openI");
             OpenItemsMenu();
+            openItems = false;
         }
-
-
-        if (itemsPanel.activeSelf && Input.GetKeyDown(KeyCode.Semicolon) && itemsPanel.activeSelf == true)
+        else if (closeItems == true)
         {
+            Debug.Log("closeI");
             CloseItemsMenu();
+            closeItems = false;
         }
 
-
-
+        if (openConsumables == true)
+        {
+            Debug.Log("openC");
+            OpenConsumablesMenu();
+            openConsumables = false;
+        }
+        else if (closeConsumables == true)
+        {
+            Debug.Log("closeC");
+            CloseConsumablesMenu();
+            closeConsumables = false;
+        }
 
 
     }
@@ -103,15 +153,26 @@ public class MenuCanvasScript : MonoBehaviour
     public void OpenItemsMenu()
     {
         itemsPanel.SetActive(true);
-        mainPanel.SetActive(true);
-        isActive = false;
+
     }
 
     public void CloseItemsMenu()
     {
-        mainPanel.SetActive(true);
         itemsPanel.SetActive(false);
-        isActive = true;
+
+    }
+
+    public void OpenConsumablesMenu()
+    {
+        consumablesPanel.SetActive(true);
+
+    }
+
+    public void CloseConsumablesMenu()
+    {
+
+        consumablesPanel.SetActive(false);
+
     }
 
 
@@ -132,6 +193,10 @@ public class MenuCanvasScript : MonoBehaviour
         wR1Output.text = PersistantGameManager.Instance.playerWeaponInventory[0].itemRange.ToString();
         wR2Output.text = PersistantGameManager.Instance.playerWeaponInventory[1].itemRange.ToString();
         wR3Output.text = PersistantGameManager.Instance.playerWeaponInventory[2].itemRange.ToString();
+
+        fifthHOutput.text = PersistantGameManager.Instance.amountOfItems["20%H"].ToString();
+        halfHOutput.text = PersistantGameManager.Instance.amountOfItems["50%H"].ToString();
+        fullHOutput.text = PersistantGameManager.Instance.amountOfItems["100%H"].ToString();
 
     }
 

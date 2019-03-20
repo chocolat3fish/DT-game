@@ -189,16 +189,16 @@ public class PlayerControls : MonoBehaviour
             currentJumps++;
         }
 
-        if(Input.GetKeyDown(KeyCode.H) && PersistantGameManager.Instance.ammountOfItems[PersistantGameManager.Instance.equippedItemOne] > 0 && Time.time > (TimeOfItemOneUse + itemOneCooldown))
+        if(Input.GetKeyDown(KeyCode.H) && PersistantGameManager.Instance.amountOfItems[PersistantGameManager.Instance.equippedItemOne] > 0 && Time.time > (TimeOfItemOneUse + itemOneCooldown))
         {
             TimeOfItemOneUse = Time.time;
-            PersistantGameManager.Instance.ammountOfItems[PersistantGameManager.Instance.equippedItemOne] -= 1;
+            PersistantGameManager.Instance.amountOfItems[PersistantGameManager.Instance.equippedItemOne] -= 1;
             UseItem(PersistantGameManager.Instance.equippedItemOne);
         }
-        if (Input.GetKeyDown(KeyCode.H) && PersistantGameManager.Instance.ammountOfItems[PersistantGameManager.Instance.equippedItemTwo] > 0 && Time.time > (TimeOfItemTwoUse + itemTwoCooldown))
+        if (Input.GetKeyDown(KeyCode.H) && PersistantGameManager.Instance.amountOfItems[PersistantGameManager.Instance.equippedItemTwo] > 0 && Time.time > (TimeOfItemTwoUse + itemTwoCooldown))
         {
             TimeOfItemTwoUse = Time.time;
-            PersistantGameManager.Instance.ammountOfItems[PersistantGameManager.Instance.equippedItemTwo] -= 1;
+            PersistantGameManager.Instance.amountOfItems[PersistantGameManager.Instance.equippedItemTwo] -= 1;
             UseItem(PersistantGameManager.Instance.equippedItemTwo);
         }
 
