@@ -187,19 +187,19 @@ public class MenuCanvasScript : MonoBehaviour
 
     private void UpdateData()
     {
-        slot1 = null;
-        slot2 = null;
-        slot3 = null;
-        slot4 = null;
-        slot5 = null;
-        slot6 = null;
+        slot1 = "";
+        slot2 = "";
+        slot3 = "";
+        slot4 = "";
+        slot5 = "";
+        slot6 = "";
 
-        sOneOutput.text = null;
-        sTwoOutput.text = null;
-        sThreeOutput.text = null;
-        sFourOutput.text = null;
-        sFiveOutput.text = null;
-        sSixOutput.text = null;
+        sOneOutput.text = "";
+        sTwoOutput.text = "";
+        sThreeOutput.text = "";
+        sFourOutput.text = "";
+        sFiveOutput.text = "";
+        sSixOutput.text = "";
 
         sW1Output.text = PersistantGameManager.Instance.playerWeaponInventory[0].itemName;
         sW2Output.text = PersistantGameManager.Instance.playerWeaponInventory[1].itemName;
@@ -220,42 +220,42 @@ public class MenuCanvasScript : MonoBehaviour
        // for (int element = 1; element < PersistantGameManager.Instance.possibleItems.Count; element++)
        foreach(string element in PersistantGameManager.Instance.possibleItems)
         {
-            if (slot1 == null)
+            if (slot1 == "")
             {
                 if (PersistantGameManager.Instance.amountOfItems[element] > 0)
                 {
                     slot1 = element;
                 }
             }
-            else if(slot2 == null)
+            else if(slot2 == "")
             {
                 if (PersistantGameManager.Instance.amountOfItems[element] > 0)
                 {
                     slot2 = element;
                 }
             }
-            else if (slot3 == null)
+            else if (slot3 == "")
             {
                 if (PersistantGameManager.Instance.amountOfItems[element] > 0)
                 {
                     slot3 = element;
                 }
             }
-            else if (slot4 == null)
+            else if (slot4 == "")
             {
                 if (PersistantGameManager.Instance.amountOfItems[element] > 0)
                 {
                     slot4 = element;
                 }
             }
-            else if (slot5 == null)
+            else if (slot5 == "")
             {
                 if (PersistantGameManager.Instance.amountOfItems[element] > 0)
                 {
                     slot5 = element;
                 }
             }
-            else if (slot6 == null)
+            else if (slot6 == "")
             {
                 if(PersistantGameManager.Instance.amountOfItems[element] > 0)
                 {
@@ -274,12 +274,36 @@ public class MenuCanvasScript : MonoBehaviour
         sFiveName.text = slot5;
         sSixName.text = slot6;
 
-        sOneOutput.text = PersistantGameManager.Instance.amountOfItems[slot1].ToString();
-        sTwoOutput.text = PersistantGameManager.Instance.amountOfItems[slot2].ToString();
-        sThreeOutput.text = PersistantGameManager.Instance.amountOfItems[slot3].ToString();
-        sFourOutput.text = PersistantGameManager.Instance.amountOfItems[slot4].ToString();
-        sFiveOutput.text = PersistantGameManager.Instance.amountOfItems[slot5].ToString();
-        sSixOutput.text = PersistantGameManager.Instance.amountOfItems[slot6].ToString();
+        if(slot1 != "")
+        {
+            sOneOutput.text = PersistantGameManager.Instance.amountOfItems[slot1].ToString();
+        }
+        else { sOneOutput.text = ""; }
+        if (slot2 != "")
+        {
+            sTwoOutput.text = PersistantGameManager.Instance.amountOfItems[slot2].ToString();
+        }
+        else { sTwoOutput.text = ""; }
+        if (slot3 != "")
+        {
+           sThreeOutput.text = PersistantGameManager.Instance.amountOfItems[slot3].ToString();
+        }
+        else { sThreeOutput.text = ""; }
+        if (slot4 != "")
+        {
+            sFourOutput.text = PersistantGameManager.Instance.amountOfItems[slot4].ToString();
+        }
+        else { sFourOutput.text = ""; }
+        if (slot5 != "")
+        {
+            sFiveOutput.text = PersistantGameManager.Instance.amountOfItems[slot5].ToString();
+        }
+        else { sFiveOutput.text = ""; }
+        if (slot6 != "")
+        {
+            sSixOutput.text = PersistantGameManager.Instance.amountOfItems[slot6].ToString();
+        }
+        else { sSixOutput.text = ""; }
 
     }
 

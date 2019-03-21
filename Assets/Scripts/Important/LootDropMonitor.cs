@@ -78,10 +78,10 @@ public class LootDropMonitor : MonoBehaviour
                 //Tells the script that is needs to wait for the comapre screen to close
                 waitingForChange = true;
             }
-            if (!PersistantGameManager.Instance.compareScreenOpen && compareCanvas.takeEInputForContinue && closestLootDrop == this && type == 1)
+            else if (!PersistantGameManager.Instance.compareScreenOpen && compareCanvas.takeEInputForContinue && closestLootDrop == this && type == 1)
             {
                 //Sets the weapon to compare as the weapon this is storing
-                PersistantGameManager.Instance.amountOfItems[consumable.type] =+ 1;
+                PersistantGameManager.Instance.amountOfItems[consumable.type] += 1;
                 Destroy(gameObject);
             }
         }
