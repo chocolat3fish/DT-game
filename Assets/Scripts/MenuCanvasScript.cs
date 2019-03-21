@@ -17,7 +17,10 @@ public class MenuCanvasScript : MonoBehaviour
     private Text wD1Output, wD2Output, wD3Output;
     private Text wS1Output, wS2Output, wS3Output;
     private Text wR1Output, wR2Output, wR3Output;
-    public Text fullHOutput, halfHOutput, fifthHOutput, fullAOutput, halfAOutput, fifthAOutput;
+    private Text sThreeName, sTwoName, sOneName, sSixName, sFiveName, sFourName;
+    private Text sOneOutput, sTwoOutput, sThreeOutput, sFourOutput, sFiveOutput, sSixOutput;
+
+    private string slot1, slot2, slot3, slot4, slot5, slot6;
 
 
     void Awake()
@@ -26,10 +29,6 @@ public class MenuCanvasScript : MonoBehaviour
         itemsPanel = gameObject.transform.Find("ItemsPanel").gameObject;
         consumablesPanel = gameObject.transform.Find("ConsumablesPanel").gameObject;
 
-        //SW = show weapon
-        //WD = weapon damage
-        //WS = weapon speed
-        //WR = weapon range
 
         sW1Output = itemsPanel.transform.Find("SW1").gameObject.GetComponent<Text>();
         sW2Output = itemsPanel.transform.Find("SW2").gameObject.GetComponent<Text>();
@@ -44,20 +43,22 @@ public class MenuCanvasScript : MonoBehaviour
         wR2Output = itemsPanel.transform.Find("WR2").gameObject.GetComponent<Text>();
         wR3Output = itemsPanel.transform.Find("WR3").gameObject.GetComponent<Text>();
 
-        //fifthH = 20% (one fifth) health
-        //halfH = 50% health
-        //fullH = 100% health
 
-        fifthHOutput = consumablesPanel.transform.Find("20HQ").gameObject.GetComponent<Text>();
-        halfHOutput = consumablesPanel.transform.Find("50HQ").gameObject.GetComponent<Text>();
-        fullHOutput = consumablesPanel.transform.Find("100HQ").gameObject.GetComponent<Text>();
+        sOneName = consumablesPanel.transform.Find("Slot 1").gameObject.GetComponent<Text>();
+        sTwoName = consumablesPanel.transform.Find("Slot 2").gameObject.GetComponent<Text>();
+        sThreeName = consumablesPanel.transform.Find("Slot 3").gameObject.GetComponent<Text>();
 
-        //fifthA = 20% (one fifth) Attack
-        //halfA = 50% Attack
-        //fullA = 100% Attack
-        fifthAOutput = consumablesPanel.transform.Find("20AQ").gameObject.GetComponent<Text>();
-        halfAOutput = consumablesPanel.transform.Find("50AQ").gameObject.GetComponent<Text>();
-        fullAOutput = consumablesPanel.transform.Find("100AQ").gameObject.GetComponent<Text>();
+        sFourName = consumablesPanel.transform.Find("Slot 4").gameObject.GetComponent<Text>();
+        sFiveName = consumablesPanel.transform.Find("Slot 5").gameObject.GetComponent<Text>();
+        sSixName = consumablesPanel.transform.Find("Slot 6").gameObject.GetComponent<Text>();
+
+        sOneOutput = consumablesPanel.transform.Find("Q1").gameObject.GetComponent<Text>();
+        sTwoOutput = consumablesPanel.transform.Find("Q2").gameObject.GetComponent<Text>();
+        sThreeOutput = consumablesPanel.transform.Find("Q3").gameObject.GetComponent<Text>();
+
+        sFourOutput = consumablesPanel.transform.Find("Q4").gameObject.GetComponent<Text>();
+        sFiveOutput = consumablesPanel.transform.Find("Q5").gameObject.GetComponent<Text>();
+        sSixOutput = consumablesPanel.transform.Find("Q6").gameObject.GetComponent<Text>();
 
 
     }
@@ -186,6 +187,20 @@ public class MenuCanvasScript : MonoBehaviour
 
     private void UpdateData()
     {
+        slot1 = null;
+        slot2 = null;
+        slot3 = null;
+        slot4 = null;
+        slot5 = null;
+        slot6 = null;
+
+        sOneOutput.text = null;
+        sTwoOutput.text = null;
+        sThreeOutput.text = null;
+        sFourOutput.text = null;
+        sFiveOutput.text = null;
+        sSixOutput.text = null;
+
         sW1Output.text = PersistantGameManager.Instance.playerWeaponInventory[0].itemName;
         sW2Output.text = PersistantGameManager.Instance.playerWeaponInventory[1].itemName;
         sW3Output.text = PersistantGameManager.Instance.playerWeaponInventory[2].itemName;
@@ -202,13 +217,69 @@ public class MenuCanvasScript : MonoBehaviour
         wR2Output.text = PersistantGameManager.Instance.playerWeaponInventory[1].itemRange.ToString();
         wR3Output.text = PersistantGameManager.Instance.playerWeaponInventory[2].itemRange.ToString();
 
-        fifthHOutput.text = PersistantGameManager.Instance.amountOfItems["20%H"].ToString();
-        halfHOutput.text = PersistantGameManager.Instance.amountOfItems["50%H"].ToString();
-        fullHOutput.text = PersistantGameManager.Instance.amountOfItems["100%H"].ToString();
+       // for (int element = 1; element < PersistantGameManager.Instance.possibleItems.Count; element++)
+       foreach(string element in PersistantGameManager.Instance.possibleItems)
+        {
+            if (slot1 == null)
+            {
+                if (PersistantGameManager.Instance.amountOfItems[element] > 0)
+                {
+                    slot1 = element;
+                }
+            }
+            else if(slot2 == null)
+            {
+                if (PersistantGameManager.Instance.amountOfItems[element] > 0)
+                {
+                    slot2 = element;
+                }
+            }
+            else if (slot3 == null)
+            {
+                if (PersistantGameManager.Instance.amountOfItems[element] > 0)
+                {
+                    slot3 = element;
+                }
+            }
+            else if (slot4 == null)
+            {
+                if (PersistantGameManager.Instance.amountOfItems[element] > 0)
+                {
+                    slot4 = element;
+                }
+            }
+            else if (slot5 == null)
+            {
+                if (PersistantGameManager.Instance.amountOfItems[element] > 0)
+                {
+                    slot5 = element;
+                }
+            }
+            else if (slot6 == null)
+            {
+                if(PersistantGameManager.Instance.amountOfItems[element] > 0)
+                {
+                    slot6 = element;
+                }
 
-        fifthAOutput.text = PersistantGameManager.Instance.amountOfItems["20%A"].ToString();
-        halfAOutput.text = PersistantGameManager.Instance.amountOfItems["50%A"].ToString();
-        fullAOutput.text = PersistantGameManager.Instance.amountOfItems["100%A"].ToString();
+            }
+
+        }
+
+        sOneName.text = slot1;
+        sTwoName.text = slot2;
+        sThreeName.text = slot3;
+
+        sFourName.text = slot4;
+        sFiveName.text = slot5;
+        sSixName.text = slot6;
+
+        sOneOutput.text = PersistantGameManager.Instance.amountOfItems[slot1].ToString();
+        sTwoOutput.text = PersistantGameManager.Instance.amountOfItems[slot2].ToString();
+        sThreeOutput.text = PersistantGameManager.Instance.amountOfItems[slot3].ToString();
+        sFourOutput.text = PersistantGameManager.Instance.amountOfItems[slot4].ToString();
+        sFiveOutput.text = PersistantGameManager.Instance.amountOfItems[slot5].ToString();
+        sSixOutput.text = PersistantGameManager.Instance.amountOfItems[slot6].ToString();
 
     }
 

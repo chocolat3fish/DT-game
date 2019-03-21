@@ -182,10 +182,9 @@ public class EnemyMonitor : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("Trigger");
         if (collision.gameObject == player)
         {
-            if ((Time.timeScale) != 0f)
+            if (Time.timeScale != 0f)
             {
                 Debug.Log("yes");
                 //calculates how much damage to apply to the character

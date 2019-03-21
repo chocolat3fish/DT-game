@@ -13,15 +13,17 @@ public class PersistantGameManager : MonoBehaviour
     public int previousIndex = 0;
     public Weapon currentWeapon;
     public List<Weapon> playerWeaponInventory = new List<Weapon>();
-    public Dictionary<string, int>amountOfItems = new Dictionary<string, int>()
+    public Dictionary<string, int>amountOfItems = new Dictionary<string, int>
     {
-        {"20%H", 0},
+        {"20%H", 1},
         {"50%H", 0},
         {"100%H", 2},
         {"20%A", 0},
-        {"50%A", 0},
+        {"50%A", 3},
         {"100%A", 2}
     };
+    public List<string> possibleItems = new List<string> { "20%H", "50%H", "100%H", "20%A", "50%A", "100%A" };
+
     public bool potionIsActive;
     public string activePotionType;
     public float currentAttackMultiplier = 1;
