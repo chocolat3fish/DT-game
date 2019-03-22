@@ -16,7 +16,13 @@ public class DetectorSensors : MonoBehaviour
         {
             EnemyMonitor enemy = collision.gameObject.GetComponent<EnemyMonitor>();
             float newPlayerDamage = player.CalculatePlayerDamage();
+            float playerHealthSteal = player.CalculatePlayerHealing();
             enemy.currentHealth -= newPlayerDamage;
+            player.currentHealth += playerHealthSteal;
+            if (player.currentHealth > player.totalHealth)
+            {
+                player.currentHealth = player.totalHealth;
+            }
         }
 
     }

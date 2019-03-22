@@ -63,7 +63,7 @@ public class PlayerControls : MonoBehaviour
         leftDetector = gameObject.transform.Find("Left Detector").GetComponent<BoxCollider2D>();
         rightDetector = gameObject.transform.Find("Right Detector").GetComponent<BoxCollider2D>();
         EnemyMonitor[] enemyColliders = FindObjectsOfType<EnemyMonitor>();
-        foreach(EnemyMonitor m in enemyColliders)
+        foreach (EnemyMonitor m in enemyColliders)
         {
             Physics2D.IgnoreCollision(gameObject.GetComponent<BoxCollider2D>(), m.GetComponent<BoxCollider2D>());
         }
@@ -189,7 +189,7 @@ public class PlayerControls : MonoBehaviour
             currentJumps++;
         }
 
-        if(Input.GetKeyDown(KeyCode.H) && PersistantGameManager.Instance.amountOfItems[PersistantGameManager.Instance.equippedItemOne] > 0 && Time.time > (TimeOfItemOneUse + itemOneCooldown))
+        if (Input.GetKeyDown(KeyCode.H) && PersistantGameManager.Instance.amountOfItems[PersistantGameManager.Instance.equippedItemOne] > 0 && Time.time > (TimeOfItemOneUse + itemOneCooldown))
         {
             TimeOfItemOneUse = Time.time;
             UseItem(PersistantGameManager.Instance.equippedItemOne);
@@ -211,7 +211,7 @@ public class PlayerControls : MonoBehaviour
     //detects if player hits ground, which re enables ability to jump
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.tag == "Floor")
+        if (collision.gameObject.tag == "Floor")
         {
             canJump = true;
             shouldJump = false;
@@ -220,7 +220,7 @@ public class PlayerControls : MonoBehaviour
             animator.SetBool("IsJumping", false);
 
         }
-        else if(collision.gameObject.tag == "Wall" && PersistantGameManager.Instance.gripWalls)
+        else if (collision.gameObject.tag == "Wall" && PersistantGameManager.Instance.gripWalls)
         {
             collision.collider.sharedMaterial = (PhysicsMaterial2D)Resources.Load("PhysicsMaterials/WallGrippy");
             canJump = true;
@@ -230,14 +230,14 @@ public class PlayerControls : MonoBehaviour
             animator.SetBool("IsJumping", false);
 
         }
-        else if(collision.gameObject.tag == "Wall" && !PersistantGameManager.Instance.gripWalls)
+        else if (collision.gameObject.tag == "Wall" && !PersistantGameManager.Instance.gripWalls)
         {
             collision.collider.sharedMaterial = (PhysicsMaterial2D)Resources.Load("PhysicsMaterials/WallSlippery");
             shouldJump = false;
-            
+
         }
-        
-        
+
+
 
 
     }
@@ -291,6 +291,10 @@ public class PlayerControls : MonoBehaviour
         }
     }
 
+    public float CalculatePlayerHealing()
+    {
+        return playerDamage * PersistantGameManager.Instance.currentLeechMultiplier;
+    }
 
 
     public float CalculatePlayerDamage()
@@ -304,7 +308,6 @@ public class PlayerControls : MonoBehaviour
             float timeSinceAttack = Time.time - timeOfAttack;
             if (timeSinceAttack > attackSpeed)
             {
-                timeOfAttack = Time.time;
                 return playerDamage * 1.2f * PersistantGameManager.Instance.currentAttackMultiplier;
             }
             float newPlayerDamage = playerDamage * (timeSinceAttack / attackSpeed);
@@ -396,6 +399,44 @@ public class PlayerControls : MonoBehaviour
                 PersistantGameManager.Instance.currentAttackMultiplier = 2;
                 PersistantGameManager.Instance.timeOfAttackMultiplierChange = Time.time;
                 PersistantGameManager.Instance.amountOfItems["100%A"] -= 1;
+                PersistantGameManager.Instance.potionCoolDownTime = 30;
+
+            }
+        }
+
+        if (type == "20%L" && Time.timeScale != 0)
+        {
+            if (!PersistantGameManager.Instance.potionIsActive)
+            {
+                PersistantGameManager.Instance.activePotionType = "Leech";
+                PersistantGameManager.Instance.potionIsActive = true;
+                PersistantGameManager.Instance.currentLeechMultiplier = 0.2f;
+                PersistantGameManager.Instance.timeOfLeechMultiplierChange = Time.time;
+                PersistantGameManager.Instance.amountOfItems["20%L"] -= 1;
+                PersistantGameManager.Instance.potionCoolDownTime = 30;
+            }
+        }
+        else if (type == "50%L" && Time.timeScale != 0)
+        {
+            if (!PersistantGameManager.Instance.potionIsActive)
+            {
+                PersistantGameManager.Instance.activePotionType = "Leech";
+                PersistantGameManager.Instance.potionIsActive = true;
+                PersistantGameManager.Instance.currentLeechMultiplier = 0.5f;
+                PersistantGameManager.Instance.timeOfLeechMultiplierChange = Time.time;
+                PersistantGameManager.Instance.amountOfItems["50%L"] -= 1;
+                PersistantGameManager.Instance.potionCoolDownTime = 30;
+            }
+        }
+        else if (type == "100%L" && Time.timeScale != 0)
+        {
+            if (!PersistantGameManager.Instance.potionIsActive)
+            {
+                PersistantGameManager.Instance.activePotionType = "Leech";
+                PersistantGameManager.Instance.potionIsActive = true;
+                PersistantGameManager.Instance.currentLeechMultiplier = 1;
+                PersistantGameManager.Instance.timeOfLeechMultiplierChange = Time.time;
+                PersistantGameManager.Instance.amountOfItems["100%L"] -= 1;
                 PersistantGameManager.Instance.potionCoolDownTime = 30;
 
             }

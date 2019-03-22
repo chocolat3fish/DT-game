@@ -20,14 +20,19 @@ public class PersistantGameManager : MonoBehaviour
         {"100%H", 2},
         {"20%A", 0},
         {"50%A", 3},
-        {"100%A", 2}
+        {"100%A", 0},
+        {"20%L", 3},
+        {"50%L", 4},
+        {"100%L", 1}
     };
-    public List<string> possibleItems = new List<string> { "20%H", "50%H", "100%H", "20%A", "50%A", "100%A" };
+    public List<string> possibleItems = new List<string> { "20%H", "50%H", "100%H", "20%A", "50%A", "100%A", "20%L", "50%L", "100%L"};
 
     public bool potionIsActive;
     public string activePotionType;
     public float currentAttackMultiplier = 1;
+    public float currentLeechMultiplier = 0;
     public float timeOfAttackMultiplierChange;
+    public float timeOfLeechMultiplierChange;
     public float healthPotionUseTime;
     public float potionCoolDownTime;
     public bool compareScreenOpen;
@@ -93,6 +98,12 @@ public class PersistantGameManager : MonoBehaviour
             potionIsActive = false;
 
         }
+        if (Time.time > timeOfLeechMultiplierChange + 30)
+        {
+            currentLeechMultiplier = 0;
+            potionIsActive = false;
+
+        }
 
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
@@ -111,15 +122,15 @@ public class PersistantGameManager : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Z))
         {
-            equippedItemOne = "20%H";
+            equippedItemOne = "20%L";
         }
         else if (Input.GetKeyDown(KeyCode.X))
         {
-            equippedItemOne = "50%H";
+            equippedItemOne = "50%L";
         }
         if (Input.GetKeyDown(KeyCode.C))
         {
-            equippedItemOne = "100%H";
+            equippedItemOne = "100%L";
         }
         if (Input.GetKeyDown(KeyCode.B))
         {

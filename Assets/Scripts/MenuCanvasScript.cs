@@ -17,10 +17,10 @@ public class MenuCanvasScript : MonoBehaviour
     private Text wD1Output, wD2Output, wD3Output;
     private Text wS1Output, wS2Output, wS3Output;
     private Text wR1Output, wR2Output, wR3Output;
-    private Text sThreeName, sTwoName, sOneName, sSixName, sFiveName, sFourName;
-    private Text sOneOutput, sTwoOutput, sThreeOutput, sFourOutput, sFiveOutput, sSixOutput;
+    private Text sThreeName, sTwoName, sOneName, sSixName, sFiveName, sFourName, sSevenName, sEightName, sNineName;
+    private Text sOneOutput, sTwoOutput, sThreeOutput, sFourOutput, sFiveOutput, sSixOutput, sSevenOutput, sEightOutput, sNineOutput;
 
-    private string slot1, slot2, slot3, slot4, slot5, slot6;
+    private string slot1, slot2, slot3, slot4, slot5, slot6, slot7, slot8, slot9;
 
 
     void Awake()
@@ -52,6 +52,10 @@ public class MenuCanvasScript : MonoBehaviour
         sFiveName = consumablesPanel.transform.Find("Slot 5").gameObject.GetComponent<Text>();
         sSixName = consumablesPanel.transform.Find("Slot 6").gameObject.GetComponent<Text>();
 
+        sSevenName = consumablesPanel.transform.Find("Slot 7").gameObject.GetComponent<Text>();
+        sEightName = consumablesPanel.transform.Find("Slot 8").gameObject.GetComponent<Text>();
+        sNineName = consumablesPanel.transform.Find("Slot 9").gameObject.GetComponent<Text>();
+
         sOneOutput = consumablesPanel.transform.Find("Q1").gameObject.GetComponent<Text>();
         sTwoOutput = consumablesPanel.transform.Find("Q2").gameObject.GetComponent<Text>();
         sThreeOutput = consumablesPanel.transform.Find("Q3").gameObject.GetComponent<Text>();
@@ -59,6 +63,10 @@ public class MenuCanvasScript : MonoBehaviour
         sFourOutput = consumablesPanel.transform.Find("Q4").gameObject.GetComponent<Text>();
         sFiveOutput = consumablesPanel.transform.Find("Q5").gameObject.GetComponent<Text>();
         sSixOutput = consumablesPanel.transform.Find("Q6").gameObject.GetComponent<Text>();
+
+        sSevenOutput = consumablesPanel.transform.Find("Q7").gameObject.GetComponent<Text>();
+        sEightOutput = consumablesPanel.transform.Find("Q8").gameObject.GetComponent<Text>();
+        sNineOutput = consumablesPanel.transform.Find("Q9").gameObject.GetComponent<Text>();
 
 
     }
@@ -193,6 +201,9 @@ public class MenuCanvasScript : MonoBehaviour
         slot4 = "";
         slot5 = "";
         slot6 = "";
+        slot7 = "";
+        slot8 = "";
+        slot9 = "";
 
         sOneOutput.text = "";
         sTwoOutput.text = "";
@@ -200,6 +211,9 @@ public class MenuCanvasScript : MonoBehaviour
         sFourOutput.text = "";
         sFiveOutput.text = "";
         sSixOutput.text = "";
+        sSevenOutput.text = "";
+        sEightOutput.text = "";
+        sNineOutput.text = "";
 
         sW1Output.text = PersistantGameManager.Instance.playerWeaponInventory[0].itemName;
         sW2Output.text = PersistantGameManager.Instance.playerWeaponInventory[1].itemName;
@@ -263,6 +277,30 @@ public class MenuCanvasScript : MonoBehaviour
                 }
 
             }
+            else if (slot7 == "")
+            {
+                if (PersistantGameManager.Instance.amountOfItems[element] > 0)
+                {
+                    slot7 = element;
+                }
+
+            }
+            else if (slot8 == "")
+            {
+                if (PersistantGameManager.Instance.amountOfItems[element] > 0)
+                {
+                    slot8 = element;
+                }
+
+            }
+            else if (slot9 == "")
+            {
+                if (PersistantGameManager.Instance.amountOfItems[element] > 0)
+                {
+                    slot9 = element;
+                }
+
+            }
 
         }
 
@@ -274,36 +312,67 @@ public class MenuCanvasScript : MonoBehaviour
         sFiveName.text = slot5;
         sSixName.text = slot6;
 
-        if(slot1 != "")
+        sSevenName.text = slot7;
+        sEightName.text = slot8;
+        sNineName.text = slot9;
+
+
+
+        if (slot1 != "")
         {
             sOneOutput.text = PersistantGameManager.Instance.amountOfItems[slot1].ToString();
         }
         else { sOneOutput.text = ""; }
+
         if (slot2 != "")
         {
             sTwoOutput.text = PersistantGameManager.Instance.amountOfItems[slot2].ToString();
         }
         else { sTwoOutput.text = ""; }
+
         if (slot3 != "")
         {
            sThreeOutput.text = PersistantGameManager.Instance.amountOfItems[slot3].ToString();
         }
         else { sThreeOutput.text = ""; }
+
         if (slot4 != "")
         {
             sFourOutput.text = PersistantGameManager.Instance.amountOfItems[slot4].ToString();
         }
         else { sFourOutput.text = ""; }
+
         if (slot5 != "")
         {
             sFiveOutput.text = PersistantGameManager.Instance.amountOfItems[slot5].ToString();
         }
         else { sFiveOutput.text = ""; }
+
         if (slot6 != "")
         {
             sSixOutput.text = PersistantGameManager.Instance.amountOfItems[slot6].ToString();
         }
         else { sSixOutput.text = ""; }
+
+        if (slot7 != "")
+        {
+            sSevenOutput.text = PersistantGameManager.Instance.amountOfItems[slot7].ToString();
+        }
+        else { sSevenOutput.text = ""; }
+
+        if (slot8 != "")
+        {
+            sEightOutput.text = PersistantGameManager.Instance.amountOfItems[slot8].ToString();
+        }
+        else { sEightOutput.text = ""; }
+
+        if (slot9 != "")
+        {
+            sNineOutput.text = PersistantGameManager.Instance.amountOfItems[slot9].ToString();
+        }
+        else { sNineOutput.text = ""; }
+
+
 
     }
 
