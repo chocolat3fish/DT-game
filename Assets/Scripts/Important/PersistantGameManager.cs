@@ -92,13 +92,13 @@ public class PersistantGameManager : MonoBehaviour
     }
     void Update()
     {
-        if(Time.time > timeOfAttackMultiplierChange + 30)
+        if(Time.time > timeOfAttackMultiplierChange + 30 && activePotionType == "Attack")
         {
             currentAttackMultiplier = 1;
             potionIsActive = false;
 
         }
-        if (Time.time > timeOfLeechMultiplierChange + 30)
+        if (Time.time > timeOfLeechMultiplierChange + 30 && activePotionType == "Leech")
         {
             currentLeechMultiplier = 0;
             potionIsActive = false;
