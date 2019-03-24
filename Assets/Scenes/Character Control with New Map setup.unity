@@ -1944,13 +1944,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fdd4c612d7c540c88b4b61d472da602, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectile: 0
+  projectile: 1
   patrol: 1
   patrolPoints: []
   moveSpeed: 1
-  shootSpeed: 0
-  range: 0
-  projectileSpeed: 0
+  shootSpeed: 1
+  range: 10
+  projectileSpeed: 7.5
+  projectileDamage: 1
 --- !u!4 &258561756
 Transform:
   m_ObjectHideFlags: 0
@@ -2004,6 +2005,7 @@ MonoBehaviour:
   shootSpeed: 1
   range: 10
   projectileSpeed: 7.5
+  projectileDamage: 0
 --- !u!224 &265776208
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5178,6 +5180,7 @@ MonoBehaviour:
   shootSpeed: 1
   range: 10
   projectileSpeed: 7.5
+  projectileDamage: 0
 --- !u!224 &780271023
 RectTransform:
   m_ObjectHideFlags: 0
@@ -11070,7 +11073,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 236.5, y: 10}
+  m_AnchoredPosition: {x: 242, y: 10}
   m_SizeDelta: {x: -734.7, y: -191.9}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1465233215
@@ -12489,7 +12492,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 327, y: 11}
+  m_AnchoredPosition: {x: 333, y: 11}
   m_SizeDelta: {x: -717.9, y: -191.9}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1576240085
@@ -13014,8 +13017,6 @@ MonoBehaviour:
   - 50%A
   - 100%A
   - 20%L
-  - 50%L
-  - 100%L
   potionIsActive: 0
   activePotionType: 
   currentAttackMultiplier: 1
@@ -13053,8 +13054,8 @@ MonoBehaviour:
   checkExp: 0
   currentScene: 
   totalExperience: 300
-  equippedItemOne: 20%H
-  equippedItemTwo: 20%A
+  equippedItemOne: Empty
+  equippedItemTwo: Empty
 --- !u!4 &1645279220
 Transform:
   m_ObjectHideFlags: 0

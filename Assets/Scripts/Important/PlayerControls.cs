@@ -345,6 +345,7 @@ public class PlayerControls : MonoBehaviour
                 PersistantGameManager.Instance.healthPotionUseTime = Time.time;
             
         }
+
         else if (type == "50%H" && Time.timeScale != 0 && PersistantGameManager.Instance.player.currentHealth != PersistantGameManager.Instance.player.totalHealth)
         {
 
@@ -417,6 +418,7 @@ public class PlayerControls : MonoBehaviour
                 PersistantGameManager.Instance.potionCoolDownTime = 30;
             }
         }
+        /*
         else if (type == "50%L" && Time.timeScale != 0)
         {
             if (!PersistantGameManager.Instance.potionIsActive)
@@ -442,6 +444,7 @@ public class PlayerControls : MonoBehaviour
 
             }
         }
+        */
 
     }
 }

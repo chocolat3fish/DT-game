@@ -14,6 +14,7 @@ public class EnemyAttacks : MonoBehaviour
     private float timeOfShot;
     public float range;
     public float projectileSpeed;
+    public float projectileDamage;
     void Awake()
     {
         enemy = gameObject.transform.Find("Enemy").gameObject;
@@ -48,11 +49,12 @@ public class EnemyAttacks : MonoBehaviour
 
     private void Fire()
     {
-        GameObject bullet = Instantiate((GameObject)Resources.Load("Bullet"), transform.position, Quaternion.identity);
+        GameObject bullet = Instantiate((GameObject)Resources.Load("Bullet"), enemy.transform.position, Quaternion.identity);
         BulletController bulletStats = bullet.GetComponent<BulletController>();
         bulletStats.range = range;
         bulletStats.speed = projectileSpeed;
         bulletStats.enemyWhoFiredThis = enemy;
+        bulletStats.damage = projectileDamage;
     }
 
 
