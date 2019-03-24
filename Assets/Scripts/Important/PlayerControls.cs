@@ -308,6 +308,7 @@ public class PlayerControls : MonoBehaviour
             float timeSinceAttack = Time.time - timeOfAttack;
             if (timeSinceAttack > attackSpeed)
             {
+                timeOfAttack = Time.time;
                 return playerDamage * 1.2f * PersistantGameManager.Instance.currentAttackMultiplier;
             }
             float newPlayerDamage = playerDamage * (timeSinceAttack / attackSpeed);

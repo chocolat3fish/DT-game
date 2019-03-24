@@ -122,7 +122,7 @@ public class EnemyMonitor : MonoBehaviour
         GiveExp(xpEarnings);
 
         //Kills the enemy
-        if (transform.parent != null && transform.parent.GetComponent<EnemyAttacks>().patrol == true)
+        if (transform.parent != null)
         {
             Destroy(transform.parent.gameObject);
         }

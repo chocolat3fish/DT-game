@@ -9,13 +9,16 @@ public class EnemyAttacks : MonoBehaviour
     public List<Transform> patrolPoints = new List<Transform>();
     private int currentPointIndex;
     public float moveSpeed;
-    public GameObject enemy;
-    private int waitTime;
+    private GameObject enemy;
+    public float shootSpeed;
+    private float timeOfShot;
+    public float range;
+    public float projectileSpeed;
     void Awake()
     {
         enemy = gameObject.transform.Find("Enemy").gameObject;
         if (patrol)
-        {
+        { 
             patrolPoints.Add(gameObject.transform.Find("Point 1"));
             patrolPoints.Add(gameObject.transform.Find("Point 2"));
         }
@@ -33,7 +36,23 @@ public class EnemyAttacks : MonoBehaviour
                 else if (currentPointIndex == 1) { currentPointIndex = 0; }
             }
         }
+        if(projectile)
+        {
+            if(Time.time > timeOfShot + shootSpeed)
+            {
+                Fire();
+                timeOfShot = Time.time;
+            }
+        }
+    }
 
+    private void Fire()
+    {
+        GameObject bullet = Instantiate((GameObject)Resources.Load("Bullet"), transform.position, Quaternion.identity);
+        BulletController bulletStats = bullet.GetComponent<BulletController>();
+        bulletStats.range = range;
+        bulletStats.speed = projectileSpeed;
+        bulletStats.enemyWhoFiredThis = enemy;
     }
 
 
