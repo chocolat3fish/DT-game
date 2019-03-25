@@ -22,6 +22,7 @@ public class MenuCanvasScript : MonoBehaviour
 
     private string slot1, slot2, slot3, slot4, slot5, slot6, slot7, slot8, slot9;
 
+    public int index;
 
     void Awake()
     {
@@ -133,6 +134,53 @@ public class MenuCanvasScript : MonoBehaviour
             closeConsumables = false;
         }
 
+        if (Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            int startIndex = index;
+            index -= 1;
+            while (true)
+            {
+                index -= 1;
+                if (index < 0)
+                {
+                    index = startIndex;
+                    break;
+                }
+                if (PersistantGameManager.Instance.amountOfItems[PersistantGameManager.Instance.possibleItems[index]] > 0)
+                {
+                    break;
+                }
+            }
+
+
+            UpdateData();
+        }
+
+        if (Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            int startIndex = index;
+            while(true)
+            {
+                index += 1;
+                if(index > PersistantGameManager.Instance.possibleItems.Count - 1)
+                {
+                    index = startIndex;
+                    break;
+                }
+                if(PersistantGameManager.Instance.amountOfItems[PersistantGameManager.Instance.possibleItems[index]] > 0)
+                {
+                    break;
+                }
+            }
+
+
+            UpdateData();
+        }
+        if(Input.GetKeyDown(KeyCode.T))
+        {
+            index = 0;
+            UpdateData();
+        }
 
     }
 
@@ -181,6 +229,7 @@ public class MenuCanvasScript : MonoBehaviour
 
     public void OpenConsumablesMenu()
     {
+        index = 0;
         consumablesPanel.SetActive(true);
 
     }
@@ -219,6 +268,25 @@ public class MenuCanvasScript : MonoBehaviour
         sW2Output.text = PersistantGameManager.Instance.playerWeaponInventory[1].itemName;
         sW3Output.text = PersistantGameManager.Instance.playerWeaponInventory[2].itemName;
 
+        if(PersistantGameManager.Instance.currentWeapon.itemName == sW1Output.text)
+        {
+            sW1Output.fontStyle = FontStyle.Bold;
+            sW2Output.fontStyle = FontStyle.Normal;
+            sW3Output.fontStyle = FontStyle.Normal;
+        }
+        else if(PersistantGameManager.Instance.currentWeapon.itemName == sW2Output.text)
+        {
+            sW1Output.fontStyle = FontStyle.Normal;
+            sW2Output.fontStyle = FontStyle.Bold;
+            sW3Output.fontStyle = FontStyle.Normal;
+        }
+        else if (PersistantGameManager.Instance.currentWeapon.itemName == sW3Output.text)
+        {
+            sW1Output.fontStyle = FontStyle.Normal;
+            sW2Output.fontStyle = FontStyle.Normal;
+            sW3Output.fontStyle = FontStyle.Bold;
+        }
+
         wD1Output.text = PersistantGameManager.Instance.playerWeaponInventory[0].itemDamage.ToString();
         wD2Output.text = PersistantGameManager.Instance.playerWeaponInventory[1].itemDamage.ToString();
         wD3Output.text = PersistantGameManager.Instance.playerWeaponInventory[2].itemDamage.ToString();
@@ -234,6 +302,11 @@ public class MenuCanvasScript : MonoBehaviour
        // for (int element = 1; element < PersistantGameManager.Instance.possibleItems.Count; element++)
        foreach(string element in PersistantGameManager.Instance.possibleItems)
         {
+            if(index > PersistantGameManager.Instance.possibleItems.IndexOf(element))
+            {
+                continue;
+            }
+
             if (slot1 == "")
             {
                 if (PersistantGameManager.Instance.amountOfItems[element] > 0)
