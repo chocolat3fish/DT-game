@@ -7,6 +7,7 @@ public class BulletController : MonoBehaviour
     private GameObject player;
     public float range;
     public float speed;
+    public float damage;
     public GameObject enemyWhoFiredThis;
 
     private void Awake()
@@ -38,7 +39,7 @@ public class BulletController : MonoBehaviour
             {
 
                 //calculates how much damage to apply to the character
-                float enemyAtackDamage = enemyWhoFiredThis.GetComponent<EnemyMonitor>().enemyStats.enemyDamage - player.GetComponent<PlayerControls>().defence;
+                float enemyAtackDamage = damage - player.GetComponent<PlayerControls>().defence;
 
                 // if the players defence cancels out the enemys attack to much i.e. making it negative sets the damage to 0.1
                 if (enemyAtackDamage < 0.1)

@@ -17,15 +17,14 @@ public class PersistantGameManager : MonoBehaviour
     {
         {"20%H", 1},
         {"50%H", 0},
-        {"100%H", 2},
+        {"100%H", 0},
         {"20%A", 0},
-        {"50%A", 3},
+        {"50%A", 0},
         {"100%A", 0},
-        {"20%L", 3},
-        {"50%L", 4},
-        {"100%L", 1}
+        {"20%L", 1},
+        {"Empty", 0}
     };
-    public List<string> possibleItems = new List<string> { "20%H", "50%H", "100%H", "20%A", "50%A", "100%A", "20%L", "50%L", "100%L"};
+    public List<string> possibleItems = new List<string> { "20%H", "50%H", "100%H", "20%A", "50%A", "100%A", "20%L"};
 
     public bool potionIsActive;
     public string activePotionType;
@@ -58,6 +57,9 @@ public class PersistantGameManager : MonoBehaviour
     public float totalExperience;
 
     public string equippedItemOne, equippedItemTwo;
+
+    private int currentItemOneIndex, currentItemTwoIndex;
+    private bool changeItemOne, changeItemTwo;
 
 
     private void Awake()
@@ -120,47 +122,32 @@ public class PersistantGameManager : MonoBehaviour
             currentIndex = 2;
             ChangeItem(currentIndex);
         }
+
         if (Input.GetKeyDown(KeyCode.Z))
         {
-            equippedItemOne = "20%L";
+            changeItemOne = true;
         }
         else if (Input.GetKeyDown(KeyCode.X))
         {
-            equippedItemOne = "50%L";
-        }
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            equippedItemOne = "100%L";
-        }
-        if (Input.GetKeyDown(KeyCode.B))
-        {
-            equippedItemTwo = "20%A";
-        }
-        if (Input.GetKeyDown(KeyCode.N))
-        {
-            equippedItemTwo = "50%A";
-        }
-        if (Input.GetKeyDown(KeyCode.M))
-        {
-            equippedItemTwo = "100%A";
+            changeItemTwo = true;
         }
 
-        //Shortened to 3 items
-        /*
-        else if (Input.GetKeyDown(KeyCode.Alpha4))
-        {
-            currentIndex = 3;
-            ChangeItem(currentIndex);
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha5))
-        {
-            currentIndex = 4;
-            ChangeItem(currentIndex);
-        }
-        */
+            //Shortened to 3 items
+            /*
+            else if (Input.GetKeyDown(KeyCode.Alpha4))
+            {
+                currentIndex = 3;
+                ChangeItem(currentIndex);
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha5))
+            {
+                currentIndex = 4;
+                ChangeItem(currentIndex);
+            }
+            */
 
-        //Hides the magic cooldown if player has not unlocked any magic skills
-        if (hasMagic == true)
+            //Hides the magic cooldown if player has not unlocked any magic skills
+            if (hasMagic == true)
         {
             magicBar.SetActive(true);
         }
@@ -204,6 +191,93 @@ public class PersistantGameManager : MonoBehaviour
         }
 
     }
+
+    private void FixedUpdate()
+    {
+        if (changeItemOne == true)
+        {
+            int startingIndex = currentItemOneIndex;
+            currentItemOneIndex += 1;
+            bool itemFound = false;
+
+            while (itemFound == false)
+            {
+                if (currentItemOneIndex >= possibleItems.Count)
+                {
+                    currentItemOneIndex = 0;
+                }
+                if (currentItemOneIndex == startingIndex)
+                {
+                    if (amountOfItems[possibleItems[startingIndex]] > 0)
+                    {
+                        equippedItemOne = possibleItems[startingIndex];
+                    }
+                    else
+                    {
+                        equippedItemOne = "Empty";
+                    }
+                    changeItemOne = false;
+                    itemFound = true;
+                    break;
+
+                }
+                if (amountOfItems[possibleItems[currentItemOneIndex]] > 0)
+                {
+                    equippedItemOne = possibleItems[currentItemOneIndex];
+                    changeItemOne = false;
+                    itemFound = true;
+                }
+                else
+                {
+                    currentItemOneIndex += 1;
+                }
+
+            }
+
+        }
+
+        if (changeItemTwo == true)
+        {
+            int startingIndex = currentItemTwoIndex;
+            currentItemTwoIndex += 1;
+            bool itemFound = false;
+
+            while (itemFound == false)
+            {
+                if (currentItemTwoIndex >= possibleItems.Count)
+                {
+                    currentItemTwoIndex = 0;
+                }
+                if (currentItemTwoIndex == startingIndex)
+                {
+                    if(amountOfItems[possibleItems[startingIndex]] > 0)
+                    {
+                        equippedItemTwo = possibleItems[startingIndex];
+                    }
+                    else
+                    {
+                        equippedItemTwo = "Empty";
+                    }
+
+                    changeItemTwo = false;
+                    itemFound = true;
+                    break;
+                }
+                if (amountOfItems[possibleItems[currentItemTwoIndex]] > 0)
+                {
+                    equippedItemTwo = possibleItems[currentItemTwoIndex];
+                    changeItemTwo = false;
+                    itemFound = true;
+                }
+                else
+                {
+                    currentItemTwoIndex += 1;
+                }
+
+            }
+        }
+    }
+
     public void ChangeItem(int index)
     {
         if(index == 99)

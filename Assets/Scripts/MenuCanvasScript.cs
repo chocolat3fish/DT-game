@@ -85,7 +85,7 @@ public class MenuCanvasScript : MonoBehaviour
     }
 
     void Update()
-    { 
+    {
         if (Input.GetKeyDown(KeyCode.Tab) && isActive == false && PersistantGameManager.Instance.characterScreenOpen == false && PersistantGameManager.Instance.compareScreenOpen == false)
         {
             mainPanel.SetActive(true);
@@ -377,6 +377,8 @@ public class MenuCanvasScript : MonoBehaviour
 
         }
 
+
+
         sOneName.text = slot1;
         sTwoName.text = slot2;
         sThreeName.text = slot3;
@@ -390,12 +392,15 @@ public class MenuCanvasScript : MonoBehaviour
         sNineName.text = slot9;
 
 
-
         if (slot1 != "")
         {
             sOneOutput.text = PersistantGameManager.Instance.amountOfItems[slot1].ToString();
         }
-        else { sOneOutput.text = ""; }
+        else
+        {
+            sOneName.text = "No Items";
+            sOneOutput.text = "";
+        }
 
         if (slot2 != "")
         {

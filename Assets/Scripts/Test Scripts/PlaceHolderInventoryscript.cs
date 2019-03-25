@@ -91,11 +91,21 @@ public class PlaceHolderInventoryscript : MonoBehaviour
 
             case 15:
                 //left item + number of that item, uncomment when ready
+                if(PersistantGameManager.Instance.equippedItemOne == "Empty")
+                {
+                    output.text = "No items";
+                    break;
+                }
                 output.text = PersistantGameManager.Instance.equippedItemOne + " x " + PersistantGameManager.Instance.amountOfItems[PersistantGameManager.Instance.equippedItemOne] + " (H)";
                 break;
 
             case 16:
                 //right item + number of that item, uncomment when ready
+                if (PersistantGameManager.Instance.equippedItemTwo == "Empty")
+                {
+                    output.text = "No items";
+                    break;
+                }
                 output.text = PersistantGameManager.Instance.equippedItemTwo + " x " + PersistantGameManager.Instance.amountOfItems[PersistantGameManager.Instance.equippedItemTwo] + " (J)";
                 break;
             case 17:
