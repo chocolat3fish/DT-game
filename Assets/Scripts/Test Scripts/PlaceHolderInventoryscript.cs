@@ -96,7 +96,7 @@ public class PlaceHolderInventoryscript : MonoBehaviour
                     output.text = "No items";
                     break;
                 }
-                output.text = PersistantGameManager.Instance.equippedItemOne + " x " + PersistantGameManager.Instance.amountOfItems[PersistantGameManager.Instance.equippedItemOne] + " (H)";
+                output.text = PersistantGameManager.Instance.equippedItemOne + " x " + PersistantGameManager.Instance.amountOfConsumables[PersistantGameManager.Instance.equippedItemOne] + " (H)";
                 break;
 
             case 16:
@@ -106,7 +106,7 @@ public class PlaceHolderInventoryscript : MonoBehaviour
                     output.text = "No items";
                     break;
                 }
-                output.text = PersistantGameManager.Instance.equippedItemTwo + " x " + PersistantGameManager.Instance.amountOfItems[PersistantGameManager.Instance.equippedItemTwo] + " (J)";
+                output.text = PersistantGameManager.Instance.equippedItemTwo + " x " + PersistantGameManager.Instance.amountOfConsumables[PersistantGameManager.Instance.equippedItemTwo] + " (J)";
                 break;
             case 17:
                 output.text = PersistantGameManager.Instance.activePotionType + " Potion";

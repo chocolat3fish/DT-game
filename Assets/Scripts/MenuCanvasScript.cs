@@ -8,77 +8,105 @@ public class MenuCanvasScript : MonoBehaviour
     public bool isActive;
     public bool freeze;
     public GameObject mainPanel;
-    public GameObject itemsPanel;
+    public GameObject weaponsPanel;
     public GameObject consumablesPanel;
+    public GameObject itemsPanel;
 
-    private bool openItems, closeItems, openConsumables, closeConsumables;
+    private bool openWeapons, closeWeapons, openConsumables, closeConsumables, openItems, closeItems;
 
     private Text sW1Output, sW2Output, sW3Output;
     private Text wD1Output, wD2Output, wD3Output;
     private Text wS1Output, wS2Output, wS3Output;
     private Text wR1Output, wR2Output, wR3Output;
-    private Text sThreeName, sTwoName, sOneName, sSixName, sFiveName, sFourName, sSevenName, sEightName, sNineName;
-    private Text sOneOutput, sTwoOutput, sThreeOutput, sFourOutput, sFiveOutput, sSixOutput, sSevenOutput, sEightOutput, sNineOutput;
+    private Text cSThreeName, cSTwoName, cSOneName, cSSixName, cSFiveName, cSFourName, cSSevenName, cSEightName, cSNineName;
+    private Text cSOneOutput, cSTwoOutput, cSThreeOutput, cSFourOutput, cSFiveOutput, cSSixOutput, cSSevenOutput, cSEightOutput, cSNineOutput;
+    private Text iSThreeName, iSTwoName, iSOneName, iSSixName, iSFiveName, iSFourName, iSSevenName, iSEightName, iSNineName;
+    private Text iSOneOutput, iSTwoOutput, iSThreeOutput, iSFourOutput, iSFiveOutput, iSSixOutput, iSSevenOutput, iSEightOutput, iSNineOutput;
 
-    private string slot1, slot2, slot3, slot4, slot5, slot6, slot7, slot8, slot9;
+    private string cSlot1, cSlot2, cSlot3, cSlot4, cSlot5, cSlot6, cSlot7, cSlot8, cSlot9;
+    private string iSlot1, iSlot2, iSlot3, iSlot4, iSlot5, iSlot6, iSlot7, iSlot8, iSlot9;
 
     public int index;
 
     void Awake()
     {
         mainPanel = gameObject.transform.Find("MainPanel").gameObject;
-        itemsPanel = gameObject.transform.Find("ItemsPanel").gameObject;
+        weaponsPanel = gameObject.transform.Find("WeaponsPanel").gameObject;
         consumablesPanel = gameObject.transform.Find("ConsumablesPanel").gameObject;
+        itemsPanel = gameObject.transform.Find("ItemsPanel").gameObject;
+
+        sW1Output = weaponsPanel.transform.Find("SW1").gameObject.GetComponent<Text>();
+        sW2Output = weaponsPanel.transform.Find("SW2").gameObject.GetComponent<Text>();
+        sW3Output = weaponsPanel.transform.Find("SW3").gameObject.GetComponent<Text>();
+        wD1Output = weaponsPanel.transform.Find("WD1").gameObject.GetComponent<Text>();
+        wD2Output = weaponsPanel.transform.Find("WD2").gameObject.GetComponent<Text>();
+        wD3Output = weaponsPanel.transform.Find("WD3").gameObject.GetComponent<Text>();
+        wS1Output = weaponsPanel.transform.Find("WS1").gameObject.GetComponent<Text>();
+        wS2Output = weaponsPanel.transform.Find("WS2").gameObject.GetComponent<Text>();
+        wS3Output = weaponsPanel.transform.Find("WS3").gameObject.GetComponent<Text>();
+        wR1Output = weaponsPanel.transform.Find("WR1").gameObject.GetComponent<Text>();
+        wR2Output = weaponsPanel.transform.Find("WR2").gameObject.GetComponent<Text>();
+        wR3Output = weaponsPanel.transform.Find("WR3").gameObject.GetComponent<Text>();
 
 
-        sW1Output = itemsPanel.transform.Find("SW1").gameObject.GetComponent<Text>();
-        sW2Output = itemsPanel.transform.Find("SW2").gameObject.GetComponent<Text>();
-        sW3Output = itemsPanel.transform.Find("SW3").gameObject.GetComponent<Text>();
-        wD1Output = itemsPanel.transform.Find("WD1").gameObject.GetComponent<Text>();
-        wD2Output = itemsPanel.transform.Find("WD2").gameObject.GetComponent<Text>();
-        wD3Output = itemsPanel.transform.Find("WD3").gameObject.GetComponent<Text>();
-        wS1Output = itemsPanel.transform.Find("WS1").gameObject.GetComponent<Text>();
-        wS2Output = itemsPanel.transform.Find("WS2").gameObject.GetComponent<Text>();
-        wS3Output = itemsPanel.transform.Find("WS3").gameObject.GetComponent<Text>();
-        wR1Output = itemsPanel.transform.Find("WR1").gameObject.GetComponent<Text>();
-        wR2Output = itemsPanel.transform.Find("WR2").gameObject.GetComponent<Text>();
-        wR3Output = itemsPanel.transform.Find("WR3").gameObject.GetComponent<Text>();
+        cSOneName = consumablesPanel.transform.Find("Slot 1").gameObject.GetComponent<Text>();
+        cSTwoName = consumablesPanel.transform.Find("Slot 2").gameObject.GetComponent<Text>();
+        cSThreeName = consumablesPanel.transform.Find("Slot 3").gameObject.GetComponent<Text>();
 
+        cSFourName = consumablesPanel.transform.Find("Slot 4").gameObject.GetComponent<Text>();
+        cSFiveName = consumablesPanel.transform.Find("Slot 5").gameObject.GetComponent<Text>();
+        cSSixName = consumablesPanel.transform.Find("Slot 6").gameObject.GetComponent<Text>();
 
-        sOneName = consumablesPanel.transform.Find("Slot 1").gameObject.GetComponent<Text>();
-        sTwoName = consumablesPanel.transform.Find("Slot 2").gameObject.GetComponent<Text>();
-        sThreeName = consumablesPanel.transform.Find("Slot 3").gameObject.GetComponent<Text>();
+        cSSevenName = consumablesPanel.transform.Find("Slot 7").gameObject.GetComponent<Text>();
+        cSEightName = consumablesPanel.transform.Find("Slot 8").gameObject.GetComponent<Text>();
+        cSNineName = consumablesPanel.transform.Find("Slot 9").gameObject.GetComponent<Text>();
 
-        sFourName = consumablesPanel.transform.Find("Slot 4").gameObject.GetComponent<Text>();
-        sFiveName = consumablesPanel.transform.Find("Slot 5").gameObject.GetComponent<Text>();
-        sSixName = consumablesPanel.transform.Find("Slot 6").gameObject.GetComponent<Text>();
+        cSOneOutput = consumablesPanel.transform.Find("Q1").gameObject.GetComponent<Text>();
+        cSTwoOutput = consumablesPanel.transform.Find("Q2").gameObject.GetComponent<Text>();
+        cSThreeOutput = consumablesPanel.transform.Find("Q3").gameObject.GetComponent<Text>();
 
-        sSevenName = consumablesPanel.transform.Find("Slot 7").gameObject.GetComponent<Text>();
-        sEightName = consumablesPanel.transform.Find("Slot 8").gameObject.GetComponent<Text>();
-        sNineName = consumablesPanel.transform.Find("Slot 9").gameObject.GetComponent<Text>();
+        cSFourOutput = consumablesPanel.transform.Find("Q4").gameObject.GetComponent<Text>();
+        cSFiveOutput = consumablesPanel.transform.Find("Q5").gameObject.GetComponent<Text>();
+        cSSixOutput = consumablesPanel.transform.Find("Q6").gameObject.GetComponent<Text>();
 
-        sOneOutput = consumablesPanel.transform.Find("Q1").gameObject.GetComponent<Text>();
-        sTwoOutput = consumablesPanel.transform.Find("Q2").gameObject.GetComponent<Text>();
-        sThreeOutput = consumablesPanel.transform.Find("Q3").gameObject.GetComponent<Text>();
+        cSSevenOutput = consumablesPanel.transform.Find("Q7").gameObject.GetComponent<Text>();
+        cSEightOutput = consumablesPanel.transform.Find("Q8").gameObject.GetComponent<Text>();
+        cSNineOutput = consumablesPanel.transform.Find("Q9").gameObject.GetComponent<Text>();
 
-        sFourOutput = consumablesPanel.transform.Find("Q4").gameObject.GetComponent<Text>();
-        sFiveOutput = consumablesPanel.transform.Find("Q5").gameObject.GetComponent<Text>();
-        sSixOutput = consumablesPanel.transform.Find("Q6").gameObject.GetComponent<Text>();
+        iSOneName = itemsPanel.transform.Find("Slot 1").gameObject.GetComponent<Text>();
+        iSTwoName = itemsPanel.transform.Find("Slot 2").gameObject.GetComponent<Text>();
+        iSThreeName = itemsPanel.transform.Find("Slot 3").gameObject.GetComponent<Text>();
 
-        sSevenOutput = consumablesPanel.transform.Find("Q7").gameObject.GetComponent<Text>();
-        sEightOutput = consumablesPanel.transform.Find("Q8").gameObject.GetComponent<Text>();
-        sNineOutput = consumablesPanel.transform.Find("Q9").gameObject.GetComponent<Text>();
+        iSFourName = itemsPanel.transform.Find("Slot 4").gameObject.GetComponent<Text>();
+        iSFiveName = itemsPanel.transform.Find("Slot 5").gameObject.GetComponent<Text>();
+        iSSixName = itemsPanel.transform.Find("Slot 6").gameObject.GetComponent<Text>();
 
+        iSSevenName = itemsPanel.transform.Find("Slot 7").gameObject.GetComponent<Text>();
+        iSEightName = itemsPanel.transform.Find("Slot 8").gameObject.GetComponent<Text>();
+        iSNineName = itemsPanel.transform.Find("Slot 9").gameObject.GetComponent<Text>();
+
+        iSOneOutput = itemsPanel.transform.Find("Q1").gameObject.GetComponent<Text>();
+        iSTwoOutput = itemsPanel.transform.Find("Q2").gameObject.GetComponent<Text>();
+        iSThreeOutput = itemsPanel.transform.Find("Q3").gameObject.GetComponent<Text>();
+
+        iSFourOutput = itemsPanel.transform.Find("Q4").gameObject.GetComponent<Text>();
+        iSFiveOutput = itemsPanel.transform.Find("Q5").gameObject.GetComponent<Text>();
+        iSSixOutput = itemsPanel.transform.Find("Q6").gameObject.GetComponent<Text>();
+
+        iSSevenOutput = itemsPanel.transform.Find("Q7").gameObject.GetComponent<Text>();
+        iSEightOutput = itemsPanel.transform.Find("Q8").gameObject.GetComponent<Text>();
+        iSNineOutput = itemsPanel.transform.Find("Q9").gameObject.GetComponent<Text>();
 
     }
 
     void Start()
     {
         mainPanel.SetActive(false);
-        itemsPanel.SetActive(false);
+        weaponsPanel.SetActive(false);
         consumablesPanel.SetActive(false);
-        openItems = false;
-        closeItems = false;
+        itemsPanel.SetActive(false);
+        openWeapons = false;
+        closeWeapons = false;
         closeConsumables = false;
         openConsumables = false;
 
@@ -100,8 +128,9 @@ public class MenuCanvasScript : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.Tab) && isActive == true)
         {
             mainPanel.SetActive(false);
-            itemsPanel.SetActive(false);
+            weaponsPanel.SetActive(false);
             consumablesPanel.SetActive(false);
+            itemsPanel.SetActive(false);
             isActive = false;
             freeze = false;
             PersistantGameManager.Instance.menuScreenOpen = false;
@@ -109,14 +138,26 @@ public class MenuCanvasScript : MonoBehaviour
         }
 
 
-        if (mainPanel.activeSelf && Input.GetKeyDown(KeyCode.L) && itemsPanel.activeSelf == true)
+        if (mainPanel.activeSelf && Input.GetKeyDown(KeyCode.L) && weaponsPanel.activeSelf == true)
         {
 
+            closeWeapons = true;
+            openWeapons = false;
+
+        }
+        else if (mainPanel.activeSelf && Input.GetKeyDown(KeyCode.L) && weaponsPanel.activeSelf == false)
+        {
+            openWeapons = true;
+            closeWeapons = false;
+        }
+
+        if (mainPanel.activeSelf && Input.GetKeyDown(KeyCode.Semicolon) && itemsPanel.activeSelf == true)
+        {
             closeItems = true;
             openItems = false;
 
         }
-        else if (mainPanel.activeSelf && Input.GetKeyDown(KeyCode.L) && itemsPanel.activeSelf == false)
+        else if (mainPanel.activeSelf && Input.GetKeyDown(KeyCode.Semicolon) && itemsPanel.activeSelf == false)
         {
             openItems = true;
             closeItems = false;
@@ -137,17 +178,36 @@ public class MenuCanvasScript : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
             int startIndex = index;
-            index -= 1;
             while (true)
             {
                 index -= 1;
-                if (index < 0)
+                if (consumablesPanel.activeSelf)
                 {
-                    index = startIndex;
-                    break;
+                    if (index < 0)
+                    {
+                        index = startIndex;
+                        break;
+                    }
+                    if (PersistantGameManager.Instance.amountOfConsumables[PersistantGameManager.Instance.possibleConsumables[index]] > 0)
+                    {
+                        break;
+                    }
                 }
-                if (PersistantGameManager.Instance.amountOfItems[PersistantGameManager.Instance.possibleItems[index]] > 0)
+                else if (itemsPanel.activeSelf)
                 {
+                    if (index < 0)
+                    {
+                        index = startIndex;
+                        break;
+                    }
+                    if (PersistantGameManager.Instance.itemInventory[PersistantGameManager.Instance.possibleItems[index]] > 0)
+                    {
+                        break;
+                    }
+                }
+                else
+                {
+                    index = 0;
                     break;
                 }
             }
@@ -162,15 +222,36 @@ public class MenuCanvasScript : MonoBehaviour
             while(true)
             {
                 index += 1;
-                if(index > PersistantGameManager.Instance.possibleItems.Count - 1)
+                if(consumablesPanel.activeSelf)
                 {
-                    index = startIndex;
+                    if (index > PersistantGameManager.Instance.possibleConsumables.Count - 1)
+                    {
+                        index = startIndex;
+                        break;
+                    }
+                    if (PersistantGameManager.Instance.amountOfConsumables[PersistantGameManager.Instance.possibleConsumables[index]] > 0)
+                    {
+                        break;
+                    }
+                }
+                else if( itemsPanel.activeSelf)
+                {
+                    if (index > PersistantGameManager.Instance.possibleItems.Count - 1)
+                    {
+                        index = startIndex;
+                        break;
+                    }
+                    if (PersistantGameManager.Instance.itemInventory[PersistantGameManager.Instance.possibleItems[index]] > 0)
+                    {
+                        break;
+                    }
+                }
+                else
+                {
+                    index = 0;
                     break;
                 }
-                if(PersistantGameManager.Instance.amountOfItems[PersistantGameManager.Instance.possibleItems[index]] > 0)
-                {
-                    break;
-                }
+                
             }
 
 
@@ -186,52 +267,71 @@ public class MenuCanvasScript : MonoBehaviour
 
     private void LateUpdate()
     {
-        if (openItems == true)
+        if (openWeapons == true)
         {
-            Debug.Log("openI");
-            OpenItemsMenu();
-            openItems = false;
+            OpenWeaponsMenu();
+            openWeapons = false;
         }
-        else if (closeItems == true)
+        else if (closeWeapons == true)
         {
-            Debug.Log("closeI");
-            CloseItemsMenu();
-            closeItems = false;
+            CloseWeaponsMenu();
+            closeWeapons = false;
         }
 
         if (openConsumables == true)
         {
-            Debug.Log("openC");
             OpenConsumablesMenu();
             openConsumables = false;
         }
         else if (closeConsumables == true)
         {
-            Debug.Log("closeC");
             CloseConsumablesMenu();
             closeConsumables = false;
         }
-
+        if (openItems == true)
+        {
+            OpenItemsMenu();
+            openItems = false;
+        }
+        else if (closeItems == true)
+        {
+            CloseItemsMenu();
+            closeItems = false;
+        }
 
     }
-
     public void OpenItemsMenu()
     {
+        
+        index = 0;
         itemsPanel.SetActive(true);
-
+        consumablesPanel.SetActive(false);
+        
     }
 
     public void CloseItemsMenu()
     {
         itemsPanel.SetActive(false);
+    }
+
+    public void OpenWeaponsMenu()
+    { 
+        weaponsPanel.SetActive(true);
+        
+    }
+
+    public void CloseWeaponsMenu()
+    {
+        weaponsPanel.SetActive(false);
 
     }
 
     public void OpenConsumablesMenu()
     {
+       
         index = 0;
         consumablesPanel.SetActive(true);
-
+        itemsPanel.SetActive(false);
     }
 
     public void CloseConsumablesMenu()
@@ -244,25 +344,7 @@ public class MenuCanvasScript : MonoBehaviour
 
     private void UpdateData()
     {
-        slot1 = "";
-        slot2 = "";
-        slot3 = "";
-        slot4 = "";
-        slot5 = "";
-        slot6 = "";
-        slot7 = "";
-        slot8 = "";
-        slot9 = "";
-
-        sOneOutput.text = "";
-        sTwoOutput.text = "";
-        sThreeOutput.text = "";
-        sFourOutput.text = "";
-        sFiveOutput.text = "";
-        sSixOutput.text = "";
-        sSevenOutput.text = "";
-        sEightOutput.text = "";
-        sNineOutput.text = "";
+        
 
         sW1Output.text = PersistantGameManager.Instance.playerWeaponInventory[0].itemName;
         sW2Output.text = PersistantGameManager.Instance.playerWeaponInventory[1].itemName;
@@ -299,78 +381,98 @@ public class MenuCanvasScript : MonoBehaviour
         wR2Output.text = PersistantGameManager.Instance.playerWeaponInventory[1].itemRange.ToString();
         wR3Output.text = PersistantGameManager.Instance.playerWeaponInventory[2].itemRange.ToString();
 
-       // for (int element = 1; element < PersistantGameManager.Instance.possibleItems.Count; element++)
-       foreach(string element in PersistantGameManager.Instance.possibleItems)
+        cSlot1 = "";
+        cSlot2 = "";
+        cSlot3 = "";
+        cSlot4 = "";
+        cSlot5 = "";
+        cSlot6 = "";
+        cSlot7 = "";
+        cSlot8 = "";
+        cSlot9 = "";
+
+        cSOneOutput.text = "";
+        cSTwoOutput.text = "";
+        cSThreeOutput.text = "";
+        cSFourOutput.text = "";
+        cSFiveOutput.text = "";
+        cSSixOutput.text = "";
+        cSSevenOutput.text = "";
+        cSEightOutput.text = "";
+        cSNineOutput.text = "";
+
+        // for (int element = 1; element < PersistantGameManager.Instance.possibleItems.Count; element++)
+        foreach (string element in PersistantGameManager.Instance.possibleConsumables)
         {
-            if(index > PersistantGameManager.Instance.possibleItems.IndexOf(element))
+            if(index > PersistantGameManager.Instance.possibleConsumables.IndexOf(element))
             {
                 continue;
             }
 
-            if (slot1 == "")
+            if (cSlot1 == "")
             {
-                if (PersistantGameManager.Instance.amountOfItems[element] > 0)
+                if (PersistantGameManager.Instance.amountOfConsumables[element] > 0)
                 {
-                    slot1 = element;
+                    cSlot1 = element;
                 }
             }
-            else if(slot2 == "")
+            else if(cSlot2 == "")
             {
-                if (PersistantGameManager.Instance.amountOfItems[element] > 0)
+                if (PersistantGameManager.Instance.amountOfConsumables[element] > 0)
                 {
-                    slot2 = element;
+                    cSlot2 = element;
                 }
             }
-            else if (slot3 == "")
+            else if (cSlot3 == "")
             {
-                if (PersistantGameManager.Instance.amountOfItems[element] > 0)
+                if (PersistantGameManager.Instance.amountOfConsumables[element] > 0)
                 {
-                    slot3 = element;
+                    cSlot3 = element;
                 }
             }
-            else if (slot4 == "")
+            else if (cSlot4 == "")
             {
-                if (PersistantGameManager.Instance.amountOfItems[element] > 0)
+                if (PersistantGameManager.Instance.amountOfConsumables[element] > 0)
                 {
-                    slot4 = element;
+                    cSlot4 = element;
                 }
             }
-            else if (slot5 == "")
+            else if (cSlot5 == "")
             {
-                if (PersistantGameManager.Instance.amountOfItems[element] > 0)
+                if (PersistantGameManager.Instance.amountOfConsumables[element] > 0)
                 {
-                    slot5 = element;
+                    cSlot5 = element;
                 }
             }
-            else if (slot6 == "")
+            else if (cSlot6 == "")
             {
-                if(PersistantGameManager.Instance.amountOfItems[element] > 0)
+                if(PersistantGameManager.Instance.amountOfConsumables[element] > 0)
                 {
-                    slot6 = element;
-                }
-
-            }
-            else if (slot7 == "")
-            {
-                if (PersistantGameManager.Instance.amountOfItems[element] > 0)
-                {
-                    slot7 = element;
+                    cSlot6 = element;
                 }
 
             }
-            else if (slot8 == "")
+            else if (cSlot7 == "")
             {
-                if (PersistantGameManager.Instance.amountOfItems[element] > 0)
+                if (PersistantGameManager.Instance.amountOfConsumables[element] > 0)
                 {
-                    slot8 = element;
+                    cSlot7 = element;
                 }
 
             }
-            else if (slot9 == "")
+            else if (cSlot8 == "")
             {
-                if (PersistantGameManager.Instance.amountOfItems[element] > 0)
+                if (PersistantGameManager.Instance.amountOfConsumables[element] > 0)
                 {
-                    slot9 = element;
+                    cSlot8 = element;
+                }
+
+            }
+            else if (cSlot9 == "")
+            {
+                if (PersistantGameManager.Instance.amountOfConsumables[element] > 0)
+                {
+                    cSlot9 = element;
                 }
 
             }
@@ -379,77 +481,246 @@ public class MenuCanvasScript : MonoBehaviour
 
 
 
-        sOneName.text = slot1;
-        sTwoName.text = slot2;
-        sThreeName.text = slot3;
+        cSOneName.text = cSlot1;
+        cSTwoName.text = cSlot2;
+        cSThreeName.text = cSlot3;
 
-        sFourName.text = slot4;
-        sFiveName.text = slot5;
-        sSixName.text = slot6;
+        cSFourName.text = cSlot4;
+        cSFiveName.text = cSlot5;
+        cSSixName.text = cSlot6;
 
-        sSevenName.text = slot7;
-        sEightName.text = slot8;
-        sNineName.text = slot9;
+        cSSevenName.text = cSlot7;
+        cSEightName.text = cSlot8;
+        cSNineName.text = cSlot9;
 
 
-        if (slot1 != "")
+        if (cSlot1 != "")
         {
-            sOneOutput.text = PersistantGameManager.Instance.amountOfItems[slot1].ToString();
+            cSOneOutput.text = PersistantGameManager.Instance.amountOfConsumables[cSlot1].ToString();
         }
         else
         {
-            sOneName.text = "No Items";
-            sOneOutput.text = "";
+            cSOneName.text = "No Items";
+            cSOneOutput.text = "";
         }
 
-        if (slot2 != "")
+        if (cSlot2 != "")
         {
-            sTwoOutput.text = PersistantGameManager.Instance.amountOfItems[slot2].ToString();
+            cSTwoOutput.text = PersistantGameManager.Instance.amountOfConsumables[cSlot2].ToString();
         }
-        else { sTwoOutput.text = ""; }
+        else { cSTwoOutput.text = ""; }
 
-        if (slot3 != "")
+        if (cSlot3 != "")
         {
-           sThreeOutput.text = PersistantGameManager.Instance.amountOfItems[slot3].ToString();
+           cSThreeOutput.text = PersistantGameManager.Instance.amountOfConsumables[cSlot3].ToString();
         }
-        else { sThreeOutput.text = ""; }
+        else { cSThreeOutput.text = ""; }
 
-        if (slot4 != "")
+        if (cSlot4 != "")
         {
-            sFourOutput.text = PersistantGameManager.Instance.amountOfItems[slot4].ToString();
+            cSFourOutput.text = PersistantGameManager.Instance.amountOfConsumables[cSlot4].ToString();
         }
-        else { sFourOutput.text = ""; }
+        else { cSFourOutput.text = ""; }
 
-        if (slot5 != "")
+        if (cSlot5 != "")
         {
-            sFiveOutput.text = PersistantGameManager.Instance.amountOfItems[slot5].ToString();
+            cSFiveOutput.text = PersistantGameManager.Instance.amountOfConsumables[cSlot5].ToString();
         }
-        else { sFiveOutput.text = ""; }
+        else { cSFiveOutput.text = ""; }
 
-        if (slot6 != "")
+        if (cSlot6 != "")
         {
-            sSixOutput.text = PersistantGameManager.Instance.amountOfItems[slot6].ToString();
+            cSSixOutput.text = PersistantGameManager.Instance.amountOfConsumables[cSlot6].ToString();
         }
-        else { sSixOutput.text = ""; }
+        else { cSSixOutput.text = ""; }
 
-        if (slot7 != "")
+        if (cSlot7 != "")
         {
-            sSevenOutput.text = PersistantGameManager.Instance.amountOfItems[slot7].ToString();
+            cSSevenOutput.text = PersistantGameManager.Instance.amountOfConsumables[cSlot7].ToString();
         }
-        else { sSevenOutput.text = ""; }
+        else { cSSevenOutput.text = ""; }
 
-        if (slot8 != "")
+        if (cSlot8 != "")
         {
-            sEightOutput.text = PersistantGameManager.Instance.amountOfItems[slot8].ToString();
+            cSEightOutput.text = PersistantGameManager.Instance.amountOfConsumables[cSlot8].ToString();
         }
-        else { sEightOutput.text = ""; }
+        else { cSEightOutput.text = ""; }
 
-        if (slot9 != "")
+        if (cSlot9 != "")
         {
-            sNineOutput.text = PersistantGameManager.Instance.amountOfItems[slot9].ToString();
+            cSNineOutput.text = PersistantGameManager.Instance.amountOfConsumables[cSlot9].ToString();
         }
-        else { sNineOutput.text = ""; }
+        else { cSNineOutput.text = ""; }
 
+        iSlot1 = "";
+        iSlot2 = "";
+        iSlot3 = "";
+        iSlot4 = "";
+        iSlot5 = "";
+        iSlot6 = "";
+        iSlot7 = "";
+        iSlot8 = "";
+        iSlot9 = "";
+
+        iSOneOutput.text = "";
+        iSTwoOutput.text = "";
+        iSThreeOutput.text = "";
+        iSFourOutput.text = "";
+        iSFiveOutput.text = "";
+        iSSixOutput.text = "";
+        iSSevenOutput.text = "";
+        iSEightOutput.text = "";
+        iSNineOutput.text = "";
+        //From here
+        foreach (string element in PersistantGameManager.Instance.possibleItems)
+        {
+            if (index > PersistantGameManager.Instance.possibleItems.IndexOf(element))
+            {
+                continue;
+            }
+
+            if (iSlot1 == "")
+            {
+                if (PersistantGameManager.Instance.itemInventory[element] > 0)
+                {
+                    iSlot1 = element;
+                }
+            }
+            else if (iSlot2 == "")
+            {
+                if (PersistantGameManager.Instance.itemInventory[element] > 0)
+                {
+                    iSlot2 = element;
+                }
+            }
+            else if (iSlot3 == "")
+            {
+                if (PersistantGameManager.Instance.itemInventory[element] > 0)
+                {
+                    iSlot3 = element;
+                }
+            }
+            else if (iSlot4 == "")
+            {
+                if (PersistantGameManager.Instance.itemInventory[element] > 0)
+                {
+                    iSlot4 = element;
+                }
+            }
+            else if (iSlot5 == "")
+            {
+                if (PersistantGameManager.Instance.itemInventory[element] > 0)
+                {
+                    iSlot5 = element;
+                }
+            }
+            else if (iSlot6 == "")
+            {
+                if (PersistantGameManager.Instance.itemInventory[element] > 0)
+                {
+                    iSlot6 = element;
+                }
+
+            }
+            else if (iSlot7 == "")
+            {
+                if (PersistantGameManager.Instance.itemInventory[element] > 0)
+                {
+                    iSlot7 = element;
+                }
+
+            }
+            else if (iSlot8 == "")
+            {
+                if (PersistantGameManager.Instance.itemInventory[element] > 0)
+                {
+                    iSlot8 = element;
+                }
+
+            }
+            else if (iSlot9 == "")
+            {
+                if (PersistantGameManager.Instance.itemInventory[element] > 0)
+                {
+                    iSlot9 = element;
+                }
+
+            }
+
+        }
+
+
+
+        iSOneName.text = iSlot1;
+        iSTwoName.text = iSlot2;
+        iSThreeName.text = iSlot3;
+
+        iSFourName.text = iSlot4;
+        iSFiveName.text = iSlot5;
+        iSSixName.text = iSlot6;
+
+        iSSevenName.text = iSlot7;
+        iSEightName.text = iSlot8;
+        iSNineName.text = iSlot9;
+
+
+        if (iSlot1 != "")
+        {
+            iSOneOutput.text = PersistantGameManager.Instance.itemInventory[iSlot1].ToString();
+        }
+        else
+        {
+            iSOneName.text = "No Items";
+            iSOneOutput.text = "";
+        }
+
+        if (iSlot2 != "")
+        {
+            iSTwoOutput.text = PersistantGameManager.Instance.itemInventory[iSlot2].ToString();
+        }
+        else { iSTwoOutput.text = ""; }
+
+        if (iSlot3 != "")
+        {
+            iSThreeOutput.text = PersistantGameManager.Instance.itemInventory[iSlot3].ToString();
+        }
+        else { iSThreeOutput.text = ""; }
+
+        if (iSlot4 != "")
+        {
+            iSFourOutput.text = PersistantGameManager.Instance.itemInventory[iSlot4].ToString();
+        }
+        else { iSFourOutput.text = ""; }
+
+        if (iSlot5 != "")
+        {
+            iSFiveOutput.text = PersistantGameManager.Instance.itemInventory[iSlot5].ToString();
+        }
+        else { iSFiveOutput.text = ""; }
+
+        if (iSlot6 != "")
+        {
+            iSSixOutput.text = PersistantGameManager.Instance.itemInventory[iSlot6].ToString();
+        }
+        else { iSSixOutput.text = ""; }
+
+        if (iSlot7 != "")
+        {
+            iSSevenOutput.text = PersistantGameManager.Instance.itemInventory[iSlot7].ToString();
+        }
+        else { iSSevenOutput.text = ""; }
+
+        if (iSlot8 != "")
+        {
+            iSEightOutput.text = PersistantGameManager.Instance.itemInventory[iSlot8].ToString();
+        }
+        else { iSEightOutput.text = ""; }
+
+        if (iSlot9 != "")
+        {
+            iSNineOutput.text = PersistantGameManager.Instance.itemInventory[iSlot9].ToString();
+        }
+        else { iSNineOutput.text = ""; }
 
 
     }

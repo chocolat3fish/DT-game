@@ -13,7 +13,7 @@ public class PersistantGameManager : MonoBehaviour
     public int previousIndex = 0;
     public Weapon currentWeapon;
     public List<Weapon> playerWeaponInventory = new List<Weapon>();
-    public Dictionary<string, int>amountOfItems = new Dictionary<string, int>
+    public Dictionary<string, int> amountOfConsumables = new Dictionary<string, int>
     {
         {"20%H", 1},
         {"50%H", 0},
@@ -24,8 +24,14 @@ public class PersistantGameManager : MonoBehaviour
         {"20%L", 1},
         {"Empty", 0}
     };
-    public List<string> possibleItems = new List<string> { "20%H", "50%H", "100%H", "20%A", "50%A", "100%A", "20%L"};
+    public List<string> possibleConsumables = new List<string> { "20%H", "50%H", "100%H", "20%A", "50%A", "100%A", "20%L"};
+    public Dictionary<string, int> itemInventory = new Dictionary<string, int>();
+    public List<string> possibleItems = new List<string> { "Dagger of Kaliphase", "Amelet of Honor", "Hood of Sartuka" };
 
+    public Dictionary<string, int> characterQuests = new Dictionary<string, int>
+    {
+        {"Jason", 0 }
+    };
     public bool potionIsActive;
     public string activePotionType;
     public float currentAttackMultiplier = 1;
@@ -89,6 +95,34 @@ public class PersistantGameManager : MonoBehaviour
         TestGiveItem.GiveItem();
         player = FindObjectOfType<PlayerControls>();
         currentWeapon = playerWeaponInventory[0];
+        itemInventory.Add("Empty", 0);
+        foreach(string element in possibleItems)
+        {
+            itemInventory.Add(element, 1);
+        }
+        foreach(string element in possibleConsumables)
+        {
+            if(equippedItemOne == "" && amountOfConsumables[element] > 0)
+            {
+                Debug.Log("Done 1");
+                equippedItemOne = element;
+            }
+            else if(equippedItemTwo == "" && amountOfConsumables[element] > 0)
+            {
+                Debug.Log("Done 2");
+                equippedItemTwo = element;
+            }
+            Debug.Log("Failed Done");
+               
+        }
+        if(equippedItemOne == "")
+        {
+            equippedItemOne = "Empty";
+        }
+        if (equippedItemTwo == "")
+        {
+            equippedItemTwo = "Empty";
+        }
         //LoadDataFromSave();
 
     }
@@ -202,15 +236,15 @@ public class PersistantGameManager : MonoBehaviour
 
             while (itemFound == false)
             {
-                if (currentItemOneIndex >= possibleItems.Count)
+                if (currentItemOneIndex >= possibleConsumables.Count)
                 {
                     currentItemOneIndex = 0;
                 }
                 if (currentItemOneIndex == startingIndex)
                 {
-                    if (amountOfItems[possibleItems[startingIndex]] > 0)
+                    if (amountOfConsumables[possibleConsumables[startingIndex]] > 0)
                     {
-                        equippedItemOne = possibleItems[startingIndex];
+                        equippedItemOne = possibleConsumables[startingIndex];
                     }
                     else
                     {
@@ -221,9 +255,9 @@ public class PersistantGameManager : MonoBehaviour
                     break;
 
                 }
-                if (amountOfItems[possibleItems[currentItemOneIndex]] > 0)
+                if (amountOfConsumables[possibleConsumables[currentItemOneIndex]] > 0)
                 {
-                    equippedItemOne = possibleItems[currentItemOneIndex];
+                    equippedItemOne = possibleConsumables[currentItemOneIndex];
                     changeItemOne = false;
                     itemFound = true;
                 }
@@ -244,15 +278,15 @@ public class PersistantGameManager : MonoBehaviour
 
             while (itemFound == false)
             {
-                if (currentItemTwoIndex >= possibleItems.Count)
+                if (currentItemTwoIndex >= possibleConsumables.Count)
                 {
                     currentItemTwoIndex = 0;
                 }
                 if (currentItemTwoIndex == startingIndex)
                 {
-                    if(amountOfItems[possibleItems[startingIndex]] > 0)
+                    if(amountOfConsumables[possibleConsumables[startingIndex]] > 0)
                     {
-                        equippedItemTwo = possibleItems[startingIndex];
+                        equippedItemTwo = possibleConsumables[startingIndex];
                     }
                     else
                     {
@@ -263,9 +297,9 @@ public class PersistantGameManager : MonoBehaviour
                     itemFound = true;
                     break;
                 }
-                if (amountOfItems[possibleItems[currentItemTwoIndex]] > 0)
+                if (amountOfConsumables[possibleConsumables[currentItemTwoIndex]] > 0)
                 {
-                    equippedItemTwo = possibleItems[currentItemTwoIndex];
+                    equippedItemTwo = possibleConsumables[currentItemTwoIndex];
                     changeItemTwo = false;
                     itemFound = true;
                 }

@@ -189,12 +189,12 @@ public class PlayerControls : MonoBehaviour
             currentJumps++;
         }
 
-        if (Input.GetKeyDown(KeyCode.H) && PersistantGameManager.Instance.amountOfItems[PersistantGameManager.Instance.equippedItemOne] > 0 && Time.time > (TimeOfItemOneUse + itemOneCooldown))
+        if (Input.GetKeyDown(KeyCode.H) && PersistantGameManager.Instance.amountOfConsumables[PersistantGameManager.Instance.equippedItemOne] > 0 && Time.time > (TimeOfItemOneUse + itemOneCooldown))
         {
             TimeOfItemOneUse = Time.time;
             UseItem(PersistantGameManager.Instance.equippedItemOne);
         }
-        if (Input.GetKeyDown(KeyCode.J) && PersistantGameManager.Instance.amountOfItems[PersistantGameManager.Instance.equippedItemTwo] > 0 && Time.time > (TimeOfItemTwoUse + itemTwoCooldown))
+        if (Input.GetKeyDown(KeyCode.J) && PersistantGameManager.Instance.amountOfConsumables[PersistantGameManager.Instance.equippedItemTwo] > 0 && Time.time > (TimeOfItemTwoUse + itemTwoCooldown))
         {
             TimeOfItemTwoUse = Time.time;
             UseItem(PersistantGameManager.Instance.equippedItemTwo);
@@ -341,7 +341,7 @@ public class PlayerControls : MonoBehaviour
                 {
                     currentHealth = totalHealth;
                 }
-                PersistantGameManager.Instance.amountOfItems["20%H"] -= 1;
+                PersistantGameManager.Instance.amountOfConsumables["20%H"] -= 1;
                 PersistantGameManager.Instance.healthPotionUseTime = Time.time;
             
         }
@@ -354,7 +354,7 @@ public class PlayerControls : MonoBehaviour
                 {
                     currentHealth = totalHealth;
                 }
-                PersistantGameManager.Instance.amountOfItems["50%A"] -= 1;
+                PersistantGameManager.Instance.amountOfConsumables["50%A"] -= 1;
                 PersistantGameManager.Instance.healthPotionUseTime = Time.time;
 
         }
@@ -362,7 +362,7 @@ public class PlayerControls : MonoBehaviour
         {
 
                 currentHealth = totalHealth;
-                PersistantGameManager.Instance.amountOfItems["100%H"] -= 1;
+                PersistantGameManager.Instance.amountOfConsumables["100%H"] -= 1;
                 PersistantGameManager.Instance.healthPotionUseTime = Time.time;
 
 
@@ -376,7 +376,7 @@ public class PlayerControls : MonoBehaviour
                 PersistantGameManager.Instance.potionIsActive = true;
                 PersistantGameManager.Instance.currentAttackMultiplier = 1.2f;
                 PersistantGameManager.Instance.timeOfAttackMultiplierChange = Time.time;
-                PersistantGameManager.Instance.amountOfItems["20%A"] -= 1;
+                PersistantGameManager.Instance.amountOfConsumables["20%A"] -= 1;
                 PersistantGameManager.Instance.potionCoolDownTime = 30;
             }
         }
@@ -388,7 +388,7 @@ public class PlayerControls : MonoBehaviour
                 PersistantGameManager.Instance.potionIsActive = true;
                 PersistantGameManager.Instance.currentAttackMultiplier = 1.5f;
                 PersistantGameManager.Instance.timeOfAttackMultiplierChange = Time.time;
-                PersistantGameManager.Instance.amountOfItems["50%A"] -= 1;
+                PersistantGameManager.Instance.amountOfConsumables["50%A"] -= 1;
                 PersistantGameManager.Instance.potionCoolDownTime = 30;
             }
         }
@@ -400,7 +400,7 @@ public class PlayerControls : MonoBehaviour
                 PersistantGameManager.Instance.potionIsActive = true;
                 PersistantGameManager.Instance.currentAttackMultiplier = 2;
                 PersistantGameManager.Instance.timeOfAttackMultiplierChange = Time.time;
-                PersistantGameManager.Instance.amountOfItems["100%A"] -= 1;
+                PersistantGameManager.Instance.amountOfConsumables["100%A"] -= 1;
                 PersistantGameManager.Instance.potionCoolDownTime = 30;
 
             }
@@ -414,7 +414,7 @@ public class PlayerControls : MonoBehaviour
                 PersistantGameManager.Instance.potionIsActive = true;
                 PersistantGameManager.Instance.currentLeechMultiplier = 0.2f;
                 PersistantGameManager.Instance.timeOfLeechMultiplierChange = Time.time;
-                PersistantGameManager.Instance.amountOfItems["20%L"] -= 1;
+                PersistantGameManager.Instance.amountOfConsumables["20%L"] -= 1;
                 PersistantGameManager.Instance.potionCoolDownTime = 30;
             }
         }

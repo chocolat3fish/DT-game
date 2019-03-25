@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -17,13 +16,15 @@ public class NPCMonitor : MonoBehaviour
 
     public bool isTalking;
     public bool canContinueDialouge;
-    public Dialogue dialogue;
+    public Quest currentQuest;
 
+    public string nameOfNpc;
     private float dialougeBoxQueryTime;
     private bool dialougeBoxQuery;
     private bool canTalk;
     private bool dialougeBoxOpen;
     private int currentSentenceIndex;
+    private int stageOfConvo;
 
     private Text overlayMainText;
     private Button overlayContinueButton;
@@ -34,7 +35,7 @@ public class NPCMonitor : MonoBehaviour
         Canvas[] canvases = FindObjectsOfType<Canvas>();
         foreach(Canvas canvas in canvases)
         {
-            if(canvas.gameObject.name == "Canvas")
+            if(canvas.gameObject.name == "ToTalkPanel")
             {
                 toTalkPanel = canvas.gameObject;
             }
@@ -84,7 +85,7 @@ public class NPCMonitor : MonoBehaviour
         }
         if (canTalk)
         {
-            if (Input.GetKeyDown(KeyCode.X))
+            if (Input.GetKeyDown(KeyCode.M))
             {
                 if (!dialougeBoxOpen)
                 {
@@ -104,40 +105,76 @@ public class NPCMonitor : MonoBehaviour
             }
         }
     }
-        public void ContinueDialouge()
+    public void ContinueDialouge()
+    {
+        if (canContinueDialouge)
         {
-            if (canContinueDialouge)
+            if(stageOfConvo == 0)
             {
                 currentSentenceIndex++;
-                if (currentSentenceIndex == dialogue.sentences.Length)
+                if(currentSentenceIndex >= currentQuest.sentencesBeforeQuest.Length)
                 {
-                    EndDialouge();
+                    stageOfConvo = 1;
                 }
                 else
                 {
                     StopAllCoroutines();
-                    StartCoroutine(AddChars(dialogue.sentences[currentSentenceIndex], overlayMainText));
+                    StartCoroutine(AddChars(currentQuest.sentencesBeforeQuest[currentSentenceIndex], overlayMainText));
                     canContinueDialouge = false;
                     dialougeBoxQuery = true;
                     dialougeBoxQueryTime = Time.time;
-
+                    return;
                 }
             }
+            if(stageOfConvo == 1)
+            {
+
+            }
+
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+        /*
+            currentSentenceIndex++;
+            if (currentSentenceIndex == dialogue.sentences.Length)
+            {
+                EndDialouge();
+            }
+            else
+            {
+                StopAllCoroutines();
+                StartCoroutine(AddChars(dialogue.sentences[currentSentenceIndex], overlayMainText));
+                canContinueDialouge = false;
+                dialougeBoxQuery = true;
+                dialougeBoxQueryTime = Time.time;
+
+            }
+            */
         }
+    }
 
     private void CreateDialougBox()
     {
         dialougeBoxOpen = true;
         overlayPanel.SetActive(true);
-        overlayNameText.text = dialogue.NPCName;
+        overlayNameText.text = nameOfNpc;
+        stageOfConvo = 0;
         currentSentenceIndex = 0;
         isTalking = true;
         canContinueDialouge = false;
         dialougeBoxQuery = true;
         dialougeBoxQueryTime = Time.time;
 
-        overlayNameText.text = dialogue.NPCName;
-        StartCoroutine(AddChars(dialogue.sentences[0], overlayMainText));
+        StartCoroutine(AddChars(currentQuest.sentencesBeforeQuest[0], overlayMainText));
 
     }
 
