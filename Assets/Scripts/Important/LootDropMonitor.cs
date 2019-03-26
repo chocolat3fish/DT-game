@@ -10,13 +10,18 @@ public class LootDropMonitor : MonoBehaviour
     //The Player
     public GameObject player;
 
+    public SpriteRenderer spriteRenderer;
     //The script that controls the compare canvas
     public CompareCanvasScript compareCanvas;
-
+    public Color consumableColor;
+    public Color weaponColor;
+    public Color itemColor;
+    public Color deafultColor;
     public int type;
     //The new weapon the loot item is holding
     public Weapon itemStats;
     public Consumable consumable;
+    public string item;
 
     //The Bool that tells the script to check weither the compare screen has closed and should now take the disregared item
     public bool waitingForChange = false;
@@ -29,6 +34,7 @@ public class LootDropMonitor : MonoBehaviour
     private void Awake()
     {
         //Gets Components
+        spriteRenderer = GetComponent<SpriteRenderer>();
         player = FindObjectOfType<PlayerControls>().gameObject;
         compareCanvas = FindObjectOfType<CompareCanvasScript>();
         Physics2D.IgnoreCollision(GetComponent<BoxCollider2D>(), player.GetComponent<BoxCollider2D>());
@@ -38,6 +44,25 @@ public class LootDropMonitor : MonoBehaviour
             Physics2D.IgnoreCollision(GetComponent<BoxCollider2D>(), m.GetComponent<BoxCollider2D>());
         }
 
+    }
+    private void Start()
+    {
+        if(type == 0)
+        {
+            spriteRenderer.color = weaponColor;
+        }
+        else if(type == 1)
+        {
+            spriteRenderer.color = consumableColor;
+        }
+        else if (type == 2)
+        {
+            spriteRenderer.color = itemColor;
+        }
+        else
+        {
+            spriteRenderer.color = deafultColor;
+        }
     }
 
     private void Update()
@@ -84,6 +109,12 @@ public class LootDropMonitor : MonoBehaviour
                 PersistantGameManager.Instance.amountOfConsumables[consumable.type] += 1;
                 Destroy(gameObject);
             }
+            else if(!PersistantGameManager.Instance.compareScreenOpen && compareCanvas.takeEInputForContinue && closestLootDrop == this && type == 2)
+            {
+                PersistantGameManager.Instance.itemInventory[item] += 1;
+                Destroy(gameObject);
+            }
+
         }
 
         //Calls when the compare screen closes

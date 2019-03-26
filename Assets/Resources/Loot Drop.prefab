@@ -95,7 +95,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
+  spriteRenderer: {fileID: 0}
   compareCanvas: {fileID: 0}
+  consumableColor: {r: 0.3563546, g: 0.8301887, b: 0.8254014, a: 1}
+  weaponColor: {r: 0.8679245, g: 0.2251691, b: 0.2251691, a: 1}
+  itemColor: {r: 0.97843254, g: 1, b: 0, a: 1}
+  deafultColor: {r: 0, g: 0, b: 0, a: 1}
   type: 0
   itemStats:
     itemName: 
@@ -104,6 +109,7 @@ MonoBehaviour:
     itemRange: 0
   consumable:
     type: 
+  item: 
   waitingForChange: 0
   distanceToPlayer: 0
 --- !u!61 &5554571298297591365

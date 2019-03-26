@@ -26,7 +26,7 @@ public class PersistantGameManager : MonoBehaviour
     };
     public List<string> possibleConsumables = new List<string> { "20%H", "50%H", "100%H", "20%A", "50%A", "100%A", "20%L"};
     public Dictionary<string, int> itemInventory = new Dictionary<string, int>();
-    public List<string> possibleItems = new List<string> { "Dagger of Kaliphase", "Amelet of Honor", "Hood of Sartuka" };
+    public List<string> possibleItems = new List<string> { "Dagger of Kaliphase", "Amulet of Honour", "Hood of Sartuka", "Claw of Straphagus" };
 
     public Dictionary<string, int> characterQuests = new Dictionary<string, int>
     {
@@ -98,7 +98,7 @@ public class PersistantGameManager : MonoBehaviour
         itemInventory.Add("Empty", 0);
         foreach(string element in possibleItems)
         {
-            itemInventory.Add(element, 1);
+            itemInventory.Add(element, 0);
         }
         foreach(string element in possibleConsumables)
         {

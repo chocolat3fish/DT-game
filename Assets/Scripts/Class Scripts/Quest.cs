@@ -10,6 +10,8 @@ public class Quest
 
     public string questItemName;
 
+    public string rewardKey;
+
     public Quest(string[] sentencesBeforeQuest, string questStatment, string[] sentencesAfterQuest, string questItemName)
     {
         this.sentencesBeforeQuest = sentencesBeforeQuest;

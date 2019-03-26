@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,6 +17,7 @@ public class NPCMonitor : MonoBehaviour
 
     public bool isTalking;
     public bool canContinueDialouge;
+    public Quest[] characterQuests;
     public Quest currentQuest;
 
     public string nameOfNpc;
@@ -29,7 +31,16 @@ public class NPCMonitor : MonoBehaviour
     private Text overlayMainText;
     private Button overlayContinueButton;
     private Text overlayNameText;
+    private Text overlayRewardText;
+    private Button overlayAcceptButton;
 
+    public Dictionary<string, string> rewards = new Dictionary<string, string>()
+    {
+        {"Ja00", "Reward: A 100% attack potion"},
+        {"Ja01", "Reward: A 20% Leech potion"}
+    };
+
+    private bool reciveInput;
     private void Awake()
     {
         Canvas[] canvases = FindObjectsOfType<Canvas>();
@@ -45,6 +56,8 @@ public class NPCMonitor : MonoBehaviour
             }
         }
         player = FindObjectOfType<PlayerControls>().gameObject;
+        overlayAcceptButton = overlayPanel.transform.Find("GiveItem").GetComponent<Button>();
+        overlayRewardText = overlayPanel.transform.Find("RewardText").GetComponent<Text>();
     }
 
     private void Start()
@@ -56,7 +69,7 @@ public class NPCMonitor : MonoBehaviour
         
 
         overlayMainText = overlayPanel.transform.Find("Text").GetComponent<Text>();
-        overlayContinueButton = overlayPanel.transform.Find("Button").GetComponent<Button>();
+        overlayContinueButton = overlayPanel.transform.Find("Continue").GetComponent<Button>();
         overlayNameText = overlayPanel.transform.Find("Name").Find("Text").GetComponent<Text>();
     }
 
@@ -89,27 +102,37 @@ public class NPCMonitor : MonoBehaviour
             {
                 if (!dialougeBoxOpen)
                 {
-                    CreateDialougBox();
+                    CreateDialogueBox();
                     Debug.Log("dialouge box open");
+                }
+                else if (dialougeBoxOpen && canContinueDialouge)
+                {
+                    ContinueDialouge();
                 }
 
             }
 
         }
         {
-            if (dialougeBoxQuery && (dialougeBoxQueryTime < (Time.time - 0.2f)))
+            if (dialougeBoxQuery && (dialougeBoxQueryTime < (Time.time - 0.5f)))
             {
                 dialougeBoxQuery = false;
                 canContinueDialouge = true;
                 print(Time.time);
             }
         }
+
+
     }
     public void ContinueDialouge()
     {
+
         if (canContinueDialouge)
         {
-            if(stageOfConvo == 0)
+            canContinueDialouge = false;
+            dialougeBoxQuery = true;
+            dialougeBoxQueryTime = Time.time;
+            if (stageOfConvo == 0)
             {
                 currentSentenceIndex++;
                 if(currentSentenceIndex >= currentQuest.sentencesBeforeQuest.Length)
@@ -128,42 +151,85 @@ public class NPCMonitor : MonoBehaviour
             }
             if(stageOfConvo == 1)
             {
-
-            }
-
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-        /*
-            currentSentenceIndex++;
-            if (currentSentenceIndex == dialogue.sentences.Length)
-            {
-                EndDialouge();
-            }
-            else
-            {
                 StopAllCoroutines();
-                StartCoroutine(AddChars(dialogue.sentences[currentSentenceIndex], overlayMainText));
-                canContinueDialouge = false;
-                dialougeBoxQuery = true;
-                dialougeBoxQueryTime = Time.time;
+                StartCoroutine(AddChars(currentQuest.questStatment, overlayMainText));
+                StartCoroutine(AddChars(rewards[currentQuest.rewardKey], overlayRewardText));
+                reciveInput = true;
+                stageOfConvo = 2;
+                currentSentenceIndex = -1;
+                if(PersistantGameManager.Instance.itemInventory[currentQuest.questItemName] > 0)
+                {
+                    OpenNewButtons(1);
+                }
+                else
+                {
+                    OpenNewButtons(0);
+                }
+
+                return;
+            }
+            if(stageOfConvo == 2)
+            {
+                overlayRewardText.text = "";
+                currentSentenceIndex++;
+                CloseNewButtons();
+                if(currentSentenceIndex >= currentQuest.sentencesAfterQuest.Length)
+                {
+                    EndDialouge();
+                    return;
+                }
+                else 
+                {
+                    StopAllCoroutines();
+                    StartCoroutine(AddChars(currentQuest.sentencesAfterQuest[currentSentenceIndex], overlayMainText));
+                }
+
+
 
             }
-            */
+
+
+            /*
+                currentSentenceIndex++;
+                if (currentSentenceIndex == dialogue.sentences.Length)
+                {
+                    EndDialouge();
+                }
+                else
+                {
+                    StopAllCoroutines();
+                    StartCoroutine(AddChars(dialogue.sentences[currentSentenceIndex], overlayMainText));
+                    canContinueDialouge = false;
+                    dialougeBoxQuery = true;
+                    dialougeBoxQueryTime = Time.time;
+
+                }
+                */
         }
     }
 
-    private void CreateDialougBox()
+    private void OpenNewButtons(int num)
     {
+        if(num == 0)
+        {
+            overlayContinueButton.gameObject.SetActive(true);
+        }
+        if (num == 1)
+        {
+            overlayContinueButton.gameObject.SetActive(true);
+            overlayAcceptButton.gameObject.SetActive(true);
+        }
+
+
+    }
+    private void CloseNewButtons()
+    {
+        overlayAcceptButton.gameObject.SetActive(false);
+        overlayContinueButton.gameObject.SetActive(true);
+    }
+    private void CreateDialogueBox()
+    {
+        currentQuest = characterQuests[PersistantGameManager.Instance.characterQuests[nameOfNpc]];
         dialougeBoxOpen = true;
         overlayPanel.SetActive(true);
         overlayNameText.text = nameOfNpc;
@@ -173,7 +239,9 @@ public class NPCMonitor : MonoBehaviour
         canContinueDialouge = false;
         dialougeBoxQuery = true;
         dialougeBoxQueryTime = Time.time;
-
+        overlayAcceptButton.gameObject.SetActive(false);
+        overlayContinueButton.gameObject.SetActive(true);
+        overlayRewardText.text = "";
         StartCoroutine(AddChars(currentQuest.sentencesBeforeQuest[0], overlayMainText));
 
     }
@@ -195,6 +263,30 @@ public class NPCMonitor : MonoBehaviour
             text.text += ch;
             yield return null;
             
+        }
+    }
+    public void GiveItem()
+    {
+        if(PersistantGameManager.Instance.itemInventory[currentQuest.questItemName] > 0)
+        {
+            GiveReward(currentQuest.rewardKey);
+        }
+        ContinueDialouge();
+    }
+
+    public void GiveReward(string key)
+    {
+        if (key == "Ja00")
+        {
+            PersistantGameManager.Instance.itemInventory["Claw of Straphagus"] --;
+            PersistantGameManager.Instance.amountOfConsumables["100%A"]++;
+            PersistantGameManager.Instance.characterQuests["Jason"]++;
+        }
+
+        if (key == "Ja01")
+        {
+            PersistantGameManager.Instance.itemInventory["Amulet of Honour"]--;
+            PersistantGameManager.Instance.amountOfConsumables["20%L"]++;
         }
     }
 }

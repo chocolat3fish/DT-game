@@ -234,24 +234,9 @@ public class LootManager : MonoBehaviour
         }
         else
         {
-            if (value < 20)
-            {
-                Consumable consumable = new Consumable();
-                consumable.type = "20%L";
-                return consumable;
-            }
-            else if (value < 50)
-            {
-                Consumable consumable = new Consumable();
-                consumable.type = "50%L";
-                return consumable;
-            }
-            else
-            {
-                Consumable consumable = new Consumable();
-                consumable.type = "100%L";
-                return consumable;
-            }
+            Consumable consumable = new Consumable();
+            consumable.type = "20%L";
+            return consumable;
         }
 
 
