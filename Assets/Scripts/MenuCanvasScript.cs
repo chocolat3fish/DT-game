@@ -11,8 +11,9 @@ public class MenuCanvasScript : MonoBehaviour
     public GameObject weaponsPanel;
     public GameObject consumablesPanel;
     public GameObject itemsPanel;
+    public GameObject questsPanel;
 
-    private bool openWeapons, closeWeapons, openConsumables, closeConsumables, openItems, closeItems;
+    private bool openWeapons, closeWeapons, openConsumables, closeConsumables, openItems, closeItems, openQuests, closeQuests;
 
     private Text sW1Output, sW2Output, sW3Output;
     private Text wD1Output, wD2Output, wD3Output;
@@ -22,9 +23,12 @@ public class MenuCanvasScript : MonoBehaviour
     private Text cSOneOutput, cSTwoOutput, cSThreeOutput, cSFourOutput, cSFiveOutput, cSSixOutput, cSSevenOutput, cSEightOutput, cSNineOutput;
     private Text iSThreeName, iSTwoName, iSOneName, iSSixName, iSFiveName, iSFourName, iSSevenName, iSEightName, iSNineName;
     private Text iSOneOutput, iSTwoOutput, iSThreeOutput, iSFourOutput, iSFiveOutput, iSSixOutput, iSSevenOutput, iSEightOutput, iSNineOutput;
+    private Text qSThreeName, qSTwoName, qSOneName, qSSixName, qSFiveName, qSFourName, qSSevenName, qSEightName, qSNineName;
+    private Text qSOneOutput, qSTwoOutput, qSThreeOutput, qSFourOutput, qSFiveOutput, qSSixOutput, qSSevenOutput, qSEightOutput, qSNineOutput;
 
     private string cSlot1, cSlot2, cSlot3, cSlot4, cSlot5, cSlot6, cSlot7, cSlot8, cSlot9;
     private string iSlot1, iSlot2, iSlot3, iSlot4, iSlot5, iSlot6, iSlot7, iSlot8, iSlot9;
+    private string qSlot1, qSlot2, qSlot3, qSlot4, qSlot5, qSlot6, qSlot7, qSlot8, qSlot9;
 
     public int index;
 
@@ -34,6 +38,7 @@ public class MenuCanvasScript : MonoBehaviour
         weaponsPanel = gameObject.transform.Find("WeaponsPanel").gameObject;
         consumablesPanel = gameObject.transform.Find("ConsumablesPanel").gameObject;
         itemsPanel = gameObject.transform.Find("ItemsPanel").gameObject;
+        questsPanel = gameObject.transform.Find("QuestsPanel").gameObject;
 
         sW1Output = weaponsPanel.transform.Find("SW1").gameObject.GetComponent<Text>();
         sW2Output = weaponsPanel.transform.Find("SW2").gameObject.GetComponent<Text>();
@@ -97,6 +102,30 @@ public class MenuCanvasScript : MonoBehaviour
         iSEightOutput = itemsPanel.transform.Find("Q8").gameObject.GetComponent<Text>();
         iSNineOutput = itemsPanel.transform.Find("Q9").gameObject.GetComponent<Text>();
 
+        qSOneName = questsPanel.transform.Find("Slot 1").gameObject.GetComponent<Text>();
+        qSTwoName = questsPanel.transform.Find("Slot 2").gameObject.GetComponent<Text>();
+        qSThreeName = questsPanel.transform.Find("Slot 3").gameObject.GetComponent<Text>();
+
+        qSFourName = questsPanel.transform.Find("Slot 4").gameObject.GetComponent<Text>();
+        qSFiveName = questsPanel.transform.Find("Slot 5").gameObject.GetComponent<Text>();
+        qSSixName = questsPanel.transform.Find("Slot 6").gameObject.GetComponent<Text>();
+
+        qSSevenName = questsPanel.transform.Find("Slot 7").gameObject.GetComponent<Text>();
+        qSEightName = questsPanel.transform.Find("Slot 8").gameObject.GetComponent<Text>();
+        qSNineName = questsPanel.transform.Find("Slot 9").gameObject.GetComponent<Text>();
+
+        qSOneOutput = questsPanel.transform.Find("Q1").gameObject.GetComponent<Text>();
+        qSTwoOutput = questsPanel.transform.Find("Q2").gameObject.GetComponent<Text>();
+        qSThreeOutput = questsPanel.transform.Find("Q3").gameObject.GetComponent<Text>();
+
+        qSFourOutput = questsPanel.transform.Find("Q4").gameObject.GetComponent<Text>();
+        qSFiveOutput = questsPanel.transform.Find("Q5").gameObject.GetComponent<Text>();
+        qSSixOutput = questsPanel.transform.Find("Q6").gameObject.GetComponent<Text>();
+
+        qSSevenOutput = questsPanel.transform.Find("Q7").gameObject.GetComponent<Text>();
+        qSEightOutput = questsPanel.transform.Find("Q8").gameObject.GetComponent<Text>();
+        qSNineOutput = questsPanel.transform.Find("Q9").gameObject.GetComponent<Text>();
+
     }
 
     void Start()
@@ -105,10 +134,17 @@ public class MenuCanvasScript : MonoBehaviour
         weaponsPanel.SetActive(false);
         consumablesPanel.SetActive(false);
         itemsPanel.SetActive(false);
+        questsPanel.SetActive(false);
         openWeapons = false;
         closeWeapons = false;
-        closeConsumables = false;
+        openItems = false;
+        closeItems = false;
         openConsumables = false;
+        closeConsumables = false;
+        openQuests = false;
+        closeQuests = false;
+
+        
 
     }
 
@@ -131,6 +167,7 @@ public class MenuCanvasScript : MonoBehaviour
             weaponsPanel.SetActive(false);
             consumablesPanel.SetActive(false);
             itemsPanel.SetActive(false);
+            questsPanel.SetActive(false);
             isActive = false;
             freeze = false;
             PersistantGameManager.Instance.menuScreenOpen = false;
@@ -169,10 +206,21 @@ public class MenuCanvasScript : MonoBehaviour
             closeConsumables = true;
             openConsumables = false;
         }
-        if (mainPanel.gameObject.activeSelf && Input.GetKeyDown(KeyCode.K) && consumablesPanel.activeSelf == false)
+        else if (mainPanel.gameObject.activeSelf && Input.GetKeyDown(KeyCode.K) && consumablesPanel.activeSelf == false)
         {
             openConsumables = true;
             closeConsumables = false;
+        }
+
+        if (mainPanel.gameObject.activeSelf && Input.GetKeyDown(KeyCode.J) && questsPanel.activeSelf == true)
+        {
+            closeQuests = true;
+            openQuests = false;
+        }
+        else if (mainPanel.gameObject.activeSelf && Input.GetKeyDown(KeyCode.J) && questsPanel.activeSelf == false)
+        {
+            openQuests = true;
+            closeQuests = false;
         }
 
         if (Input.GetKeyDown(KeyCode.UpArrow))
@@ -298,6 +346,16 @@ public class MenuCanvasScript : MonoBehaviour
             CloseItemsMenu();
             closeItems = false;
         }
+        if (openQuests == true)
+        {
+            OpenQuestsMenu();
+            openQuests = false;
+        }
+        else if (closeQuests == true)
+        {
+            CloseQuestsMenu();
+            closeQuests = false;
+        }
 
     }
     public void OpenItemsMenu()
@@ -317,6 +375,7 @@ public class MenuCanvasScript : MonoBehaviour
     public void OpenWeaponsMenu()
     { 
         weaponsPanel.SetActive(true);
+        questsPanel.SetActive(false);
         
     }
 
@@ -338,6 +397,20 @@ public class MenuCanvasScript : MonoBehaviour
     {
 
         consumablesPanel.SetActive(false);
+
+    }
+
+    public void OpenQuestsMenu()
+    {
+    
+        questsPanel.SetActive(true);
+        weaponsPanel.SetActive(false);
+    }
+
+    public void CloseQuestsMenu()
+    {
+
+        questsPanel.SetActive(false);
 
     }
 
