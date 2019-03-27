@@ -37,7 +37,19 @@ public class PlayerControls : MonoBehaviour
     private BoxCollider2D leftDetector;
     public float nextAttack;
     private Vector2 detectorPos;
-    public float currentHealth;
+    private float _currentHealth;
+    public float currentHealth
+    {
+        get { return _currentHealth; }
+        set
+        {
+            if(value < _currentHealth)
+            {
+                StartCoroutine(Shake());
+            }
+            _currentHealth = value;
+        }
+    }
     public float totalHealth;
     public float defence;
 
@@ -87,6 +99,16 @@ public class PlayerControls : MonoBehaviour
 
     void Update()
     {
+        if (Input.GetMouseButtonDown(1))
+        {
+            transform.position = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.nearClipPlane));
+            playerRigidbody.velocity = new Vector2(0, 0);
+            /*Vector2 mousePos = Input.mousePosition;
+            Vector2 newPos = mousePos / (new Vector2(18, 10));
+            newPos = newPos -
+            */
+
+        }
 
         if (PersistantGameManager.Instance.tripleJump == true && !givenTripleJump)
         {
@@ -446,5 +468,22 @@ public class PlayerControls : MonoBehaviour
         }
         */
 
+    }
+    IEnumerator Shake()
+    {
+        Vector2 orignalPos = transform.position;
+        for (int i = 0; i < 7; i++)
+        {
+            if (i % 2 == 0)
+            {
+                transform.position = new Vector2(orignalPos.x + 0.02f, orignalPos.y);
+            }
+            else
+            {
+                transform.position = new Vector2(orignalPos.x - 0.02f, orignalPos.y);
+            }
+            yield return null;
+            yield return null;
+        }
     }
 }

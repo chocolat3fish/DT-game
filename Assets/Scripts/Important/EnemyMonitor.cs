@@ -186,7 +186,6 @@ public class EnemyMonitor : MonoBehaviour
         {
             if (Time.timeScale != 0f)
             {
-                Debug.Log("yes");
                 //calculates how much damage to apply to the character
                 float enemyAtackDamage = enemyStats.enemyDamage - playerControls.defence;
 
