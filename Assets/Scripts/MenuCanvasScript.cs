@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,9 +12,10 @@ public class MenuCanvasScript : MonoBehaviour
     public GameObject weaponsPanel;
     public GameObject consumablesPanel;
     public GameObject itemsPanel;
-    public GameObject questsPanel;
+    public GameObject questsPanel, questDescPanel;
+    
 
-    private bool openWeapons, closeWeapons, openConsumables, closeConsumables, openItems, closeItems, openQuests, closeQuests;
+    private bool openWeapons, closeWeapons, openConsumables, closeConsumables, openItems, closeItems, openQuests, closeQuests, closeSlot;
 
     private Text sW1Output, sW2Output, sW3Output;
     private Text wD1Output, wD2Output, wD3Output;
@@ -25,6 +27,7 @@ public class MenuCanvasScript : MonoBehaviour
     private Text iSOneOutput, iSTwoOutput, iSThreeOutput, iSFourOutput, iSFiveOutput, iSSixOutput, iSSevenOutput, iSEightOutput, iSNineOutput;
     private Text qSThreeName, qSTwoName, qSOneName, qSSixName, qSFiveName, qSFourName, qSSevenName, qSEightName, qSNineName;
     private Text qSOneOutput, qSTwoOutput, qSThreeOutput, qSFourOutput, qSFiveOutput, qSSixOutput, qSSevenOutput, qSEightOutput, qSNineOutput;
+    private Text questName, questDescription, questReward;
 
     private string cSlot1, cSlot2, cSlot3, cSlot4, cSlot5, cSlot6, cSlot7, cSlot8, cSlot9;
     private string iSlot1, iSlot2, iSlot3, iSlot4, iSlot5, iSlot6, iSlot7, iSlot8, iSlot9;
@@ -34,11 +37,13 @@ public class MenuCanvasScript : MonoBehaviour
 
     void Awake()
     {
+    
         mainPanel = gameObject.transform.Find("MainPanel").gameObject;
         weaponsPanel = gameObject.transform.Find("WeaponsPanel").gameObject;
         consumablesPanel = gameObject.transform.Find("ConsumablesPanel").gameObject;
         itemsPanel = gameObject.transform.Find("ItemsPanel").gameObject;
         questsPanel = gameObject.transform.Find("QuestsPanel").gameObject;
+        questDescPanel = gameObject.transform.Find("QuestDescPanel").gameObject;
 
         sW1Output = weaponsPanel.transform.Find("SW1").gameObject.GetComponent<Text>();
         sW2Output = weaponsPanel.transform.Find("SW2").gameObject.GetComponent<Text>();
@@ -102,29 +107,22 @@ public class MenuCanvasScript : MonoBehaviour
         iSEightOutput = itemsPanel.transform.Find("Q8").gameObject.GetComponent<Text>();
         iSNineOutput = itemsPanel.transform.Find("Q9").gameObject.GetComponent<Text>();
 
-        qSOneName = questsPanel.transform.Find("Slot 1").gameObject.GetComponent<Text>();
-        qSTwoName = questsPanel.transform.Find("Slot 2").gameObject.GetComponent<Text>();
-        qSThreeName = questsPanel.transform.Find("Slot 3").gameObject.GetComponent<Text>();
+        qSOneName = questsPanel.transform.Find("Slot 1").transform.Find("Text").GetComponent<Text>();
+        qSTwoName = questsPanel.transform.Find("Slot 2").transform.Find("Text").GetComponent<Text>();
+        qSThreeName = questsPanel.transform.Find("Slot 3").transform.Find("Text").GetComponent<Text>();
 
-        qSFourName = questsPanel.transform.Find("Slot 4").gameObject.GetComponent<Text>();
-        qSFiveName = questsPanel.transform.Find("Slot 5").gameObject.GetComponent<Text>();
-        qSSixName = questsPanel.transform.Find("Slot 6").gameObject.GetComponent<Text>();
+        qSFourName = questsPanel.transform.Find("Slot 4").transform.Find("Text").GetComponent<Text>();
+        qSFiveName = questsPanel.transform.Find("Slot 5").transform.Find("Text").GetComponent<Text>();
+        qSSixName = questsPanel.transform.Find("Slot 6").transform.Find("Text").GetComponent<Text>();
 
-        qSSevenName = questsPanel.transform.Find("Slot 7").gameObject.GetComponent<Text>();
-        qSEightName = questsPanel.transform.Find("Slot 8").gameObject.GetComponent<Text>();
-        qSNineName = questsPanel.transform.Find("Slot 9").gameObject.GetComponent<Text>();
+        qSSevenName = questsPanel.transform.Find("Slot 7").transform.Find("Text").GetComponent<Text>();
+        qSEightName = questsPanel.transform.Find("Slot 8").transform.Find("Text").GetComponent<Text>();
+        qSNineName = questsPanel.transform.Find("Slot 9").transform.Find("Text").GetComponent<Text>();
 
-        qSOneOutput = questsPanel.transform.Find("Q1").gameObject.GetComponent<Text>();
-        qSTwoOutput = questsPanel.transform.Find("Q2").gameObject.GetComponent<Text>();
-        qSThreeOutput = questsPanel.transform.Find("Q3").gameObject.GetComponent<Text>();
+        questName = questDescPanel.transform.Find("QN").GetComponent<Text>();
+        questDescription = questDescPanel.transform.Find("QD").GetComponent<Text>();
+        questReward = questDescPanel.transform.Find("QR").GetComponent<Text>();
 
-        qSFourOutput = questsPanel.transform.Find("Q4").gameObject.GetComponent<Text>();
-        qSFiveOutput = questsPanel.transform.Find("Q5").gameObject.GetComponent<Text>();
-        qSSixOutput = questsPanel.transform.Find("Q6").gameObject.GetComponent<Text>();
-
-        qSSevenOutput = questsPanel.transform.Find("Q7").gameObject.GetComponent<Text>();
-        qSEightOutput = questsPanel.transform.Find("Q8").gameObject.GetComponent<Text>();
-        qSNineOutput = questsPanel.transform.Find("Q9").gameObject.GetComponent<Text>();
 
     }
 
@@ -135,6 +133,7 @@ public class MenuCanvasScript : MonoBehaviour
         consumablesPanel.SetActive(false);
         itemsPanel.SetActive(false);
         questsPanel.SetActive(false);
+        questDescPanel.SetActive(false);
         openWeapons = false;
         closeWeapons = false;
         openItems = false;
@@ -143,6 +142,7 @@ public class MenuCanvasScript : MonoBehaviour
         closeConsumables = false;
         openQuests = false;
         closeQuests = false;
+
 
         
 
@@ -168,6 +168,7 @@ public class MenuCanvasScript : MonoBehaviour
             consumablesPanel.SetActive(false);
             itemsPanel.SetActive(false);
             questsPanel.SetActive(false);
+            questDescPanel.SetActive(false);
             isActive = false;
             freeze = false;
             PersistantGameManager.Instance.menuScreenOpen = false;
@@ -217,10 +218,14 @@ public class MenuCanvasScript : MonoBehaviour
             closeQuests = true;
             openQuests = false;
         }
-        else if (mainPanel.gameObject.activeSelf && Input.GetKeyDown(KeyCode.J) && questsPanel.activeSelf == false)
+        else if (mainPanel.gameObject.activeSelf && Input.GetKeyDown(KeyCode.J) && questsPanel.activeSelf == false && questDescPanel.activeSelf == false)
         {
             openQuests = true;
             closeQuests = false;
+        }
+        else if (mainPanel.gameObject.activeSelf && Input.GetKeyDown(KeyCode.J) && questDescPanel.activeSelf == true)
+        {
+            closeSlot = true;
         }
 
         if (Input.GetKeyDown(KeyCode.UpArrow))
@@ -356,6 +361,11 @@ public class MenuCanvasScript : MonoBehaviour
             CloseQuestsMenu();
             closeQuests = false;
         }
+        else if (closeSlot == true)
+        {
+            CloseSlot();
+            closeSlot = false;
+        }
 
     }
     public void OpenItemsMenu()
@@ -409,7 +419,7 @@ public class MenuCanvasScript : MonoBehaviour
 
     public void CloseQuestsMenu()
     {
-
+        questDescPanel.SetActive(false);
         questsPanel.SetActive(false);
 
     }
@@ -454,6 +464,8 @@ public class MenuCanvasScript : MonoBehaviour
         wR2Output.text = PersistantGameManager.Instance.playerWeaponInventory[1].itemRange.ToString();
         wR3Output.text = PersistantGameManager.Instance.playerWeaponInventory[2].itemRange.ToString();
 
+        #region ConsumablesMenu
+
         cSlot1 = "";
         cSlot2 = "";
         cSlot3 = "";
@@ -474,6 +486,7 @@ public class MenuCanvasScript : MonoBehaviour
         cSEightOutput.text = "";
         cSNineOutput.text = "";
 
+       
         // for (int element = 1; element < PersistantGameManager.Instance.possibleItems.Count; element++)
         foreach (string element in PersistantGameManager.Instance.possibleConsumables)
         {
@@ -625,6 +638,10 @@ public class MenuCanvasScript : MonoBehaviour
         }
         else { cSNineOutput.text = ""; }
 
+        #endregion
+
+
+        #region ItemsMenu
         iSlot1 = "";
         iSlot2 = "";
         iSlot3 = "";
@@ -644,7 +661,9 @@ public class MenuCanvasScript : MonoBehaviour
         iSSevenOutput.text = "";
         iSEightOutput.text = "";
         iSNineOutput.text = "";
-        //From here
+
+
+
         foreach (string element in PersistantGameManager.Instance.possibleItems)
         {
             if (index > PersistantGameManager.Instance.possibleItems.IndexOf(element))
@@ -796,6 +815,216 @@ public class MenuCanvasScript : MonoBehaviour
         else { iSNineOutput.text = ""; }
 
 
+
+
+        #endregion
+
+        #region QuestsMenu
+        qSlot1 = "";
+        qSlot2 = "";
+        qSlot3 = "";
+        qSlot4 = "";
+        qSlot5 = "";
+        qSlot6 = "";
+        qSlot7 = "";
+        qSlot8 = "";
+        qSlot9 = "";
+
+        /*
+        qSOneOutput.text = "";
+        qSTwoOutput.text = "";
+        qSThreeOutput.text = "";
+        qSFourOutput.text = "";
+        qSFiveOutput.text = "";
+        qSSixOutput.text = "";
+        qSSevenOutput.text = "";
+        qSEightOutput.text = "";
+        qSNineOutput.text = "";
+        */      
+
+
+
+        foreach (string element in PersistantGameManager.Instance.activeQuests)
+        {
+            if (index > PersistantGameManager.Instance.activeQuests.IndexOf(element))
+            {
+                continue;
+            }
+
+            if (qSlot1 == "")
+            {
+                if (PersistantGameManager.Instance.possibleQuests[element] != null)
+                {
+                    qSlot1 = element;
+                }
+            }
+            else if (qSlot2 == "")
+            {
+                if (PersistantGameManager.Instance.possibleQuests[element] != null)
+                {
+                    qSlot2 = element;
+                }
+            }
+            else if (qSlot3 == "")
+            {
+                if (PersistantGameManager.Instance.possibleQuests[element] != null)
+                {
+                    qSlot3 = element;
+                }
+            }
+            else if (qSlot4 == "")
+            {
+                if (PersistantGameManager.Instance.possibleQuests[element] != null)
+                {
+                    qSlot4 = element;
+                }
+            }
+            else if (qSlot5 == "")
+            {
+                if (PersistantGameManager.Instance.possibleQuests[element] != null)
+                {
+                    qSlot5 = element;
+                }
+            }
+            else if (qSlot6 == "")
+            {
+                if (PersistantGameManager.Instance.possibleQuests[element] != null)
+                {
+                    qSlot6 = element;
+                }
+
+            }
+            else if (qSlot7 == "")
+            {
+                if (PersistantGameManager.Instance.possibleQuests[element] != null)
+                {
+                    qSlot7 = element;
+                }
+
+            }
+            else if (iSlot8 == "")
+            {
+                if (PersistantGameManager.Instance.possibleQuests[element] != null)
+                {
+                    qSlot8 = element;
+                }
+
+            }
+            else if (qSlot9 == "")
+            {
+                if (PersistantGameManager.Instance.possibleQuests[element] != null)
+                {
+                    qSlot9 = element;
+                }
+
+            }
+
+        }
+
+
+
+        qSOneName.text = qSlot1;
+        qSTwoName.text = qSlot2;
+        qSThreeName.text = qSlot3;
+
+        qSFourName.text = qSlot4;
+        qSFiveName.text = qSlot5;
+        qSSixName.text = qSlot6;
+
+        qSSevenName.text = qSlot7;
+        qSEightName.text = qSlot8;
+        qSNineName.text = qSlot9;
+
+
+        if (qSlot1 != "")
+        {
+            qSOneName.transform.parent.gameObject.SetActive(true);
+            qSOneName.text = PersistantGameManager.Instance.possibleQuests[qSlot1].questName;
+        }
+        else
+        {
+
+            qSOneName.transform.parent.gameObject.SetActive(false); 
+        }
+
+        if (qSlot2 != "")
+        {
+            qSTwoName.transform.parent.gameObject.SetActive(true);
+            qSTwoName.text = PersistantGameManager.Instance.possibleQuests[qSlot2].questName;
+        }
+        else { qSTwoName.transform.parent.gameObject.SetActive(false); }
+
+        if (qSlot3 != "")
+        {
+            qSThreeName.transform.parent.gameObject.SetActive(true);
+            qSThreeName.text = PersistantGameManager.Instance.possibleQuests[qSlot3].questName;
+        }
+        else { qSThreeName.transform.parent.gameObject.SetActive(false); }
+
+        if (qSlot4 != "")
+        {
+            qSFourName.transform.parent.gameObject.SetActive(true);
+            qSFourName.text = PersistantGameManager.Instance.possibleQuests[qSlot4].questName;
+        }
+        else { qSFourName.transform.parent.gameObject.SetActive(false); }
+
+        if (qSlot5 != "")
+        {
+            qSFiveName.transform.parent.gameObject.SetActive(true);
+            qSFiveName.text = PersistantGameManager.Instance.possibleQuests[qSlot5].questName;
+        }
+        else { qSFiveName.transform.parent.gameObject.SetActive(false); }
+
+        if (qSlot6 != "")
+        {
+            qSSixName.transform.parent.gameObject.SetActive(true);
+            qSSixName.text = PersistantGameManager.Instance.possibleQuests[qSlot6].questName;
+        }
+        else { qSSixName.transform.parent.gameObject.SetActive(false); }
+
+        if (qSlot7 != "")
+        {
+            qSSevenName.transform.parent.gameObject.SetActive(true);
+            qSSevenName.text = PersistantGameManager.Instance.possibleQuests[qSlot7].questName;
+        }
+        else { qSSevenName.transform.parent.gameObject.SetActive(false); }
+
+        if (qSlot8 != "")
+        {
+            qSEightName.transform.parent.gameObject.SetActive(true);
+            qSEightName.text = PersistantGameManager.Instance.possibleQuests[qSlot8].questName;
+        }
+        else { qSEightName.transform.parent.gameObject.SetActive(false); }
+
+        if (qSlot9 != "")
+        {
+            qSNineName.transform.parent.gameObject.SetActive(true);
+            qSNineName.text = PersistantGameManager.Instance.possibleQuests[qSlot9].questName;
+        }
+        else { qSNineName.transform.parent.gameObject.SetActive(false); }
+
+
+
     }
 
+    #endregion
+
+    public void openSlot(int slot)
+    {
+        questDescPanel.SetActive(true);
+        questsPanel.SetActive(false);
+
+        Quest questToOpen = PersistantGameManager.Instance.possibleQuests[PersistantGameManager.Instance.activeQuests[slot - 1]];
+
+        questName.text = questToOpen.questName;
+        questDescription.text = questToOpen.questDescription;
+        questReward.text = PersistantGameManager.Instance.rewards[questToOpen.questKey];
+
+    }
+
+    public void CloseSlot()
+    {
+        questDescPanel.SetActive(false);
+        questsPanel.SetActive(true);
+    }
 }

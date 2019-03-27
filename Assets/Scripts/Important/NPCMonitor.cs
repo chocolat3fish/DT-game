@@ -34,11 +34,7 @@ public class NPCMonitor : MonoBehaviour
     private Text overlayRewardText;
     private Button overlayAcceptButton;
 
-    public Dictionary<string, string> rewards = new Dictionary<string, string>()
-    {
-        {"Ja00", "Reward: A 100% attack potion"},
-        {"Ja01", "Reward: A 20% Leech potion"}
-    };
+
 
     private bool reciveInput;
     private void Awake()
@@ -153,10 +149,17 @@ public class NPCMonitor : MonoBehaviour
             {
                 StopAllCoroutines();
                 StartCoroutine(AddChars(currentQuest.questStatment, overlayMainText));
-                StartCoroutine(AddChars(rewards[currentQuest.rewardKey], overlayRewardText));
+                StartCoroutine(AddChars(PersistantGameManager.Instance.rewards[currentQuest.questKey], overlayRewardText));
                 reciveInput = true;
                 stageOfConvo = 2;
                 currentSentenceIndex = -1;
+
+                if (PersistantGameManager.Instance.activeQuests.Contains(currentQuest.questKey ) == false)
+                {
+                    PersistantGameManager.Instance.activeQuests.Add(currentQuest.questKey);
+                    PersistantGameManager.Instance.possibleQuests.Add(currentQuest.questKey, currentQuest);
+                }
+
                 if(PersistantGameManager.Instance.itemInventory[currentQuest.questItemName] > 0)
                 {
                     OpenNewButtons(1);
@@ -269,7 +272,7 @@ public class NPCMonitor : MonoBehaviour
     {
         if(PersistantGameManager.Instance.itemInventory[currentQuest.questItemName] > 0)
         {
-            GiveReward(currentQuest.rewardKey);
+            GiveReward(currentQuest.questKey);
         }
         ContinueDialouge();
     }
@@ -281,12 +284,16 @@ public class NPCMonitor : MonoBehaviour
             PersistantGameManager.Instance.itemInventory["Claw of Straphagus"] --;
             PersistantGameManager.Instance.amountOfConsumables["100%A"]++;
             PersistantGameManager.Instance.characterQuests["Jason"]++;
+            PersistantGameManager.Instance.activeQuests.Remove("Ja00");
+            PersistantGameManager.Instance.possibleQuests.Remove("Ja00");
         }
 
         if (key == "Ja01")
         {
             PersistantGameManager.Instance.itemInventory["Amulet of Honour"]--;
             PersistantGameManager.Instance.amountOfConsumables["20%L"]++;
+            PersistantGameManager.Instance.activeQuests.Remove("Ja01");
+            PersistantGameManager.Instance.possibleQuests.Remove("Ja01");
         }
     }
 }

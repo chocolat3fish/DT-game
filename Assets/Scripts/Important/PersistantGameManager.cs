@@ -32,6 +32,17 @@ public class PersistantGameManager : MonoBehaviour
     {
         {"Jason", 0 }
     };
+
+    public Dictionary<string, Quest> possibleQuests = new Dictionary<string, Quest>();
+
+    public List<string> activeQuests = new List<string> ();
+
+    public Dictionary<string, string> rewards = new Dictionary<string, string>()
+    {
+        {"Ja00", "Reward: A 100% attack potion"},
+        {"Ja01", "Reward: A 20% Leech potion"}
+    };
+
     public bool potionIsActive;
     public string activePotionType;
     public float currentAttackMultiplier = 1;
