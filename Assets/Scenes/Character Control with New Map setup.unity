@@ -2470,14 +2470,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fdd4c612d7c540c88b4b61d472da602, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectile: 1
-  patrol: 1
+  projectile: 0
+  patrol: 0
+  charge: 1
   patrolPoints: []
   moveSpeed: 1
   shootSpeed: 1
   range: 10
   projectileSpeed: 7.5
   projectileDamage: 1
+  player: {fileID: 0}
+  chargeCoolDown: 5
+  chargeSpeed: 15
+  hasJumped: 0
+  rb: {fileID: 0}
+  jumpPower: 2
+  timeBetweenJumpAndCharge: 1
 --- !u!4 &258561756
 Transform:
   m_ObjectHideFlags: 0
@@ -2526,12 +2534,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectile: 1
   patrol: 0
+  charge: 0
   patrolPoints: []
   moveSpeed: 0
   shootSpeed: 1
   range: 10
   projectileSpeed: 7.5
   projectileDamage: 0
+  player: {fileID: 0}
+  chargeCoolDown: 0
+  chargeSpeed: 0
+  hasJumped: 0
+  rb: {fileID: 0}
+  jumpPower: 0
+  timeBetweenJumpAndCharge: 0
 --- !u!224 &265776208
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7189,12 +7205,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectile: 1
   patrol: 0
+  charge: 0
   patrolPoints: []
   moveSpeed: 0
   shootSpeed: 1
   range: 10
   projectileSpeed: 7.5
   projectileDamage: 0
+  player: {fileID: 0}
+  chargeCoolDown: 0
+  chargeSpeed: 0
+  hasJumped: 0
+  rb: {fileID: 0}
+  jumpPower: 2
+  timeBetweenJumpAndCharge: 0
 --- !u!224 &780271023
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8278,7 +8302,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 13, y: -145}
+  m_AnchoredPosition: {x: 13, y: -144.99976}
   m_SizeDelta: {x: -213.3, y: -395.8}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &945707291

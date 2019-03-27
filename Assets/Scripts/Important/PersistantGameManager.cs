@@ -27,11 +27,11 @@ public class PersistantGameManager : MonoBehaviour
     public List<string> possibleConsumables = new List<string> { "20%H", "50%H", "100%H", "20%A", "50%A", "100%A", "20%L"};
     public Dictionary<string, int> itemInventory = new Dictionary<string, int>();
     public List<string> possibleItems = new List<string> { "Dagger of Kaliphase", "Amulet of Honour", "Hood of Sartuka", "Claw of Straphagus" };
-
     public Dictionary<string, int> characterQuests = new Dictionary<string, int>
     {
         {"Jason", 0 }
     };
+
     public bool potionIsActive;
     public string activePotionType;
     public float currentAttackMultiplier = 1;
@@ -104,15 +104,12 @@ public class PersistantGameManager : MonoBehaviour
         {
             if(equippedItemOne == "" && amountOfConsumables[element] > 0)
             {
-                Debug.Log("Done 1");
                 equippedItemOne = element;
             }
             else if(equippedItemTwo == "" && amountOfConsumables[element] > 0)
             {
-                Debug.Log("Done 2");
                 equippedItemTwo = element;
             }
-            Debug.Log("Failed Done");
                
         }
         if(equippedItemOne == "")

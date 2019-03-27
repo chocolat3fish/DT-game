@@ -49,7 +49,6 @@ public class BulletController : MonoBehaviour
 
                 //Applys the Damage
                 player.GetComponent<PlayerControls>().currentHealth -= enemyAtackDamage;
-                Debug.Log("Hit Player");
                 Destroy(gameObject);
             }
          
@@ -57,8 +56,6 @@ public class BulletController : MonoBehaviour
         }
         else if (collision.gameObject != enemyWhoFiredThis)
         {
-            Debug.Log("Hit something else");
-            Debug.Log(collision.gameObject.name);
             Destroy(gameObject);
         }
     }
