@@ -2308,7 +2308,7 @@ GameObject:
   m_Component:
   - component: {fileID: 217973335}
   m_Layer: 11
-  m_Name: Point 1
+  m_Name: Right Point
   m_TagString: Untagged
   m_Icon: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -2689,11 +2689,15 @@ MonoBehaviour:
   projectileDamage: 1
   player: {fileID: 0}
   chargeCoolDown: 5
+  timeOfCharge: 0
+  time: 0
   chargeSpeed: 15
   hasJumped: 0
   rb: {fileID: 0}
+  doJump: 0
   jumpPower: 2
   timeBetweenJumpAndCharge: 1
+  timeOfShake: 0
 --- !u!4 &258561756
 Transform:
   m_ObjectHideFlags: 0
@@ -2751,11 +2755,15 @@ MonoBehaviour:
   projectileDamage: 0
   player: {fileID: 0}
   chargeCoolDown: 0
+  timeOfCharge: 0
+  time: 0
   chargeSpeed: 0
   hasJumped: 0
   rb: {fileID: 0}
+  doJump: 0
   jumpPower: 0
   timeBetweenJumpAndCharge: 0
+  timeOfShake: 0
 --- !u!224 &265776208
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7761,11 +7769,15 @@ MonoBehaviour:
   projectileDamage: 0
   player: {fileID: 0}
   chargeCoolDown: 0
+  timeOfCharge: 0
+  time: 0
   chargeSpeed: 0
   hasJumped: 0
   rb: {fileID: 0}
+  doJump: 0
   jumpPower: 2
   timeBetweenJumpAndCharge: 0
+  timeOfShake: 0
 --- !u!224 &780271023
 RectTransform:
   m_ObjectHideFlags: 0
@@ -16196,31 +16208,60 @@ MonoBehaviour:
   canContinueDialouge: 0
   characterQuests:
   - questName: Claw of Straphagus
-    sentencesBeforeQuest:
-    - Hi I'm Jason
-    - And I want you to do something for me
-    questStatment: Go to the top corner of the room and grab the claw of straphagus
+    sentencesBeforeQuest1stTime:
+    - "Hello I'm Jason, \nNice to meet you..."
+    - Just wondering if you could do something little for me...
+    sentencesBeforeQuest2ndTime:
+    - Seems like I just saw you...
+    questStatment: Could you please go to the top left corner of the map and grab
+      the Claw of Straphagus for me...
+    questStatmentWithItem: I see you found it. Congrats I didn't think it would be
+      that hard.
     sentencesAfterQuest:
-    - That will be all thanks
-    questDescription: Find the Claw of Straphagus in the top corner of the room.
+    - Goodbye, See you soon. /wHopefully.
+    questDescription: Jason wants you to get hold of the Claw of Straphagus for him.
+      he says it is located at the top of the map in the left corner.
+    sentencesAfterQuestEnd:
+    - Why thank you. You don't know how long I been trying to get hold of this.
     questItemName: Claw of Straphagus
     questKey: Ja00
   - questName: Amulet of Honour
-    sentencesBeforeQuest:
-    - sup
-    - i have a quest
-    questStatment: go and get the AMULET OF HONOUR
+    sentencesBeforeQuest1stTime:
+    - Thanks for before...
+    - Though may I ask one more favour..
+    sentencesBeforeQuest2ndTime:
+    - Please tell me you found it...
+    questStatment: Please could you grab the Amulet of Honour for me. I seemed to
+      have misplaced it. It is a old family heirloom...
+    questStatmentWithItem: Oh good you did find it, It seems my mother doesn't have
+      to disown me after all...
     sentencesAfterQuest:
-    - cool thanks
-    questDescription: Find the Amulet of Honour in the bottom corner of the room.
+    - Please find it I have been kicked out of the family a few to many times
+    questDescription: Jason Seems to have misplaced an old family heirloom, The Amulet
+      of Honour, He asked you to find it. He doesn't remember where he left it.
+    sentencesAfterQuestEnd:
+    - Thank you so much. well I hope this helps.
     questItemName: Amulet of Honour
     questKey: Ja01
-  currentQuest:
-    questName: 
-    sentencesBeforeQuest: []
-    questStatment: 
+  - questName: No More
+    sentencesBeforeQuest1stTime: []
+    sentencesBeforeQuest2ndTime: []
+    questStatment: No more
+    questStatmentWithItem: 
     sentencesAfterQuest: []
     questDescription: 
+    sentencesAfterQuestEnd: []
+    questItemName: Hood of Sartuka
+    questKey: Ja03
+  currentQuest:
+    questName: 
+    sentencesBeforeQuest1stTime: []
+    sentencesBeforeQuest2ndTime: []
+    questStatment: 
+    questStatmentWithItem: 
+    sentencesAfterQuest: []
+    questDescription: 
+    sentencesAfterQuestEnd: []
     questItemName: 
     questKey: 
   nameOfNpc: Jason
@@ -18465,7 +18506,7 @@ MonoBehaviour:
     armourType: 
     defence: 0
   player: {fileID: 0}
-  camera: {fileID: 0}
+  _camera: {fileID: 0}
   magicBar: {fileID: 1580937054}
   hasMagic: 0
   tripleJump: 0
@@ -21715,7 +21756,6 @@ MonoBehaviour:
   TimeOfItemTwoUse: 0
   itemTwoCooldown: 1
   nextAttack: 1
-  currentHealth: 10
   totalHealth: 10
   defence: 0
   timeOfAttack: 0
@@ -22013,7 +22053,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2146851575}
   m_Layer: 0
-  m_Name: Point 2
+  m_Name: Left Point
   m_TagString: Untagged
   m_Icon: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0

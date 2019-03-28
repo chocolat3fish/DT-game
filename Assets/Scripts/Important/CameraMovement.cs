@@ -18,10 +18,10 @@ public class CameraMovement : MonoBehaviour
     //At the end of each frame it saves the current offset this allows the script to "fade" to the next offest
     public Vector2 savedOffset;
     //The Camera
-    private Camera camera;
+    private Camera _camera;
     void Start()
     {
-        camera = FindObjectOfType<Camera>();
+        _camera = FindObjectOfType<Camera>();
         player = FindObjectOfType<PlayerControls>();
         savedOffset = offset;
     }
@@ -35,7 +35,7 @@ public class CameraMovement : MonoBehaviour
         //Sets the position the camera will travel this frame based off where it wants to go and the current poisiton of the player
         Vector2 smoothPosition = Vector2.Lerp(transform.position, desiredPosition, smoothSpeed);
         //Actully changes the position of the camera and sets the z to the current z of the camera
-        camera.transform.position = new Vector3(smoothPosition.x, smoothPosition.y, camera.transform.position.z);
+        _camera.transform.position = new Vector3(smoothPosition.x, smoothPosition.y, _camera.transform.position.z);
         //saves the current offset
         savedOffset = adjustedOffset;
         

@@ -12,23 +12,4 @@ public class ContinueButton : MonoBehaviour
     {
         nPCMonitor.ContinueDialouge();
     }
-    private void Update()
-    {
-        if (nPCMonitor.isTalking && nPCMonitor.canContinueDialouge)
-        {
-            if (Input.GetKeyDown(KeyCode.X))
-            {
-                continueDialouge = true;
-            }
-        }
-    }
-    private void FixedUpdate()
-    {
-        if(continueDialouge)
-        {
-            nPCMonitor.ContinueDialouge();
-            continueDialouge = false;
-
-        }
-    }
 }

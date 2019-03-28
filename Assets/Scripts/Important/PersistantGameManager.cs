@@ -39,7 +39,8 @@ public class PersistantGameManager : MonoBehaviour
     public Dictionary<string, string> rewards = new Dictionary<string, string>()
     {
         {"Ja00", "Reward: A 100% attack potion"},
-        {"Ja01", "Reward: A 20% Leech potion"}
+        {"Ja01", "Reward: A 20% Leech potion"},
+        {"Ja02", "Ha you don't get anything" }
     };
 
     public bool potionIsActive;
@@ -57,7 +58,7 @@ public class PersistantGameManager : MonoBehaviour
     public Armour currentArmour;
     public Armour comparingArmour;
     public PlayerControls player;
-    public Camera camera;
+    public Camera _camera;
 
     public GameObject magicBar;
     public bool hasMagic;
@@ -371,14 +372,14 @@ public class PersistantGameManager : MonoBehaviour
     private void OnSceneChange()
     {
         player = FindObjectOfType<PlayerControls>();
-        camera = FindObjectOfType<Camera>();
+        _camera = FindObjectOfType<Camera>();
         DoorMonitor[] doors = FindObjectsOfType<DoorMonitor>();
         foreach (DoorMonitor door in doors)
         {
             if (door.gameObject.name.Replace(" Door","") == currentScene)
             {
                 player.transform.position = door.transform.position;
-                camera.transform.position = new Vector3(player.transform.position.x, player.transform.position.y , -10f);
+                _camera.transform.position = new Vector3(player.transform.position.x, player.transform.position.y , -10f);
 
             }
         }

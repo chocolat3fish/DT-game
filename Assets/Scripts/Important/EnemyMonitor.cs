@@ -29,8 +29,6 @@ public class EnemyMonitor : MonoBehaviour
     //All enemy stats (name, damage, health, speed , range)
     public Enemy enemyStats;
 
-    //Wether the co-routine should attack the player
-    private bool attacking = false;
 
     //Stats for lootdrop
     public int itemChance;

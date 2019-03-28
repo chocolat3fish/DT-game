@@ -29,7 +29,6 @@ public class EnemyAttacks : MonoBehaviour
     public bool doJump;
     public float jumpPower;
     private float timeOfJump;
-    private bool shouldCharge;
     public float timeBetweenJumpAndCharge;
     public float timeOfShake;
     private bool patrolling;
@@ -120,7 +119,6 @@ public class EnemyAttacks : MonoBehaviour
             {
 
                 hasJumped = false;
-                shouldCharge = false; 
                 chargingLeft = false;
                 if(patrol)
                 {
@@ -136,7 +134,6 @@ public class EnemyAttacks : MonoBehaviour
             if (Vector2.Distance(enemy.transform.position, patrolPoints[1].position) < .2f)
             {
                 hasJumped = false;
-                shouldCharge = false;
                 chargingRight = false;
                 if (patrol)
                 {

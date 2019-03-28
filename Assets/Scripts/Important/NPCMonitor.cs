@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,6 +15,7 @@ public class NPCMonitor : MonoBehaviour
 
     private GameObject player;
 
+    private bool hasTalkedBefore;
 
     public bool isTalking;
     public bool canContinueDialouge;
@@ -34,9 +36,6 @@ public class NPCMonitor : MonoBehaviour
     private Text overlayRewardText;
     private Button overlayAcceptButton;
 
-
-
-    private bool reciveInput;
     private void Awake()
     {
         Canvas[] canvases = FindObjectsOfType<Canvas>();
@@ -131,61 +130,119 @@ public class NPCMonitor : MonoBehaviour
             if (stageOfConvo == 0)
             {
                 currentSentenceIndex++;
-                if(currentSentenceIndex >= currentQuest.sentencesBeforeQuest.Length)
+                if (hasTalkedBefore)
                 {
-                    stageOfConvo = 1;
+                    if (currentSentenceIndex >= currentQuest.sentencesBeforeQuest2ndTime.Length)
+                    {
+                        stageOfConvo = 1;
+
+                    }
+                    else
+                    {
+                        StopAllCoroutines();
+                        StartCoroutine(AddChars(currentQuest.sentencesBeforeQuest2ndTime[currentSentenceIndex], overlayMainText));
+                        canContinueDialouge = false;
+                        dialougeBoxQuery = true;
+                        dialougeBoxQueryTime = Time.time;
+                        return;
+                    }
                 }
                 else
                 {
-                    StopAllCoroutines();
-                    StartCoroutine(AddChars(currentQuest.sentencesBeforeQuest[currentSentenceIndex], overlayMainText));
-                    canContinueDialouge = false;
-                    dialougeBoxQuery = true;
-                    dialougeBoxQueryTime = Time.time;
-                    return;
+                    if (currentSentenceIndex >= currentQuest.sentencesBeforeQuest1stTime.Length)
+                    {
+                        stageOfConvo = 1;
+                    }
+                    else
+                    {
+                        StopAllCoroutines();
+                        StartCoroutine(AddChars(currentQuest.sentencesBeforeQuest1stTime[currentSentenceIndex], overlayMainText));
+                        canContinueDialouge = false;
+                        dialougeBoxQuery = true;
+                        dialougeBoxQueryTime = Time.time;
+                        return;
+                    }
                 }
             }
+
             if(stageOfConvo == 1)
             {
-                StopAllCoroutines();
-                StartCoroutine(AddChars(currentQuest.questStatment, overlayMainText));
-                StartCoroutine(AddChars(PersistantGameManager.Instance.rewards[currentQuest.questKey], overlayRewardText));
-                reciveInput = true;
-                stageOfConvo = 2;
-                currentSentenceIndex = -1;
-
-                if (PersistantGameManager.Instance.activeQuests.Contains(currentQuest.questKey ) == false)
+                if (hasTalkedBefore && PersistantGameManager.Instance.itemInventory[currentQuest.questItemName] > 0)
                 {
-                    PersistantGameManager.Instance.activeQuests.Add(currentQuest.questKey);
-                    PersistantGameManager.Instance.possibleQuests.Add(currentQuest.questKey, currentQuest);
-                }
-
-                if(PersistantGameManager.Instance.itemInventory[currentQuest.questItemName] > 0)
-                {
+                    StopAllCoroutines();
+                    StartCoroutine(AddChars(currentQuest.questStatmentWithItem, overlayMainText));
+                    StartCoroutine(AddChars(PersistantGameManager.Instance.rewards[currentQuest.questKey], overlayRewardText));
+                    stageOfConvo = 2;
+                    currentSentenceIndex = -1;
                     OpenNewButtons(1);
+                    return;
+                    
                 }
                 else
                 {
-                    OpenNewButtons(0);
-                }
 
-                return;
-            }
-            if(stageOfConvo == 2)
-            {
-                overlayRewardText.text = "";
-                currentSentenceIndex++;
-                CloseNewButtons();
-                if(currentSentenceIndex >= currentQuest.sentencesAfterQuest.Length)
-                {
-                    EndDialouge();
+
+                    StopAllCoroutines();
+                    hasTalkedBefore = true;
+                    StartCoroutine(AddChars(currentQuest.questStatment, overlayMainText));
+                    StartCoroutine(AddChars(PersistantGameManager.Instance.rewards[currentQuest.questKey], overlayRewardText));
+                    stageOfConvo = 2;
+                    currentSentenceIndex = -1;
+
+
+                    if (PersistantGameManager.Instance.activeQuests.Contains(currentQuest.questKey) == false)
+                    {
+                        PersistantGameManager.Instance.activeQuests.Add(currentQuest.questKey);
+                        PersistantGameManager.Instance.possibleQuests.Add(currentQuest.questKey, currentQuest);
+                    }
+
+                    if (PersistantGameManager.Instance.itemInventory[currentQuest.questItemName] > 0)
+                    {
+                        OpenNewButtons(1);
+                    }
+                    else
+                    {
+                        OpenNewButtons(0);
+                    }
                     return;
                 }
-                else 
+            }
+
+            if(stageOfConvo == 2)
+            {
+                if(characterQuests[PersistantGameManager.Instance.characterQuests[nameOfNpc]].questKey != currentQuest.questKey)
                 {
-                    StopAllCoroutines();
-                    StartCoroutine(AddChars(currentQuest.sentencesAfterQuest[currentSentenceIndex], overlayMainText));
+                    overlayRewardText.text = "";
+                    currentSentenceIndex++;
+                    CloseNewButtons();
+                    if (currentSentenceIndex >= currentQuest.sentencesAfterQuestEnd.Length)
+                    {
+                        EndDialouge();
+                        return;
+                    }
+                    else
+                    {
+                        StopAllCoroutines();
+                        StartCoroutine(AddChars(currentQuest.sentencesAfterQuestEnd[currentSentenceIndex], overlayMainText));
+                    }
                 }
+                else
+                {
+                    overlayRewardText.text = "";
+                    currentSentenceIndex++;
+                    CloseNewButtons();
+                    if (currentSentenceIndex >= currentQuest.sentencesAfterQuest.Length)
+                    {
+                        EndDialouge();
+                        return;
+                    }
+                    else
+                    {
+                        StopAllCoroutines();
+                        StartCoroutine(AddChars(currentQuest.sentencesAfterQuest[currentSentenceIndex], overlayMainText));
+                    }
+                }
+                
 
 
 
@@ -245,8 +302,14 @@ public class NPCMonitor : MonoBehaviour
         overlayAcceptButton.gameObject.SetActive(false);
         overlayContinueButton.gameObject.SetActive(true);
         overlayRewardText.text = "";
-        StartCoroutine(AddChars(currentQuest.sentencesBeforeQuest[0], overlayMainText));
-
+        if (hasTalkedBefore)
+        {
+            StartCoroutine(AddChars(currentQuest.sentencesBeforeQuest2ndTime[0], overlayMainText));
+        }
+        else
+        {
+            StartCoroutine(AddChars(currentQuest.sentencesBeforeQuest1stTime[0], overlayMainText));
+        }
     }
 
     private void EndDialouge()
@@ -261,10 +324,29 @@ public class NPCMonitor : MonoBehaviour
     IEnumerator AddChars(string sentence, Text text)
     {
         text.text = "";
+        char previousChar = "a"[0];
+        bool shouldWait = false;
         foreach (char ch in sentence)
         {
+            if(ch == "/"[0])
+            {
+                previousChar = ch;
+                continue;
+            }
+            if(ch == "w"[0] && previousChar == "/"[0])
+            {
+                yield return new WaitForSecondsRealtime(0.5f);
+                previousChar = "a"[0];
+                shouldWait = true;
+                continue;
+            }
+            previousChar = ch;
             text.text += ch;
             yield return null;
+            if (shouldWait)
+            {
+                yield return null;
+            }
             
         }
     }
@@ -283,17 +365,20 @@ public class NPCMonitor : MonoBehaviour
         {
             PersistantGameManager.Instance.itemInventory["Claw of Straphagus"] --;
             PersistantGameManager.Instance.amountOfConsumables["100%A"]++;
-            PersistantGameManager.Instance.characterQuests["Jason"]++;
-            PersistantGameManager.Instance.activeQuests.Remove("Ja00");
-            PersistantGameManager.Instance.possibleQuests.Remove("Ja00");
+           
         }
 
         if (key == "Ja01")
         {
             PersistantGameManager.Instance.itemInventory["Amulet of Honour"]--;
             PersistantGameManager.Instance.amountOfConsumables["20%L"]++;
-            PersistantGameManager.Instance.activeQuests.Remove("Ja01");
-            PersistantGameManager.Instance.possibleQuests.Remove("Ja01");
         }
+
+        
+        PersistantGameManager.Instance.characterQuests[nameOfNpc]++;
+        
+        PersistantGameManager.Instance.activeQuests.Remove(key);
+        PersistantGameManager.Instance.possibleQuests.Remove(key);
+        hasTalkedBefore = false;
     }
 }
