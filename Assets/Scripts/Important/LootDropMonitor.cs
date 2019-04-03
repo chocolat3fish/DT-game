@@ -16,7 +16,7 @@ public class LootDropMonitor : MonoBehaviour
     public Color consumableColor;
     public Color weaponColor;
     public Color itemColor;
-    public Color deafultColor;
+    public Color defaultColor;
     public int type;
     //The new weapon the loot item is holding
     public Weapon itemStats;
@@ -61,7 +61,7 @@ public class LootDropMonitor : MonoBehaviour
         }
         else
         {
-            spriteRenderer.color = deafultColor;
+            spriteRenderer.color = defaultColor;
         }
     }
 

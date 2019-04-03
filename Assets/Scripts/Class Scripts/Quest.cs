@@ -4,7 +4,10 @@ using UnityEngine;
 [Serializable]
 public class Quest
 {
+
+
     public string questName;
+    public string questType;
     [TextArea(5, 20)]
     public string[] sentencesBeforeQuest1stTime;
     [TextArea(5, 20)]
@@ -24,6 +27,8 @@ public class Quest
     public string questItemName;
 
     public string questKey;
+
+
     /*
     public Quest(string questName, string[] sentencesBeforeQuest, string questStatment, string[] sentencesAfterQuest, string questItemName, string questDescription)
     {

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 
 /* For double jumps:
@@ -24,6 +25,8 @@ public class PlayerControls : MonoBehaviour
     public float doubleJumpSpeed;
     public int totalJumps;
     private Rigidbody2D playerRigidbody;
+
+    public string deathScene;
 
     //reliant on PersistantGameManager and PlayerMonitor
     public float playerDamage;
@@ -99,6 +102,12 @@ public class PlayerControls : MonoBehaviour
 
     void Update()
     {
+        if (currentHealth <= 0)
+        {
+            // when player dies, loads the game over scene
+            SceneManager.LoadScene(deathScene);
+        }
+
         if (Input.GetMouseButtonDown(1))
         {
             transform.position = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.nearClipPlane));

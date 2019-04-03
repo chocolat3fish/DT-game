@@ -9,6 +9,7 @@ public class BulletController : MonoBehaviour
     public float speed;
     public float damage;
     public GameObject enemyWhoFiredThis;
+    public Vector2 startPosition;
 
     private void Awake()
     {
@@ -20,15 +21,31 @@ public class BulletController : MonoBehaviour
         Rigidbody2D rb = gameObject.GetComponent<Rigidbody2D>();
         Vector2 moveDirection = (player.transform.position - transform.position).normalized * speed;
         rb.velocity = new Vector2(moveDirection.x, moveDirection.y);
+        startPosition = enemyWhoFiredThis.transform.position;
+
     }
 
     private void Update()
     {
-        if (Vector2.Distance(transform.position, enemyWhoFiredThis.transform.position) > range)
+        try
         {
-            Debug.Log(Vector2.Distance(transform.position, enemyWhoFiredThis.transform.position));
-            Destroy(gameObject);
+            if (Vector2.Distance(transform.position, enemyWhoFiredThis.transform.position) > range)
+            {
+                Debug.Log(Vector2.Distance(transform.position, enemyWhoFiredThis.transform.position));
+                Destroy(gameObject);
+            }
         }
+
+        catch (MissingReferenceException)
+        {
+            if (Vector2.Distance(transform.position, startPosition) > range)
+            {
+                Debug.Log("no error");
+                Destroy(gameObject);
+            }
+        }
+
+
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -39,16 +56,16 @@ public class BulletController : MonoBehaviour
             {
 
                 //calculates how much damage to apply to the character
-                float enemyAtackDamage = damage - player.GetComponent<PlayerControls>().defence;
+                float enemyAttackDamage = damage - player.GetComponent<PlayerControls>().defence;
 
                 // if the players defence cancels out the enemys attack to much i.e. making it negative sets the damage to 0.1
-                if (enemyAtackDamage < 0.1)
+                if (enemyAttackDamage < 0.1)
                 {
-                    enemyAtackDamage = 0.1f;
+                    enemyAttackDamage = 0.1f;
                 }
 
                 //Applys the Damage
-                player.GetComponent<PlayerControls>().currentHealth -= enemyAtackDamage;
+                player.GetComponent<PlayerControls>().currentHealth -= enemyAttackDamage;
                 Destroy(gameObject);
             }
          

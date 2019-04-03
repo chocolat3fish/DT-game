@@ -26,6 +26,9 @@ public class EnemyMonitor : MonoBehaviour
     public GameObject player;
     private PlayerControls playerControls;
     private EnemyAttacks enemyAttacks;
+
+    private NPCMonitor nPCMonitor;
+
     //All enemy stats (name, damage, health, speed , range)
     public Enemy enemyStats;
 
@@ -34,6 +37,9 @@ public class EnemyMonitor : MonoBehaviour
     public int itemChance;
     public int weaponValue;
     public int itemValue;
+
+    public bool questTarget;
+    public string questReward;
 
     //Name of the loot drop prefab
     private string lootDropPreFabName = "Loot Drop";
@@ -88,6 +94,20 @@ public class EnemyMonitor : MonoBehaviour
     //The Death method, drops a loot item, gives xp and then destorys the enemy will eventully play death animation
     public void EnemyDeath()
     {
+
+        if (questTarget == true && PersistantGameManager.Instance.activeQuests.Contains(PersistantGameManager.Instance.questTargets[questReward]))
+        {   
+            GameObject questDrop = Instantiate(Resources.Load(lootDropPreFabName), transform.position, Quaternion.identity) as GameObject;
+            LootDropMonitor questDropMonitor = questDrop.GetComponent<LootDropMonitor>();
+
+
+
+            questDropMonitor.type = 2;
+            //questDropMonitor.item = PersistantGameManager.Instance.questTargets[nPCMonitor.currentQuest.questKey];
+            questDropMonitor.item = questReward;
+
+            Debug.Log("Dropped item " + questReward);
+        }
         //Gets the new weapon based off the drop chance and the value of weapon, if a weapon is not going to be droped it returns null
         LootItem newItem = LootManager.DropItem(itemChance, itemValue,  weaponValue);
 
@@ -110,6 +130,9 @@ public class EnemyMonitor : MonoBehaviour
                 lootDropInstanceMonitor.type = 1;
                 lootDropInstanceMonitor.consumable= newItem.consumable;
             }
+
+            Vector2 lootPosition = lootDropInstance.transform.position;
+            lootDropInstance.transform.position = new Vector2(lootDropInstance.transform.position.x - 1, lootPosition.y);
 
             //Tells the Loot Drop what weapon it should store
 

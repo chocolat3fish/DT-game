@@ -36,12 +36,20 @@ public class PersistantGameManager : MonoBehaviour
 
     public List<string> activeQuests = new List<string> ();
 
-    public Dictionary<string, string> rewards = new Dictionary<string, string>()
+    public Dictionary<string, string> rewards = new Dictionary<string, string>
     {
         {"Ja00", "Reward: A 100% attack potion"},
         {"Ja01", "Reward: A 20% Leech potion"},
-        {"Ja02", "Ha you don't get anything" }
+        {"Ja02", "Ha you don't get anything" },
+        {"Ja03", "Reward: A new Longsword"}
     };
+
+    public Dictionary<string, string> questTargets = new Dictionary<string, string>
+    {
+        {"Hood of Sartuka", "Ja03"}
+    };
+
+
 
     public bool potionIsActive;
     public string activePotionType;
@@ -194,7 +202,7 @@ public class PersistantGameManager : MonoBehaviour
             magicBar.SetActive(true);
         }
 
-        else if (hasMagic == false)
+        else if ((magicBar != null) && (hasMagic == false))
         {
             magicBar.SetActive(false);
         }

@@ -10,6 +10,6 @@ public class ContinueButton : MonoBehaviour
 
     public void OnClick()
     {
-        nPCMonitor.ContinueDialouge();
+        nPCMonitor.ContinueDialogue();
     }
 }

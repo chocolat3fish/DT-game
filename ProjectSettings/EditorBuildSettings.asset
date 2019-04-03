@@ -29,4 +29,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Character Control with enemy attack.unity
     guid: 3a4485a82a8a84cbd8472b7251ec6e8c
+  - enabled: 1
+    path: Assets/Scenes/Character Control with New Map setup.unity
+    guid: 7211383820d4eea47a1d5dfbe5b77dcc
+  - enabled: 1
+    path: Assets/Scenes/You lost.unity
+    guid: 6efb579afa5c84864885bec821090b5a
   m_configObjects: {}

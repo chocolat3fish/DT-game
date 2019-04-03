@@ -8,8 +8,8 @@ using UnityEngine;
 //A script that can be referneced by other scrits and controlls loot drops
 public class LootManager : MonoBehaviour
 {
-    
 
+    public static float rangeBonus, speedBonus, damageBonus;
     //uses random from system rather than unityengine, allows for random.Next() 
     //which genreates a random number between ranges
     private static System.Random random = new System.Random();
@@ -29,7 +29,7 @@ public class LootManager : MonoBehaviour
 
             LootItem lootItem = new LootItem();
             lootItem.type = 0;
-            lootItem.newWeapon = GenerateWeapon(weaponValue);
+            lootItem.newWeapon = GenerateWeapon(weaponValue, rangeBonus, speedBonus, damageBonus);
             return lootItem;
             
 
@@ -47,8 +47,10 @@ public class LootManager : MonoBehaviour
     }
 
     //A method called by the Drop item script to find a weapon based off a weapon value
-    public static Weapon GenerateWeapon(int weaponValue)
+    public static Weapon GenerateWeapon(int weaponValue, float rangeBonus, float speedBonus, float damageBonus)
     {
+
+        /*
         //Wether it has is still choosing the type of weapon to use
         bool selectingTypeOfWeapon = true;
 
@@ -59,18 +61,19 @@ public class LootManager : MonoBehaviour
         bool allowsLances = false;
         bool allowsAxes = false;
 
-        //how much damage to add to the weapon at the end
-        int powerBoost = 0;
+        //Information for 
+        float minAS = 0, maxAS = 0, minR = 0, maxR = 0;
+        int minD = 0, maxD = 0;
+        */
 
         //A random number
         int randomNumber;
 
-        //Information for 
-        float minAS = 0, maxAS = 0, minR = 0, maxR = 0;
-        int minD = 0, maxD = 0;
+        //how much damage to add to the weapon at the end
+        int powerBoost = 0;
 
         string weaponType = "";
-
+        /*
         if (weaponValue > 5)
         {
             allowsShortSwords = true;
@@ -87,14 +90,55 @@ public class LootManager : MonoBehaviour
         {
             allowsAxes = true;
         }
+        */
+
         if (weaponValue > 60)
         {
             powerBoost = weaponValue - 40;
         }
 
-        while (selectingTypeOfWeapon)
+        //while (selectingTypeOfWeapon)
+
+        randomNumber = random.Next(0, 4);
+        switch (randomNumber)
         {
-            randomNumber = random.Next(0, 4);
+            case 0:
+                weaponType = "Dagger";
+                rangeBonus = 1f;
+                speedBonus = 0.4f;
+                damageBonus = 0.6f;
+                break;
+
+            case 1:
+                weaponType = "Short Sword";
+                rangeBonus = 1.5f;
+                speedBonus = 0.6f;
+                damageBonus = 0.8f;
+                break;
+
+            case 2:
+                weaponType = "Long Sword";
+                rangeBonus = 2f;
+                speedBonus = 1f;
+                damageBonus = 1f;
+                break;
+
+            case 3:
+                weaponType = "Lance";
+                rangeBonus = 3f;
+                speedBonus = 1f;
+                damageBonus = 0.8f;
+                break;
+
+            case 4:
+                weaponType = "Axes";
+                rangeBonus = 4f;
+                speedBonus = 1.5f;
+                damageBonus = 1.5f;
+                break;
+        }
+            /*
+
             if (randomNumber == 0 && allowsDaggers)
             {
                 weaponType = "Dagger";
@@ -160,9 +204,11 @@ public class LootManager : MonoBehaviour
 
                 selectingTypeOfWeapon = false;
             }
+            */
 
 
-        }
+
+        /*
         //new stats of newWeapon taken from the max and min damage with power boost added for damage
         float newDamage = (random.Next(minD, (maxD + 5)));
         if (newDamage > maxD) { newDamage = maxD; }
@@ -176,16 +222,120 @@ public class LootManager : MonoBehaviour
         float newRange = (random.Next((int)(minR * 100), (int)((maxR + 0.25f) * 100)))/100.0f;
         newRange = (float)(Math.Round(newRange ,2));
         if (newRange > maxR) { newRange = maxR; }
+        */
+
+        int playerLevel = PersistantGameManager.Instance.playerStats.playerLevel;
+
+        int newLevel = random.Next(playerLevel - 3, playerLevel + 3);
+        if (newLevel <= 0) { newLevel = 1; }
+
+        float newDamage = random.Next(newLevel - newLevel / 5, newLevel + newLevel / 5);
+        newDamage *= damageBonus + (damageBonus * (weaponValue / 100));
+        if (newDamage <= 0) { newDamage = 0.1f; }
+
+        double tempSpeed = random.NextDouble();
+
+        float newAttackSpeed = (float)Math.Round((decimal)tempSpeed, 2, MidpointRounding.AwayFromZero);
+        //float newAttackSpeed = random.Next((newLevel - newLevel / 5) / 10, (newLevel + newLevel / 5) / 10);
+        newAttackSpeed *= speedBonus;
+        if (newAttackSpeed <= 0) { newAttackSpeed = 0.1f; }
+
+
+        //float newRange = random.Next(newLevel + newLevel / 5, newLevel + newLevel / 5);
+        float newRange = rangeBonus;
+
+        if (newRange <= 0) { newRange = 0.1f; }
+
+
+
 
         Debug.Log(weaponType);
         Debug.Log(newDamage);
         Debug.Log(newAttackSpeed);
         Debug.Log(newRange);
-        return new Weapon(weaponType, newDamage, newAttackSpeed, newRange);
+        Debug.Log(newLevel);
+        return new Weapon(weaponType, newDamage, newAttackSpeed, newRange, newLevel);
         
 
     
     }
+
+    public static Weapon GenerateSpecificWeapon(string weaponType, int weaponValue)
+    {
+
+        int powerBoost = 0;
+
+        if (weaponValue > 60)
+        {
+            powerBoost = weaponValue - 40;
+        }
+
+        switch (weaponType)
+        {
+            case "Dagger":
+
+                rangeBonus = 1f;
+                speedBonus = 0.4f;
+                damageBonus = 0.6f;
+                break;
+
+            case "Short Sword":
+                rangeBonus = 1.5f;
+                speedBonus = 0.6f;
+                damageBonus = 0.8f;
+                break;
+
+            case "Long Sword":
+                rangeBonus = 2f;
+                speedBonus = 1f;
+                damageBonus = 1f;
+                break;
+
+            case "Lance":
+                rangeBonus = 3f;
+                speedBonus = 1f;
+                damageBonus = 0.8f;
+                break;
+
+            case "Axes":
+                rangeBonus = 4f;
+                speedBonus = 1.5f;
+                damageBonus = 1.5f;
+                break;
+        }
+
+        int playerLevel = PersistantGameManager.Instance.playerStats.playerLevel;
+
+        int newLevel = random.Next(playerLevel - 3, playerLevel + 3);
+        if (newLevel <= 0) { newLevel = 1; }
+
+        float newDamage = random.Next(newLevel - newLevel / 5, newLevel + newLevel / 5);
+        newDamage *= damageBonus + (damageBonus * (weaponValue / 100));
+        if (newDamage <= 0) { newDamage = 0.1f; }
+
+        double tempSpeed = random.NextDouble();
+        float newAttackSpeed = (float)Math.Round((decimal)tempSpeed, 2, MidpointRounding.AwayFromZero);
+        //float newAttackSpeed = random.Next((newLevel - newLevel / 5) / 10, (newLevel + newLevel / 5) / 10);
+        newAttackSpeed *= speedBonus;
+        if (newAttackSpeed <= 0) { newAttackSpeed = 0.1f; }
+
+
+        //float newRange = random.Next(newLevel + newLevel / 5, newLevel + newLevel / 5);
+        float newRange = rangeBonus;
+
+        if (newRange <= 0) { newRange = 0.1f; }
+
+
+
+
+        Debug.Log(weaponType);
+        Debug.Log(newDamage);
+        Debug.Log(newAttackSpeed);
+        Debug.Log(newRange);
+        Debug.Log(newLevel);
+        return new Weapon(weaponType, newDamage, newAttackSpeed, newRange, newLevel);
+    }
+
     public static Consumable GenerateConsumable(int value)
     {
         int randomChance = random.Next(0, 100);

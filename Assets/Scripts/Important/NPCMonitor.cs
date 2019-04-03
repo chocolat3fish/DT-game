@@ -23,8 +23,8 @@ public class NPCMonitor : MonoBehaviour
     public Quest currentQuest;
 
     public string nameOfNpc;
-    private float dialougeBoxQueryTime;
-    private bool dialougeBoxQuery;
+    private float dialogueBoxQueryTime;
+    private bool dialogueBoxQuery;
     private bool canTalk;
     private bool dialougeBoxOpen;
     private int currentSentenceIndex;
@@ -35,6 +35,28 @@ public class NPCMonitor : MonoBehaviour
     private Text overlayNameText;
     private Text overlayRewardText;
     private Button overlayAcceptButton;
+
+
+    // specifically for receiving weapons as rewards
+    public CompareCanvasScript compareCanvas;
+
+    public GameObject currentWeaponPanel;
+    public GameObject newWeaponPanel;
+
+    private Text cWNOutput;
+    private Text cWDOutput;
+    private Text cWSOutput;
+    private Text cWROutput;
+    private Text cWLOutput;
+    private Text nWNOutput;
+    private Text nWDOutput;
+    private Text nWSOutput;
+    private Text nWROutput;
+    private Text nWLOutput;
+
+    public Button CWPButton;
+    public Button NWPButton;
+
 
     private void Awake()
     {
@@ -53,6 +75,22 @@ public class NPCMonitor : MonoBehaviour
         player = FindObjectOfType<PlayerControls>().gameObject;
         overlayAcceptButton = overlayPanel.transform.Find("GiveItem").GetComponent<Button>();
         overlayRewardText = overlayPanel.transform.Find("RewardText").GetComponent<Text>();
+
+        //specifically for receiving weapons as rewards
+        cWNOutput = currentWeaponPanel.transform.Find("CWN").gameObject.GetComponent<Text>();
+        cWDOutput = currentWeaponPanel.transform.Find("CWD").gameObject.GetComponent<Text>();
+        cWSOutput = currentWeaponPanel.transform.Find("CWS").gameObject.GetComponent<Text>();
+        cWROutput = currentWeaponPanel.transform.Find("CWR").gameObject.GetComponent<Text>();
+        cWLOutput = currentWeaponPanel.transform.Find("CWL").gameObject.GetComponent<Text>();
+
+        nWNOutput = newWeaponPanel.transform.Find("NWN").gameObject.GetComponent<Text>();
+        nWDOutput = newWeaponPanel.transform.Find("NWD").gameObject.GetComponent<Text>();
+        nWSOutput = newWeaponPanel.transform.Find("NWS").gameObject.GetComponent<Text>();
+        nWROutput = newWeaponPanel.transform.Find("NWR").gameObject.GetComponent<Text>();
+        nWLOutput = newWeaponPanel.transform.Find("NWL").gameObject.GetComponent<Text>();
+
+        CWPButton = currentWeaponPanel.transform.Find("Button").GetComponent<Button>();
+        NWPButton = newWeaponPanel.transform.Find("Button").GetComponent<Button>();
     }
 
     private void Start()
@@ -70,6 +108,10 @@ public class NPCMonitor : MonoBehaviour
 
     private void Update()
     {
+        if (PersistantGameManager.Instance.compareScreenOpen)
+        {
+            UpdateData();
+        }
         float distance = Vector2.Distance(player.transform.position, transform.position);
         if (distance < 3f)
         {
@@ -88,7 +130,7 @@ public class NPCMonitor : MonoBehaviour
             canTalk = false;
             if (dialougeBoxOpen)
             {
-                EndDialouge();
+                EndDialogue();
             }
         }
         if (canTalk)
@@ -102,16 +144,16 @@ public class NPCMonitor : MonoBehaviour
                 }
                 else if (dialougeBoxOpen && canContinueDialouge)
                 {
-                    ContinueDialouge();
+                    ContinueDialogue();
                 }
 
             }
 
         }
         {
-            if (dialougeBoxQuery && (dialougeBoxQueryTime < (Time.time - 0.5f)))
+            if (dialogueBoxQuery && (dialogueBoxQueryTime < (Time.time - 0.5f)))
             {
-                dialougeBoxQuery = false;
+                dialogueBoxQuery = false;
                 canContinueDialouge = true;
                 print(Time.time);
             }
@@ -119,14 +161,14 @@ public class NPCMonitor : MonoBehaviour
 
 
     }
-    public void ContinueDialouge()
+    public void ContinueDialogue()
     {
 
         if (canContinueDialouge)
         {
             canContinueDialouge = false;
-            dialougeBoxQuery = true;
-            dialougeBoxQueryTime = Time.time;
+            dialogueBoxQuery = true;
+            dialogueBoxQueryTime = Time.time;
             if (stageOfConvo == 0)
             {
                 currentSentenceIndex++;
@@ -142,8 +184,8 @@ public class NPCMonitor : MonoBehaviour
                         StopAllCoroutines();
                         StartCoroutine(AddChars(currentQuest.sentencesBeforeQuest2ndTime[currentSentenceIndex], overlayMainText));
                         canContinueDialouge = false;
-                        dialougeBoxQuery = true;
-                        dialougeBoxQueryTime = Time.time;
+                        dialogueBoxQuery = true;
+                        dialogueBoxQueryTime = Time.time;
                         return;
                     }
                 }
@@ -158,8 +200,8 @@ public class NPCMonitor : MonoBehaviour
                         StopAllCoroutines();
                         StartCoroutine(AddChars(currentQuest.sentencesBeforeQuest1stTime[currentSentenceIndex], overlayMainText));
                         canContinueDialouge = false;
-                        dialougeBoxQuery = true;
-                        dialougeBoxQueryTime = Time.time;
+                        dialogueBoxQuery = true;
+                        dialogueBoxQueryTime = Time.time;
                         return;
                     }
                 }
@@ -217,7 +259,7 @@ public class NPCMonitor : MonoBehaviour
                     CloseNewButtons();
                     if (currentSentenceIndex >= currentQuest.sentencesAfterQuestEnd.Length)
                     {
-                        EndDialouge();
+                        EndDialogue();
                         return;
                     }
                     else
@@ -233,7 +275,7 @@ public class NPCMonitor : MonoBehaviour
                     CloseNewButtons();
                     if (currentSentenceIndex >= currentQuest.sentencesAfterQuest.Length)
                     {
-                        EndDialouge();
+                        EndDialogue();
                         return;
                     }
                     else
@@ -297,8 +339,8 @@ public class NPCMonitor : MonoBehaviour
         currentSentenceIndex = 0;
         isTalking = true;
         canContinueDialouge = false;
-        dialougeBoxQuery = true;
-        dialougeBoxQueryTime = Time.time;
+        dialogueBoxQuery = true;
+        dialogueBoxQueryTime = Time.time;
         overlayAcceptButton.gameObject.SetActive(false);
         overlayContinueButton.gameObject.SetActive(true);
         overlayRewardText.text = "";
@@ -312,7 +354,7 @@ public class NPCMonitor : MonoBehaviour
         }
     }
 
-    private void EndDialouge()
+    private void EndDialogue()
     {
         StopAllCoroutines();
         dialougeBoxOpen = false;
@@ -356,7 +398,7 @@ public class NPCMonitor : MonoBehaviour
         {
             GiveReward(currentQuest.questKey);
         }
-        ContinueDialouge();
+        ContinueDialogue();
     }
 
     public void GiveReward(string key)
@@ -374,11 +416,56 @@ public class NPCMonitor : MonoBehaviour
             PersistantGameManager.Instance.amountOfConsumables["20%L"]++;
         }
 
-        
+        if (key == "Ja03")
+        {
+            ReceiveWeapon(key);
+            PersistantGameManager.Instance.itemInventory["Hood of Sartuka"]--;
+        }
+
+
         PersistantGameManager.Instance.characterQuests[nameOfNpc]++;
         
         PersistantGameManager.Instance.activeQuests.Remove(key);
         PersistantGameManager.Instance.possibleQuests.Remove(key);
         hasTalkedBefore = false;
     }
+
+    public void ReceiveWeapon(string key)
+    {
+        Time.timeScale = 0;
+        LootManager.GenerateSpecificWeapon("Long Sword", 100);
+
+        currentWeaponPanel.SetActive(true);
+        newWeaponPanel.SetActive(true);
+        PersistantGameManager.Instance.compareScreenOpen = true;
+
+
+
+
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            compareCanvas.ContinueGame();
+        }
+
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            compareCanvas.ChooseNewWeapon();
+        }
+    }
+
+    public void UpdateData()
+    {
+        cWNOutput.text = PersistantGameManager.Instance.currentWeapon.itemName;
+        cWDOutput.text = PersistantGameManager.Instance.currentWeapon.itemDamage.ToString();
+        cWSOutput.text = PersistantGameManager.Instance.currentWeapon.itemSpeed.ToString();
+        cWROutput.text = PersistantGameManager.Instance.currentWeapon.itemRange.ToString();
+        cWLOutput.text = PersistantGameManager.Instance.currentWeapon.itemLevel.ToString();
+
+        nWNOutput.text = PersistantGameManager.Instance.comparingWeapon.itemName;
+        nWDOutput.text = PersistantGameManager.Instance.comparingWeapon.itemDamage.ToString();
+        nWSOutput.text = PersistantGameManager.Instance.comparingWeapon.itemSpeed.ToString();
+        nWROutput.text = PersistantGameManager.Instance.comparingWeapon.itemRange.ToString();
+        nWLOutput.text = PersistantGameManager.Instance.comparingWeapon.itemLevel.ToString();
+    }
+
 }
