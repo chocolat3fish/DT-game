@@ -6,9 +6,11 @@ using UnityEngine.UI;
 public class PlaceHolderInventoryscript : MonoBehaviour
 {
     public int whatAreYouDoing;
+    private PlayerControls playerControls;
     private Text output;
     void Start() {
         output = GetComponent<Text>();
+        playerControls = FindObjectOfType<PlayerControls>();
      }
 
 
@@ -112,6 +114,9 @@ public class PlaceHolderInventoryscript : MonoBehaviour
                 output.text = PersistantGameManager.Instance.activePotionType + " Potion";
                 break;
 
+            case 18:
+                output.text = playerControls.currentHealth + " / " + playerControls.totalHealth;
+                break;
         }
     }
             
