@@ -144,6 +144,7 @@ public class PersistantGameManager : MonoBehaviour
     }
     void Update()
     {
+
         if(Time.time > timeOfAttackMultiplierChange + 30 && activePotionType == "Attack")
         {
             currentAttackMultiplier = 1;
@@ -393,5 +394,11 @@ public class PersistantGameManager : MonoBehaviour
         }
 
         currentScene = SceneManager.GetActiveScene().name;
+    }
+    public void Restart(string SceneName)
+    {
+        Instance = null;
+        Destroy(gameObject);
+        SceneManager.LoadScene(SceneName);
     }
 }
