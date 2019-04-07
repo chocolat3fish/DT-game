@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 //******MUST BE APPLYED TO THE LOOT DROP PREFAB******\\
 
 //A script the monitors the loot drop item after it has been instantiated
 public class LootDropMonitor : MonoBehaviour
 {
+    public bool IsForMap;
     //The Player
     public GameObject player;
 
@@ -34,20 +36,30 @@ public class LootDropMonitor : MonoBehaviour
     private void Awake()
     {
         //Gets Components
+
         spriteRenderer = GetComponent<SpriteRenderer>();
-        player = FindObjectOfType<PlayerControls>().gameObject;
-        compareCanvas = FindObjectOfType<CompareCanvasScript>();
-        Physics2D.IgnoreCollision(GetComponent<BoxCollider2D>(), player.GetComponent<BoxCollider2D>());
-        EnemyMonitor[] enemies = FindObjectsOfType<EnemyMonitor>();
-        foreach(EnemyMonitor m in enemies)
+        if(!IsForMap)
         {
-            Physics2D.IgnoreCollision(GetComponent<BoxCollider2D>(), m.GetComponent<BoxCollider2D>());
+            player = FindObjectOfType<PlayerControls>().gameObject;
+            compareCanvas = FindObjectOfType<CompareCanvasScript>();
+            Physics2D.IgnoreCollision(GetComponent<BoxCollider2D>(), player.GetComponent<BoxCollider2D>());
+            EnemyMonitor[] enemies = FindObjectsOfType<EnemyMonitor>();
+            foreach (EnemyMonitor m in enemies)
+            {
+                Physics2D.IgnoreCollision(GetComponent<BoxCollider2D>(), m.GetComponent<BoxCollider2D>());
+            }
         }
+
+
 
     }
     private void Start()
     {
-        if(type == 0)
+        if(IsForMap)
+        {
+            type = transform.parent.GetComponent<LootDropMonitor>().type;
+        }
+        if (type == 0)
         {
             spriteRenderer.color = weaponColor;
         }
@@ -62,6 +74,10 @@ public class LootDropMonitor : MonoBehaviour
         else
         {
             spriteRenderer.color = defaultColor;
+        }
+        if(IsForMap)
+        {
+            Destroy(this);
         }
     }
 

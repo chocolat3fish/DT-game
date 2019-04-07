@@ -18,10 +18,19 @@ public class CameraMovement : MonoBehaviour
     //At the end of each frame it saves the current offset this allows the script to "fade" to the next offest
     public Vector2 savedOffset;
     //The Camera
+    private Camera[] _cameras;
     private Camera _camera;
     void Start()
     {
-        _camera = FindObjectOfType<Camera>();
+        _cameras = FindObjectsOfType<Camera>();
+        foreach(Camera cam in _cameras)
+        {
+            if(cam.gameObject.name == "Main Camera")
+            {
+                _camera = cam;
+            }
+
+        }
         player = FindObjectOfType<PlayerControls>();
         savedOffset = offset;
     }
