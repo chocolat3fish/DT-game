@@ -1,11 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 public class CharacterCanvasScript : MonoBehaviour
 {
     public bool isActive;
-    public bool freeze;
     public GameObject mainPanel;
     public GameObject skillsPanel;
 
@@ -20,8 +20,10 @@ public class CharacterCanvasScript : MonoBehaviour
 
     void Start()
     {
-        mainPanel.SetActive(false);
+        mainPanel.SetActive(true);
         skillsPanel.SetActive(false);
+        isActive = true;
+        PersistantGameManager.Instance.characterScreenOpen = true;
 
     }
 
@@ -38,32 +40,13 @@ public class CharacterCanvasScript : MonoBehaviour
         }*/
 
 
-        if (Input.GetKeyDown(KeyCode.U) && !isActive && skillsPanel.activeSelf == false && PersistantGameManager.Instance.menuScreenOpen == false && PersistantGameManager.Instance.compareScreenOpen == false)
+        if (Input.GetKeyDown(KeyCode.U) && isActive)
         {
-            mainPanel.SetActive(true);
-            isActive = true;
-            freeze = true;
-            PersistantGameManager.Instance.characterScreenOpen = true;
-            Time.timeScale = 0;
-        }
-        else if (Input.GetKeyDown(KeyCode.U) && isActive)
-        {
-            mainPanel.SetActive(false);
             isActive = false;
-            freeze = false;
             PersistantGameManager.Instance.characterScreenOpen = false;
             Time.timeScale = 1;
+            SceneManager.UnloadSceneAsync("Character Canvas");
         }
-
-        else if (Input.GetKeyDown(KeyCode.U) && !isActive && skillsPanel.activeSelf == true)
-        {
-            skillsPanel.SetActive(false);
-            isActive = false;
-            freeze = false;
-            PersistantGameManager.Instance.characterScreenOpen = false;
-            Time.timeScale = 1;
-        }
-
         if (mainPanel.activeSelf && Input.GetKeyDown(KeyCode.K) && skillsPanel.activeSelf == false)
         {
             openSkills = true;

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 //******MUST BE CHILDED TO A GAMEOBJECT ACTING AS A NPC IT MUST HAVE A TO TALK CANVAS CHILDED AND A CANVAS NAMED "Dialouge Canvas" IN THE SCENE******\\
@@ -37,27 +38,6 @@ public class NPCMonitor : MonoBehaviour
     private Button overlayAcceptButton;
 
 
-    // specifically for receiving weapons as rewards
-    public CompareCanvasScript compareCanvas;
-
-    public GameObject currentWeaponPanel;
-    public GameObject newWeaponPanel;
-
-    private Text cWNOutput;
-    private Text cWDOutput;
-    private Text cWSOutput;
-    private Text cWROutput;
-    private Text cWLOutput;
-    private Text nWNOutput;
-    private Text nWDOutput;
-    private Text nWSOutput;
-    private Text nWROutput;
-    private Text nWLOutput;
-
-    public Button CWPButton;
-    public Button NWPButton;
-
-
     private void Awake()
     {
         Canvas[] canvases = FindObjectsOfType<Canvas>();
@@ -67,51 +47,32 @@ public class NPCMonitor : MonoBehaviour
             {
                 toTalkPanel = canvas.gameObject;
             }
-            else if (canvas.gameObject.name == "Dialogue Canvas")
+            /* if (canvas.gameObject.name == "Dialogue Canvas")
             {
                 overlayPanel = canvas.gameObject.transform.Find("Panel").gameObject;
-            }
+            }*/
         }
         player = FindObjectOfType<PlayerControls>().gameObject;
+        /*
         overlayAcceptButton = overlayPanel.transform.Find("GiveItem").GetComponent<Button>();
         overlayRewardText = overlayPanel.transform.Find("RewardText").GetComponent<Text>();
-
+        */
         //specifically for receiving weapons as rewards
-        cWNOutput = currentWeaponPanel.transform.Find("CWN").gameObject.GetComponent<Text>();
-        cWDOutput = currentWeaponPanel.transform.Find("CWD").gameObject.GetComponent<Text>();
-        cWSOutput = currentWeaponPanel.transform.Find("CWS").gameObject.GetComponent<Text>();
-        cWROutput = currentWeaponPanel.transform.Find("CWR").gameObject.GetComponent<Text>();
-        cWLOutput = currentWeaponPanel.transform.Find("CWL").gameObject.GetComponent<Text>();
-
-        nWNOutput = newWeaponPanel.transform.Find("NWN").gameObject.GetComponent<Text>();
-        nWDOutput = newWeaponPanel.transform.Find("NWD").gameObject.GetComponent<Text>();
-        nWSOutput = newWeaponPanel.transform.Find("NWS").gameObject.GetComponent<Text>();
-        nWROutput = newWeaponPanel.transform.Find("NWR").gameObject.GetComponent<Text>();
-        nWLOutput = newWeaponPanel.transform.Find("NWL").gameObject.GetComponent<Text>();
-
-        CWPButton = currentWeaponPanel.transform.Find("Button").GetComponent<Button>();
-        NWPButton = newWeaponPanel.transform.Find("Button").GetComponent<Button>();
+      
     }
 
     private void Start()
     {
-        overlayPanel.SetActive(false);
         toTalkPanel.SetActive(false);
         dialougeBoxOpen = false;
 
         
 
-        overlayMainText = overlayPanel.transform.Find("Text").GetComponent<Text>();
-        overlayContinueButton = overlayPanel.transform.Find("Continue").GetComponent<Button>();
-        overlayNameText = overlayPanel.transform.Find("Name").Find("Text").GetComponent<Text>();
+
     }
 
     private void Update()
     {
-        if (PersistantGameManager.Instance.compareScreenOpen)
-        {
-            UpdateData();
-        }
         float distance = Vector2.Distance(player.transform.position, transform.position);
         if (distance < 3f)
         {
@@ -139,7 +100,7 @@ public class NPCMonitor : MonoBehaviour
             {
                 if (!dialougeBoxOpen)
                 {
-                    CreateDialogueBox();
+                    StartCoroutine(CreateDialogueBox());
                     Debug.Log("dialouge box open");
                 }
                 else if (dialougeBoxOpen && canContinueDialouge)
@@ -324,16 +285,44 @@ public class NPCMonitor : MonoBehaviour
 
 
     }
+
     private void CloseNewButtons()
     {
         overlayAcceptButton.gameObject.SetActive(false);
         overlayContinueButton.gameObject.SetActive(true);
     }
-    private void CreateDialogueBox()
+
+    private IEnumerator CreateDialogueBox()
     {
         currentQuest = characterQuests[PersistantGameManager.Instance.characterQuests[nameOfNpc]];
-        dialougeBoxOpen = true;
-        overlayPanel.SetActive(true);
+        PersistantGameManager.Instance.currentDialogueQuest = currentQuest;
+        AsyncOperation loadDialogueCanvas = SceneManager.LoadSceneAsync("Dialogue Canvas", LoadSceneMode.Additive);
+        while (true)
+        {
+            if (loadDialogueCanvas.isDone)
+            {
+                Canvas[] canvases = FindObjectsOfType<Canvas>();
+                foreach (Canvas canvas in canvases)
+                {
+                    if (canvas.gameObject.name == "Dialogue Canvas")
+                    {
+                        overlayPanel = canvas.gameObject.transform.Find("Panel").gameObject;
+                        break;
+                    }
+                }
+                overlayMainText = overlayPanel.transform.Find("Text").GetComponent<Text>();
+                overlayContinueButton = overlayPanel.transform.Find("Continue").GetComponent<Button>();
+                overlayNameText = overlayPanel.transform.Find("Name").Find("Text").GetComponent<Text>();
+                overlayAcceptButton = overlayPanel.transform.Find("GiveItem").GetComponent<Button>();
+                overlayRewardText = overlayPanel.transform.Find("RewardText").GetComponent<Text>();
+                dialougeBoxOpen = true;
+                break;
+            }
+            else
+            {
+                yield return new WaitForSecondsRealtime(0.01f);
+            }
+        }
         overlayNameText.text = nameOfNpc;
         stageOfConvo = 0;
         currentSentenceIndex = 0;
@@ -357,10 +346,9 @@ public class NPCMonitor : MonoBehaviour
     private void EndDialogue()
     {
         StopAllCoroutines();
+        SceneManager.UnloadSceneAsync("Dialogue Canvas");
         dialougeBoxOpen = false;
-        overlayPanel.SetActive(false);
         isTalking = false;
-        canContinueDialouge = false;
     }
 
     IEnumerator AddChars(string sentence, Text text)
@@ -418,7 +406,7 @@ public class NPCMonitor : MonoBehaviour
 
         if (key == "Ja03")
         {
-            ReceiveWeapon(key);
+            ReceiveWeapon("Long Sword", 100);
             PersistantGameManager.Instance.itemInventory["Hood of Sartuka"]--;
         }
 
@@ -430,42 +418,14 @@ public class NPCMonitor : MonoBehaviour
         hasTalkedBefore = false;
     }
 
-    public void ReceiveWeapon(string key)
+    public void ReceiveWeapon(string weaponType, int weaponValue)
     {
-        Time.timeScale = 0;
-        LootManager.GenerateSpecificWeapon("Long Sword", 100);
+        GameObject questDrop = Instantiate(Resources.Load("Loot Drop"), player.transform.position, Quaternion.identity) as GameObject;
+        LootDropMonitor questDropMonitor = questDrop.GetComponent<LootDropMonitor>();
 
-        currentWeaponPanel.SetActive(true);
-        newWeaponPanel.SetActive(true);
-        PersistantGameManager.Instance.compareScreenOpen = true;
-
-
-
-
-        if (Input.GetKeyDown(KeyCode.K))
-        {
-            compareCanvas.ContinueGame();
-        }
-
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            compareCanvas.ChooseNewWeapon();
-        }
-    }
-
-    public void UpdateData()
-    {
-        cWNOutput.text = PersistantGameManager.Instance.currentWeapon.itemName;
-        cWDOutput.text = PersistantGameManager.Instance.currentWeapon.itemDamage.ToString();
-        cWSOutput.text = PersistantGameManager.Instance.currentWeapon.itemSpeed.ToString();
-        cWROutput.text = PersistantGameManager.Instance.currentWeapon.itemRange.ToString();
-        cWLOutput.text = PersistantGameManager.Instance.currentWeapon.itemLevel.ToString();
-
-        nWNOutput.text = PersistantGameManager.Instance.comparingWeapon.itemName;
-        nWDOutput.text = PersistantGameManager.Instance.comparingWeapon.itemDamage.ToString();
-        nWSOutput.text = PersistantGameManager.Instance.comparingWeapon.itemSpeed.ToString();
-        nWROutput.text = PersistantGameManager.Instance.comparingWeapon.itemRange.ToString();
-        nWLOutput.text = PersistantGameManager.Instance.comparingWeapon.itemLevel.ToString();
+        questDropMonitor.type = 0;
+        //questDropMonitor.item = PersistantGameManager.Instance.questTargets[nPCMonitor.currentQuest.questKey];
+        questDropMonitor.itemStats = LootManager.GenerateSpecificWeapon(weaponType, weaponValue);
     }
 
 }

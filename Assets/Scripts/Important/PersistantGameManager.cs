@@ -13,6 +13,7 @@ public class PersistantGameManager : MonoBehaviour
     public int previousIndex = 0;
     public Weapon currentWeapon;
     public List<Weapon> playerWeaponInventory = new List<Weapon>();
+    public Quest currentDialogueQuest;
     public Dictionary<string, int> amountOfConsumables = new Dictionary<string, int>
     {
         {"20%H", 1},
@@ -61,7 +62,7 @@ public class PersistantGameManager : MonoBehaviour
     public float potionCoolDownTime;
     public bool compareScreenOpen;
     public bool characterScreenOpen;
-    public bool menuScreenOpen;
+    public bool menuCanvasOpen;
     public Weapon comparingWeapon;
     public Armour currentArmour;
     public Armour comparingArmour;
@@ -86,7 +87,7 @@ public class PersistantGameManager : MonoBehaviour
     private int currentItemOneIndex, currentItemTwoIndex;
     private bool changeItemOne, changeItemTwo;
 
-
+    public bool firstTimeOpeningMenuCanvas, menuCanvasIsOpen;
     private void Awake()
     {
         if(Instance == null)
@@ -104,7 +105,7 @@ public class PersistantGameManager : MonoBehaviour
     }
     private void Start()
     {
-
+        StartCoroutine(loadMainCanvas());
         //Shortened to 3 weapons
         for(int i = 0; i <3; i++)
         {
@@ -198,7 +199,7 @@ public class PersistantGameManager : MonoBehaviour
             */
 
             //Hides the magic cooldown if player has not unlocked any magic skills
-            if (hasMagic == true)
+        if (hasMagic == true)
         {
             magicBar.SetActive(true);
         }
@@ -400,5 +401,21 @@ public class PersistantGameManager : MonoBehaviour
         Instance = null;
         Destroy(gameObject);
         SceneManager.LoadScene(SceneName);
+    }
+    private IEnumerator loadMainCanvas()
+    {
+        AsyncOperation loadingMainCanvas = SceneManager.LoadSceneAsync("Main Canvas", LoadSceneMode.Additive);
+        while(true)
+        {
+            if(loadingMainCanvas.isDone)
+            {
+                magicBar = FindObjectOfType<MagicCooldownBar>().gameObject;
+                break;
+            }
+            else
+            {
+                yield return new WaitForSecondsRealtime(0.01f);
+            }
+        }
     }
 }

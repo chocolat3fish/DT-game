@@ -11,10 +11,9 @@ public class LootDropMonitor : MonoBehaviour
     public bool IsForMap;
     //The Player
     public GameObject player;
-
+    public AsyncTriggers asyncTriggers;
     public SpriteRenderer spriteRenderer;
     //The script that controls the compare canvas
-    public CompareCanvasScript compareCanvas;
     public Color consumableColor;
     public Color weaponColor;
     public Color itemColor;
@@ -36,12 +35,11 @@ public class LootDropMonitor : MonoBehaviour
     private void Awake()
     {
         //Gets Components
-
+        asyncTriggers = FindObjectOfType<AsyncTriggers>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         if(!IsForMap)
         {
             player = FindObjectOfType<PlayerControls>().gameObject;
-            compareCanvas = FindObjectOfType<CompareCanvasScript>();
             Physics2D.IgnoreCollision(GetComponent<BoxCollider2D>(), player.GetComponent<BoxCollider2D>());
             EnemyMonitor[] enemies = FindObjectsOfType<EnemyMonitor>();
             foreach (EnemyMonitor m in enemies)
@@ -108,24 +106,20 @@ public class LootDropMonitor : MonoBehaviour
             }
 
             //If the compare Screen is not currently open, the compare canvas wont close on a "E" press and this is the closest loot drop
-            if (!PersistantGameManager.Instance.compareScreenOpen && compareCanvas.takeEInputForContinue && closestLootDrop == this && type == 0)
+            if (!PersistantGameManager.Instance.compareScreenOpen && closestLootDrop == this && type == 0)
             {
-                //Sets the weapon to compare as the weapon this is storing
-                PersistantGameManager.Instance.comparingWeapon = itemStats;
-
-                //Opens the compare screen
-                PersistantGameManager.Instance.compareScreenOpen = true;
+                asyncTriggers.OpenCompareCanvas(itemStats);
 
                 //Tells the script that is needs to wait for the comapre screen to close
                 waitingForChange = true;
             }
-            else if (!PersistantGameManager.Instance.compareScreenOpen && compareCanvas.takeEInputForContinue && closestLootDrop == this && type == 1)
+            else if (!PersistantGameManager.Instance.compareScreenOpen && closestLootDrop == this && type == 1)
             {
                 //Sets the weapon to compare as the weapon this is storing
                 PersistantGameManager.Instance.amountOfConsumables[consumable.type] += 1;
                 Destroy(gameObject);
             }
-            else if(!PersistantGameManager.Instance.compareScreenOpen && compareCanvas.takeEInputForContinue && closestLootDrop == this && type == 2)
+            else if(!PersistantGameManager.Instance.compareScreenOpen && closestLootDrop == this && type == 2)
             {
                 PersistantGameManager.Instance.itemInventory[item] += 1;
                 Destroy(gameObject);

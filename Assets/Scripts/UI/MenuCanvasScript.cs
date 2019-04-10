@@ -155,6 +155,17 @@ public class MenuCanvasScript : MonoBehaviour
 
     void Update()
     {
+        if(PersistantGameManager.Instance.firstTimeOpeningMenuCanvas)
+        {
+            mainPanel.SetActive(true);
+            isActive = true;
+            PersistantGameManager.Instance.menuCanvasOpen = true;
+            Time.timeScale = 0;
+
+            UpdateData();
+            PersistantGameManager.Instance.firstTimeOpeningMenuCanvas = false;
+        }
+        /*
         if (Input.GetKeyDown(KeyCode.Tab) && isActive == false && PersistantGameManager.Instance.characterScreenOpen == false && PersistantGameManager.Instance.compareScreenOpen == false)
         {
             mainPanel.SetActive(true);
@@ -180,7 +191,7 @@ public class MenuCanvasScript : MonoBehaviour
             Time.timeScale = 1;
         }
 
-
+        */
         if (mainPanel.activeSelf && Input.GetKeyDown(KeyCode.L) && weaponsPanel.activeSelf == true)
         {
 
@@ -377,6 +388,7 @@ public class MenuCanvasScript : MonoBehaviour
     {
         
         index = 0;
+        UpdateData();
         itemsPanel.SetActive(true);
         consumablesPanel.SetActive(false);
         
@@ -388,7 +400,8 @@ public class MenuCanvasScript : MonoBehaviour
     }
 
     public void OpenWeaponsMenu()
-    { 
+    {
+        UpdateData();
         weaponsPanel.SetActive(true);
         questsPanel.SetActive(false);
         
@@ -404,6 +417,7 @@ public class MenuCanvasScript : MonoBehaviour
     {
        
         index = 0;
+        UpdateData();
         consumablesPanel.SetActive(true);
         itemsPanel.SetActive(false);
     }
@@ -417,7 +431,7 @@ public class MenuCanvasScript : MonoBehaviour
 
     public void OpenQuestsMenu()
     {
-    
+        UpdateData();
         questsPanel.SetActive(true);
         weaponsPanel.SetActive(false);
     }

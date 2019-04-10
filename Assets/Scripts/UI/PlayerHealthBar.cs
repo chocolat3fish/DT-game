@@ -9,6 +9,7 @@ public class PlayerHealthBar : MonoBehaviour {
 
     void Start()
     {
+        playerControls = FindObjectOfType<PlayerControls>();
         //sets scale to default
         localScale = transform.localScale;
     }

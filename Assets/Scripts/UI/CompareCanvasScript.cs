@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 public class CompareCanvasScript : MonoBehaviour
 {
     public bool isActive;
@@ -70,47 +71,17 @@ public class CompareCanvasScript : MonoBehaviour
 
     private void Start()
     {
-        currentWeaponPanel.SetActive(false);
-        newWeaponPanel.SetActive(false);
+        UpdateData();
+        currentWeaponPanel.SetActive(true);
+        newWeaponPanel.SetActive(true);
+        detecting = false;
+        Time.timeScale = 0;
+        takeEInputForContinue = false;
     }
     private void Update()
     {
+        UpdateData();
         takeEInputForContinue = true;
-        if (detecting)
-        {
-
-
-            if (PersistantGameManager.Instance.compareScreenOpen)
-            {
-                /*
-                turnedOnCanvases = new List<Canvas>();
-                foreach (Canvas canvas in canvases)
-                {
-                    if (canvas.gameObject.activeSelf && canvas.gameObject != gameObject)
-                    {
-                        turnedOnCanvases.Add(canvas);
-                        canvas.gameObject.SetActive(false);
-                    }
-                }
-                */
-                UpdateData();
-                Debug.Log("1");
-                currentWeaponPanel.SetActive(true);
-                newWeaponPanel.SetActive(true);
-                Debug.Log("2");
-                detecting = false;
-                Time.timeScale = 0;
-                Debug.Log("3");
-                takeEInputForContinue = false;
-            }
-
-
-        }
-
-        if (PersistantGameManager.Instance.compareScreenOpen)
-        {
-            UpdateData();
-        }
 
         if (Input.GetKeyDown(KeyCode.E) && !detecting && takeEInputForContinue && PersistantGameManager.Instance.compareScreenOpen)
         {
@@ -127,10 +98,6 @@ public class CompareCanvasScript : MonoBehaviour
         {
             ChooseNewWeapon();
         }
-
-
-
-
 
     }
     public void UpdateData()
@@ -150,7 +117,6 @@ public class CompareCanvasScript : MonoBehaviour
 
     public void ChooseNewWeapon()
     {
-        Debug.Log("weapon switch");
         Weapon tempWeapon = PersistantGameManager.Instance.currentWeapon;
         PersistantGameManager.Instance.currentWeapon = PersistantGameManager.Instance.comparingWeapon;
         PersistantGameManager.Instance.comparingWeapon = tempWeapon;
@@ -161,24 +127,9 @@ public class CompareCanvasScript : MonoBehaviour
 
     public void ContinueGame()
     {
-        currentWeaponPanel.SetActive(false);
-        newWeaponPanel.SetActive(false);
-
-        /*
-        foreach (Canvas canvas in turnedOnCanvases )
-        {
-            if(canvas.gameObject != gameObject)
-            {
-                canvas.gameObject.SetActive(true);
-            }
-        }
-
-        currentWeaponPanel.SetActive(false);
-        newWeaponPanel.SetActive(false);
-        */       
-        detecting = true;
         Time.timeScale = 1;
         PersistantGameManager.Instance.compareScreenOpen = false;
+        SceneManager.UnloadSceneAsync("Compare Canvas");
     }
 
 }

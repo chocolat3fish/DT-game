@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Scenes/Character Control with New Map setup.unity
+- path: Assets/Scenes/Character Control with Async.unity
   isLoaded: 1
   isActive: 1
