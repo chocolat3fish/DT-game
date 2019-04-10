@@ -219,7 +219,7 @@ public class PlayerControls : MonoBehaviour
             canJump = true;
             currentJumps++;
         }
-
+        /*
         if (Input.GetKeyDown(KeyCode.H) && PersistantGameManager.Instance.amountOfConsumables[PersistantGameManager.Instance.equippedItemOne] > 0 && Time.time > (TimeOfItemOneUse + itemOneCooldown))
         {
             TimeOfItemOneUse = Time.time;
@@ -230,6 +230,7 @@ public class PlayerControls : MonoBehaviour
             TimeOfItemTwoUse = Time.time;
             UseItem(PersistantGameManager.Instance.equippedItemTwo);
         }
+        */
 
 
         playerDamage = PersistantGameManager.Instance.currentWeapon.itemDamage;
