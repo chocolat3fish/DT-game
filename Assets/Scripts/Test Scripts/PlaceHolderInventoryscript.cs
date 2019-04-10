@@ -117,6 +117,12 @@ public class PlaceHolderInventoryscript : MonoBehaviour
             case 18:
                 output.text = playerControls.currentHealth + " / " + playerControls.totalHealth;
                 break;
+
+            case 19:
+                Weapon equippedWeapon = PersistantGameManager.Instance.currentWeapon;
+                int weaponIndex = PersistantGameManager.Instance.playerWeaponInventory.IndexOf(equippedWeapon) + 1;
+                output.text = equippedWeapon.itemName + " (Slot " + weaponIndex + ")" ;
+                break;
         }
     }
             

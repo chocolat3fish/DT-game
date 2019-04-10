@@ -22,6 +22,8 @@ public class EnemyMonitor : MonoBehaviour
     //Distance to player
     public float distanceToPlayer;
 
+    public bool droppedQuestItem;
+
     //The player
     public GameObject player;
     private PlayerControls playerControls;
@@ -105,8 +107,10 @@ public class EnemyMonitor : MonoBehaviour
             questDropMonitor.type = 2;
             //questDropMonitor.item = PersistantGameManager.Instance.questTargets[nPCMonitor.currentQuest.questKey];
             questDropMonitor.item = questReward;
+            droppedQuestItem = true;
 
             Debug.Log("Dropped item " + questReward);
+
         }
         //Gets the new weapon based off the drop chance and the value of weapon, if a weapon is not going to be droped it returns null
         LootItem newItem = LootManager.DropItem(itemChance, itemValue,  weaponValue);
@@ -131,8 +135,12 @@ public class EnemyMonitor : MonoBehaviour
                 lootDropInstanceMonitor.consumable= newItem.consumable;
             }
 
-            Vector2 lootPosition = lootDropInstance.transform.position;
-            lootDropInstance.transform.position = new Vector2(lootDropInstance.transform.position.x - 1, lootPosition.y);
+            if (droppedQuestItem == true)
+            {
+                Vector2 lootPosition = lootDropInstance.transform.position;
+                lootDropInstance.transform.position = new Vector2(lootDropInstance.transform.position.x - 1/2, lootPosition.y);
+            }
+
 
             //Tells the Loot Drop what weapon it should store
 
