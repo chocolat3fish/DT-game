@@ -30,7 +30,7 @@ public class PlayerControls : MonoBehaviour
 
     //reliant on PersistantGameManager and PlayerMonitor
     public float playerDamage;
-    public float attackSpeed;
+    public double attackSpeed;
     public float magicCooldown;
     public float TimeOfItemOneUse, itemOneCooldown = 1;
     public float TimeOfItemTwoUse, itemTwoCooldown = 1;
@@ -48,7 +48,7 @@ public class PlayerControls : MonoBehaviour
         {
             if(value < _currentHealth)
             {
-                StartCoroutine(Shake());
+                //StartCoroutine(Shake());
             }
             _currentHealth = value;
         }
@@ -102,6 +102,7 @@ public class PlayerControls : MonoBehaviour
 
     void Update()
     {
+
         if (currentHealth <= 0)
         {
             // when player dies, loads the game over scene
@@ -142,7 +143,7 @@ public class PlayerControls : MonoBehaviour
 
         }
 
-        if (Input.GetKeyDown(KeyCode.Q) && PersistantGameManager.Instance.fireball)
+        if (Input.GetKeyDown(KeyCode.Q) && PersistantGameManager.Instance.highDamage)
         {
             //on attack press, fireball function and set cooldown
             StartCoroutine(Fireball());
@@ -234,7 +235,7 @@ public class PlayerControls : MonoBehaviour
 
 
         playerDamage = PersistantGameManager.Instance.currentWeapon.itemDamage;
-        attackSpeed = PersistantGameManager.Instance.currentWeapon.itemSpeed;
+        attackSpeed = PersistantGameManager.Instance.currentWeapon.trueItemSpeed;
         range = PersistantGameManager.Instance.currentWeapon.itemRange;
         defence = PersistantGameManager.Instance.currentArmour.defence;
 
@@ -329,11 +330,11 @@ public class PlayerControls : MonoBehaviour
     }
 
 
-    public float CalculatePlayerDamage()
+    public double CalculatePlayerDamage()
     {
         if (useFireball)
         {
-            return (CalculateFireballDamage() * PersistantGameManager.Instance.currentAttackMultiplier);
+            return (CalculateHighDamage() * PersistantGameManager.Instance.currentAttackMultiplier);
         }
         else
         {
@@ -343,13 +344,13 @@ public class PlayerControls : MonoBehaviour
                 timeOfAttack = Time.time;
                 return playerDamage * 1.2f * PersistantGameManager.Instance.currentAttackMultiplier;
             }
-            float newPlayerDamage = playerDamage * (timeSinceAttack / attackSpeed);
+            double newPlayerDamage = playerDamage * (timeSinceAttack / attackSpeed);
             timeOfAttack = Time.time;
             return newPlayerDamage * PersistantGameManager.Instance.currentAttackMultiplier;
         }
     }
 
-    private float CalculateFireballDamage()
+    private float CalculateHighDamage()
     {
         float timeSinceMagic = Time.time - timeOfMagic;
         float magicDamage;

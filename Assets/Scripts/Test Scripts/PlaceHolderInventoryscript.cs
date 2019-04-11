@@ -52,7 +52,7 @@ public class PlaceHolderInventoryscript : MonoBehaviour
             case 8:
                 if (PersistantGameManager.Instance.currentWeapon != null)
                 {
-                    output.text = PersistantGameManager.Instance.currentWeapon.itemSpeed.ToString();
+                    output.text = PersistantGameManager.Instance.currentWeapon.trueItemSpeed.ToString();
                 }
                 else { output.text = ""; }
 

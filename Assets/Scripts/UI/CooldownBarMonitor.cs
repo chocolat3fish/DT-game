@@ -17,12 +17,12 @@ public class CooldownBarMonitor : MonoBehaviour
     void Update()
     {
         //depletes bar on attack, refills relative to current attack speed
-        float sizeOfBar = (Time.time - playerControls.timeOfAttack) / playerControls.attackSpeed;
+        double sizeOfBar = (Time.time - playerControls.timeOfAttack) / playerControls.attackSpeed;
         if(sizeOfBar > 1f)
         {
             sizeOfBar = 1;
         }
-        transform.localScale = new Vector3(sizeOfBar, transform.localScale.y, transform.localScale.z);
+        transform.localScale = new Vector3((float)sizeOfBar, transform.localScale.y, transform.localScale.z);
 
     }
 }

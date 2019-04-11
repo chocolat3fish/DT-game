@@ -44,6 +44,7 @@ public class CharacterCanvasScript : MonoBehaviour
         {
             isActive = false;
             PersistantGameManager.Instance.characterScreenOpen = false;
+            PersistantGameManager.Instance.skillsScreenOpen = false;
             Time.timeScale = 1;
             SceneManager.UnloadSceneAsync("Character Canvas");
         }

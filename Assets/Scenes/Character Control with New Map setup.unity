@@ -4687,6 +4687,7 @@ MonoBehaviour:
   currentHealth: 0
   xpEarnings: 290
   distanceToPlayer: 0
+  droppedQuestItem: 0
   player: {fileID: 2104623955}
   enemyStats:
     enemyName: Evil Guy 2
@@ -5842,6 +5843,7 @@ MonoBehaviour:
   currentHealth: 0
   xpEarnings: 750
   distanceToPlayer: 0
+  droppedQuestItem: 0
   player: {fileID: 2104623955}
   enemyStats:
     enemyName: Evil Door
@@ -10297,6 +10299,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 990bfbc39a4a8894f9fd793ef26924fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nPCMonitors: []
   nPCMonitor: {fileID: 1481913873}
 --- !u!114 &1001704713
 MonoBehaviour:
@@ -14288,6 +14291,7 @@ MonoBehaviour:
   currentHealth: 0
   xpEarnings: 290
   distanceToPlayer: 0
+  droppedQuestItem: 0
   player: {fileID: 2104623955}
   enemyStats:
     enemyName: Evil Guy
@@ -15211,7 +15215,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isActive: 0
-  freeze: 0
   mainPanel: {fileID: 0}
   skillsPanel: {fileID: 0}
 --- !u!1 &1461446048
@@ -17266,11 +17269,6 @@ MonoBehaviour:
     questItemName: 
     questKey: 
   nameOfNpc: Jason
-  compareCanvas: {fileID: 0}
-  currentWeaponPanel: {fileID: 966280630}
-  newWeaponPanel: {fileID: 1465233213}
-  CWPButton: {fileID: 0}
-  NWPButton: {fileID: 0}
 --- !u!212 &1481913874
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -19640,6 +19638,18 @@ MonoBehaviour:
     itemRange: 0
     itemLevel: 0
   playerWeaponInventory: []
+  currentDialogueQuest:
+    questName: 
+    questType: 
+    sentencesBeforeQuest1stTime: []
+    sentencesBeforeQuest2ndTime: []
+    questStatment: 
+    questStatmentWithItem: 
+    sentencesAfterQuest: []
+    questDescription: 
+    sentencesAfterQuestEnd: []
+    questItemName: 
+    questKey: 
   possibleConsumables:
   - 20%H
   - 50%H
@@ -19664,7 +19674,7 @@ MonoBehaviour:
   potionCoolDownTime: 30
   compareScreenOpen: 0
   characterScreenOpen: 0
-  menuScreenOpen: 0
+  menuCanvasOpen: 0
   comparingWeapon:
     itemName: 
     itemDamage: 0
@@ -19694,6 +19704,8 @@ MonoBehaviour:
   totalExperience: 300
   equippedItemOne: 
   equippedItemTwo: 
+  firstTimeOpeningMenuCanvas: 0
+  menuCanvasIsOpen: 0
 --- !u!4 &1645279220
 Transform:
   m_ObjectHideFlags: 0
@@ -20832,6 +20844,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 990bfbc39a4a8894f9fd793ef26924fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nPCMonitors: []
   nPCMonitor: {fileID: 1481913873}
 --- !u!114 &1841543576
 MonoBehaviour:

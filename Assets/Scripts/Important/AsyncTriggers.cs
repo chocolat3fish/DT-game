@@ -18,11 +18,24 @@ public class AsyncTriggers : MonoBehaviour
             Time.timeScale = 1;
             PersistantGameManager.Instance.menuCanvasOpen = false;
         }
+        else if (Input.GetKeyDown(KeyCode.Tab) && PersistantGameManager.Instance.characterScreenOpen)
+        {
+            SceneManager.UnloadSceneAsync("Character Canvas");
+            Time.timeScale = 1;
+            PersistantGameManager.Instance.characterScreenOpen = false;
+        }
         else if (Input.GetKeyDown(KeyCode.U) && Time.timeScale != 0 && !PersistantGameManager.Instance.characterScreenOpen)
         {
             SceneManager.LoadSceneAsync("Character Canvas", LoadSceneMode.Additive);
             PersistantGameManager.Instance.characterScreenOpen = true;
             Time.timeScale = 0;
+        }
+        else if (Input.GetKeyDown(KeyCode.Tab) && PersistantGameManager.Instance.skillsScreenOpen)
+        {
+            SceneManager.UnloadSceneAsync("Character Canvas");
+            Time.timeScale = 1;
+            PersistantGameManager.Instance.characterScreenOpen = false;
+            PersistantGameManager.Instance.skillsScreenOpen = false;
         }
     }
 

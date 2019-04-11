@@ -29,7 +29,7 @@ public class LootManager : MonoBehaviour
 
             LootItem lootItem = new LootItem();
             lootItem.type = 0;
-            lootItem.newWeapon = GenerateWeapon(weaponValue, rangeBonus, speedBonus, damageBonus);
+            lootItem.newWeapon = GenerateWeapon(weaponValue);
             return lootItem;
             
 
@@ -47,7 +47,7 @@ public class LootManager : MonoBehaviour
     }
 
     //A method called by the Drop item script to find a weapon based off a weapon value
-    public static Weapon GenerateWeapon(int weaponValue, float rangeBonus, float speedBonus, float damageBonus)
+    public static Weapon GenerateWeapon(int weaponValue)
     {
 
         /*
@@ -233,11 +233,21 @@ public class LootManager : MonoBehaviour
         newDamage *= damageBonus + (damageBonus * (weaponValue / 100));
         if (newDamage <= 0) { newDamage = 0.1f; }
 
-        double tempSpeed = random.NextDouble();
+        double tempSpeed;
+        while (true)
+        {
+            tempSpeed = random.NextDouble();
+            if (tempSpeed >= 0.5)
+            {
+                Debug.Log(tempSpeed);
+                break;
+            }
+        }
 
-        float newAttackSpeed = (float)Math.Round((decimal)tempSpeed, 2, MidpointRounding.AwayFromZero);
+        float newAttackSpeed = (float)tempSpeed; //(float)Math.Round((decimal)tempSpeed, 2, MidpointRounding.AwayFromZero);
         //float newAttackSpeed = random.Next((newLevel - newLevel / 5) / 10, (newLevel + newLevel / 5) / 10);
-        newAttackSpeed *= speedBonus;
+        newAttackSpeed *= speedBonus * (float)PersistantGameManager.Instance.attackSpeedMulti;
+        newAttackSpeed = (float)Math.Round(newAttackSpeed, 2);
         if (newAttackSpeed <= 0) { newAttackSpeed = 0.1f; }
 
 
@@ -254,7 +264,7 @@ public class LootManager : MonoBehaviour
         Debug.Log(newAttackSpeed);
         Debug.Log(newRange);
         Debug.Log(newLevel);
-        return new Weapon(weaponType, newDamage, newAttackSpeed, newRange, newLevel);
+        return new Weapon(weaponType, newDamage, newAttackSpeed / (float)PersistantGameManager.Instance.attackSpeedMulti, newAttackSpeed, newRange, newLevel);
         
 
     
@@ -313,10 +323,19 @@ public class LootManager : MonoBehaviour
         newDamage *= damageBonus + (damageBonus * (weaponValue / 100));
         if (newDamage <= 0) { newDamage = 0.1f; }
 
-        double tempSpeed = random.NextDouble();
+        double tempSpeed;
+        while (true)
+        {   
+            tempSpeed = random.NextDouble();
+            if (tempSpeed >= 0.5)
+            {
+                Debug.Log(tempSpeed);
+                break;
+            }
+        }
         float newAttackSpeed = (float)Math.Round((decimal)tempSpeed, 2, MidpointRounding.AwayFromZero);
         //float newAttackSpeed = random.Next((newLevel - newLevel / 5) / 10, (newLevel + newLevel / 5) / 10);
-        newAttackSpeed *= speedBonus;
+        newAttackSpeed *= speedBonus * (float)PersistantGameManager.Instance.attackSpeedMulti;
         if (newAttackSpeed <= 0) { newAttackSpeed = 0.1f; }
 
 
@@ -333,7 +352,7 @@ public class LootManager : MonoBehaviour
         Debug.Log(newAttackSpeed);
         Debug.Log(newRange);
         Debug.Log(newLevel);
-        return new Weapon(weaponType, newDamage, newAttackSpeed, newRange, newLevel);
+        return new Weapon(weaponType, newDamage, newAttackSpeed / (float)PersistantGameManager.Instance.attackSpeedMulti, newAttackSpeed, newRange, newLevel);
     }
 
     public static Consumable GenerateConsumable(int value)

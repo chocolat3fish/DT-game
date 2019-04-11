@@ -14,9 +14,9 @@ public class TestGiveItem : MonoBehaviour
         PersistantGameManager.Instance.playerWeaponInventory[2] = new Weapon("Lance", 4f, 0.75f, 2, 1);
         */
 
-        PersistantGameManager.Instance.playerWeaponInventory[0] = LootManager.GenerateWeapon(10, 1f, 1f, 1f);
-        PersistantGameManager.Instance.playerWeaponInventory[1] = LootManager.GenerateWeapon(10, 1f, 1f, 1f);
-        PersistantGameManager.Instance.playerWeaponInventory[2] = LootManager.GenerateWeapon(10, 1f, 1f, 1f);
+        PersistantGameManager.Instance.playerWeaponInventory[0] = LootManager.GenerateWeapon(10);
+        PersistantGameManager.Instance.playerWeaponInventory[1] = LootManager.GenerateWeapon(10);
+        PersistantGameManager.Instance.playerWeaponInventory[2] = LootManager.GenerateWeapon(10);
 
         //shortened to 3 items
         //PersistantGameManager.Instance.playerWeaponInventory[3] = new Weapon("Long Sword", 3f, 0.6f, 1.5f);

@@ -1,8 +1,10 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+
 public class CompareCanvasScript : MonoBehaviour
 {
     public bool isActive;
@@ -102,15 +104,18 @@ public class CompareCanvasScript : MonoBehaviour
     }
     public void UpdateData()
     {
+        float oldItemSpeed = (float)Math.Round(PersistantGameManager.Instance.currentWeapon.trueItemSpeed, 2);
+        float newItemSpeed = (float)Math.Round(PersistantGameManager.Instance.comparingWeapon.trueItemSpeed, 2);
+
         cWNOutput.text = PersistantGameManager.Instance.currentWeapon.itemName;
         cWDOutput.text = PersistantGameManager.Instance.currentWeapon.itemDamage.ToString();
-        cWSOutput.text = PersistantGameManager.Instance.currentWeapon.itemSpeed.ToString();
+        cWSOutput.text = PersistantGameManager.Instance.currentWeapon.trueItemSpeed.ToString();
         cWROutput.text = PersistantGameManager.Instance.currentWeapon.itemRange.ToString();
         cWLOutput.text = PersistantGameManager.Instance.currentWeapon.itemLevel.ToString();
 
         nWNOutput.text = PersistantGameManager.Instance.comparingWeapon.itemName;
         nWDOutput.text = PersistantGameManager.Instance.comparingWeapon.itemDamage.ToString();
-        nWSOutput.text = PersistantGameManager.Instance.comparingWeapon.itemSpeed.ToString();
+        nWSOutput.text = PersistantGameManager.Instance.comparingWeapon.trueItemSpeed.ToString();
         nWROutput.text = PersistantGameManager.Instance.comparingWeapon.itemRange.ToString();
         nWLOutput.text = PersistantGameManager.Instance.comparingWeapon.itemLevel.ToString();
     }

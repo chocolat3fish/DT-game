@@ -471,13 +471,17 @@ public class MenuCanvasScript : MonoBehaviour
             sW3Output.fontStyle = FontStyle.Bold;
         }
 
+        double itemOneSpeed = Math.Round(PersistantGameManager.Instance.playerWeaponInventory[0].trueItemSpeed, 2);
+        double itemTwoSpeed = Math.Round(PersistantGameManager.Instance.playerWeaponInventory[1].trueItemSpeed, 2);
+        double itemThreeSpeed = Math.Round(PersistantGameManager.Instance.playerWeaponInventory[2].trueItemSpeed, 2);
+
         wD1Output.text = PersistantGameManager.Instance.playerWeaponInventory[0].itemDamage.ToString();
         wD2Output.text = PersistantGameManager.Instance.playerWeaponInventory[1].itemDamage.ToString();
         wD3Output.text = PersistantGameManager.Instance.playerWeaponInventory[2].itemDamage.ToString();
 
-        wS1Output.text = PersistantGameManager.Instance.playerWeaponInventory[0].itemSpeed.ToString();
-        wS2Output.text = PersistantGameManager.Instance.playerWeaponInventory[1].itemSpeed.ToString();
-        wS3Output.text = PersistantGameManager.Instance.playerWeaponInventory[2].itemSpeed.ToString();
+        wS1Output.text = itemOneSpeed.ToString();
+        wS2Output.text = itemTwoSpeed.ToString();
+        wS3Output.text = itemThreeSpeed.ToString();
 
         wR1Output.text = PersistantGameManager.Instance.playerWeaponInventory[0].itemRange.ToString();
         wR2Output.text = PersistantGameManager.Instance.playerWeaponInventory[1].itemRange.ToString();

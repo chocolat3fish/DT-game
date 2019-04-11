@@ -50,6 +50,20 @@ public class PersistantGameManager : MonoBehaviour
         {"Hood of Sartuka", "Ja03"}
     };
 
+    //tracks skill progression of each tree
+    public int damageProgress;
+    public int mobilityProgress;
+    public int tankProgress;
+
+    //Skill related multipliers
+    public double attackSpeedMulti = 1;
+    public float attackRangeMulti = 1;
+    public float attackDamageMulti = 1;
+    public float lifeStealMulti = 1;
+    public float totalHealthMulti = 1;
+
+    public int attackSpeedUpgrades;
+
 
 
     public bool potionIsActive;
@@ -62,6 +76,7 @@ public class PersistantGameManager : MonoBehaviour
     public float potionCoolDownTime;
     public bool compareScreenOpen;
     public bool characterScreenOpen;
+    public bool skillsScreenOpen;
     public bool menuCanvasOpen;
     public Weapon comparingWeapon;
     public Armour currentArmour;
@@ -72,8 +87,9 @@ public class PersistantGameManager : MonoBehaviour
     public GameObject magicBar;
     public bool hasMagic;
     public bool tripleJump;
-    public bool fireball;
+    public bool highDamage;
     public bool gripWalls;
+    public bool maxedSpeed;
 
     public PlayerStats playerStats;
     public bool checkExp;

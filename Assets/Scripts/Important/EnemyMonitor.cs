@@ -11,7 +11,7 @@ public class EnemyMonitor : MonoBehaviour
     Rigidbody2D enemyRigidbody;
 
     //The current health of the enemy at the beginning gets set as the total health of the enemy
-    public float currentHealth;
+    public double currentHealth;
 
     //Damage the enemy does
     private float enemyDamage;
