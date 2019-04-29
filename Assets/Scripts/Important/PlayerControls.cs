@@ -46,11 +46,15 @@ public class PlayerControls : MonoBehaviour
         get { return _currentHealth; }
         set
         {
+            if(!PersistantGameManager.Instance.GodMode)
+            {
+                _currentHealth = value;
+            }
             if(value < _currentHealth)
             {
                 //StartCoroutine(Shake());
             }
-            _currentHealth = value;
+           
         }
     }
     public float totalHealth;

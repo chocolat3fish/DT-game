@@ -9,6 +9,8 @@ public class PersistantGameManager : MonoBehaviour
 {
     public static PersistantGameManager Instance { get; private set; }
 
+    public bool GodMode;
+
     public int currentIndex = 0;
     public int previousIndex = 0;
     public Weapon currentWeapon;

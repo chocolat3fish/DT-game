@@ -458,26 +458,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fdd4c612d7c540c88b4b61d472da602, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  patrolPoints: []
+  player: {fileID: 0}
+  hasJumped: 0
+  rb: {fileID: 0}
+  timeOfShake: 0
+  inFlight: 0
   projectile: 1
   patrol: 1
   charge: 1
-  patrolPoints: []
+  JumpCharge: 1
   moveSpeed: 1
   shootSpeed: 1
   range: 10
   projectileSpeed: 7.5
   projectileDamage: 1
-  player: {fileID: 0}
   chargeCoolDown: 5
   timeOfCharge: 0
-  time: 0
   chargeSpeed: 15
-  hasJumped: 0
-  rb: {fileID: 0}
   doJump: 0
   jumpPower: 2
   timeBetweenJumpAndCharge: 1
-  timeOfShake: 0
+  firingAngle: 72.64
+  gravity: 12.3
+  torque: 0
 --- !u!4 &258561756
 Transform:
   m_ObjectHideFlags: 0
@@ -524,26 +528,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fdd4c612d7c540c88b4b61d472da602, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  patrolPoints: []
+  player: {fileID: 0}
+  hasJumped: 0
+  rb: {fileID: 0}
+  timeOfShake: 0
+  inFlight: 0
   projectile: 1
   patrol: 0
   charge: 0
-  patrolPoints: []
+  JumpCharge: 0
   moveSpeed: 0
   shootSpeed: 1
   range: 10
   projectileSpeed: 7.5
   projectileDamage: 0
-  player: {fileID: 0}
   chargeCoolDown: 0
   timeOfCharge: 0
-  time: 0
   chargeSpeed: 0
-  hasJumped: 0
-  rb: {fileID: 0}
   doJump: 0
   jumpPower: 0
   timeBetweenJumpAndCharge: 0
-  timeOfShake: 0
+  firingAngle: 0
+  gravity: 0
+  torque: 0
 --- !u!224 &265776208
 RectTransform:
   m_ObjectHideFlags: 0
@@ -932,6 +940,7 @@ MonoBehaviour:
   currentHealth: 0
   xpEarnings: 290
   distanceToPlayer: 0
+  droppedQuestItem: 0
   player: {fileID: 2104623955}
   enemyStats:
     enemyName: Evil Guy 2
@@ -1299,6 +1308,7 @@ MonoBehaviour:
   currentHealth: 0
   xpEarnings: 750
   distanceToPlayer: 0
+  droppedQuestItem: 0
   player: {fileID: 2104623955}
   enemyStats:
     enemyName: Evil Door
@@ -1581,26 +1591,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fdd4c612d7c540c88b4b61d472da602, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  patrolPoints: []
+  player: {fileID: 0}
+  hasJumped: 0
+  rb: {fileID: 0}
+  timeOfShake: 0
+  inFlight: 0
   projectile: 1
   patrol: 0
   charge: 0
-  patrolPoints: []
+  JumpCharge: 0
   moveSpeed: 0
   shootSpeed: 1
   range: 10
   projectileSpeed: 7.5
   projectileDamage: 0
-  player: {fileID: 0}
   chargeCoolDown: 0
   timeOfCharge: 0
-  time: 0
   chargeSpeed: 0
-  hasJumped: 0
-  rb: {fileID: 0}
   doJump: 0
   jumpPower: 2
   timeBetweenJumpAndCharge: 0
-  timeOfShake: 0
+  firingAngle: 0
+  gravity: 0
+  torque: 0
 --- !u!224 &780271023
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2453,6 +2467,7 @@ MonoBehaviour:
   currentHealth: 0
   xpEarnings: 290
   distanceToPlayer: 0
+  droppedQuestItem: 0
   player: {fileID: 2104623955}
   enemyStats:
     enemyName: Evil Guy
@@ -4747,15 +4762,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4cd19ec11e1dbbd41ac1db47758d69a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  GodMode: 0
   currentIndex: 0
   previousIndex: 0
   currentWeapon:
     itemName: 
     itemDamage: 0
-    itemSpeed: 0
+    stockItemSpeed: 0
+    trueItemSpeed: 0
     itemRange: 0
     itemLevel: 0
   playerWeaponInventory: []
+  currentDialogueQuest:
+    questName: 
+    questType: 
+    sentencesBeforeQuest1stTime: []
+    sentencesBeforeQuest2ndTime: []
+    questStatment: 
+    questStatmentWithItem: 
+    sentencesAfterQuest: []
+    questDescription: 
+    sentencesAfterQuestEnd: []
+    questItemName: 
+    questKey: 
   possibleConsumables:
   - 20%H
   - 50%H
@@ -4770,6 +4799,15 @@ MonoBehaviour:
   - Hood of Sartuka
   - Claw of Straphagus
   activeQuests: []
+  damageProgress: 0
+  mobilityProgress: 0
+  tankProgress: 0
+  attackSpeedMulti: 1
+  attackRangeMulti: 1
+  attackDamageMulti: 1
+  lifeStealMulti: 1
+  totalHealthMulti: 1
+  attackSpeedUpgrades: 0
   potionIsActive: 0
   activePotionType: 
   currentAttackMultiplier: 1
@@ -4780,11 +4818,13 @@ MonoBehaviour:
   potionCoolDownTime: 30
   compareScreenOpen: 0
   characterScreenOpen: 0
+  skillsScreenOpen: 0
   menuCanvasOpen: 0
   comparingWeapon:
     itemName: 
     itemDamage: 0
-    itemSpeed: 0
+    stockItemSpeed: 0
+    trueItemSpeed: 0
     itemRange: 0
     itemLevel: 0
   currentArmour:
@@ -4798,8 +4838,9 @@ MonoBehaviour:
   magicBar: {fileID: 0}
   hasMagic: 0
   tripleJump: 0
-  fireball: 0
+  highDamage: 0
   gripWalls: 0
+  maxedSpeed: 0
   playerStats:
     health: 0
     playerLevel: 1
