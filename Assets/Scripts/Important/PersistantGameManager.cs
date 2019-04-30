@@ -63,6 +63,7 @@ public class PersistantGameManager : MonoBehaviour
     public float attackDamageMulti = 1;
     public float lifeStealMulti = 1;
     public float totalHealthMulti = 1;
+    public float damageResistMulti = 1;
 
     public int attackSpeedUpgrades;
 
@@ -92,6 +93,15 @@ public class PersistantGameManager : MonoBehaviour
     public bool highDamage;
     public bool gripWalls;
     public bool maxedSpeed;
+    public bool damageResist;
+    public float timeOfAbility;
+    public float abilityDuration;
+
+    //Individual durations
+    public float damageResistDuration = 15;
+
+    public string currentActiveAblity;
+    public bool abilityIsActive;
 
     public PlayerStats playerStats;
     public bool checkExp;
@@ -163,18 +173,11 @@ public class PersistantGameManager : MonoBehaviour
     }
     void Update()
     {
-
-        if(Time.time > timeOfAttackMultiplierChange + 30 && activePotionType == "Attack")
+        if (Time.time > (timeOfAbility + abilityDuration) && damageResistMulti < 1)
         {
-            currentAttackMultiplier = 1;
-            potionIsActive = false;
-
-        }
-        if (Time.time > timeOfLeechMultiplierChange + 30 && activePotionType == "Leech")
-        {
-            currentLeechMultiplier = 0;
-            potionIsActive = false;
-
+            damageResistMulti = 1;
+            currentActiveAblity = "";
+            abilityIsActive = false;
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha1))
@@ -193,6 +196,21 @@ public class PersistantGameManager : MonoBehaviour
             ChangeItem(currentIndex);
         }
 
+        /*
+        if (Time.time > timeOfAttackMultiplierChange + 30 && activePotionType == "Attack")
+        {
+            currentAttackMultiplier = 1;
+            potionIsActive = false;
+
+        }
+        if (Time.time > timeOfLeechMultiplierChange + 30 && activePotionType == "Leech")
+        {
+            currentLeechMultiplier = 0;
+            potionIsActive = false;
+
+        }
+
+
         if (Input.GetKeyDown(KeyCode.Z))
         {
             changeItemOne = true;
@@ -203,7 +221,7 @@ public class PersistantGameManager : MonoBehaviour
         }
 
             //Shortened to 3 items
-            /*
+
             else if (Input.GetKeyDown(KeyCode.Alpha4))
             {
                 currentIndex = 3;
@@ -216,7 +234,7 @@ public class PersistantGameManager : MonoBehaviour
             }
             */
 
-            //Hides the magic cooldown if player has not unlocked any magic skills
+        //Hides the magic cooldown if player has not unlocked any magic skills
         if (hasMagic == true)
         {
             magicBar.SetActive(true);

@@ -31,7 +31,9 @@ public class PlayerControls : MonoBehaviour
     //reliant on PersistantGameManager and PlayerMonitor
     public float playerDamage;
     public double attackSpeed;
+
     public float magicCooldown;
+
     public float TimeOfItemOneUse, itemOneCooldown = 1;
     public float TimeOfItemTwoUse, itemTwoCooldown = 1;
 
@@ -66,7 +68,7 @@ public class PlayerControls : MonoBehaviour
     private int currentJumps;
     private bool givenTripleJump;
 
-    [HideInInspector] public float timeOfAttack, timeOfMagic;
+    [HideInInspector] public float timeOfAttack, timeOfMagic = 0;
 
     private bool facingRight;
     private bool facingLeft;
@@ -153,6 +155,14 @@ public class PlayerControls : MonoBehaviour
             StartCoroutine(Fireball());
         }
 
+        if (Input.GetKeyDown(KeyCode.R) && PersistantGameManager.Instance.damageResist && Time.time >= timeOfMagic + magicCooldown)
+        {
+            //activate damage resist and record time
+            PersistantGameManager.Instance.timeOfAbility = Time.time;
+            timeOfMagic = Time.time;
+            ResistDamage();
+        }
+
 
         //changes x axis speed and keeps current y axis velocity
         if (playerInput != Vector2.zero)
@@ -236,6 +246,7 @@ public class PlayerControls : MonoBehaviour
             UseItem(PersistantGameManager.Instance.equippedItemTwo);
         }
         */
+
 
 
         playerDamage = PersistantGameManager.Instance.currentWeapon.itemDamage;
@@ -326,6 +337,15 @@ public class PlayerControls : MonoBehaviour
             rightDetector.enabled = false;
 
         }
+
+    }
+
+    public void ResistDamage()
+    {
+        PersistantGameManager.Instance.damageResistMulti = 0.5f;
+        PersistantGameManager.Instance.currentActiveAblity = "Turtle";
+        PersistantGameManager.Instance.abilityIsActive = true;
+        PersistantGameManager.Instance.abilityDuration = PersistantGameManager.Instance.damageResistDuration;
     }
 
     public float CalculatePlayerHealing()

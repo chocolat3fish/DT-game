@@ -1316,7 +1316,7 @@ MonoBehaviour:
     enemyHealth: 15
     attackSpeed: 1
     attackRange: 2
-  itemChance: 0
+  itemChance: 35
   weaponValue: 2000
   itemValue: 70
   questTarget: 0
@@ -4807,6 +4807,7 @@ MonoBehaviour:
   attackDamageMulti: 1
   lifeStealMulti: 1
   totalHealthMulti: 1
+  damageResistMulti: 1
   attackSpeedUpgrades: 0
   potionIsActive: 0
   activePotionType: 
@@ -4841,6 +4842,12 @@ MonoBehaviour:
   highDamage: 0
   gripWalls: 0
   maxedSpeed: 0
+  damageResist: 0
+  timeOfAbility: 0
+  abilityDuration: 0
+  damageResistDuration: 15
+  currentActiveAblity: 
+  abilityIsActive: 0
   playerStats:
     health: 0
     playerLevel: 1
@@ -5487,7 +5494,7 @@ MonoBehaviour:
   deathScene: You lost
   playerDamage: 1
   attackSpeed: 1
-  magicCooldown: 5
+  magicCooldown: 20
   TimeOfItemOneUse: 0
   itemOneCooldown: 1
   TimeOfItemTwoUse: 0

@@ -217,7 +217,7 @@ public class MenuCanvasScript : MonoBehaviour
             closeItems = false;
         }
 
-
+        /*
         if (mainPanel.gameObject.activeSelf && Input.GetKeyDown(KeyCode.J) && consumablesPanel.activeSelf == true)
         {
             closeConsumables = true;
@@ -228,6 +228,7 @@ public class MenuCanvasScript : MonoBehaviour
             openConsumables = true;
             closeConsumables = false;
         }
+        */
 
         if (mainPanel.gameObject.activeSelf && Input.GetKeyDown(KeyCode.Semicolon) && questsPanel.activeSelf == true)
         {

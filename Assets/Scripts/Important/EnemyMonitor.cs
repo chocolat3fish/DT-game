@@ -225,7 +225,7 @@ public class EnemyMonitor : MonoBehaviour
                 }
 
                 //Applys the Damage
-                playerControls.currentHealth -= enemyAtackDamage;
+                playerControls.currentHealth -= enemyAtackDamage * PersistantGameManager.Instance.damageResistMulti;
             }
 
         }

@@ -66,9 +66,6 @@ public class NPCMonitor : MonoBehaviour
         toTalkPanel.SetActive(false);
         dialougeBoxOpen = false;
 
-        
-
-
     }
 
     private void Update()

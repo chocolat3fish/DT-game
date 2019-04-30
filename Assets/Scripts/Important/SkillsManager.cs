@@ -12,6 +12,7 @@ public class SkillsManager : MonoBehaviour
     public Button gripWallButton;
     public Button attackSpeedButton;
     public Text attackSpeedQuantity;
+    public Button damageResistButton;
 
 
 
@@ -22,12 +23,15 @@ public class SkillsManager : MonoBehaviour
         highDamageButton = gameObject.transform.Find("HDB").GetComponent<Button>();
         attackSpeedButton = gameObject.transform.Find("ASB").GetComponent<Button>();
         attackSpeedQuantity = attackSpeedButton.transform.Find("Quantity").GetComponent<Text>();
+        damageResistButton = gameObject.transform.Find("DRB").GetComponent<Button>();
 
         if (PersistantGameManager.Instance.tripleJump == true) { tripleJumpButton.GetComponent<Image>().color = hasSkill; }
         if (PersistantGameManager.Instance.gripWalls == true) { gripWallButton.GetComponent<Image>().color = hasSkill; }
 
         if (PersistantGameManager.Instance.highDamage == true) { highDamageButton.GetComponent<Image>().color = hasSkill; }
         if (PersistantGameManager.Instance.maxedSpeed == true) { attackSpeedButton.GetComponent<Image>().color = hasSkill; }
+
+        if (PersistantGameManager.Instance.damageResist == true) { damageResistButton.GetComponent<Image>().color = hasSkill; }
 
 
 
@@ -122,6 +126,25 @@ public class SkillsManager : MonoBehaviour
                 PersistantGameManager.Instance.maxedSpeed = true;
             }
 
+        }
+    }
+
+    #endregion
+
+    #region Tank
+
+    public void GiveDamageResist()
+    {
+        if (PersistantGameManager.Instance.playerStats.playerSkillPoints >= 1 && PersistantGameManager.Instance.damageResist == false)
+        {
+            PersistantGameManager.Instance.hasMagic = true;
+            PersistantGameManager.Instance.damageResist = true;
+            PersistantGameManager.Instance.playerStats.playerSkillPoints -= 1;
+
+            damageResistButton.GetComponent<Image>().color = hasSkill;
+            damageResistButton.interactable = false;
+
+            if (PersistantGameManager.Instance.tankProgress == 0) { PersistantGameManager.Instance.tankProgress = 1; }
         }
     }
 

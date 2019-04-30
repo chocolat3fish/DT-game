@@ -4,21 +4,21 @@ using UnityEngine;
 
 public class PotionDuration : MonoBehaviour
 {
-    public GameObject potionBar;
+    public GameObject abilityBar;
 
     private void Awake()
     {
-        potionBar = transform.Find("Potion Duration").gameObject;
+        abilityBar = transform.Find("Ability Duration").gameObject;
     }
     private void Update()
     {
-        if (PersistantGameManager.Instance.potionIsActive && (!potionBar.activeSelf))
+        if (PersistantGameManager.Instance.abilityIsActive && (!abilityBar.activeSelf))
         {   
-            potionBar.SetActive(true);
+            abilityBar.SetActive(true);
         }
-        else if (!PersistantGameManager.Instance.potionIsActive && (potionBar.activeSelf))
+        else if (!PersistantGameManager.Instance.abilityIsActive && (abilityBar.activeSelf))
         {
-            potionBar.SetActive(false);
+            abilityBar.SetActive(false);
         }
     }
 }
