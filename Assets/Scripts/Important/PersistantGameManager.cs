@@ -106,6 +106,8 @@ public class PersistantGameManager : MonoBehaviour
     private bool changeItemOne, changeItemTwo;
 
     public bool firstTimeOpeningMenuCanvas, menuCanvasIsOpen;
+    public bool dialogueSceneIsOpen;
+
     private void Awake()
     {
         if(Instance == null)

@@ -66,9 +66,6 @@ public class NPCMonitor : MonoBehaviour
         toTalkPanel.SetActive(false);
         dialougeBoxOpen = false;
 
-        
-
-
     }
 
     private void Update()
@@ -333,6 +330,8 @@ public class NPCMonitor : MonoBehaviour
         overlayAcceptButton.gameObject.SetActive(false);
         overlayContinueButton.gameObject.SetActive(true);
         overlayRewardText.text = "";
+        PersistantGameManager.Instance.dialogueSceneIsOpen = true;
+
         if (hasTalkedBefore)
         {
             StartCoroutine(AddChars(currentQuest.sentencesBeforeQuest2ndTime[0], overlayMainText));
@@ -349,6 +348,7 @@ public class NPCMonitor : MonoBehaviour
         SceneManager.UnloadSceneAsync("Dialogue Canvas");
         dialougeBoxOpen = false;
         isTalking = false;
+        PersistantGameManager.Instance.dialogueSceneIsOpen = false;
     }
 
     IEnumerator AddChars(string sentence, Text text)

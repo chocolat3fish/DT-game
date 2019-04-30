@@ -85,7 +85,7 @@ public class LootDropMonitor : MonoBehaviour
         distanceToPlayer = Vector2.Distance(player.transform.position, transform.position);
 
         //If the player is close enough to the loot drop and "E" is pressed
-        if(distanceToPlayer < 2f && Input.GetKeyDown(KeyCode.E))
+        if(distanceToPlayer < 2f && Input.GetKeyDown(KeyCode.E) && Time.timeScale != 0)
         {
             //makes an array of all current loot drops
             LootDropMonitor[] lootDrops = FindObjectsOfType<LootDropMonitor>();
