@@ -81,5 +81,28 @@ public class AsyncTriggers : MonoBehaviour
         SceneManager.LoadSceneAsync("Compare Canvas", LoadSceneMode.Additive);
         Time.timeScale = 0;
     }
+    public void OpenBugReportCanvas()
+    {
+        if (PersistantGameManager.Instance.dialogueSceneIsOpen)
+        {
+            dialoguePanel = FindObjectOfType<DialogueButtons>().gameObject.transform.parent.gameObject;
+            dialoguePanel.SetActive(false);
+        }
+        SceneManager.LoadSceneAsync("Bug Report Canvas", LoadSceneMode.Additive);
+        Time.timeScale = 0;
+    }
+    public void CloseBugReportCanvas()
+    {
+        SceneManager.UnloadSceneAsync("Bug Report Canvas");
+        if (PersistantGameManager.Instance.dialogueSceneIsOpen)
+        {
+            if (dialoguePanel != null)
+            {
+                dialoguePanel.SetActive(true);
+            }
+            dialoguePanel = null;
+        }
+        Time.timeScale = 1;
+    }
 
 }
