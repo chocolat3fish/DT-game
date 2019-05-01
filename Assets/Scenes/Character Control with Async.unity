@@ -464,8 +464,9 @@ MonoBehaviour:
   rb: {fileID: 0}
   timeOfShake: 0
   inFlight: 0
-  projectile: 1
-  patrol: 1
+  jumpChargeCollision: 0
+  projectile: 0
+  patrol: 0
   charge: 1
   JumpCharge: 1
   moveSpeed: 1
@@ -534,6 +535,7 @@ MonoBehaviour:
   rb: {fileID: 0}
   timeOfShake: 0
   inFlight: 0
+  jumpChargeCollision: 0
   projectile: 1
   patrol: 0
   charge: 0
@@ -953,6 +955,7 @@ MonoBehaviour:
   itemValue: 0
   questTarget: 1
   questReward: Hood of Sartuka
+  waitingForCollision: 0
 --- !u!212 &486535259
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1321,6 +1324,7 @@ MonoBehaviour:
   itemValue: 70
   questTarget: 0
   questReward: 
+  waitingForCollision: 0
 --- !u!212 &603987000
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1597,6 +1601,7 @@ MonoBehaviour:
   rb: {fileID: 0}
   timeOfShake: 0
   inFlight: 0
+  jumpChargeCollision: 0
   projectile: 1
   patrol: 0
   charge: 0
@@ -2480,6 +2485,7 @@ MonoBehaviour:
   itemValue: 0
   questTarget: 0
   questReward: 
+  waitingForCollision: 0
 --- !u!212 &1348077151
 SpriteRenderer:
   m_ObjectHideFlags: 0

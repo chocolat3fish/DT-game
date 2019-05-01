@@ -16,7 +16,6 @@ public class BulletController : MonoBehaviour
     {
         player = FindObjectOfType<PlayerControls>().gameObject;
         launchAtPos = (player.transform.position - transform.position) * 100;
-        print(launchAtPos);
         transform.position = Vector2.MoveTowards(transform.position, launchAtPos, Time.deltaTime * speed);
     }
 
@@ -37,7 +36,6 @@ public class BulletController : MonoBehaviour
         {
             if (Vector2.Distance(transform.position, startPosition) > range)
             {
-                Debug.Log("no error");
                 Destroy(gameObject);
             }
         }

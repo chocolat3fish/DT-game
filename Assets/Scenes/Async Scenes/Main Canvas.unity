@@ -211,8 +211,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b152f55ec78d84f72b4e64b73e68c34a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerControls: {fileID: 0}
-  bar: {fileID: 0}
 --- !u!114 &151188857
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1752,8 +1750,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerControls: {fileID: 0}
-  resistColour: {r: 1, g: 0.84313726, b: 0, a: 0}
-  standard: {r: 1, g: 0, b: 0, a: 0}
+  resistColour: {r: 1, g: 0.84313726, b: 0, a: 1}
+  standard: {r: 1, g: 0, b: 0, a: 1}
 --- !u!114 &724121522
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4912,8 +4910,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b152f55ec78d84f72b4e64b73e68c34a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerControls: {fileID: 0}
-  bar: {fileID: 0}
 --- !u!114 &1650107487
 MonoBehaviour:
   m_ObjectHideFlags: 0

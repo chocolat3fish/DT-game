@@ -239,7 +239,6 @@ public class LootManager : MonoBehaviour
             tempSpeed = random.NextDouble();
             if (tempSpeed >= 0.5)
             {
-                Debug.Log(tempSpeed);
                 break;
             }
         }
@@ -255,15 +254,6 @@ public class LootManager : MonoBehaviour
         float newRange = rangeBonus;
 
         if (newRange <= 0) { newRange = 0.1f; }
-
-
-
-
-        Debug.Log(weaponType);
-        Debug.Log(newDamage);
-        Debug.Log(newAttackSpeed);
-        Debug.Log(newRange);
-        Debug.Log(newLevel);
         return new Weapon(weaponType, newDamage, newAttackSpeed / (float)PersistantGameManager.Instance.attackSpeedMulti, newAttackSpeed, newRange, newLevel);
         
 

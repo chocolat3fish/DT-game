@@ -23,7 +23,7 @@ public class EnemyAttacks : MonoBehaviour
     private bool isInZone;
     [HideInInspector]
     public bool inFlight;
-    private bool jumpChargeCollison;
+    public bool jumpChargeCollision;
     private bool waitingForCollision;
 
     [Header("Choose Type Of Enemy")]
@@ -56,11 +56,15 @@ public class EnemyAttacks : MonoBehaviour
     public float gravity;
     public float torque;
     private bool jumpCharging;
-    
 
+    private float _firingAngle;
+
+    private EnemyMonitor enemyMonitor;
     void Awake()
     {
         enemy = gameObject.transform.Find("Enemy").gameObject;
+        enemyMonitor = enemy.GetComponent<EnemyMonitor>();
+
         if (patrol || charge)
         {
             patrolPoints.Add(gameObject.transform.Find("Left Point"));
@@ -88,6 +92,7 @@ public class EnemyAttacks : MonoBehaviour
             enemy.transform.position = Vector2.MoveTowards(enemy.transform.position, patrolPoints[currentPointIndex].transform.position, Time.deltaTime * moveSpeed);
             if (Vector2.Distance(enemy.transform.position, patrolPoints[currentPointIndex].position) < .2f)
             {
+
                 if (currentPointIndex == 0) { currentPointIndex = 1; }
                 else if (currentPointIndex == 1) { currentPointIndex = 0; }
             }
@@ -104,7 +109,6 @@ public class EnemyAttacks : MonoBehaviour
         }
         if (charge && !inFlight)
         {
-            Debug.Log("Charge Loop Fired");
             float distanceFromZero = Vector2.Distance(patrolPoints[0].transform.position, player.transform.position);
             float distanceFromOne = Vector2.Distance(patrolPoints[1].transform.position, player.transform.position);
             bool isInYOfPointZero = patrolPoints[0].position.y + 2 > player.transform.position.y && patrolPoints[0].position.y - 2 < player.transform.position.y;
@@ -188,16 +192,32 @@ public class EnemyAttacks : MonoBehaviour
                 
                 inFlight = true;
 
-                float target_Distance = Vector3.Distance(enemy.transform.position, player.transform.position);
+                float targetDistance = Vector3.Distance(enemy.transform.position, player.transform.position);
+                if(targetDistance > 10f)
+                {
+                    _firingAngle = firingAngle - 30;
+                }
+                else if(targetDistance > 7.5f)
+                {
+                    _firingAngle = firingAngle - 22.5f;
+                }
+                else if(targetDistance > 5f)
+                {
+                    _firingAngle = firingAngle - 15f;
+                }
+                else if(targetDistance > 2.5f)
+                {
+                    _firingAngle = firingAngle - 7.5f;
+                }
+
                 Vector2 direction = (playerPosInZone - (enemy.transform.position)).normalized;
 
-
                 // Calculate the velocity needed to throw the object to the target at specified angle.
-                float projectile_Velocity = target_Distance / (Mathf.Sin(2 * firingAngle * Mathf.Deg2Rad) / (Physics2D.gravity.y * -1));
+                float projectile_Velocity = targetDistance / (Mathf.Sin(2 * _firingAngle * Mathf.Deg2Rad) / (Physics2D.gravity.y * -1));
 
                 // Extract the X Y componenent of the velocity
-                float Vx = Mathf.Sqrt(projectile_Velocity) * Mathf.Cos(firingAngle * Mathf.Deg2Rad);
-                float Vy = Mathf.Sqrt(projectile_Velocity) * Mathf.Sin(firingAngle * Mathf.Deg2Rad);
+                float Vx = Mathf.Sqrt(projectile_Velocity) * Mathf.Cos(_firingAngle * Mathf.Deg2Rad);
+                float Vy = Mathf.Sqrt(projectile_Velocity) * Mathf.Sin(_firingAngle * Mathf.Deg2Rad);
 
                 Vector2 vel = new Vector2(Vx * direction.x, Vy);
 
@@ -208,20 +228,28 @@ public class EnemyAttacks : MonoBehaviour
                 if (patrol)
                 {
                     StartCoroutine(TurnOffPatrollingForTime(2.5f));
+                    if(rb.velocity.x < 0)
+                    {
+                        currentPointIndex = 0;
+                    }
+                    else
+                    {
+                        currentPointIndex = 1;
+                    }
                 }
                 
 
-                waitingForCollision = true;
+                enemyMonitor.waitingForCollision = true;
                 inFlight = false;
                 timeOfCharge = Time.time;
             }
             
  
         }
-        if (jumpChargeCollison)
+        if (jumpChargeCollision)
         {
             rb.velocity = Vector3.zero;
-            jumpChargeCollison = false;
+            jumpChargeCollision = false;
         }
     }
 
@@ -319,14 +347,6 @@ public class EnemyAttacks : MonoBehaviour
         Debug.Log("Finished Jump Charge");
     }
     */
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if(collision.gameObject.name == "Floor" && waitingForCollision)
-        { 
-            jumpChargeCollison = true;
-            waitingForCollision = false;
-        }
-    }
 }
 
 

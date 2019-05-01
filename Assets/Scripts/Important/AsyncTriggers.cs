@@ -37,11 +37,6 @@ public class AsyncTriggers : MonoBehaviour
             SceneManager.UnloadSceneAsync("Character Canvas");
             Time.timeScale = 1;
             PersistantGameManager.Instance.characterScreenOpen = false;
-            if (PersistantGameManager.Instance.dialogueSceneIsOpen)
-            {
-                dialoguePanel = FindObjectOfType<DialogueButtons>().gameObject.transform.parent.gameObject;
-                dialoguePanel.SetActive(false);
-            }
             SceneManager.LoadSceneAsync("Menu Canvas", LoadSceneMode.Additive);
             PersistantGameManager.Instance.firstTimeOpeningMenuCanvas = true;
             PersistantGameManager.Instance.menuCanvasOpen = true;

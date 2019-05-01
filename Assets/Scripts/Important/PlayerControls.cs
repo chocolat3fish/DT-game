@@ -343,7 +343,7 @@ public class PlayerControls : MonoBehaviour
     public void ResistDamage()
     {
         PersistantGameManager.Instance.damageResistMulti = 0.5f;
-        PersistantGameManager.Instance.currentActiveAblity = "Turtle";
+        PersistantGameManager.Instance.currentActiveAblity = "Turtle - (2x Defence)";
         PersistantGameManager.Instance.abilityIsActive = true;
         PersistantGameManager.Instance.abilityDuration = PersistantGameManager.Instance.damageResistDuration;
     }

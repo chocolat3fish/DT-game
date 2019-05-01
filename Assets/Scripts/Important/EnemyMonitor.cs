@@ -46,6 +46,14 @@ public class EnemyMonitor : MonoBehaviour
     //Name of the loot drop prefab
     private string lootDropPreFabName = "Loot Drop";
 
+
+    private EnemyAttacks parentController;
+    public bool waitingForCollision;
+
+    private void Awake()
+    {
+        parentController = transform.parent.GetComponent<EnemyAttacks>();
+    }
     void Start()
     {
         //Gets the components
@@ -230,5 +238,14 @@ public class EnemyMonitor : MonoBehaviour
 
         }
 
+    }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.name == "Floor" && waitingForCollision)
+        {
+            parentController.jumpChargeCollision = true;
+            waitingForCollision = false;
+            Debug.Log("freeze");
+        }
     }
 }
