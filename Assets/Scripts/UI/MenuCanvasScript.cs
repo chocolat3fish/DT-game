@@ -199,7 +199,7 @@ public class MenuCanvasScript : MonoBehaviour
             openWeapons = false;
 
         }
-        else if (mainPanel.activeSelf && Input.GetKeyDown(KeyCode.L) && weaponsPanel.activeSelf == false)
+        else if (mainPanel.activeSelf && Input.GetKeyDown(KeyCode.L) && weaponsPanel.activeSelf == false && questDescPanel.activeSelf == false)
         {
             openWeapons = true;
             closeWeapons = false;
@@ -405,6 +405,7 @@ public class MenuCanvasScript : MonoBehaviour
         UpdateData();
         weaponsPanel.SetActive(true);
         questsPanel.SetActive(false);
+        questDescPanel.SetActive(false);
         
     }
 
@@ -435,6 +436,7 @@ public class MenuCanvasScript : MonoBehaviour
         UpdateData();
         questsPanel.SetActive(true);
         weaponsPanel.SetActive(false);
+        questDescPanel.SetActive(false);
     }
 
     public void CloseQuestsMenu()

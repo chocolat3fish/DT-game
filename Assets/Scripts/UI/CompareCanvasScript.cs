@@ -14,6 +14,7 @@ public class CompareCanvasScript : MonoBehaviour
     public GameObject currentWeaponPanel;
     public GameObject newWeaponPanel;
 
+    private bool shouldUpdate;
     //Testing not removing canvases 
     //public List<Canvas> canvases = new List<Canvas>();
     //private List<Canvas> turnedOnCanvases = new List<Canvas>();
@@ -36,7 +37,7 @@ public class CompareCanvasScript : MonoBehaviour
     public bool takeEInputForContinue;
     private void Awake()
     {
-        
+        shouldUpdate = true;
         currentWeaponPanel = GameObject.Find("Current Weapon Panel");
         newWeaponPanel = GameObject.Find("New Weapon Panel");
 
@@ -82,7 +83,11 @@ public class CompareCanvasScript : MonoBehaviour
     }
     private void Update()
     {
-        UpdateData();
+        if(shouldUpdate)
+        {
+            UpdateData();
+        }
+        
         takeEInputForContinue = true;
 
         if (Input.GetKeyDown(KeyCode.E) && !detecting && takeEInputForContinue && PersistantGameManager.Instance.compareScreenOpen)
@@ -126,12 +131,25 @@ public class CompareCanvasScript : MonoBehaviour
         PersistantGameManager.Instance.currentWeapon = PersistantGameManager.Instance.comparingWeapon;
         PersistantGameManager.Instance.comparingWeapon = tempWeapon;
         PersistantGameManager.Instance.playerWeaponInventory[PersistantGameManager.Instance.currentIndex] = PersistantGameManager.Instance.currentWeapon;
-
+        shouldUpdate = false;
         ContinueGame();
     }
 
     public void ContinueGame()
     {
+        if (PersistantGameManager.Instance.dialogueSceneIsOpen)
+        {
+            GameObject dialoguePanel = FindObjectOfType<AsyncTriggers>().dialoguePanel;
+            if (dialoguePanel != null)
+            {
+                dialoguePanel.SetActive(false);
+                if (dialoguePanel != null)
+                {
+                    dialoguePanel.SetActive(true);
+                }
+                dialoguePanel = null;
+            }
+        }
         Time.timeScale = 1;
         PersistantGameManager.Instance.compareScreenOpen = false;
         SceneManager.UnloadSceneAsync("Compare Canvas");

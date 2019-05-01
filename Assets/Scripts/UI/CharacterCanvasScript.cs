@@ -42,10 +42,24 @@ public class CharacterCanvasScript : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.U) && isActive)
         {
+             if (PersistantGameManager.Instance.dialogueSceneIsOpen)
+            {
+                GameObject dialoguePanel = FindObjectOfType<AsyncTriggers>().dialoguePanel;
+                if (dialoguePanel != null)
+                {
+                    dialoguePanel.SetActive(false);
+                    if (dialoguePanel != null)
+                    {
+                        dialoguePanel.SetActive(true);
+                    }
+                    dialoguePanel = null;
+                }
+            }
             isActive = false;
             PersistantGameManager.Instance.characterScreenOpen = false;
             PersistantGameManager.Instance.skillsScreenOpen = false;
             Time.timeScale = 1;
+           
             SceneManager.UnloadSceneAsync("Character Canvas");
         }
         if (mainPanel.activeSelf && Input.GetKeyDown(KeyCode.K) && skillsPanel.activeSelf == false)

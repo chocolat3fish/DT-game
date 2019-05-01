@@ -189,7 +189,7 @@ public class EnemyAttacks : MonoBehaviour
                 inFlight = true;
 
                 float target_Distance = Vector3.Distance(enemy.transform.position, player.transform.position);
-                Vector2 direction = (player.transform.position - (enemy.transform.position)).normalized;
+                Vector2 direction = (playerPosInZone - (enemy.transform.position)).normalized;
 
 
                 // Calculate the velocity needed to throw the object to the target at specified angle.
@@ -207,12 +207,13 @@ public class EnemyAttacks : MonoBehaviour
 
                 if (patrol)
                 {
-                    StartCoroutine(TurnOffPatrollingForTime(2f));
+                    StartCoroutine(TurnOffPatrollingForTime(2.5f));
                 }
                 
 
                 waitingForCollision = true;
                 inFlight = false;
+                timeOfCharge = Time.time;
             }
             
  

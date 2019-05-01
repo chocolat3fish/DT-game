@@ -24,6 +24,15 @@ public class DialogueButtons : MonoBehaviour
         }
 
     }
+
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Return))
+        {
+            OnGiveItemClick();
+        }
+    }
+
     public void OnContinueClick()
     {
         nPCMonitor.ContinueDialogue();

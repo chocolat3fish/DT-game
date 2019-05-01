@@ -10,23 +10,20 @@ public class BulletController : MonoBehaviour
     public float damage;
     public GameObject enemyWhoFiredThis;
     public Vector2 startPosition;
+    private Vector2 launchAtPos;
 
     private void Awake()
     {
         player = FindObjectOfType<PlayerControls>().gameObject;
-    }
-
-    private void Start()
-    {
-        Rigidbody2D rb = gameObject.GetComponent<Rigidbody2D>();
-        Vector2 moveDirection = (player.transform.position - transform.position).normalized * speed;
-        rb.velocity = new Vector2(moveDirection.x, moveDirection.y);
-        startPosition = enemyWhoFiredThis.transform.position;
-
+        launchAtPos = (player.transform.position - transform.position) * 100;
+        print(launchAtPos);
+        transform.position = Vector2.MoveTowards(transform.position, launchAtPos, Time.deltaTime * speed);
     }
 
     private void Update()
     {
+        transform.position = Vector2.MoveTowards(transform.position, launchAtPos, Time.deltaTime * speed);
+
         try
         {
             if (Vector2.Distance(transform.position, enemyWhoFiredThis.transform.position) > range)
@@ -44,6 +41,7 @@ public class BulletController : MonoBehaviour
                 Destroy(gameObject);
             }
         }
+        
 
 
     }
@@ -75,6 +73,13 @@ public class BulletController : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+    private float FindAngleBetweenPoints(Vector2 A, Vector2 B)
+    {
+        Vector2 C = B - A;
+        float Angle = Mathf.Atan2(C.y, C.x);
+        float AngleInDegrees = Angle * Mathf.Rad2Deg;
+        return AngleInDegrees;
     }
 
 }
