@@ -37,9 +37,12 @@ public class MenuCanvasScript : MonoBehaviour
 
     public int index;
 
+    private Button BugReportButton;
+    private Button BugReportContinue;
+
     void Awake()
     {
-    
+        #region Assigns all Text and Panel GameObjects
         mainPanel = gameObject.transform.Find("MainPanel").gameObject;
         weaponsPanel = gameObject.transform.Find("WeaponsPanel").gameObject;
         consumablesPanel = gameObject.transform.Find("ConsumablesPanel").gameObject;
@@ -127,7 +130,19 @@ public class MenuCanvasScript : MonoBehaviour
         questName = questDescPanel.transform.Find("QN").GetComponent<Text>();
         questDescription = questDescPanel.transform.Find("QD").GetComponent<Text>();
         questReward = questDescPanel.transform.Find("QR").GetComponent<Text>();
+        #endregion
 
+        AsyncTriggers asyncTriggers = FindObjectOfType<AsyncTriggers>();
+        Button[] buttons = FindObjectsOfType<Button>();
+        foreach(Button button in buttons)
+        { if(button.gameObject.name == "BugReportButton")
+            {
+                BugReportButton = button;
+                break;
+            }
+        }
+        BugReportButton.onClick.AddListener(asyncTriggers.OpenBugReportCanvas);
+        BugReportButton.onClick.AddListener(closeMenuAndOtherPanels);
 
     }
 
@@ -150,6 +165,18 @@ public class MenuCanvasScript : MonoBehaviour
 
 
         
+
+    }
+
+    void closeMenuAndOtherPanels()
+    {
+        mainPanel.SetActive(false);
+        weaponsPanel.SetActive(false);
+        consumablesPanel.SetActive(false);
+        itemsPanel.SetActive(false);
+        questsPanel.SetActive(false);
+        questDescPanel.SetActive(false);
+
 
     }
 

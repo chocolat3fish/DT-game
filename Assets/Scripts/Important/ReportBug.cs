@@ -8,7 +8,7 @@ public class ReportBug : MonoBehaviour
 {
     InputField Title;
     InputField Description;
-    GameObject successText, continueButton, restartButton, reportBugTitle, sendButton;
+    GameObject successText, continueButton, reportBugTitle, sendButton, backButton;
     private void Awake()
     {
         Title = transform.Find("Title").GetComponent<InputField>();
@@ -16,13 +16,16 @@ public class ReportBug : MonoBehaviour
 
         successText = transform.Find("Success Text").gameObject;
         continueButton = transform.Find("Continue").gameObject;
-        restartButton = transform.Find("Restart").gameObject;
         reportBugTitle = transform.Find("Report Bug").gameObject;
+        backButton = transform.Find("Back").gameObject;
         sendButton = transform.Find("Send").gameObject;
 
         successText.SetActive(false);
         continueButton.SetActive(false);
-        restartButton.SetActive(false);
+
+        AsyncTriggers asyncTriggers = FindObjectOfType<AsyncTriggers>();
+        continueButton.GetComponent<Button>().onClick.AddListener(asyncTriggers.CloseBugReportCanvas);
+        backButton.GetComponent<Button>().onClick.AddListener(asyncTriggers.CloseBugReportCanvas);
 
     }
     public void sendMessage()
@@ -46,12 +49,12 @@ public class ReportBug : MonoBehaviour
 
             successText.SetActive(true);
             continueButton.SetActive(true);
-            restartButton.SetActive(true);
 
             Title.gameObject.SetActive(false);
             Description.gameObject.SetActive(false);
             reportBugTitle.SetActive(false);
             sendButton.SetActive(false);
+            backButton.SetActive(false);
         }
         else
         {
