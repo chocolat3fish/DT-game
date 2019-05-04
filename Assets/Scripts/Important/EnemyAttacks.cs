@@ -114,7 +114,6 @@ public class EnemyAttacks : MonoBehaviour
             bool isInYOfPointZero = patrolPoints[0].position.y + 2 > player.transform.position.y && patrolPoints[0].position.y - 2 < player.transform.position.y;
             bool isInYOfPointOne = patrolPoints[1].position.y + 2 > player.transform.position.y && patrolPoints[1].position.y - 2 < player.transform.position.y;
             isInZone = distanceFromZero < distanceBetweenPoints && distanceFromOne < distanceBetweenPoints && isInYOfPointZero && isInYOfPointOne;
-            Vector3 playerPosInZone = player.transform.position;
             if (isInZone && !hasJumped && Time.time > timeOfCharge + chargeCoolDown)
             {
                 if (patrol)
@@ -185,63 +184,82 @@ public class EnemyAttacks : MonoBehaviour
             }
             if (jumpCharging && isInZone && Time.time > timeOfJump + timeBetweenJumpAndCharge)
             {
-                timeOfCharge = Time.time;
-                jumpCharging = false;
-                hasJumped = false;
-
-                
-                inFlight = true;
-
+                distanceFromZero = Vector2.Distance(patrolPoints[0].transform.position, player.transform.position);
+                distanceFromOne = Vector2.Distance(patrolPoints[1].transform.position, player.transform.position);
+                isInYOfPointZero = patrolPoints[0].position.y + 2 > player.transform.position.y && patrolPoints[0].position.y - 2 < player.transform.position.y;
+                isInYOfPointOne = patrolPoints[1].position.y + 2 > player.transform.position.y && patrolPoints[1].position.y - 2 < player.transform.position.y;
+                isInZone = distanceFromZero < distanceBetweenPoints && distanceFromOne < distanceBetweenPoints && isInYOfPointZero && isInYOfPointOne;
                 float targetDistance = Vector3.Distance(enemy.transform.position, player.transform.position);
-                if(targetDistance > 10f)
+                print("no");
+                if((enemy.transform.position.x - player.transform.position.x < -0.5 || enemy.transform.position.x - player.transform.position.x > 0.5) && isInZone )
                 {
-                    _firingAngle = firingAngle - 30;
-                }
-                else if(targetDistance > 7.5f)
-                {
-                    _firingAngle = firingAngle - 22.5f;
-                }
-                else if(targetDistance > 5f)
-                {
-                    _firingAngle = firingAngle - 15f;
-                }
-                else if(targetDistance > 2.5f)
-                {
-                    _firingAngle = firingAngle - 7.5f;
-                }
-
-                Vector2 direction = (playerPosInZone - (enemy.transform.position)).normalized;
-
-                // Calculate the velocity needed to throw the object to the target at specified angle.
-                float projectile_Velocity = targetDistance / (Mathf.Sin(2 * _firingAngle * Mathf.Deg2Rad) / (Physics2D.gravity.y * -1));
-
-                // Extract the X Y componenent of the velocity
-                float Vx = Mathf.Sqrt(projectile_Velocity) * Mathf.Cos(_firingAngle * Mathf.Deg2Rad);
-                float Vy = Mathf.Sqrt(projectile_Velocity) * Mathf.Sin(_firingAngle * Mathf.Deg2Rad);
-
-                Vector2 vel = new Vector2(Vx * direction.x, Vy);
-
-                rb.AddForce(vel, ForceMode2D.Impulse);
-                rb.GetComponent<Rigidbody2D>().AddTorque(torque);
+                    print("yes");
+                    timeOfCharge = Time.time;
+                    jumpCharging = false;
+                    hasJumped = false;
 
 
-                if (patrol)
-                {
-                    StartCoroutine(TurnOffPatrollingForTime(2.5f));
-                    if(rb.velocity.x < 0)
+                    inFlight = true;
+                    if (targetDistance > 10f)
                     {
-                        currentPointIndex = 0;
+                        _firingAngle = firingAngle - 30;
                     }
-                    else
+                    else if (targetDistance > 7.5f)
                     {
-                        currentPointIndex = 1;
+                        _firingAngle = firingAngle - 22.5f;
                     }
-                }
-                
+                    else if (targetDistance > 5f)
+                    {
+                        _firingAngle = firingAngle - 15f;
+                    }
+                    else if (targetDistance > 2.5f)
+                    {
+                        _firingAngle = firingAngle - 7.5f;
+                    }
 
-                enemyMonitor.waitingForCollision = true;
-                inFlight = false;
-                timeOfCharge = Time.time;
+                    Vector2 direction = (player.transform.position - (enemy.transform.position)).normalized;
+
+                    // Calculate the velocity needed to throw the object to the target at specified angle.
+                    float projectile_Velocity = targetDistance / (Mathf.Sin(2 * _firingAngle * Mathf.Deg2Rad) / (Physics2D.gravity.y * -1));
+
+                    // Extract the X Y componenent of the velocity
+                    float Vx = Mathf.Sqrt(projectile_Velocity) * Mathf.Cos(_firingAngle * Mathf.Deg2Rad);
+                    float Vy = Mathf.Sqrt(projectile_Velocity) * Mathf.Sin(_firingAngle * Mathf.Deg2Rad);
+
+                    Vector2 vel = new Vector2(Vx * direction.x, Vy);
+
+                    if(!float.IsPositiveInfinity(vel.x) && !float.IsPositiveInfinity(vel.y) && !float.IsNegativeInfinity(vel.x) && !float.IsNegativeInfinity(vel.y))
+                    {
+                        rb.AddForce(vel, ForceMode2D.Impulse);
+                        rb.GetComponent<Rigidbody2D>().AddTorque(torque);
+                    }
+
+
+
+
+
+
+                    if (patrol)
+                    {
+                        StartCoroutine(TurnOffPatrollingForTime(2.5f));
+                        if (rb.velocity.x < 0)
+                        {
+                            currentPointIndex = 0;
+                        }
+                        else
+                        {
+                            currentPointIndex = 1;
+                        }
+
+
+                    }
+                    enemyMonitor.waitingForCollision = true;
+                        inFlight = false;
+                        timeOfCharge = Time.time;
+
+
+                }
+
             }
             
  
