@@ -124,6 +124,12 @@ public class PlaceHolderInventoryscript : MonoBehaviour
                 int weaponIndex = PersistantGameManager.Instance.playerWeaponInventory.IndexOf(equippedWeapon) + 1;
                 output.text = equippedWeapon.itemName + " (Slot " + weaponIndex + ")" ;
                 break;
+            case 20:
+                output.text = "Lvl: " + PersistantGameManager.Instance.playerStats.playerLevel;
+                break;
+            case 21:
+                output.text = "Skill P: " + PersistantGameManager.Instance.playerStats.playerSkillPoints;
+                break;
         }
     }
             

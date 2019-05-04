@@ -15,7 +15,24 @@ public class SkillsManager : MonoBehaviour
     public Button damageResistButton;
 
 
-
+    /*
+     SMB - Smite Button
+SMDuB - Smite Duration Button
+SMDaB - Smite Damage Button
+ASB - Attack Speed Button
+LSB - Life Steal Button
+AAB - Air Attack Button
+HRB - Heath Regen Button
+MSB - Move Speed Button
+DaMB - Damage with Move
+TJB - Triple Jump Button
+TuB - Turtle Button
+TuDeB - Turtle Defense Button
+GWB - Grip Wall Button
+JHB - Jump Height Button
+IKB - Instant Kill Button
+WBVB - Weapon Drop Value Button
+*/
     void Awake()
     {
         tripleJumpButton = gameObject.transform.Find("TJB").GetComponent<Button>();
@@ -43,9 +60,9 @@ public class SkillsManager : MonoBehaviour
             tripleJumpButton.interactable = false;
         }
         */
-    }
+}
 
-    private void Update()
+private void Update()
     {
         attackSpeedQuantity.text = PersistantGameManager.Instance.attackSpeedUpgrades.ToString();
     }

@@ -27,6 +27,28 @@ public class PersistantGameManager : MonoBehaviour
         {"20%L", 1},
         {"Empty", 0}
     };
+    public Dictionary<string, int> skillLevels = new Dictionary<string, int>
+    {
+        {"AttackSpeed", 0},
+        {"Smite", 0},
+        {"SmiteDuration", 0},
+        {"SmiteDamage", 0},
+        {"LifeSteal", 0},
+        {"AirAttack", 0},
+        {"DamageWithMovement", 0},
+        {"MoveSpeed", 0},
+        {"TripleJump", 0},
+        {"JumpHeight", 0},
+        {"GripWalls", 0},
+        {"HealthRegen", 0},
+        {"Turtle", 0},
+        {"TurtleDuration", 0},
+        {"TurtleDefense", 0},
+        {"WeaponDropValue", 0},
+        {"InstantKill", 0},
+    };
+
+
     public List<string> possibleConsumables = new List<string> { "20%H", "50%H", "100%H", "20%A", "50%A", "100%A", "20%L"};
     public Dictionary<string, int> itemInventory = new Dictionary<string, int>();
     public List<string> possibleItems = new List<string> { "Dagger of Kaliphase", "Amulet of Honour", "Hood of Sartuka", "Claw of Straphagus" };
