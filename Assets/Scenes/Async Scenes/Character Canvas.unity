@@ -309,7 +309,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -218.34, y: 84.921}
+  m_AnchoredPosition: {x: -357.55, y: 25.33}
   m_SizeDelta: {x: 159.44, y: 33.68}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &22630177
@@ -405,11 +405,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _name: WeaponDropValue
   unlocked: 0
-  toBeUnlocked:
-  - AttackSpeed
-  - HealthRegen
-  levelToUnlock: 3
-  nessesaryXPLevel: 1
+  toBeUnlocked: []
+  levelToUnlock: 0
+  nessesaryXPLevel: 10
   maxLevel: 10
   skillPointCost: 1
   text: 
@@ -1176,7 +1174,7 @@ GameObject:
   - component: {fileID: 294336566}
   - component: {fileID: 294336565}
   m_Layer: 5
-  m_Name: LS
+  m_Name: WDV
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4450,7 +4448,7 @@ GameObject:
   - component: {fileID: 1003017606}
   - component: {fileID: 1003017605}
   m_Layer: 5
-  m_Name: HR2WDV
+  m_Name: HR2LS
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4876,7 +4874,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -357.6, y: 24.955}
+  m_AnchoredPosition: {x: -217.6, y: 85.16}
   m_SizeDelta: {x: 158.53, y: 34.16}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1126775482
@@ -4972,9 +4970,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _name: LifeSteal
   unlocked: 0
-  toBeUnlocked: []
-  levelToUnlock: 10
-  nessesaryXPLevel: 10
+  toBeUnlocked:
+  - AttackSpeed
+  - HealthRegen
+  levelToUnlock: 5
+  nessesaryXPLevel: 1
   maxLevel: 10
   skillPointCost: 1
   text: 
@@ -6124,7 +6124,7 @@ GameObject:
   - component: {fileID: 1463297447}
   - component: {fileID: 1463297446}
   m_Layer: 5
-  m_Name: AS2WDV
+  m_Name: AS2LS
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8273,7 +8273,7 @@ MonoBehaviour:
   TurtleB: {fileID: 0}
   TurtleDefenseB: {fileID: 0}
   TurtleDurationB: {fileID: 0}
-  GripWallB: {fileID: 0}
+  GripWallsB: {fileID: 0}
   JumpHeightB: {fileID: 0}
   InstantKillB: {fileID: 0}
   WeaponDropValueB: {fileID: 0}
@@ -8283,9 +8283,9 @@ MonoBehaviour:
   MS2DaM: {fileID: 0}
   MS2TJ: {fileID: 0}
   MS2AA: {fileID: 0}
-  HR2WDV: {fileID: 0}
+  HR2WLS: {fileID: 0}
   AS2AA: {fileID: 0}
-  AS2WDV: {fileID: 0}
+  AS2LS: {fileID: 0}
   AS2SM: {fileID: 0}
   SM2SMDa: {fileID: 0}
   SM2SMDu: {fileID: 0}
@@ -8294,7 +8294,7 @@ MonoBehaviour:
   TJ2GW: {fileID: 0}
   TJ2JH: {fileID: 0}
   IK: {fileID: 0}
-  LS: {fileID: 0}
+  WDV: {fileID: 0}
 --- !u!1 &1892786431
 GameObject:
   m_ObjectHideFlags: 0
