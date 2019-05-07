@@ -35,12 +35,12 @@ public class PersistantGameManager : MonoBehaviour
         {"SmiteDamage", 0},
         {"LifeSteal", 0},
         {"AirAttack", 0},
-        {"DamageWithMovement", 0},
+        {"DefenceWithMovement", 0},
         {"MoveSpeed", 0},
         {"TripleJump", 0},
         {"JumpHeight", 0},
         {"GripWalls", 0},
-        {"HealthRegen", 0},
+        {"HealthBonus", 0},
         {"Turtle", 0},
         {"TurtleDuration", 0},
         {"TurtleDefense", 0},
@@ -83,9 +83,11 @@ public class PersistantGameManager : MonoBehaviour
     public double attackSpeedMulti = 1;
     public float attackRangeMulti = 1;
     public float attackDamageMulti = 1;
-    public float lifeStealMulti = 1;
-    public float totalHealthMulti = 1;
+    public float lifeStealMulti = 0;
+    public float totalHealthMulti = 0;
     public float damageResistMulti = 1;
+    public float turtleResistMulti = 0.5f;
+    public float movementResistMulti = 1;
 
     public int attackSpeedUpgrades;
 
@@ -112,17 +114,19 @@ public class PersistantGameManager : MonoBehaviour
     public GameObject magicBar;
     public bool hasMagic;
     public bool tripleJump;
-    public bool highDamage;
+    public bool hasSmite;
     public bool gripWalls;
     public bool maxedSpeed;
     public bool damageResist;
     public float timeOfAbility;
     public float abilityDuration;
 
+    public bool checkSkills;
+
     //Individual durations
     public float damageResistDuration = 15;
 
-    public string currentActiveAblity;
+    public string currentActiveAbility = "";
     public bool abilityIsActive;
 
     public PlayerStats playerStats;
@@ -197,10 +201,11 @@ public class PersistantGameManager : MonoBehaviour
     }
     void Update()
     {
+
         if (Time.time > (timeOfAbility + abilityDuration) && damageResistMulti < 1)
         {
             damageResistMulti = 1;
-            currentActiveAblity = "";
+            currentActiveAbility = "";
             abilityIsActive = false;
         }
 
@@ -477,5 +482,82 @@ public class PersistantGameManager : MonoBehaviour
                 yield return new WaitForSecondsRealtime(0.01f);
             }
         }
+    }
+
+    public void CheckSkills()
+    {
+        checkSkills = false;
+
+        #region AttackSpeed
+
+        attackSpeedMulti = 1 - (0.05 * skillLevels["AttackSpeed"]);
+        foreach (Weapon weapon in playerWeaponInventory)
+        {
+            weapon.trueItemSpeed = weapon.stockItemSpeed* (float) attackSpeedMulti;
+        }
+
+        #endregion
+
+        #region Smite
+
+        if (skillLevels["Smite"] > 0)
+        {
+            hasMagic = true;
+            hasSmite = true;
+        }
+
+        #endregion
+
+        #region LifeSteal
+
+        lifeStealMulti = 0.05f * skillLevels["LifeSteal"];
+
+        #endregion
+
+        #region HealthBonus
+
+        float missingHealth = player.totalHealth - player.currentHealth;
+        totalHealthMulti = 0.05f * skillLevels["HealthBonus"];
+        player.totalHealth = player.stockHealth + (player.stockHealth * totalHealthMulti);
+        player.currentHealth = player.totalHealth - missingHealth;
+
+        #endregion
+
+        #region MoveDefence
+
+        movementResistMulti = 1 - (0.015f * skillLevels["DefenceWithMovement"]);
+
+        #endregion
+
+        #region Turtle
+
+        if (skillLevels["Turtle"] > 0)
+        {
+            hasMagic = true;
+            damageResist = true;
+        }
+
+        #endregion
+
+        #region TripleJump
+
+        if (skillLevels["TripleJump"] > 0)
+        {
+            tripleJump = true;
+        }
+
+        #endregion
+
+        #region GripWalls
+
+        if (skillLevels["GripWalls"] > 0)
+        {
+            gripWalls = true;
+        }
+
+        #endregion
+
+
+
     }
 }

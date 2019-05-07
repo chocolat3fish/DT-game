@@ -224,7 +224,7 @@ public class EnemyMonitor : MonoBehaviour
             if (Time.timeScale != 0f)
             {
                 //calculates how much damage to apply to the character
-                float enemyAtackDamage = enemyStats.enemyDamage - playerControls.defence;
+                float enemyAtackDamage = enemyStats.enemyDamage;
 
                 // if the players defence cancels out the enemys attack to much i.e. making it negative sets the damage to 0.1
                 if (enemyAtackDamage < 0.1)

@@ -45,7 +45,7 @@ WBVB - Weapon Drop Value Button
         if (PersistantGameManager.Instance.tripleJump == true) { tripleJumpButton.GetComponent<Image>().color = hasSkill; }
         if (PersistantGameManager.Instance.gripWalls == true) { gripWallButton.GetComponent<Image>().color = hasSkill; }
 
-        if (PersistantGameManager.Instance.highDamage == true) { highDamageButton.GetComponent<Image>().color = hasSkill; }
+        if (PersistantGameManager.Instance.hasSmite == true) { highDamageButton.GetComponent<Image>().color = hasSkill; }
         if (PersistantGameManager.Instance.maxedSpeed == true) { attackSpeedButton.GetComponent<Image>().color = hasSkill; }
 
         if (PersistantGameManager.Instance.damageResist == true) { damageResistButton.GetComponent<Image>().color = hasSkill; }
@@ -109,9 +109,9 @@ private void Update()
 
     public void GiveHighDamage()
     {
-        if (PersistantGameManager.Instance.playerStats.playerSkillPoints >= 1 && PersistantGameManager.Instance.highDamage == false)
+        if (PersistantGameManager.Instance.playerStats.playerSkillPoints >= 1 && PersistantGameManager.Instance.hasSmite == false)
         {
-            PersistantGameManager.Instance.highDamage = true;
+            PersistantGameManager.Instance.hasSmite = true;
             PersistantGameManager.Instance.playerStats.playerSkillPoints -= 1;
             highDamageButton.GetComponent<Image>().color = hasSkill;
 

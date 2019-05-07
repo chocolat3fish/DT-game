@@ -112,7 +112,7 @@ public class PlaceHolderInventoryscript : MonoBehaviour
                 break;
             case 17:
                 //output.text = PersistantGameManager.Instance.activePotionType + " Potion";
-                output.text = PersistantGameManager.Instance.currentActiveAblity;
+                output.text = PersistantGameManager.Instance.currentActiveAbility;
                 break;
 
             case 18:

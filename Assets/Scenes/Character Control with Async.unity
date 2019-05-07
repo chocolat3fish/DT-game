@@ -4814,6 +4814,7 @@ MonoBehaviour:
   lifeStealMulti: 1
   totalHealthMulti: 1
   damageResistMulti: 1
+  movementResistMulti: 1
   attackSpeedUpgrades: 0
   potionIsActive: 0
   activePotionType: 
@@ -4845,12 +4846,13 @@ MonoBehaviour:
   magicBar: {fileID: 0}
   hasMagic: 0
   tripleJump: 0
-  highDamage: 0
+  hasSmite: 0
   gripWalls: 0
   maxedSpeed: 0
   damageResist: 0
   timeOfAbility: 0
   abilityDuration: 0
+  checkSkills: 0
   damageResistDuration: 15
   currentActiveAblity: 
   abilityIsActive: 0
@@ -5510,7 +5512,7 @@ MonoBehaviour:
   itemTwoCooldown: 1
   nextAttack: 1
   totalHealth: 10
-  defence: 0
+  stockHealth: 10
   timeOfAttack: 0
   timeOfMagic: 0
 --- !u!61 &2104623961

@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Scenes/Character Control with Async.unity
+- path: Assets/Scenes/Async Scenes/Character Canvas.unity
   isLoaded: 1
   isActive: 1

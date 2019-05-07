@@ -31,7 +31,7 @@ public class SkillManager2 : MonoBehaviour
     public Color turnedOffColor;
     private ColorBlock colorBlock;
     public Button SmiteB, SmiteDurationB, SmiteDamageB, AttackSpeedB, LifeStealB, 
-    AirAttackB, HealthRegenB, MoveSpeedB, MoveDamageB, TripleJumpB, TurtleB, TurtleDefenseB,
+    AirAttackB, HealthBonusB, MoveSpeedB, MoveDefenceB, TripleJumpB, TurtleB, TurtleDefenseB,
     TurtleDurationB, GripWallsB, JumpHeightB, InstantKillB, WeaponDropValueB;
     public List<Button> buttons = new List<Button>();
 
@@ -51,9 +51,9 @@ public class SkillManager2 : MonoBehaviour
         AttackSpeedB = gameObject.transform.Find("ASB").GetComponent<Button>();
         LifeStealB = gameObject.transform.Find("LSB").GetComponent<Button>();
         AirAttackB = gameObject.transform.Find("AAB").GetComponent<Button>();
-        HealthRegenB = gameObject.transform.Find("HRB").GetComponent<Button>();
+        HealthBonusB = gameObject.transform.Find("HRB").GetComponent<Button>();
         MoveSpeedB = gameObject.transform.Find("MSB").GetComponent<Button>();
-        MoveDamageB = gameObject.transform.Find("DaMB").GetComponent<Button>();
+        MoveDefenceB = gameObject.transform.Find("DaMB").GetComponent<Button>();
         TripleJumpB = gameObject.transform.Find("TJB").GetComponent<Button>();
         TurtleB = gameObject.transform.Find("TuB").GetComponent<Button>();
         TurtleDefenseB = gameObject.transform.Find("TuDeB").GetComponent<Button>();
@@ -88,7 +88,7 @@ public class SkillManager2 : MonoBehaviour
 
 
         AddButtons(SmiteB, SmiteDurationB, SmiteDamageB, AttackSpeedB, LifeStealB,
-    AirAttackB, HealthRegenB, MoveSpeedB, MoveDamageB, TripleJumpB, TurtleB, TurtleDefenseB,
+    AirAttackB, HealthBonusB, MoveSpeedB, MoveDefenceB, TripleJumpB, TurtleB, TurtleDefenseB,
     TurtleDurationB, GripWallsB, JumpHeightB, InstantKillB, WeaponDropValueB);
         
    
@@ -113,7 +113,9 @@ public class SkillManager2 : MonoBehaviour
             PersistantGameManager.Instance.skillLevels[_name]++;
             PersistantGameManager.Instance.playerStats.playerSkillPoints -= skillButtons.skillPointCost;
         }
+        PersistantGameManager.Instance.CheckSkills();
         CheckButtons();
+
     }
     void CheckButtons()
     {
@@ -186,7 +188,7 @@ public class SkillManager2 : MonoBehaviour
            
         }
         //Health Regen To Turtle
-        int HR2TuV = TurtleB.GetComponent<SkillButtons>().levelToUnlock - PersistantGameManager.Instance.skillLevels["HealthRegen"];
+        int HR2TuV = TurtleB.GetComponent<SkillButtons>().levelToUnlock - PersistantGameManager.Instance.skillLevels["HealthBonus"];
         if (HR2TuV < 1 || TurtleB.GetComponent<SkillButtons>().unlocked)
         {
             HR2Tu.transform.parent.gameObject.SetActive(false);
@@ -196,8 +198,8 @@ public class SkillManager2 : MonoBehaviour
             HR2Tu.text = HR2TuV.ToString();
         }
         //Health Regen To Damage On Movement
-        int HR2DaMV = MoveDamageB.GetComponent<SkillButtons>().levelToUnlock - PersistantGameManager.Instance.skillLevels["HealthRegen"];
-        if (HR2DaMV < 1 || MoveDamageB.GetComponent<SkillButtons>().unlocked)
+        int HR2DaMV = MoveDefenceB.GetComponent<SkillButtons>().levelToUnlock - PersistantGameManager.Instance.skillLevels["HealthBonus"];
+        if (HR2DaMV < 1 || MoveDefenceB.GetComponent<SkillButtons>().unlocked)
         {
             HR2DaM.transform.parent.gameObject.SetActive(false);
         }
@@ -206,7 +208,7 @@ public class SkillManager2 : MonoBehaviour
             HR2DaM.text = HR2DaMV.ToString();
         }
         //Health Regen to Weapon Drop Value
-        int HR2WDVV = WeaponDropValueB.GetComponent<SkillButtons>().levelToUnlock - PersistantGameManager.Instance.skillLevels["HealthRegen"];
+        int HR2WDVV = WeaponDropValueB.GetComponent<SkillButtons>().levelToUnlock - PersistantGameManager.Instance.skillLevels["HealthBonus"];
         if (HR2WDVV < 1 || WeaponDropValueB.GetComponent<SkillButtons>().unlocked)
         {
             HR2WDV.transform.parent.gameObject.SetActive(false);
@@ -216,8 +218,8 @@ public class SkillManager2 : MonoBehaviour
             HR2WDV.text = HR2WDVV.ToString();
         }
         //Move Speed to Damage On Movement
-        int MS2DaMV = MoveDamageB.GetComponent<SkillButtons>().levelToUnlock - PersistantGameManager.Instance.skillLevels["MoveSpeed"];
-        if (MS2DaMV < 1 || MoveDamageB.GetComponent<SkillButtons>().unlocked)
+        int MS2DaMV = MoveDefenceB.GetComponent<SkillButtons>().levelToUnlock - PersistantGameManager.Instance.skillLevels["MoveSpeed"];
+        if (MS2DaMV < 1 || MoveDefenceB.GetComponent<SkillButtons>().unlocked)
         {
             MS2DaM.transform.parent.gameObject.SetActive(false);
         }
@@ -410,8 +412,8 @@ public class SkillManager2 : MonoBehaviour
                 return LifeStealB;
             case "AirAttack":
                 return AirAttackB;
-            case "DamageWithMovement":
-                return MoveDamageB;
+            case "DefenceWithMovement":
+                return MoveDefenceB;
             case "MoveSpeed":
                 return MoveSpeedB;
             case "TripleJump":
@@ -420,8 +422,8 @@ public class SkillManager2 : MonoBehaviour
                 return JumpHeightB;
             case "GripWalls":
                 return GripWallsB;
-            case "HealthRegen":
-                return HealthRegenB;
+            case "HealthBonus":
+                return HealthBonusB;
             case "Turtle":
                 return TurtleB;
             case "TurtleDuration":

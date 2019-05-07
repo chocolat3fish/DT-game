@@ -407,7 +407,7 @@ MonoBehaviour:
   unlocked: 0
   toBeUnlocked:
   - AttackSpeed
-  - HealthRegen
+  - HealthBonus
   levelToUnlock: 3
   nessesaryXPLevel: 1
   maxLevel: 10
@@ -3997,11 +3997,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cf8aceab88dd4a45a1f391f7202d753, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _name: DamageWithMovement
+  _name: DefenceWithMovement
   unlocked: 0
   toBeUnlocked:
   - MoveSpeed
-  - HealthRegen
+  - HealthBonus
   levelToUnlock: 3
   nessesaryXPLevel: 1
   maxLevel: 10
@@ -4740,7 +4740,7 @@ MonoBehaviour:
   _name: Turtle
   unlocked: 0
   toBeUnlocked:
-  - HealthRegen
+  - HealthBonus
   levelToUnlock: 5
   nessesaryXPLevel: 1
   maxLevel: 1
@@ -5863,7 +5863,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cf8aceab88dd4a45a1f391f7202d753, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _name: HealthRegen
+  _name: HealthBonus
   unlocked: 0
   toBeUnlocked: []
   levelToUnlock: 0
@@ -8266,14 +8266,14 @@ MonoBehaviour:
   AttackSpeedB: {fileID: 0}
   LifeStealB: {fileID: 0}
   AirAttackB: {fileID: 0}
-  HealthRegenB: {fileID: 0}
+  HealthBonusB: {fileID: 0}
   MoveSpeedB: {fileID: 0}
   MoveDamageB: {fileID: 0}
   TripleJumpB: {fileID: 0}
   TurtleB: {fileID: 0}
   TurtleDefenseB: {fileID: 0}
   TurtleDurationB: {fileID: 0}
-  GripWallB: {fileID: 0}
+  GripWallsB: {fileID: 0}
   JumpHeightB: {fileID: 0}
   InstantKillB: {fileID: 0}
   WeaponDropValueB: {fileID: 0}
@@ -9186,7 +9186,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 0.95
-  m_Text: + Health Regen
+  m_Text: + Total Health
 --- !u!222 &2044272647
 CanvasRenderer:
   m_ObjectHideFlags: 0
