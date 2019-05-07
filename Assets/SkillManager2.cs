@@ -35,7 +35,7 @@ public class SkillManager2 : MonoBehaviour
     TurtleDurationB, GripWallsB, JumpHeightB, InstantKillB, WeaponDropValueB;
     public List<Button> buttons = new List<Button>();
 
-    public Text HR2Tu, HR2DaM, MS2DaM, MS2TJ, MS2AA, HR2WDV, AS2AA, AS2WDV, AS2SM, SM2SMDa, SM2SMDu, Tu2TuDe, Tu2TuDu, TJ2GW, TJ2JH, IK, LS;
+    public Text HR2Tu, HR2DaM, MS2DaM, MS2TJ, MS2AA, HR2WLS, AS2AA, AS2LS, AS2SM, SM2SMDa, SM2SMDu, Tu2TuDe, Tu2TuDu, TJ2GW, TJ2JH, IK, WDV;
 
     private void Awake()
     {
@@ -69,9 +69,9 @@ public class SkillManager2 : MonoBehaviour
         MS2DaM = transform.Find("MS2DaM").transform.Find("Text").GetComponent<Text>(); 
         MS2TJ = transform.Find("MS2TJ").transform.Find("Text").GetComponent<Text>(); 
         MS2AA = transform.Find("MS2AA").transform.Find("Text").GetComponent<Text>(); 
-        HR2WDV = transform.Find("HR2WDV").transform.Find("Text").GetComponent<Text>(); 
+        HR2WLS = transform.Find("HR2LS").transform.Find("Text").GetComponent<Text>(); 
         AS2AA = transform.Find("AS2AA").transform.Find("Text").GetComponent<Text>(); 
-        AS2WDV = transform.Find("AS2WDV").transform.Find("Text").GetComponent<Text>(); 
+        AS2LS = transform.Find("AS2LS").transform.Find("Text").GetComponent<Text>(); 
         AS2SM = transform.Find("AS2SM").transform.Find("Text").GetComponent<Text>();
         SM2SMDa = transform.Find("SM2SMDa").transform.Find("Text").GetComponent<Text>();
         SM2SMDu = transform.Find("SM2SMDu").transform.Find("Text").GetComponent<Text>();
@@ -80,7 +80,7 @@ public class SkillManager2 : MonoBehaviour
         TJ2GW = transform.Find("TJ2GW").transform.Find("Text").GetComponent<Text>();
         TJ2JH = transform.Find("TJ2JH").transform.Find("Text").GetComponent<Text>();
         IK = transform.Find("IK").transform.Find("Text").GetComponent<Text>();
-        LS = transform.Find("LS").transform.Find("Text").GetComponent<Text>();
+        WDV = transform.Find("WDV").transform.Find("Text").GetComponent<Text>();
 
 
 
@@ -122,7 +122,7 @@ public class SkillManager2 : MonoBehaviour
 
         foreach (Button b in buttons)
         {
-            if ((b.gameObject.name == "IKB" && !(InstantKillB.GetComponent<SkillButtons>().nessesaryXPLevel <= PersistantGameManager.Instance.playerStats.playerLevel)) || (b.gameObject.name == "LSB" && !(LifeStealB.GetComponent<SkillButtons>().nessesaryXPLevel <= PersistantGameManager.Instance.playerStats.playerLevel)))
+            if ((b.gameObject.name == "IKB" && !(InstantKillB.GetComponent<SkillButtons>().nessesaryXPLevel <= PersistantGameManager.Instance.playerStats.playerLevel)) || (b.gameObject.name == "WDVB" && !(WeaponDropValueB.GetComponent<SkillButtons>().nessesaryXPLevel <= PersistantGameManager.Instance.playerStats.playerLevel)))
             {
 
                 InstantKillB.interactable = false;
@@ -207,15 +207,21 @@ public class SkillManager2 : MonoBehaviour
         {
             HR2DaM.text = HR2DaMV.ToString();
         }
+
         //Health Regen to Weapon Drop Value
-        int HR2WDVV = WeaponDropValueB.GetComponent<SkillButtons>().levelToUnlock - PersistantGameManager.Instance.skillLevels["HealthBonus"];
-        if (HR2WDVV < 1 || WeaponDropValueB.GetComponent<SkillButtons>().unlocked)
+        //int HR2WDVV = WeaponDropValueB.GetComponent<SkillButtons>().levelToUnlock - PersistantGameManager.Instance.skillLevels["HealthBonus"];
+        //if (HR2WDVV < 1 || WeaponDropValueB.GetComponent<SkillButtons>().unlocked) {}
+
+
+        //Health Regen to Life Steal
+        int HR2LSV = LifeStealB.GetComponent<SkillButtons>().levelToUnlock - PersistantGameManager.Instance.skillLevels["HealthRegen"];
+        if (HR2LSV < 1 || LifeStealB.GetComponent<SkillButtons>().unlocked)
         {
-            HR2WDV.transform.parent.gameObject.SetActive(false);
+            HR2WLS.transform.parent.gameObject.SetActive(false);
         }
         else
         {
-            HR2WDV.text = HR2WDVV.ToString();
+            HR2WLS.text = HR2LSV.ToString();
         }
         //Move Speed to Damage On Movement
         int MS2DaMV = MoveDefenceB.GetComponent<SkillButtons>().levelToUnlock - PersistantGameManager.Instance.skillLevels["MoveSpeed"];
@@ -257,15 +263,15 @@ public class SkillManager2 : MonoBehaviour
         {
             AS2AA.text = AS2AAV.ToString();
         }
-        //Attack Speed to Weapon Drop Value
-        int AS2WDVV = WeaponDropValueB.GetComponent<SkillButtons>().levelToUnlock - PersistantGameManager.Instance.skillLevels["AttackSpeed"];
-        if (AS2WDVV < 1 || WeaponDropValueB.GetComponent<SkillButtons>().unlocked)
+        //Attack Speed to Life Steal
+        int AS2WLSV = LifeStealB.GetComponent<SkillButtons>().levelToUnlock - PersistantGameManager.Instance.skillLevels["AttackSpeed"];
+        if (AS2WLSV < 1 || LifeStealB.GetComponent<SkillButtons>().unlocked)
         {
-            AS2WDV.transform.parent.gameObject.SetActive(false);
+            AS2LS.transform.parent.gameObject.SetActive(false);
         }
         else
         {
-            AS2WDV.text = AS2WDVV.ToString();
+            AS2LS.text = AS2WLSV.ToString();
         }
         //Attack Speed to Smite
         int AS2SMV = SmiteB.GetComponent<SkillButtons>().levelToUnlock - PersistantGameManager.Instance.skillLevels["AttackSpeed"];
@@ -353,16 +359,16 @@ public class SkillManager2 : MonoBehaviour
         {
             IK.text = SKV.ToString();
         }
-        //Life Steal
+        //Weapon Drop Value
 
-        int LSV = InstantKillB.GetComponent<SkillButtons>().nessesaryXPLevel - PersistantGameManager.Instance.playerStats.playerLevel;
+        int LSV = WeaponDropValueB.GetComponent<SkillButtons>().nessesaryXPLevel - PersistantGameManager.Instance.playerStats.playerLevel;
         if (LSV < 1)
         {
-            LS.transform.parent.gameObject.SetActive(false);
+            WDV.transform.parent.gameObject.SetActive(false);
         }
         else
         {
-            LS.text = LSV.ToString();
+            WDV.text = LSV.ToString();
         }
 
     }

@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class DialogueButtons : MonoBehaviour
 {
     //manager for continue button on overlayCanvas
@@ -11,15 +11,18 @@ public class DialogueButtons : MonoBehaviour
     private void Awake()
     {
         nPCMonitors = FindObjectsOfType<NPCMonitor>();
-        string questKey = PersistantGameManager.Instance.currentDialogueQuest.questKey;
-        string firstTwoLettersOfKey = questKey[0].ToString() + questKey[1].ToString();
-        foreach (NPCMonitor nPC in nPCMonitors)
+        if (SceneManager.GetActiveScene().name != "Tutorial")
         {
-            string firstTwoLettersOfName = nPC.nameOfNpc[0].ToString() + nPC.nameOfNpc[1].ToString();
-            if(firstTwoLettersOfKey == firstTwoLettersOfName)
+            string questKey = PersistantGameManager.Instance.currentDialogueQuest.questKey;
+            string firstTwoLettersOfKey = questKey[0].ToString() + questKey[1].ToString();
+            foreach (NPCMonitor nPC in nPCMonitors)
             {
-                nPCMonitor = nPC;
-                break;
+                string firstTwoLettersOfName = nPC.nameOfNpc[0].ToString() + nPC.nameOfNpc[1].ToString();
+                if (firstTwoLettersOfKey == firstTwoLettersOfName)
+                {
+                    nPCMonitor = nPC;
+                    break;
+                }
             }
         }
 

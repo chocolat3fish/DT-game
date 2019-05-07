@@ -468,7 +468,7 @@ MonoBehaviour:
   projectile: 1
   patrol: 1
   charge: 1
-  JumpCharge: 1
+  JumpCharge: 0
   moveSpeed: 1
   shootSpeed: 1
   range: 10
