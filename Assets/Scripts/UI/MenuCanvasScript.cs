@@ -501,17 +501,19 @@ public class MenuCanvasScript : MonoBehaviour
             sW3Output.fontStyle = FontStyle.Bold;
         }
 
-        double itemOneSpeed = Math.Round(PersistantGameManager.Instance.playerWeaponInventory[0].trueItemSpeed, 2);
-        double itemTwoSpeed = Math.Round(PersistantGameManager.Instance.playerWeaponInventory[1].trueItemSpeed, 2);
-        double itemThreeSpeed = Math.Round(PersistantGameManager.Instance.playerWeaponInventory[2].trueItemSpeed, 2);
+        double itemOneSpeed = PersistantGameManager.Instance.playerWeaponInventory[0].trueItemSpeed;
+        double itemTwoSpeed = PersistantGameManager.Instance.playerWeaponInventory[1].trueItemSpeed;
+        double itemThreeSpeed = PersistantGameManager.Instance.playerWeaponInventory[2].trueItemSpeed;
 
         wD1Output.text = PersistantGameManager.Instance.playerWeaponInventory[0].itemDamage.ToString();
         wD2Output.text = PersistantGameManager.Instance.playerWeaponInventory[1].itemDamage.ToString();
         wD3Output.text = PersistantGameManager.Instance.playerWeaponInventory[2].itemDamage.ToString();
 
-        wS1Output.text = itemOneSpeed.ToString();
-        wS2Output.text = itemTwoSpeed.ToString();
-        wS3Output.text = itemThreeSpeed.ToString();
+
+        //Converts speed value display to "hits per second" rather than "seconds per hit"
+        wS1Output.text = Math.Round(1 / itemOneSpeed, 2).ToString() + " / s";
+        wS2Output.text = Math.Round(1 / itemTwoSpeed, 2).ToString() + " / s";
+        wS3Output.text = Math.Round(1 / itemThreeSpeed, 2).ToString() + " / s";
 
         wR1Output.text = PersistantGameManager.Instance.playerWeaponInventory[0].itemRange.ToString();
         wR2Output.text = PersistantGameManager.Instance.playerWeaponInventory[1].itemRange.ToString();

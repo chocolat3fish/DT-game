@@ -214,7 +214,7 @@ public class SkillManager2 : MonoBehaviour
 
 
         //Health Regen to Life Steal
-        int HR2LSV = LifeStealB.GetComponent<SkillButtons>().levelToUnlock - PersistantGameManager.Instance.skillLevels["HealthRegen"];
+        int HR2LSV = LifeStealB.GetComponent<SkillButtons>().levelToUnlock - PersistantGameManager.Instance.skillLevels["HealthBonus"];
         if (HR2LSV < 1 || LifeStealB.GetComponent<SkillButtons>().unlocked)
         {
             HR2WLS.transform.parent.gameObject.SetActive(false);

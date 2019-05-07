@@ -405,11 +405,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _name: WeaponDropValue
   unlocked: 0
-
   toBeUnlocked: []
   levelToUnlock: 0
   nessesaryXPLevel: 10
-
   maxLevel: 10
   skillPointCost: 1
   text: 
@@ -4974,7 +4972,7 @@ MonoBehaviour:
   unlocked: 0
   toBeUnlocked:
   - AttackSpeed
-  - HealthRegen
+  - HealthBonus
   levelToUnlock: 5
   nessesaryXPLevel: 1
   maxLevel: 10
@@ -8270,7 +8268,7 @@ MonoBehaviour:
   AirAttackB: {fileID: 0}
   HealthBonusB: {fileID: 0}
   MoveSpeedB: {fileID: 0}
-  MoveDamageB: {fileID: 0}
+  MoveDefenceB: {fileID: 0}
   TripleJumpB: {fileID: 0}
   TurtleB: {fileID: 0}
   TurtleDefenseB: {fileID: 0}

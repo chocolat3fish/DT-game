@@ -4811,9 +4811,10 @@ MonoBehaviour:
   attackSpeedMulti: 1
   attackRangeMulti: 1
   attackDamageMulti: 1
-  lifeStealMulti: 1
+  lifeStealMulti: 0
   totalHealthMulti: 1
   damageResistMulti: 1
+  turtleResistMulti: 0.5
   movementResistMulti: 1
   attackSpeedUpgrades: 0
   potionIsActive: 0
@@ -4854,7 +4855,7 @@ MonoBehaviour:
   abilityDuration: 0
   checkSkills: 0
   damageResistDuration: 15
-  currentActiveAblity: 
+  currentActiveAbility: 
   abilityIsActive: 0
   playerStats:
     health: 0
