@@ -16,8 +16,9 @@ public class LootManager : MonoBehaviour
 
     //The main referenced method that controls wether a weapon is dropped
     //Based off a chance out of 100 and the value of the weapon
-    public static LootItem DropItem(int chance, int itemValue, int weaponValue)
+    public static LootItem DropItem(int chance, int weaponValue)
     {
+        /*
         //Generates a random number between 1 and 100 
         int randomChance = random.Next(0, 100);
 
@@ -26,12 +27,12 @@ public class LootManager : MonoBehaviour
         if (chance > randomChance)
         {
 
-
-            LootItem lootItem = new LootItem();
-            lootItem.type = 0;
-            lootItem.newWeapon = GenerateWeapon(weaponValue);
-            return lootItem;
-            
+        */
+        LootItem lootItem = new LootItem();
+        lootItem.type = 0;
+        lootItem.newWeapon = GenerateWeapon(weaponValue);
+        return lootItem;
+        /*
 
 
             //calls the method that generates the weapon based off the weapon value
@@ -44,6 +45,7 @@ public class LootManager : MonoBehaviour
             lootItem.consumable = GenerateConsumable(itemValue);
             return lootItem;
         }
+        */
     }
 
     //A method called by the Drop item script to find a weapon based off a weapon value
@@ -226,12 +228,18 @@ public class LootManager : MonoBehaviour
 
         int playerLevel = PersistantGameManager.Instance.playerStats.playerLevel;
 
-        int newLevel = random.Next(playerLevel - 3, playerLevel + 3);
+        int newLevel = random.Next(playerLevel - 1, playerLevel + 1);
         if (newLevel <= 0) { newLevel = 1; }
 
+        /*
         float newDamage = random.Next(newLevel - newLevel / 5, newLevel + newLevel / 5);
         newDamage *= damageBonus + (damageBonus * (weaponValue / 100));
         if (newDamage <= 0) { newDamage = 0.1f; }
+        */
+        float newDamage = random.Next((int)((16 * Math.Pow(newLevel, 2) + 10) * 0.9f), (int)((16 * Math.Pow(newLevel, 2) + 10) * 1.1f));
+        newDamage *= damageBonus + (damageBonus * (weaponValue / 100));
+        if (newDamage <= 0) { newDamage = 0.1f; }
+
 
         double tempSpeed;
         while (true)
@@ -261,14 +269,7 @@ public class LootManager : MonoBehaviour
     }
 
     public static Weapon GenerateSpecificWeapon(string weaponType, int weaponValue)
-    {
-
-        int powerBoost = 0;
-
-        if (weaponValue > 60)
-        {
-            powerBoost = weaponValue - 40;
-        }
+    { 
 
         switch (weaponType)
         {
@@ -309,9 +310,14 @@ public class LootManager : MonoBehaviour
         int newLevel = random.Next(playerLevel - 3, playerLevel + 3);
         if (newLevel <= 0) { newLevel = 1; }
 
+        /*
         float newDamage = random.Next(newLevel - newLevel / 5, newLevel + newLevel / 5);
         newDamage *= damageBonus + (damageBonus * (weaponValue / 100));
+        */
+        float newDamage = random.Next((int)((16 * Math.Pow(newLevel, 2) + 10) * 0.9f), (int)((16 * Math.Pow(newLevel, 2) + 10) * 1.1f));
+        newDamage *= damageBonus + (damageBonus * (weaponValue / 100));
         if (newDamage <= 0) { newDamage = 0.1f; }
+              
 
         double tempSpeed;
         while (true)

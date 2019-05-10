@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.IO;
+using System;
 using UnityEngine.UI;
 using Newtonsoft.Json;
 public class PersistantGameManager : MonoBehaviour
@@ -209,6 +210,9 @@ public class PersistantGameManager : MonoBehaviour
         }
         //LoadDataFromSave();
 
+        //Generates total xp (Cubic graph) based on level
+        totalExperience = (float)((0.04 * Math.Pow(playerStats.playerLevel, 3)) + (0.8 * Math.Pow(playerStats.playerLevel, 2)) + 100);
+        totalHealthMulti = 0.05f * skillLevels["HealthBonus"];
     }
     void Update()
     {
@@ -297,26 +301,33 @@ public class PersistantGameManager : MonoBehaviour
             OnSceneChange();
         }
 
-        if (checkExp)
-        {
+        //if (checkExp){}
+
 
             //Temporary values
-            if (playerStats.playerExperience >= totalExperience)
+        if (playerStats.playerExperience >= totalExperience)
+        {
+            //int levels = 0;
+            int skillPoints = 0;
+
+            while (playerStats.playerExperience > totalExperience)
             {
-                int levels = 0;
-                int skillPoints = 0;
-
-                while (playerStats.playerExperience > totalExperience)
-                {
-                    levels += 1;
-                    skillPoints += 1;
-                    playerStats.playerExperience -= 300;
-                }
-
-                playerStats.playerSkillPoints += skillPoints;
-                playerStats.playerLevel += levels;
+                float oldTotalExperience = totalExperience;
+                //levels += 1;
+                skillPoints += 1;
+                playerStats.playerLevel += 1;
+                player.stockHealth = (float)(54f * Math.Pow(playerStats.playerLevel, 2) + 10f);
+                CheckSkills();
+                Debug.Log("Level up + old total: " + oldTotalExperience);
+                totalExperience = (float)((0.04 * Math.Pow(playerStats.playerLevel, 3)) + (0.8 * Math.Pow(playerStats.playerLevel, 2)) + 100);
+                playerStats.playerExperience -= oldTotalExperience;
             }
+
+
+            playerStats.playerSkillPoints += skillPoints;
+            //playerStats.playerLevel += levels;
         }
+        
 
     }
 

@@ -27,7 +27,6 @@ public class BulletController : MonoBehaviour
         {
             if (Vector2.Distance(transform.position, enemyWhoFiredThis.transform.position) > range)
             {
-                Debug.Log(Vector2.Distance(transform.position, enemyWhoFiredThis.transform.position));
                 Destroy(gameObject);
             }
         }

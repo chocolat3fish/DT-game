@@ -114,13 +114,13 @@ public class CompareCanvasScript : MonoBehaviour
 
         cWNOutput.text = PersistantGameManager.Instance.currentWeapon.itemName;
         cWDOutput.text = PersistantGameManager.Instance.currentWeapon.itemDamage.ToString();
-        cWSOutput.text = PersistantGameManager.Instance.currentWeapon.trueItemSpeed.ToString();
+        cWSOutput.text = Math.Round(1 / oldItemSpeed, 2).ToString() + " / s";
         cWROutput.text = PersistantGameManager.Instance.currentWeapon.itemRange.ToString();
         cWLOutput.text = PersistantGameManager.Instance.currentWeapon.itemLevel.ToString();
 
         nWNOutput.text = PersistantGameManager.Instance.comparingWeapon.itemName;
         nWDOutput.text = PersistantGameManager.Instance.comparingWeapon.itemDamage.ToString();
-        nWSOutput.text = PersistantGameManager.Instance.comparingWeapon.trueItemSpeed.ToString();
+        nWSOutput.text = Math.Round(1 / newItemSpeed, 2).ToString() + " / s";
         nWROutput.text = PersistantGameManager.Instance.comparingWeapon.itemRange.ToString();
         nWLOutput.text = PersistantGameManager.Instance.comparingWeapon.itemLevel.ToString();
     }

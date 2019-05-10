@@ -26,6 +26,7 @@ public class EnemyAttacks : MonoBehaviour
     public bool jumpChargeCollision;
     private bool waitingForCollision;
 
+
     [Header("Choose Type Of Enemy")]
     public bool projectile;
     public bool patrol;
@@ -82,11 +83,44 @@ public class EnemyAttacks : MonoBehaviour
         {
             patrolling = true;
         }
+
     }
+
+    void Start()
+    {
+        float multiplier = 1;
+
+        switch (enemyMonitor.enemyStats.enemyClass)
+        {
+            case "Light":
+                multiplier *= 0.8f;
+                break;
+
+            case "Medium":
+                multiplier *= 1f;
+                break;
+
+            case "Heavy":
+                multiplier *= 1.2f;
+                break;
+        }
+
+        if (PersistantGameManager.Instance.playerStats.playerLevel < 4)
+        {
+            projectileDamage = (float)(multiplier * (5 * Math.Pow(enemyMonitor.enemyStats.enemyLevel, 2) + 10) * 0.4f);
+        }
+        else
+        {
+
+            projectileDamage = (float)(multiplier * (5 * Math.Pow(enemyMonitor.enemyStats.enemyLevel, 2) + 10));
+        }
+    }
+    
 
 
     void Update()
     {
+       
         if (patrolling)
         {
             enemy.transform.position = Vector2.MoveTowards(enemy.transform.position, patrolPoints[currentPointIndex].transform.position, Time.deltaTime * moveSpeed);

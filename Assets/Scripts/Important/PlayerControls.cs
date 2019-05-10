@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System;
 
 
 /* For double jumps:
@@ -25,6 +26,8 @@ public class PlayerControls : MonoBehaviour
     public float doubleJumpSpeed;
     public int totalJumps;
     private Rigidbody2D playerRigidbody;
+
+    public PlayerStats playerStats;
 
     public string deathScene;
 
@@ -59,8 +62,10 @@ public class PlayerControls : MonoBehaviour
            
         }
     }
-    public float totalHealth;
+
     public float stockHealth;
+    public float totalHealth;
+
 
     private Vector2 playerInput;
     private bool canJump;
@@ -101,7 +106,8 @@ public class PlayerControls : MonoBehaviour
         rightDetector.enabled = false;
 
         currentJumps = 0;
-
+        stockHealth = (float)(54f * Math.Pow(PersistantGameManager.Instance.playerStats.playerLevel, 2) + 10f);
+        totalHealth = stockHealth + (stockHealth * PersistantGameManager.Instance.totalHealthMulti);
         currentHealth = totalHealth;
     }
 
