@@ -10,9 +10,12 @@ public class AsyncTriggers : MonoBehaviour
         //Open Menu Canvas
         if (Input.GetKeyDown(KeyCode.Tab) && !PersistantGameManager.Instance.menuCanvasOpen && Time.timeScale != 0 && !PersistantGameManager.Instance.bugReportSceneIsOpen)
         {
-            if(PersistantGameManager.Instance.dialogueSceneIsOpen)
+            if (PersistantGameManager.Instance.dialogueSceneIsOpen)
             {
-                dialoguePanel = FindObjectOfType<DialogueButtons>().gameObject.transform.parent.gameObject;
+                if (dialoguePanel == null)
+                {
+                    dialoguePanel = FindObjectOfType<DialoguePanel>().gameObject;
+                }
                 dialoguePanel.SetActive(false);
             }
             SceneManager.LoadSceneAsync("Menu Canvas", LoadSceneMode.Additive);
@@ -25,45 +28,79 @@ public class AsyncTriggers : MonoBehaviour
             SceneManager.UnloadSceneAsync("Menu Canvas");
             Time.timeScale = 1;
             PersistantGameManager.Instance.menuCanvasOpen = false;
-            if(PersistantGameManager.Instance.dialogueSceneIsOpen)
+            if (PersistantGameManager.Instance.dialogueSceneIsOpen)
             {
-                if(dialoguePanel != null)
+                if (dialoguePanel != null)
                 {
                     dialoguePanel.SetActive(true);
                 }
                 dialoguePanel = null;
             }
         }
-        //Switch from Character Canvas or Skills Screen to Menu Canvas
+        //Close Character Canvas with tab
         else if (Input.GetKeyDown(KeyCode.Tab) && PersistantGameManager.Instance.characterScreenOpen || PersistantGameManager.Instance.skillsScreenOpen)
         {
             SceneManager.UnloadSceneAsync("Character Canvas");
             Time.timeScale = 1;
             PersistantGameManager.Instance.characterScreenOpen = false;
             PersistantGameManager.Instance.skillsScreenOpen = false;
-            SceneManager.LoadSceneAsync("Menu Canvas", LoadSceneMode.Additive);
-            PersistantGameManager.Instance.firstTimeOpeningMenuCanvas = true;
-            PersistantGameManager.Instance.menuCanvasOpen = true;
+            if (PersistantGameManager.Instance.dialogueSceneIsOpen)
+            {
+                if (dialoguePanel != null)
+                {
+                    dialoguePanel.SetActive(true);
+                }
+                dialoguePanel = null;
+            }
         }
+
         //Open Character Canvas
-        else if (Input.GetKeyDown(KeyCode.U) && Time.timeScale != 0 && !PersistantGameManager.Instance.characterScreenOpen  && !PersistantGameManager.Instance.bugReportSceneIsOpen)
+        else if (Input.GetKeyDown(KeyCode.U) && Time.timeScale != 0 && !PersistantGameManager.Instance.characterScreenOpen && !PersistantGameManager.Instance.bugReportSceneIsOpen)
         {
+            if (PersistantGameManager.Instance.dialogueSceneIsOpen)
+            {
+                if (dialoguePanel == null)
+                {
+                    dialoguePanel = FindObjectOfType<DialoguePanel>().gameObject;
+                }
+                dialoguePanel.SetActive(false);
+            }
             SceneManager.LoadSceneAsync("Character Canvas", LoadSceneMode.Additive);
             PersistantGameManager.Instance.characterScreenOpen = true;
             Time.timeScale = 0;
+        }
+        //Close menu canvas with u
+        else if (Input.GetKeyDown(KeyCode.U) && PersistantGameManager.Instance.menuCanvasOpen && !PersistantGameManager.Instance.characterScreenOpen && !PersistantGameManager.Instance.skillsScreenOpen)
+        {
+            SceneManager.UnloadSceneAsync("Menu Canvas");
+            PersistantGameManager.Instance.menuCanvasOpen = false;
+            Time.timeScale = 1;
             if (PersistantGameManager.Instance.dialogueSceneIsOpen)
             {
-                dialoguePanel = FindObjectOfType<DialogueButtons>().gameObject.transform.parent.gameObject;
-                dialoguePanel.SetActive(false);
+                if (dialoguePanel != null)
+                {
+                    dialoguePanel.SetActive(true);
+                }
+                dialoguePanel = null;
             }
         }
-    }
+            if (PersistantGameManager.Instance.menuCanvasOpen && PersistantGameManager.Instance.characterScreenOpen)
+            {
+
+                SceneManager.UnloadSceneAsync("Character Canvas");
+                PersistantGameManager.Instance.characterScreenOpen = false;
+                PersistantGameManager.Instance.skillsScreenOpen = false;
+            }
+        } 
 
     public void OpenCompareCanvas(Weapon compareWeapon)
     {
-        if (PersistantGameManager.Instance.dialogueSceneIsOpen)
+        if (PersistantGameManager.Instance.dialogueSceneIsOpen && dialoguePanel == null)
         {
-            dialoguePanel = FindObjectOfType<DialogueButtons>().gameObject.transform.parent.gameObject;
+            if (dialoguePanel == null)
+            {
+                dialoguePanel = FindObjectOfType<DialoguePanel>().gameObject;
+            }
             dialoguePanel.SetActive(false);
         }
         PersistantGameManager.Instance.comparingWeapon = compareWeapon;

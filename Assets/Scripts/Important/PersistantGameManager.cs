@@ -51,7 +51,7 @@ public class PersistantGameManager : MonoBehaviour
 
     public List<string> possibleConsumables = new List<string> { "20%H", "50%H", "100%H", "20%A", "50%A", "100%A", "20%L"};
     public Dictionary<string, int> itemInventory = new Dictionary<string, int>();
-    public List<string> possibleItems = new List<string> { "Dagger of Kaliphase", "Amulet of Honour", "Hood of Sartuka", "Claw of Straphagus" };
+    public List<string> possibleItems = new List<string> { "Dagger of Kaliphase", "Amulet of Honour", "Hood of Sartuka", "Claw of Straphagus", "Jason's Belt" };
     public Dictionary<string, int> characterQuests = new Dictionary<string, int>
     {
         {"Jason", 0 }
@@ -66,7 +66,8 @@ public class PersistantGameManager : MonoBehaviour
         {"Ja00", "Reward: A 100% attack potion"},
         {"Ja01", "Reward: A 20% Leech potion"},
         {"Ja02", "Ha you don't get anything" },
-        {"Ja03", "Reward: A new Longsword"}
+        {"Ja03", "Reward: A new Longsword"},
+        {"Tutorial", "Reward: A greater insight into the workings of the world + fighting skills"}
     };
 
     public Dictionary<string, string> questTargets = new Dictionary<string, string>

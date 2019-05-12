@@ -82,6 +82,7 @@ public class EnemyAttacks : MonoBehaviour
         {
             patrolling = true;
         }
+        Physics2D.IgnoreCollision(player.GetComponent<BoxCollider2D>(), enemy.GetComponent<BoxCollider2D>());
     }
 
 

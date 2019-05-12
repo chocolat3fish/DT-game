@@ -48,24 +48,26 @@ public class PlayerControls : MonoBehaviour
         get { return _currentHealth; }
         set
         {
-            if(!PersistantGameManager.Instance.GodMode)
+            if (!PersistantGameManager.Instance.GodMode)
             {
                 _currentHealth = value;
             }
-            if(value < _currentHealth)
+            if (value < _currentHealth)
             {
                 //StartCoroutine(Shake());
             }
-           
+
         }
     }
+    public float attackTime;
     public float totalHealth;
     public float defence;
 
     private Vector2 playerInput;
     private bool canJump;
     private bool shouldJump;
-    private int currentJumps;
+    [HideInInspector]
+    public int currentJumps;
     private bool givenTripleJump;
 
     [HideInInspector] public float timeOfAttack, timeOfMagic = 0;
@@ -84,6 +86,7 @@ public class PlayerControls : MonoBehaviour
         leftDetector = gameObject.transform.Find("Left Detector").GetComponent<BoxCollider2D>();
         rightDetector = gameObject.transform.Find("Right Detector").GetComponent<BoxCollider2D>();
         EnemyMonitor[] enemyColliders = FindObjectsOfType<EnemyMonitor>();
+        StartCoroutine(HealthRegen());
         foreach (EnemyMonitor m in enemyColliders)
         {
             Physics2D.IgnoreCollision(gameObject.GetComponent<BoxCollider2D>(), m.GetComponent<BoxCollider2D>());
@@ -108,6 +111,7 @@ public class PlayerControls : MonoBehaviour
 
     void Update()
     {
+
 
         if (currentHealth <= 0)
         {
@@ -391,36 +395,36 @@ public class PlayerControls : MonoBehaviour
     }
     private void UseItem(string type)
     {
-        if(type == "20%H" && Time.timeScale != 0 && PersistantGameManager.Instance.player.currentHealth != PersistantGameManager.Instance.player.totalHealth)
-        { 
-                currentHealth += totalHealth * 0.2f;
-                if (currentHealth > totalHealth)
-                {
-                    currentHealth = totalHealth;
-                }
-                PersistantGameManager.Instance.amountOfConsumables["20%H"] -= 1;
-                PersistantGameManager.Instance.healthPotionUseTime = Time.time;
-            
+        if (type == "20%H" && Time.timeScale != 0 && PersistantGameManager.Instance.player.currentHealth != PersistantGameManager.Instance.player.totalHealth)
+        {
+            currentHealth += totalHealth * 0.2f;
+            if (currentHealth > totalHealth)
+            {
+                currentHealth = totalHealth;
+            }
+            PersistantGameManager.Instance.amountOfConsumables["20%H"] -= 1;
+            PersistantGameManager.Instance.healthPotionUseTime = Time.time;
+
         }
 
         else if (type == "50%H" && Time.timeScale != 0 && PersistantGameManager.Instance.player.currentHealth != PersistantGameManager.Instance.player.totalHealth)
         {
 
-                currentHealth += totalHealth * 0.5f;
-                if (currentHealth > totalHealth)
-                {
-                    currentHealth = totalHealth;
-                }
-                PersistantGameManager.Instance.amountOfConsumables["50%A"] -= 1;
-                PersistantGameManager.Instance.healthPotionUseTime = Time.time;
+            currentHealth += totalHealth * 0.5f;
+            if (currentHealth > totalHealth)
+            {
+                currentHealth = totalHealth;
+            }
+            PersistantGameManager.Instance.amountOfConsumables["50%A"] -= 1;
+            PersistantGameManager.Instance.healthPotionUseTime = Time.time;
 
         }
         else if (type == "100%H" && Time.timeScale != 0 && PersistantGameManager.Instance.player.currentHealth != PersistantGameManager.Instance.player.totalHealth)
         {
 
-                currentHealth = totalHealth;
-                PersistantGameManager.Instance.amountOfConsumables["100%H"] -= 1;
-                PersistantGameManager.Instance.healthPotionUseTime = Time.time;
+            currentHealth = totalHealth;
+            PersistantGameManager.Instance.amountOfConsumables["100%H"] -= 1;
+            PersistantGameManager.Instance.healthPotionUseTime = Time.time;
 
 
         }
@@ -519,6 +523,24 @@ public class PlayerControls : MonoBehaviour
             }
             yield return null;
             yield return null;
+        }
+    }
+    IEnumerator HealthRegen()
+    {
+        while (true)
+        {
+            if (attackTime + 10f < Time.time)
+            {
+                if (currentHealth < totalHealth)
+                {
+                    currentHealth += totalHealth * 0.002f;
+                }
+                if (currentHealth > totalHealth)
+                {
+                    currentHealth = totalHealth;
+                }
+            }
+            yield return new WaitForSeconds(0.033f);
         }
     }
 }

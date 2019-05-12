@@ -234,6 +234,7 @@ public class EnemyMonitor : MonoBehaviour
 
                 //Applys the Damage
                 playerControls.currentHealth -= enemyAtackDamage * PersistantGameManager.Instance.damageResistMulti;
+                playerControls.attackTime = Time.time;
             }
 
         }
@@ -245,7 +246,6 @@ public class EnemyMonitor : MonoBehaviour
         {
             parentController.jumpChargeCollision = true;
             waitingForCollision = false;
-            Debug.Log("freeze");
         }
     }
 }

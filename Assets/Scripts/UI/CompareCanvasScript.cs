@@ -112,7 +112,7 @@ public class CompareCanvasScript : MonoBehaviour
         float oldItemSpeed = (float)Math.Round(PersistantGameManager.Instance.currentWeapon.trueItemSpeed, 2);
         float newItemSpeed = (float)Math.Round(PersistantGameManager.Instance.comparingWeapon.trueItemSpeed, 2);
 
-        cWNOutput.text = PersistantGameManager.Instance.currentWeapon.itemName;
+        cWNOutput.text = PersistantGameManager.Instance.currentWeapon.itemName + " (Slot " + (PersistantGameManager.Instance.currentIndex + 1) +")";
         cWDOutput.text = PersistantGameManager.Instance.currentWeapon.itemDamage.ToString();
         cWSOutput.text = PersistantGameManager.Instance.currentWeapon.trueItemSpeed.ToString();
         cWROutput.text = PersistantGameManager.Instance.currentWeapon.itemRange.ToString();

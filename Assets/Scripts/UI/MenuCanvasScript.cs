@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class MenuCanvasScript : MonoBehaviour
@@ -1084,4 +1085,20 @@ public class MenuCanvasScript : MonoBehaviour
         questDescPanel.SetActive(false);
         questsPanel.SetActive(true);
     }
+    public void CloseMenuCanvas()
+    {
+        AsyncTriggers asyncTriggers = FindObjectOfType<AsyncTriggers>();
+        Time.timeScale = 1;
+        PersistantGameManager.Instance.menuCanvasOpen = false;
+        if (PersistantGameManager.Instance.dialogueSceneIsOpen)
+        {
+            if (asyncTriggers.dialoguePanel != null)
+            {
+                asyncTriggers.dialoguePanel.SetActive(true);
+            }
+            asyncTriggers.dialoguePanel = null;
+        }
+        SceneManager.UnloadSceneAsync("Menu Canvas");
+    }
+
 }

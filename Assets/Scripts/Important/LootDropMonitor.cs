@@ -18,6 +18,7 @@ public class LootDropMonitor : MonoBehaviour
     public Color weaponColor;
     public Color itemColor;
     public Color defaultColor;
+    [Header("Choose type, 0 is weapon, 1 is consumable, 2 is item")]
     public int type;
     //The new weapon the loot item is holding
     public Weapon itemStats;

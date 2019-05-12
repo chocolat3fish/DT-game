@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -116,7 +117,7 @@ public class PlaceHolderInventoryscript : MonoBehaviour
                 break;
 
             case 18:
-                output.text = playerControls.currentHealth + " / " + playerControls.totalHealth;
+                output.text = Math.Round(playerControls.currentHealth, 1) + " / " + Math.Round(playerControls.totalHealth, 1);
                 break;
 
             case 19:

@@ -38,10 +38,25 @@ public class DialogueButtons : MonoBehaviour
 
     public void OnContinueClick()
     {
-        nPCMonitor.ContinueDialogue();
+        if(SceneManager.GetActiveScene().name != "Tutorial")
+        {
+            nPCMonitor.ContinueDialogue();
+        }
+        else
+        {
+            FindObjectOfType<TutorialDialogue>().ContinueDialogue();
+        }
     }
     public void OnGiveItemClick()
     {
-        nPCMonitor.GiveItem();
+        if (SceneManager.GetActiveScene().name != "Tutorial")
+        {
+            nPCMonitor.GiveItem();
+        }
+        else
+        {
+            FindObjectOfType<TutorialDialogue>().GiveItem();
+        }
+
     }
 }

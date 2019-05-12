@@ -97,13 +97,11 @@ public class CharacterCanvasScript : MonoBehaviour
     {
         skillsPanel.SetActive(true);
         mainPanel.SetActive(false);
-        isActive = false;
     }
 
     public void CloseSkillMenu()
     {
         mainPanel.SetActive(true);
         skillsPanel.SetActive(false);
-        isActive = true;
     }
 }

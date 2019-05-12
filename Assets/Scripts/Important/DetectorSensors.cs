@@ -19,6 +19,7 @@ public class DetectorSensors : MonoBehaviour
             float playerHealthSteal = player.CalculatePlayerHealing();
             enemy.currentHealth -= newPlayerDamage;
             player.currentHealth += playerHealthSteal;
+            player.attackTime = Time.time;
             if (player.currentHealth > player.totalHealth)
             {
                 player.currentHealth = player.totalHealth;
