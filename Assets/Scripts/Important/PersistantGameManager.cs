@@ -40,8 +40,6 @@ public class PersistantGameManager : MonoBehaviour
         {"Hood of Sartuka", "Ja03"}
     };
 
-    public Dictionary<string, int> itemInventory = new Dictionary<string, int>();
-    public List<string> possibleItems = new List<string> { "Dagger of Kaliphase", "Amulet of Honour", "Hood of Sartuka", "Claw of Straphagus" };
 
 
     [Header("Skill Multipliers")]
@@ -144,7 +142,6 @@ public class PersistantGameManager : MonoBehaviour
     private int currentItemOneIndex, currentItemTwoIndex;
     private bool changeItemOne, changeItemTwo;
 
-    public List<string> possibleConsumables = new List<string> { "20%H", "50%H", "100%H", "20%A", "50%A", "100%A", "20%L" };
 
     public Dictionary<string, int> amountOfConsumables = new Dictionary<string, int>
     {
