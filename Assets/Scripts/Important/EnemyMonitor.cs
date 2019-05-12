@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 //******MUST BE CHILDED TO AN ENEMY ENEMYSTATS MUST BE SET INSPECTOR******\\
 
@@ -17,7 +18,6 @@ public class EnemyMonitor : MonoBehaviour
     private float enemyDamage;
 
     //How much ex the enemy gives the player on death
-    public float xpEarnings;
 
     //Distance to player
     public float distanceToPlayer;
@@ -33,7 +33,6 @@ public class EnemyMonitor : MonoBehaviour
 
     //All enemy stats (name, damage, health, speed , range)
     public Enemy enemyStats;
-
 
     //Stats for lootdrop
     public int itemChance;
@@ -61,8 +60,39 @@ public class EnemyMonitor : MonoBehaviour
         enemyRigidbody = gameObject.GetComponent<Rigidbody2D>();
         playerControls = player.GetComponent<PlayerControls>();
 
-        //sets the current health to the inital health
+
+        float multiplier = 1;
+
+        switch (enemyStats.enemyClass)
+        {
+            case "Light":
+                multiplier *= 0.8f;
+                break;
+
+            case "Medium":
+                multiplier *= 1f;
+                break;
+
+            case "Heavy":
+                multiplier *= 1.2f;
+                break;
+        }
+        //sets the current health to the inital health and set health based on level
+        enemyStats.enemyHealth = (float)(multiplier * (27 * Math.Pow(enemyStats.enemyLevel, 2) + 10));
         currentHealth = enemyStats.enemyHealth;
+
+        //Sets the default damage
+        if (PersistantGameManager.Instance.playerStats.playerLevel < 4)
+        {
+            enemyStats.enemyDamage = (float)(multiplier * (2.5 * Math.Pow(enemyStats.enemyLevel, 2) + 10) * 0.4f);
+        }
+        else
+        {
+            enemyStats.enemyDamage = (float)(multiplier * (2.5 * Math.Pow(enemyStats.enemyLevel, 2) + 10));
+        }
+
+
+        
 
         //Fixes issue of having to move before being able to attack it again. Likely better solution but will work for now.
         enemyRigidbody.sleepMode = RigidbodySleepMode2D.NeverSleep;
@@ -106,7 +136,7 @@ public class EnemyMonitor : MonoBehaviour
     {
 
         if (questTarget == true && PersistantGameManager.Instance.activeQuests.Contains(PersistantGameManager.Instance.questTargets[questReward]))
-        {   
+        {
             GameObject questDrop = Instantiate(Resources.Load(lootDropPreFabName), transform.position, Quaternion.identity) as GameObject;
             LootDropMonitor questDropMonitor = questDrop.GetComponent<LootDropMonitor>();
 
@@ -121,32 +151,34 @@ public class EnemyMonitor : MonoBehaviour
 
         }
         //Gets the new weapon based off the drop chance and the value of weapon, if a weapon is not going to be droped it returns null
-        LootItem newItem = LootManager.DropItem(itemChance, itemValue,  weaponValue);
+        LootItem newItem = LootManager.DropItem(itemChance, weaponValue);
 
         //runs if there is a weapon stored in new weapon
-        if(newItem != null)
+        if (newItem != null)
         {
             //Instatiates the loot drop prefab at the poition of the enemy takes a local "Gameobject copy" 
             GameObject lootDropInstance = Instantiate(Resources.Load(lootDropPreFabName), transform.position, Quaternion.identity) as GameObject;
-            
+
             //gets the LootDropMonitor from the newly created Loot Drop
             LootDropMonitor lootDropInstanceMonitor = lootDropInstance.GetComponent<LootDropMonitor>();
 
-            if(newItem.type == 0)
+            if (newItem.type == 0)
             {
                 lootDropInstanceMonitor.type = 0;
-                lootDropInstanceMonitor.itemStats = newItem.newWeapon; 
+                lootDropInstanceMonitor.itemStats = newItem.newWeapon;
             }
+            /*
             else if(newItem.type == 1)
             {
                 lootDropInstanceMonitor.type = 1;
                 lootDropInstanceMonitor.consumable= newItem.consumable;
             }
+            */
 
             if (droppedQuestItem == true)
             {
                 Vector2 lootPosition = lootDropInstance.transform.position;
-                lootDropInstance.transform.position = new Vector2(lootDropInstance.transform.position.x - 1/2, lootPosition.y);
+                lootDropInstance.transform.position = new Vector2(lootDropInstance.transform.position.x - 1 / 2, lootPosition.y);
             }
 
 
@@ -156,7 +188,7 @@ public class EnemyMonitor : MonoBehaviour
         }
 
         //Gives the player XP
-        GiveExp(xpEarnings);
+        GiveExp(enemyStats.enemyClass, enemyStats.enemyLevel);
 
         //Kills the enemy
         if (transform.parent != null)
@@ -208,12 +240,35 @@ public class EnemyMonitor : MonoBehaviour
         }
     }
     */
-    public void GiveExp(float xpValue)
+    public void GiveExp(string enemyClass, int enemyLevel)
     {
         //Will add Calculation here when ready to balance
         //This is a temporary value
         //xpValue = enemyStats.enemyHealth * enemyStats.enemyDamage;
+        //PersistantGameManager.Instance.playerStats.playerExperience += xpValue;
+        //PersistantGameManager.Instance.checkExp = true;
+
+        float xpValue;
+        float multiplier = 1;
+
+        switch (enemyClass)
+        {
+            case "Light":
+                multiplier *= 0.025f;
+                break;
+
+            case "Medium":
+                multiplier *= 0.05f;
+                break;
+
+            case "Heavy":
+                multiplier *= 0.075f;
+                break;
+        }
+
+        xpValue = (float)((0.04 * Math.Pow(enemyLevel, 3)) + (0.8 * Math.Pow(enemyLevel, 2)) + 500) * multiplier;
         PersistantGameManager.Instance.playerStats.playerExperience += xpValue;
+        Debug.Log(xpValue);
         PersistantGameManager.Instance.checkExp = true;
     }
 
@@ -224,7 +279,7 @@ public class EnemyMonitor : MonoBehaviour
             if (Time.timeScale != 0f)
             {
                 //calculates how much damage to apply to the character
-                float enemyAtackDamage = enemyStats.enemyDamage - playerControls.defence;
+                float enemyAtackDamage = enemyStats.enemyDamage;
 
                 // if the players defence cancels out the enemys attack to much i.e. making it negative sets the damage to 0.1
                 if (enemyAtackDamage < 0.1)

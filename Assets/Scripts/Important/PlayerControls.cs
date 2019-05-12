@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System;
 
 
 /* For double jumps:
@@ -25,6 +26,8 @@ public class PlayerControls : MonoBehaviour
     public float doubleJumpSpeed;
     public int totalJumps;
     private Rigidbody2D playerRigidbody;
+
+    public PlayerStats playerStats;
 
     public string deathScene;
 
@@ -60,8 +63,9 @@ public class PlayerControls : MonoBehaviour
         }
     }
     public float attackTime;
+    public float stockHealth;
     public float totalHealth;
-    public float defence;
+
 
     private Vector2 playerInput;
     private bool canJump;
@@ -104,7 +108,8 @@ public class PlayerControls : MonoBehaviour
         rightDetector.enabled = false;
 
         currentJumps = 0;
-
+        stockHealth = (float)(54f * Math.Pow(PersistantGameManager.Instance.playerStats.playerLevel, 2) + 10f);
+        totalHealth = stockHealth + (stockHealth * PersistantGameManager.Instance.totalHealthMulti);
         currentHealth = totalHealth;
     }
 
@@ -153,7 +158,7 @@ public class PlayerControls : MonoBehaviour
 
         }
 
-        if (Input.GetKeyDown(KeyCode.Q) && PersistantGameManager.Instance.highDamage)
+        if (Input.GetKeyDown(KeyCode.Q) && PersistantGameManager.Instance.hasSmite)
         {
             //on attack press, fireball function and set cooldown
             StartCoroutine(Fireball());
@@ -175,6 +180,42 @@ public class PlayerControls : MonoBehaviour
         }
         //tells animator what the speed is as a positive value so it can then activate the running/walking animation
         animator.SetFloat("Speed", Mathf.Abs(playerRigidbody.velocity.x));
+
+
+        //Increases damage resist while moving based on the related skill.
+        if (playerRigidbody.velocity.x > 0.01 && PersistantGameManager.Instance.skillLevels["DefenceWithMovement"] > 0)
+        {
+            if (PersistantGameManager.Instance.currentActiveAbility == "Turtle")
+            {
+                //float stockDamageResist = PersistantGameManager.Instance.turtleResistMulti;
+                //float newMoveResist =  ( PersistantGameManager.Instance.movementResistMulti * (playerRigidbody.velocity.x / 10));
+
+                //PersistantGameManager.Instance.damageResistMulti = (stockDamageResist * newMoveResist);
+                PersistantGameManager.Instance.damageResistMulti = (1 - PersistantGameManager.Instance.movementResistMulti * (playerRigidbody.velocity.x / 10)) * PersistantGameManager.Instance.turtleResistMulti;
+            }
+            else
+            {
+                PersistantGameManager.Instance.damageResistMulti =  1 - PersistantGameManager.Instance.movementResistMulti * (playerRigidbody.velocity.x / 10);
+            }
+
+        }
+
+        if (playerRigidbody.velocity.x < -0.01 && PersistantGameManager.Instance.skillLevels["DefenceWithMovement"] > 0)
+        {
+            if (PersistantGameManager.Instance.currentActiveAbility == "Turtle")
+            {
+                //float stockDamageResist = PersistantGameManager.Instance.turtleResistMulti;
+                //float newMoveResist = (PersistantGameManager.Instance.movementResistMulti * (playerRigidbody.velocity.x / 10) * -1);
+
+                //PersistantGameManager.Instance.damageResistMulti = (stockDamageResist * newMoveResist);
+                PersistantGameManager.Instance.damageResistMulti = (1 - PersistantGameManager.Instance.movementResistMulti * (playerRigidbody.velocity.x / 10) * -1) * PersistantGameManager.Instance.turtleResistMulti;
+            }
+
+            else
+            {
+                PersistantGameManager.Instance.damageResistMulti = 1 - PersistantGameManager.Instance.movementResistMulti * (playerRigidbody.velocity.x / 10) * -1;
+            }
+        }
 
         //makes the character face the correct direction. and offests the camera depening on which way you are moving
         //determines whether facing left or right
@@ -256,7 +297,6 @@ public class PlayerControls : MonoBehaviour
         playerDamage = PersistantGameManager.Instance.currentWeapon.itemDamage;
         attackSpeed = PersistantGameManager.Instance.currentWeapon.trueItemSpeed;
         range = PersistantGameManager.Instance.currentWeapon.itemRange;
-        defence = PersistantGameManager.Instance.currentArmour.defence;
 
     }
 
@@ -346,15 +386,15 @@ public class PlayerControls : MonoBehaviour
 
     public void ResistDamage()
     {
-        PersistantGameManager.Instance.damageResistMulti = 0.5f;
-        PersistantGameManager.Instance.currentActiveAblity = "Turtle - (2x Defence)";
+        PersistantGameManager.Instance.damageResistMulti = PersistantGameManager.Instance.turtleResistMulti;
+        PersistantGameManager.Instance.currentActiveAbility = "Turtle";
         PersistantGameManager.Instance.abilityIsActive = true;
         PersistantGameManager.Instance.abilityDuration = PersistantGameManager.Instance.damageResistDuration;
     }
 
     public float CalculatePlayerHealing()
     {
-        return playerDamage * PersistantGameManager.Instance.currentLeechMultiplier;
+        return playerDamage * PersistantGameManager.Instance.lifeStealMulti;
     }
 
 

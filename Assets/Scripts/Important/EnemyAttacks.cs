@@ -26,6 +26,7 @@ public class EnemyAttacks : MonoBehaviour
     public bool jumpChargeCollision;
     private bool waitingForCollision;
 
+
     [Header("Choose Type Of Enemy")]
     public bool projectile;
     public bool patrol;
@@ -78,16 +79,49 @@ public class EnemyAttacks : MonoBehaviour
             currentPointIndex = 1;
         }
         rb = enemy.GetComponent<Rigidbody2D>();
+        Physics2D.IgnoreCollision(player.GetComponent<BoxCollider2D>(), enemy.GetComponent<BoxCollider2D>());
         if (patrol)
         {
             patrolling = true;
-        }
-        Physics2D.IgnoreCollision(player.GetComponent<BoxCollider2D>(), enemy.GetComponent<BoxCollider2D>());
+          }
+
     }
+
+    void Start()
+    {
+        float multiplier = 1;
+
+        switch (enemyMonitor.enemyStats.enemyClass)
+        {
+            case "Light":
+                multiplier *= 0.8f;
+                break;
+
+            case "Medium":
+                multiplier *= 1f;
+                break;
+
+            case "Heavy":
+                multiplier *= 1.2f;
+                break;
+        }
+
+        if (PersistantGameManager.Instance.playerStats.playerLevel < 4)
+        {
+            projectileDamage = (float)(multiplier * (5 * Math.Pow(enemyMonitor.enemyStats.enemyLevel, 2) + 10) * 0.4f);
+        }
+        else
+        {
+
+            projectileDamage = (float)(multiplier * (5 * Math.Pow(enemyMonitor.enemyStats.enemyLevel, 2) + 10));
+        }
+    }
+
 
 
     void Update()
     {
+
         if (patrolling)
         {
             enemy.transform.position = Vector2.MoveTowards(enemy.transform.position, patrolPoints[currentPointIndex].transform.position, Time.deltaTime * moveSpeed);
@@ -158,7 +192,7 @@ public class EnemyAttacks : MonoBehaviour
                 enemy.transform.position = Vector2.MoveTowards(enemy.transform.position, patrolPoints[0].transform.position, Time.deltaTime * chargeSpeed);
                 if (Vector2.Distance(enemy.transform.position, patrolPoints[0].position) < .2f)
                 {
-                    
+
                     hasJumped = false;
                     chargingLeft = false;
                     if (patrol)
@@ -262,8 +296,8 @@ public class EnemyAttacks : MonoBehaviour
                 }
 
             }
-            
- 
+
+
         }
         if (jumpChargeCollision)
         {
@@ -272,7 +306,7 @@ public class EnemyAttacks : MonoBehaviour
         }
     }
 
-        
+
         private void Fire()
         {
             GameObject bullet = Instantiate((GameObject)Resources.Load("Bullet"), enemy.transform.position, Quaternion.identity);
@@ -362,11 +396,8 @@ public class EnemyAttacks : MonoBehaviour
 
         inFlight = false;
         patrolling = true;
-            
+
         Debug.Log("Finished Jump Charge");
     }
     */
 }
-
-
-

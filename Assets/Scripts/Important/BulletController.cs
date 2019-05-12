@@ -27,7 +27,6 @@ public class BulletController : MonoBehaviour
         {
             if (Vector2.Distance(transform.position, enemyWhoFiredThis.transform.position) > range)
             {
-                Debug.Log(Vector2.Distance(transform.position, enemyWhoFiredThis.transform.position));
                 Destroy(gameObject);
             }
         }
@@ -52,7 +51,7 @@ public class BulletController : MonoBehaviour
             {
 
                 //calculates how much damage to apply to the character
-                float enemyAttackDamage = damage - player.GetComponent<PlayerControls>().defence;
+                float enemyAttackDamage = damage * PersistantGameManager.Instance.damageResistMulti;
 
                 // if the players defence cancels out the enemys attack to much i.e. making it negative sets the damage to 0.1
                 if (enemyAttackDamage < 0.1)

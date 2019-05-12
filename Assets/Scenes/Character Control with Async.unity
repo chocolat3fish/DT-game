@@ -940,16 +940,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentHealth: 0
-  xpEarnings: 290
   distanceToPlayer: 0
   droppedQuestItem: 0
   player: {fileID: 2104623955}
   enemyStats:
     enemyName: Evil Guy 2
     enemyDamage: 1
-    enemyHealth: 40
+    enemyHealth: 5
     attackSpeed: 1
     attackRange: 1
+    enemyClass: Heavy
+    enemyLevel: 4
   itemChance: 100
   weaponValue: 100
   itemValue: 0
@@ -1309,19 +1310,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentHealth: 0
-  xpEarnings: 750
   distanceToPlayer: 0
   droppedQuestItem: 0
   player: {fileID: 2104623955}
   enemyStats:
     enemyName: Evil Door
-    enemyDamage: 2
+    enemyDamage: 1
     enemyHealth: 15
     attackSpeed: 1
     attackRange: 2
+    enemyClass: Heavy
+    enemyLevel: 4
   itemChance: 35
-  weaponValue: 2000
-  itemValue: 70
+  weaponValue: 100
+  itemValue: 100
   questTarget: 0
   questReward: 
   waitingForCollision: 0
@@ -2470,7 +2472,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentHealth: 0
-  xpEarnings: 290
   distanceToPlayer: 0
   droppedQuestItem: 0
   player: {fileID: 2104623955}
@@ -2480,6 +2481,8 @@ MonoBehaviour:
     enemyHealth: 40
     attackSpeed: 1
     attackRange: 1
+    enemyClass: Light
+    enemyLevel: 4
   itemChance: 100
   weaponValue: 1662
   itemValue: 0
@@ -4460,8 +4463,8 @@ Tilemap:
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_AnimationFrameRate: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Origin: {x: -10, y: -5, z: 0}
-  m_Size: {x: 37, y: 26, z: 1}
+  m_Origin: {x: -14, y: -5, z: 0}
+  m_Size: {x: 41, y: 26, z: 1}
   m_TileAnchor: {x: 0.5, y: 0.5, z: 0}
   m_TileOrientation: 0
   m_TileOrientationMatrix:
@@ -4768,17 +4771,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4cd19ec11e1dbbd41ac1db47758d69a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GodMode: 0
-  currentIndex: 0
-  previousIndex: 0
-  currentWeapon:
-    itemName: 
-    itemDamage: 0
-    stockItemSpeed: 0
-    trueItemSpeed: 0
-    itemRange: 0
-    itemLevel: 0
-  playerWeaponInventory: []
   currentDialogueQuest:
     questName: 
     questType: 
@@ -4791,38 +4783,20 @@ MonoBehaviour:
     sentencesAfterQuestEnd: []
     questItemName: 
     questKey: 
-  possibleConsumables:
-  - 20%H
-  - 50%H
-  - 100%H
-  - 20%A
-  - 50%A
-  - 100%A
-  - 20%L
+  activeQuests: []
   possibleItems:
   - Dagger of Kaliphase
   - Amulet of Honour
   - Hood of Sartuka
   - Claw of Straphagus
-  activeQuests: []
-  damageProgress: 0
-  mobilityProgress: 0
-  tankProgress: 0
   attackSpeedMulti: 1
   attackRangeMulti: 1
   attackDamageMulti: 1
-  lifeStealMulti: 1
+  lifeStealMulti: 0
   totalHealthMulti: 1
   damageResistMulti: 1
-  attackSpeedUpgrades: 0
-  potionIsActive: 0
-  activePotionType: 
-  currentAttackMultiplier: 1
-  currentLeechMultiplier: 0
-  timeOfAttackMultiplierChange: 0
-  timeOfLeechMultiplierChange: 0
-  healthPotionUseTime: 0
-  potionCoolDownTime: 30
+  turtleResistMulti: 0.5
+  movementResistMulti: 1
   compareScreenOpen: 0
   characterScreenOpen: 0
   skillsScreenOpen: 0
@@ -4834,40 +4808,72 @@ MonoBehaviour:
     trueItemSpeed: 0
     itemRange: 0
     itemLevel: 0
+  firstTimeOpeningMenuCanvas: 0
+  menuCanvasIsOpen: 0
+  dialogueSceneIsOpen: 0
+  bugReportSceneIsOpen: 0
+  player: {fileID: 0}
+  _camera: {fileID: 0}
+  magicBar: {fileID: 0}
+  hasMagic: 0
+  currentActiveAbility: 
+  abilityIsActive: 0
+  timeOfAbility: 0
+  abilityDuration: 0
+  damageResistDuration: 15
+  checkSkills: 0
+  checkExp: 0
+  currentScene: 
+  currentIndex: 0
+  previousIndex: 0
+  totalExperience: 300
+  GodMode: 0
+  currentWeapon:
+    itemName: 
+    itemDamage: 0
+    stockItemSpeed: 0
+    trueItemSpeed: 0
+    itemRange: 0
+    itemLevel: 0
+  playerWeaponInventory: []
+  playerStats:
+    health: 0
+    playerLevel: 4
+    playerExperience: 0
+    playerSkillPoints: 3
+  damageProgress: 0
+  tankProgress: 0
+  mobilityProgress: 0
+  attackSpeedUpgrades: 0
+  potionIsActive: 0
+  activePotionType: 
+  currentAttackMultiplier: 1
+  currentLeechMultiplier: 0
+  timeOfAttackMultiplierChange: 0
+  timeOfLeechMultiplierChange: 0
+  healthPotionUseTime: 0
+  potionCoolDownTime: 30
   currentArmour:
     armourType: 
     defence: 0
   comparingArmour:
     armourType: 
     defence: 0
-  player: {fileID: 0}
-  _camera: {fileID: 0}
-  magicBar: {fileID: 0}
-  hasMagic: 0
   tripleJump: 0
-  highDamage: 0
+  hasSmite: 0
   gripWalls: 0
   maxedSpeed: 0
   damageResist: 0
-  timeOfAbility: 0
-  abilityDuration: 0
-  damageResistDuration: 15
-  currentActiveAblity: 
-  abilityIsActive: 0
-  playerStats:
-    health: 0
-    playerLevel: 1
-    playerExperience: 0
-    playerSkillPoints: 0
-  checkExp: 0
-  currentScene: 
-  totalExperience: 300
   equippedItemOne: 
   equippedItemTwo: 
-  firstTimeOpeningMenuCanvas: 0
-  menuCanvasIsOpen: 0
-  dialogueSceneIsOpen: 0
-  bugReportSceneIsOpen: 0
+  possibleConsumables:
+  - 20%H
+  - 50%H
+  - 100%H
+  - 20%A
+  - 50%A
+  - 100%A
+  - 20%L
 --- !u!4 &1645279220
 Transform:
   m_ObjectHideFlags: 0
@@ -5500,6 +5506,11 @@ MonoBehaviour:
   jumpSpeed: 6
   doubleJumpSpeed: 0.6
   totalJumps: 2
+  playerStats:
+    health: 0
+    playerLevel: 0
+    playerExperience: 0
+    playerSkillPoints: 0
   deathScene: You lost
   playerDamage: 1
   attackSpeed: 1
@@ -5509,8 +5520,8 @@ MonoBehaviour:
   TimeOfItemTwoUse: 0
   itemTwoCooldown: 1
   nextAttack: 1
+  stockHealth: 10
   totalHealth: 10
-  defence: 0
   timeOfAttack: 0
   timeOfMagic: 0
 --- !u!61 &2104623961

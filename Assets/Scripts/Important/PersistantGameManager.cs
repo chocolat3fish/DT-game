@@ -3,55 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.IO;
+using System;
 using UnityEngine.UI;
 using Newtonsoft.Json;
 public class PersistantGameManager : MonoBehaviour
 {
     public static PersistantGameManager Instance { get; private set; }
 
-    public bool GodMode;
 
-    public int currentIndex = 0;
-    public int previousIndex = 0;
-    public Weapon currentWeapon;
-    public List<Weapon> playerWeaponInventory = new List<Weapon>();
-    public Quest currentDialogueQuest;
-    public Dictionary<string, int> amountOfConsumables = new Dictionary<string, int>
-    {
-        {"20%H", 1},
-        {"50%H", 0},
-        {"100%H", 0},
-        {"20%A", 0},
-        {"50%A", 0},
-        {"100%A", 0},
-        {"20%L", 1},
-        {"Empty", 0}
-    };
-    public Dictionary<string, int> skillLevels = new Dictionary<string, int>
-    {
-        {"AttackSpeed", 0},
-        {"Smite", 0},
-        {"SmiteDuration", 0},
-        {"SmiteDamage", 0},
-        {"LifeSteal", 0},
-        {"AirAttack", 0},
-        {"DamageWithMovement", 0},
-        {"MoveSpeed", 0},
-        {"TripleJump", 0},
-        {"JumpHeight", 0},
-        {"GripWalls", 0},
-        {"HealthRegen", 0},
-        {"Turtle", 0},
-        {"TurtleDuration", 0},
-        {"TurtleDefense", 0},
-        {"WeaponDropValue", 0},
-        {"InstantKill", 0},
-    };
-
+    [Header("Quests")]
 
     public List<string> possibleConsumables = new List<string> { "20%H", "50%H", "100%H", "20%A", "50%A", "100%A", "20%L"};
     public Dictionary<string, int> itemInventory = new Dictionary<string, int>();
     public List<string> possibleItems = new List<string> { "Dagger of Kaliphase", "Amulet of Honour", "Hood of Sartuka", "Claw of Straphagus", "Jason's Belt" };
+    public Quest currentDialogueQuest;
     public Dictionary<string, int> characterQuests = new Dictionary<string, int>
     {
         {"Jason", 0 }
@@ -59,7 +24,7 @@ public class PersistantGameManager : MonoBehaviour
 
     public Dictionary<string, Quest> possibleQuests = new Dictionary<string, Quest>();
 
-    public List<string> activeQuests = new List<string> ();
+    public List<string> activeQuests = new List<string>();
 
     public Dictionary<string, string> rewards = new Dictionary<string, string>
     {
@@ -75,23 +40,87 @@ public class PersistantGameManager : MonoBehaviour
         {"Hood of Sartuka", "Ja03"}
     };
 
-    //tracks skill progression of each tree
-    public int damageProgress;
-    public int mobilityProgress;
-    public int tankProgress;
+    public Dictionary<string, int> itemInventory = new Dictionary<string, int>();
+    public List<string> possibleItems = new List<string> { "Dagger of Kaliphase", "Amulet of Honour", "Hood of Sartuka", "Claw of Straphagus" };
 
+
+    [Header("Skill Multipliers")]
     //Skill related multipliers
     public double attackSpeedMulti = 1;
     public float attackRangeMulti = 1;
     public float attackDamageMulti = 1;
-    public float lifeStealMulti = 1;
-    public float totalHealthMulti = 1;
+    public float lifeStealMulti = 0;
+    public float totalHealthMulti = 0;
     public float damageResistMulti = 1;
+    public float turtleResistMulti = 0.5f;
+    public float movementResistMulti = 1;
 
+    [Header("Menu Statuses")]
+    public bool compareScreenOpen;
+    public bool characterScreenOpen;
+    public bool skillsScreenOpen;
+    public bool menuCanvasOpen;
+    public Weapon comparingWeapon;
+    public bool firstTimeOpeningMenuCanvas, menuCanvasIsOpen;
+    public bool dialogueSceneIsOpen;
+    public bool bugReportSceneIsOpen;
+
+    [Header("Objects")]
+    public PlayerControls player;
+    public Camera _camera;
+    public GameObject magicBar;
+
+
+    [Header("Skill Trackers")]
+
+    public bool hasMagic;
+    public string currentActiveAbility = "";
+    public bool abilityIsActive;
+    public float timeOfAbility;
+    public float abilityDuration;
+    public float damageResistDuration = 15;
+    public bool checkSkills;
+    public bool checkExp;
+
+    //tracks skill progression of each tree
+    public Dictionary<string, int> skillLevels = new Dictionary<string, int>
+    {
+        {"AttackSpeed", 0},
+        {"Smite", 0},
+        {"SmiteDuration", 0},
+        {"SmiteDamage", 0},
+        {"LifeSteal", 0},
+        {"AirAttack", 0},
+        {"DefenceWithMovement", 0},
+        {"MoveSpeed", 0},
+        {"TripleJump", 0},
+        {"JumpHeight", 0},
+        {"GripWalls", 0},
+        {"HealthBonus", 0},
+        {"Turtle", 0},
+        {"TurtleDuration", 0},
+        {"TurtleDefense", 0},
+        {"WeaponDropValue", 0},
+        {"InstantKill", 0},
+    };
+
+    [Header("Other")]
+    public string currentScene;
+    public int currentIndex = 0;
+    public int previousIndex = 0;
+
+    [Header("Stats")]
+    public float totalExperience;
+    public bool GodMode;
+    public Weapon currentWeapon;
+    public List<Weapon> playerWeaponInventory = new List<Weapon>();
+    public PlayerStats playerStats;
+
+    [Header("Obsolete")]
+    public int damageProgress;
+    public int tankProgress;
+    public int mobilityProgress;
     public int attackSpeedUpgrades;
-
-
-
     public bool potionIsActive;
     public string activePotionType;
     public float currentAttackMultiplier = 1;
@@ -100,47 +129,37 @@ public class PersistantGameManager : MonoBehaviour
     public float timeOfLeechMultiplierChange;
     public float healthPotionUseTime;
     public float potionCoolDownTime;
-    public bool compareScreenOpen;
-    public bool characterScreenOpen;
-    public bool skillsScreenOpen;
-    public bool menuCanvasOpen;
-    public Weapon comparingWeapon;
+
     public Armour currentArmour;
     public Armour comparingArmour;
-    public PlayerControls player;
-    public Camera _camera;
 
-    public GameObject magicBar;
-    public bool hasMagic;
     public bool tripleJump;
-    public bool highDamage;
+    public bool hasSmite;
     public bool gripWalls;
     public bool maxedSpeed;
     public bool damageResist;
-    public float timeOfAbility;
-    public float abilityDuration;
-
-    //Individual durations
-    public float damageResistDuration = 15;
-
-    public string currentActiveAblity;
-    public bool abilityIsActive;
-
-    public PlayerStats playerStats;
-    public bool checkExp;
-
-    public string currentScene;
-
-    public float totalExperience;
 
     public string equippedItemOne, equippedItemTwo;
 
     private int currentItemOneIndex, currentItemTwoIndex;
     private bool changeItemOne, changeItemTwo;
 
-    public bool firstTimeOpeningMenuCanvas, menuCanvasIsOpen;
-    public bool dialogueSceneIsOpen;
-    public bool bugReportSceneIsOpen;
+    public List<string> possibleConsumables = new List<string> { "20%H", "50%H", "100%H", "20%A", "50%A", "100%A", "20%L" };
+
+    public Dictionary<string, int> amountOfConsumables = new Dictionary<string, int>
+    {
+        {"20%H", 1},
+        {"50%H", 0},
+        {"100%H", 0},
+        {"20%A", 0},
+        {"50%A", 0},
+        {"100%A", 0},
+        {"20%L", 1},
+        {"Empty", 0}
+    };
+
+
+
     private void Awake()
     {
         if(Instance == null)
@@ -183,7 +202,7 @@ public class PersistantGameManager : MonoBehaviour
             {
                 equippedItemTwo = element;
             }
-               
+
         }
         if(equippedItemOne == "")
         {
@@ -195,13 +214,17 @@ public class PersistantGameManager : MonoBehaviour
         }
         //LoadDataFromSave();
 
+        //Generates total xp (Cubic graph) based on level
+        totalExperience = (float)((0.04 * Math.Pow(playerStats.playerLevel, 3)) + (0.8 * Math.Pow(playerStats.playerLevel, 2)) + 100);
+        totalHealthMulti = 0.05f * skillLevels["HealthBonus"];
     }
     void Update()
     {
+
         if (Time.time > (timeOfAbility + abilityDuration) && damageResistMulti < 1)
         {
             damageResistMulti = 1;
-            currentActiveAblity = "";
+            currentActiveAbility = "";
             abilityIsActive = false;
         }
 
@@ -282,26 +305,33 @@ public class PersistantGameManager : MonoBehaviour
             OnSceneChange();
         }
 
-        if (checkExp)
-        {
+        //if (checkExp){}
+
 
             //Temporary values
-            if (playerStats.playerExperience >= totalExperience)
+        if (playerStats.playerExperience >= totalExperience)
+        {
+            //int levels = 0;
+            int skillPoints = 0;
+
+            while (playerStats.playerExperience > totalExperience)
             {
-                int levels = 0;
-                int skillPoints = 0;
-
-                while (playerStats.playerExperience > totalExperience)
-                {
-                    levels += 1;
-                    skillPoints += 1;
-                    playerStats.playerExperience -= 300;
-                }
-
-                playerStats.playerSkillPoints += skillPoints;
-                playerStats.playerLevel += levels;
+                float oldTotalExperience = totalExperience;
+                //levels += 1;
+                skillPoints += 1;
+                playerStats.playerLevel += 1;
+                player.stockHealth = (float)(54f * Math.Pow(playerStats.playerLevel, 2) + 10f);
+                CheckSkills();
+                Debug.Log("Level up + old total: " + oldTotalExperience);
+                totalExperience = (float)((0.04 * Math.Pow(playerStats.playerLevel, 3)) + (0.8 * Math.Pow(playerStats.playerLevel, 2)) + 100);
+                playerStats.playerExperience -= oldTotalExperience;
             }
+
+
+            playerStats.playerSkillPoints += skillPoints;
+            //playerStats.playerLevel += levels;
         }
+
 
     }
 
@@ -478,5 +508,82 @@ public class PersistantGameManager : MonoBehaviour
                 yield return new WaitForSecondsRealtime(0.01f);
             }
         }
+    }
+
+    public void CheckSkills()
+    {
+        checkSkills = false;
+
+        #region AttackSpeed
+
+        attackSpeedMulti = 1 - (0.05 * skillLevels["AttackSpeed"]);
+        foreach (Weapon weapon in playerWeaponInventory)
+        {
+            weapon.trueItemSpeed = weapon.stockItemSpeed* (float) attackSpeedMulti;
+        }
+
+        #endregion
+
+        #region Smite
+
+        if (skillLevels["Smite"] > 0)
+        {
+            hasMagic = true;
+            hasSmite = true;
+        }
+
+        #endregion
+
+        #region LifeSteal
+
+        lifeStealMulti = 0.05f * skillLevels["LifeSteal"];
+
+        #endregion
+
+        #region HealthBonus
+
+        float missingHealth = player.totalHealth - player.currentHealth;
+        totalHealthMulti = 0.05f * skillLevels["HealthBonus"];
+        player.totalHealth = player.stockHealth + (player.stockHealth * totalHealthMulti);
+        player.currentHealth = player.totalHealth - missingHealth;
+
+        #endregion
+
+        #region MoveDefence
+
+        movementResistMulti = 1 - (0.06f * skillLevels["DefenceWithMovement"]);
+
+        #endregion
+
+        #region Turtle
+
+        if (skillLevels["Turtle"] > 0)
+        {
+            hasMagic = true;
+            damageResist = true;
+        }
+
+        #endregion
+
+        #region TripleJump
+
+        if (skillLevels["TripleJump"] > 0)
+        {
+            tripleJump = true;
+        }
+
+        #endregion
+
+        #region GripWalls
+
+        if (skillLevels["GripWalls"] > 0)
+        {
+            gripWalls = true;
+        }
+
+        #endregion
+
+
+
     }
 }

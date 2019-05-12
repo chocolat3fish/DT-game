@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 public class PlaceHolderInventoryscript : MonoBehaviour
 {
@@ -113,7 +114,7 @@ public class PlaceHolderInventoryscript : MonoBehaviour
                 break;
             case 17:
                 //output.text = PersistantGameManager.Instance.activePotionType + " Potion";
-                output.text = PersistantGameManager.Instance.currentActiveAblity;
+                output.text = PersistantGameManager.Instance.currentActiveAbility;
                 break;
 
             case 18:
@@ -133,5 +134,5 @@ public class PlaceHolderInventoryscript : MonoBehaviour
                 break;
         }
     }
-            
+
 }
