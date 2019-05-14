@@ -950,9 +950,9 @@ MonoBehaviour:
     attackSpeed: 1
     attackRange: 1
     enemyClass: Heavy
-    enemyLevel: 4
+    enemyLevel: 100
   itemChance: 100
-  weaponValue: 100
+  weaponValue: 10
   itemValue: 0
   questTarget: 1
   questReward: Hood of Sartuka
@@ -1320,9 +1320,9 @@ MonoBehaviour:
     attackSpeed: 1
     attackRange: 2
     enemyClass: Heavy
-    enemyLevel: 4
+    enemyLevel: 100
   itemChance: 35
-  weaponValue: 100
+  weaponValue: 10
   itemValue: 100
   questTarget: 0
   questReward: 
@@ -2482,9 +2482,9 @@ MonoBehaviour:
     attackSpeed: 1
     attackRange: 1
     enemyClass: Light
-    enemyLevel: 4
+    enemyLevel: 100
   itemChance: 100
-  weaponValue: 1662
+  weaponValue: 100
   itemValue: 0
   questTarget: 0
   questReward: 
@@ -4771,6 +4771,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4cd19ec11e1dbbd41ac1db47758d69a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  possibleConsumables:
+  - 20%H
+  - 50%H
+  - 100%H
+  - 20%A
+  - 50%A
+  - 100%A
+  - 20%L
+  possibleItems:
+  - Dagger of Kaliphase
+  - Amulet of Honour
+  - Hood of Sartuka
+  - Claw of Straphagus
   currentDialogueQuest:
     questName: 
     questType: 
@@ -4784,11 +4797,6 @@ MonoBehaviour:
     questItemName: 
     questKey: 
   activeQuests: []
-  possibleItems:
-  - Dagger of Kaliphase
-  - Amulet of Honour
-  - Hood of Sartuka
-  - Claw of Straphagus
   attackSpeedMulti: 1
   attackRangeMulti: 1
   attackDamageMulti: 1
@@ -4796,7 +4804,11 @@ MonoBehaviour:
   totalHealthMulti: 1
   damageResistMulti: 1
   turtleResistMulti: 0.5
+  turtleMultiMulti: 1
   movementResistMulti: 1
+  moveSpeedMulti: 1
+  jumpHeightMulti: 1
+  airAttackMulti: 1
   compareScreenOpen: 0
   characterScreenOpen: 0
   skillsScreenOpen: 0
@@ -4838,9 +4850,9 @@ MonoBehaviour:
   playerWeaponInventory: []
   playerStats:
     health: 0
-    playerLevel: 4
+    playerLevel: 100
     playerExperience: 0
-    playerSkillPoints: 3
+    playerSkillPoints: 99
   damageProgress: 0
   tankProgress: 0
   mobilityProgress: 0
@@ -4866,14 +4878,6 @@ MonoBehaviour:
   damageResist: 0
   equippedItemOne: 
   equippedItemTwo: 
-  possibleConsumables:
-  - 20%H
-  - 50%H
-  - 100%H
-  - 20%A
-  - 50%A
-  - 100%A
-  - 20%L
 --- !u!4 &1645279220
 Transform:
   m_ObjectHideFlags: 0
@@ -5508,9 +5512,9 @@ MonoBehaviour:
   totalJumps: 2
   playerStats:
     health: 0
-    playerLevel: 0
+    playerLevel: 100
     playerExperience: 0
-    playerSkillPoints: 0
+    playerSkillPoints: 99
   deathScene: You lost
   playerDamage: 1
   attackSpeed: 1
@@ -5520,8 +5524,10 @@ MonoBehaviour:
   TimeOfItemTwoUse: 0
   itemTwoCooldown: 1
   nextAttack: 1
+  attackTime: 0
   stockHealth: 10
   totalHealth: 10
+  currentJumps: 0
   timeOfAttack: 0
   timeOfMagic: 0
 --- !u!61 &2104623961

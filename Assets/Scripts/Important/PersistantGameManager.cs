@@ -51,7 +51,11 @@ public class PersistantGameManager : MonoBehaviour
     public float totalHealthMulti = 0;
     public float damageResistMulti = 1;
     public float turtleResistMulti = 0.5f;
+    public float turtleMultiMulti = 1;
     public float movementResistMulti = 1;
+    public float moveSpeedMulti = 1;
+    public float jumpHeightMulti = 1;
+    public float airAttackMulti = 1;
 
     [Header("Menu Statuses")]
     public bool compareScreenOpen;
@@ -511,17 +515,13 @@ public class PersistantGameManager : MonoBehaviour
     {
         checkSkills = false;
 
-        #region AttackSpeed
-
+        #region Damage
         attackSpeedMulti = 1 - (0.05 * skillLevels["AttackSpeed"]);
         foreach (Weapon weapon in playerWeaponInventory)
         {
             weapon.trueItemSpeed = weapon.stockItemSpeed* (float) attackSpeedMulti;
         }
 
-        #endregion
-
-        #region Smite
 
         if (skillLevels["Smite"] > 0)
         {
@@ -529,30 +529,20 @@ public class PersistantGameManager : MonoBehaviour
             hasSmite = true;
         }
 
-        #endregion
-
-        #region LifeSteal
 
         lifeStealMulti = 0.05f * skillLevels["LifeSteal"];
 
         #endregion
 
-        #region HealthBonus
-
+        #region Tank
         float missingHealth = player.totalHealth - player.currentHealth;
         totalHealthMulti = 0.05f * skillLevels["HealthBonus"];
         player.totalHealth = player.stockHealth + (player.stockHealth * totalHealthMulti);
         player.currentHealth = player.totalHealth - missingHealth;
 
-        #endregion
-
-        #region MoveDefence
 
         movementResistMulti = 1 - (0.06f * skillLevels["DefenceWithMovement"]);
 
-        #endregion
-
-        #region Turtle
 
         if (skillLevels["Turtle"] > 0)
         {
@@ -560,27 +550,29 @@ public class PersistantGameManager : MonoBehaviour
             damageResist = true;
         }
 
+        turtleMultiMulti = 1 - (0.05f * skillLevels["TurtleDefense"]);
+
         #endregion
 
-        #region TripleJump
+        #region Mobility
+
+        moveSpeedMulti = 1 + (0.05f * skillLevels["MoveSpeed"]);
+
+        airAttackMulti = 1 + (0.05f * skillLevels["AirAttack"]);
 
         if (skillLevels["TripleJump"] > 0)
         {
             tripleJump = true;
         }
 
-        #endregion
-
-        #region GripWalls
-
         if (skillLevels["GripWalls"] > 0)
         {
             gripWalls = true;
         }
 
+        jumpHeightMulti = 1 + (0.05f * skillLevels["JumpHeight"]);
+
         #endregion
-
-
 
     }
 }
