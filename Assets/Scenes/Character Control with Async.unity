@@ -951,7 +951,7 @@ MonoBehaviour:
     attackRange: 1
     enemyClass: Heavy
     enemyLevel: 100
-  itemChance: 100
+  itemChance: 10
   weaponValue: 10
   itemValue: 0
   questTarget: 1
@@ -1322,7 +1322,7 @@ MonoBehaviour:
     enemyClass: Heavy
     enemyLevel: 100
   itemChance: 35
-  weaponValue: 10
+  weaponValue: 0
   itemValue: 100
   questTarget: 0
   questReward: 
@@ -2484,7 +2484,7 @@ MonoBehaviour:
     enemyClass: Light
     enemyLevel: 100
   itemChance: 100
-  weaponValue: 100
+  weaponValue: 50
   itemValue: 0
   questTarget: 0
   questReward: 
@@ -4799,16 +4799,21 @@ MonoBehaviour:
   activeQuests: []
   attackSpeedMulti: 1
   attackRangeMulti: 1
-  attackDamageMulti: 1
+  currentAttackMultiplier: 1
+  smiteDamageMulti: 1
+  smiteDurationMulti: 1
   lifeStealMulti: 0
   totalHealthMulti: 1
   damageResistMulti: 1
   turtleResistMulti: 0.5
   turtleMultiMulti: 1
+  turtleDurationMulti: 1
   movementResistMulti: 1
   moveSpeedMulti: 1
   jumpHeightMulti: 1
   airAttackMulti: 1
+  instantKillChance: 0
+  betterLootChance: 0
   compareScreenOpen: 0
   characterScreenOpen: 0
   skillsScreenOpen: 0
@@ -4833,6 +4838,7 @@ MonoBehaviour:
   timeOfAbility: 0
   abilityDuration: 0
   damageResistDuration: 15
+  smiteDuration: 10
   checkSkills: 0
   checkExp: 0
   currentScene: 
@@ -4859,7 +4865,6 @@ MonoBehaviour:
   attackSpeedUpgrades: 0
   potionIsActive: 0
   activePotionType: 
-  currentAttackMultiplier: 1
   currentLeechMultiplier: 0
   timeOfAttackMultiplierChange: 0
   timeOfLeechMultiplierChange: 0

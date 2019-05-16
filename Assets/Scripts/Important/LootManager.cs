@@ -236,8 +236,16 @@ public class LootManager : MonoBehaviour
         newDamage *= damageBonus + (damageBonus * (weaponValue / 100));
         if (newDamage <= 0) { newDamage = 0.1f; }
         */
+
+        int randomChance = random.Next(1, 100);
+        if (randomChance <= PersistantGameManager.Instance.betterLootChance)
+        {
+            weaponValue += 20;
+        }
+
         float newDamage = random.Next((int)((16 * Math.Pow(newLevel, 2) + 10) * 0.9f), (int)((16 * Math.Pow(newLevel, 2) + 10) * 1.1f));
         newDamage *= damageBonus + (damageBonus * (weaponValue / 100));
+        Debug.Log(weaponValue);
         if (newDamage <= 0) { newDamage = 0.1f; }
 
 
@@ -314,6 +322,12 @@ public class LootManager : MonoBehaviour
         float newDamage = random.Next(newLevel - newLevel / 5, newLevel + newLevel / 5);
         newDamage *= damageBonus + (damageBonus * (weaponValue / 100));
         */
+        int randomChance = random.Next(1, 100);
+        if(randomChance <= PersistantGameManager.Instance.betterLootChance)
+        {
+            weaponValue += 20;
+        }
+
         float newDamage = random.Next((int)((16 * Math.Pow(newLevel, 2) + 10) * 0.9f), (int)((16 * Math.Pow(newLevel, 2) + 10) * 1.1f));
         newDamage *= damageBonus + (damageBonus * (weaponValue / 100));
         if (newDamage <= 0) { newDamage = 0.1f; }

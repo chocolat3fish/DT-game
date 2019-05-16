@@ -46,16 +46,21 @@ public class PersistantGameManager : MonoBehaviour
     //Skill related multipliers
     public double attackSpeedMulti = 1;
     public float attackRangeMulti = 1;
-    public float attackDamageMulti = 1;
+    public float currentAttackMultiplier = 1; // player damage multi
+    public float smiteDamageMulti = 1; // skill damage multi
+    public float smiteDurationMulti = 1; // skill's duration effect damage multi
     public float lifeStealMulti = 0;
     public float totalHealthMulti = 0;
     public float damageResistMulti = 1;
-    public float turtleResistMulti = 0.5f;
-    public float turtleMultiMulti = 1;
+    public float turtleResistMulti = 0.5f; // player resist multi
+    public float turtleMultiMulti = 1; // skill resistance multi
+    public float turtleDurationMulti = 1; 
     public float movementResistMulti = 1;
     public float moveSpeedMulti = 1;
     public float jumpHeightMulti = 1;
     public float airAttackMulti = 1;
+    public float instantKillChance = 0;
+    public float betterLootChance = 0;
 
     [Header("Menu Statuses")]
     public bool compareScreenOpen;
@@ -81,6 +86,7 @@ public class PersistantGameManager : MonoBehaviour
     public float timeOfAbility;
     public float abilityDuration;
     public float damageResistDuration = 15;
+    public float smiteDuration = 10;
     public bool checkSkills;
     public bool checkExp;
 
@@ -125,7 +131,7 @@ public class PersistantGameManager : MonoBehaviour
     public int attackSpeedUpgrades;
     public bool potionIsActive;
     public string activePotionType;
-    public float currentAttackMultiplier = 1;
+
     public float currentLeechMultiplier = 0;
     public float timeOfAttackMultiplierChange;
     public float timeOfLeechMultiplierChange;
@@ -222,9 +228,10 @@ public class PersistantGameManager : MonoBehaviour
     void Update()
     {
 
-        if (Time.time > (timeOfAbility + abilityDuration) && damageResistMulti < 1)
+        if (Time.time > (timeOfAbility + abilityDuration) && (damageResistMulti < 1 || currentAttackMultiplier > 1))
         {
             damageResistMulti = 1;
+            currentAttackMultiplier = 1;
             currentActiveAbility = "";
             abilityIsActive = false;
         }
@@ -519,7 +526,7 @@ public class PersistantGameManager : MonoBehaviour
         attackSpeedMulti = 1 - (0.05 * skillLevels["AttackSpeed"]);
         foreach (Weapon weapon in playerWeaponInventory)
         {
-            weapon.trueItemSpeed = weapon.stockItemSpeed* (float) attackSpeedMulti;
+            weapon.trueItemSpeed = weapon.stockItemSpeed * (float) attackSpeedMulti;
         }
 
 
@@ -528,6 +535,10 @@ public class PersistantGameManager : MonoBehaviour
             hasMagic = true;
             hasSmite = true;
         }
+
+        smiteDamageMulti = 1 + (0.05f * skillLevels["SmiteDamage"]);
+
+        smiteDurationMulti = 1 + (0.05f * skillLevels["SmiteDuration"]);
 
 
         lifeStealMulti = 0.05f * skillLevels["LifeSteal"];
@@ -552,6 +563,9 @@ public class PersistantGameManager : MonoBehaviour
 
         turtleMultiMulti = 1 - (0.05f * skillLevels["TurtleDefense"]);
 
+        turtleDurationMulti = 1 + (0.05f * skillLevels["TurtleDuration"]);
+        damageResistDuration = 15 * turtleDurationMulti;
+
         #endregion
 
         #region Mobility
@@ -573,6 +587,15 @@ public class PersistantGameManager : MonoBehaviour
         jumpHeightMulti = 1 + (0.05f * skillLevels["JumpHeight"]);
 
         #endregion
+
+        #region Misc
+
+        instantKillChance = 0 + (1f * skillLevels["InstantKill"]);
+
+        betterLootChance = 0 + (1f * skillLevels["WeaponDropValue"]);
+
+        #endregion
+
 
     }
 }

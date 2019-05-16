@@ -78,7 +78,7 @@ public class EnemyMonitor : MonoBehaviour
                 break;
         }
         //sets the current health to the inital health and set health based on level
-        enemyStats.enemyHealth = (float)(multiplier * (27 * Math.Pow(enemyStats.enemyLevel, 2) + 10));
+        enemyStats.enemyHealth = (float)(multiplier * (27 * Math.Pow(enemyStats.enemyLevel, 2) + 10)) * 2;
         currentHealth = enemyStats.enemyHealth;
 
         //Sets the default damage
