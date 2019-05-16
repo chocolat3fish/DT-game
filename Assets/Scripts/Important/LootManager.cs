@@ -14,6 +14,34 @@ public class LootManager : MonoBehaviour
     //which genreates a random number between ranges
     private static System.Random random = new System.Random();
 
+    public static Dictionary<string, float> damagePrefixes = new Dictionary<string, float>
+    {
+        {"Keen", 1.1f},
+        {"Sharp", 1.3f},
+        {"Fierce", 1.5f},
+        {"Cruel", 1.7f},
+        {"Ruthless", 1.9f}
+    };
+
+    public static Dictionary<string, float> speedPrefixes = new Dictionary<string, float>
+    {
+        {"Quick", 1.1f},
+        {"Swift", 1.2f},
+        {"Nimble", 1.3f},
+        {"Deft", 1.4f},
+        {"Fleet", 1.5f}
+    };
+
+    public static Dictionary<string, float> rangePrefixes = new Dictionary<string, float>
+    {
+        {"Longer", 1.1f},
+        {"Tall", 1.3f},
+        {"Great", 1.5f},
+        {"Full", 1.7f},
+        {"Fat", 1.9f}
+    };
+
+
     //The main referenced method that controls wether a weapon is dropped
     //Based off a chance out of 100 and the value of the weapon
     public static LootItem DropItem(int chance, int weaponValue)
@@ -243,8 +271,53 @@ public class LootManager : MonoBehaviour
             weaponValue += 20;
         }
 
+        //Decides dictionary to choose prefixes from
+        string prefixType = "";
+        int randomImprove = random.Next(1, 3);
+        switch (randomImprove)
+        {
+            case 1:
+                prefixType = "Damage";
+                break;
+
+            case 2:
+                prefixType = "Speed";
+                break;
+
+            case 3:
+                prefixType = "Range";
+                break;
+        }
+
+        //chooses a prefix
+        List<string> dictKeys = new List<string>(); 
+        switch (prefixType)
+        {
+            case "Damage":
+                dictKeys = new List<string>(damagePrefixes.Keys);
+                break;
+
+            case "Speed":
+                dictKeys = new List<string>(speedPrefixes.Keys);
+                break;
+
+            case "Range":
+                dictKeys = new List<string>(rangePrefixes.Keys);
+                break;
+        }
+
+        string listPrefix = dictKeys[random.Next(dictKeys.Count)];
+        string newPrefix = listPrefix;
+
+
+
         float newDamage = random.Next((int)((16 * Math.Pow(newLevel, 2) + 10) * 0.9f), (int)((16 * Math.Pow(newLevel, 2) + 10) * 1.1f));
         newDamage *= damageBonus + (damageBonus * (weaponValue / 100));
+        if (prefixType == "Damage")
+        {
+            newDamage *= damagePrefixes[newPrefix];
+        }
+
         Debug.Log(weaponValue);
         if (newDamage <= 0) { newDamage = 0.1f; }
 
@@ -262,15 +335,23 @@ public class LootManager : MonoBehaviour
         float newAttackSpeed = (float)tempSpeed; //(float)Math.Round((decimal)tempSpeed, 2, MidpointRounding.AwayFromZero);
         //float newAttackSpeed = random.Next((newLevel - newLevel / 5) / 10, (newLevel + newLevel / 5) / 10);
         newAttackSpeed *= speedBonus * (float)PersistantGameManager.Instance.attackSpeedMulti;
+        if (prefixType == "Speed")
+        {
+            newAttackSpeed -= newAttackSpeed * (speedPrefixes[newPrefix] - 1);
+        }
         newAttackSpeed = (float)Math.Round(newAttackSpeed, 2);
         if (newAttackSpeed <= 0) { newAttackSpeed = 0.1f; }
 
 
         //float newRange = random.Next(newLevel + newLevel / 5, newLevel + newLevel / 5);
         float newRange = rangeBonus;
+        if (prefixType == "Range")
+        {
+            newRange *= rangePrefixes[newPrefix];
+        }
 
         if (newRange <= 0) { newRange = 0.1f; }
-        return new Weapon(weaponType, newDamage, newAttackSpeed / (float)PersistantGameManager.Instance.attackSpeedMulti, newAttackSpeed, newRange, newLevel);
+        return new Weapon(weaponType, newPrefix, newDamage, newAttackSpeed / (float)PersistantGameManager.Instance.attackSpeedMulti, newAttackSpeed, newRange, newLevel);
         
 
     
@@ -328,8 +409,51 @@ public class LootManager : MonoBehaviour
             weaponValue += 20;
         }
 
+        //Decides dictionary to choose prefixes from
+        string prefixType = "";
+        int randomImprove = random.Next(1, 3);
+        switch (randomImprove)
+        {
+            case 1:
+                prefixType = "Damage";
+                break;
+
+            case 2:
+                prefixType = "Speed";
+                break;
+
+            case 3:
+                prefixType = "Range";
+                break;
+        }
+
+        //chooses a prefix
+        List<string> dictKeys = new List<string>();
+        switch (prefixType)
+        {
+            case "Damage":
+                dictKeys = new List<string>(damagePrefixes.Keys);
+                break;
+
+            case "Speed":
+                dictKeys = new List<string>(speedPrefixes.Keys);
+                break;
+
+            case "Range":
+                dictKeys = new List<string>(rangePrefixes.Keys);
+                break;
+        }
+
+        string listPrefix = dictKeys[random.Next(dictKeys.Count)];
+        string newPrefix = listPrefix;
+
         float newDamage = random.Next((int)((16 * Math.Pow(newLevel, 2) + 10) * 0.9f), (int)((16 * Math.Pow(newLevel, 2) + 10) * 1.1f));
         newDamage *= damageBonus + (damageBonus * (weaponValue / 100));
+        if (prefixType == "Damage")
+        {
+            newDamage *= damagePrefixes[newPrefix];
+        }
+
         if (newDamage <= 0) { newDamage = 0.1f; }
               
 
@@ -346,23 +470,33 @@ public class LootManager : MonoBehaviour
         float newAttackSpeed = (float)Math.Round((decimal)tempSpeed, 2, MidpointRounding.AwayFromZero);
         //float newAttackSpeed = random.Next((newLevel - newLevel / 5) / 10, (newLevel + newLevel / 5) / 10);
         newAttackSpeed *= speedBonus * (float)PersistantGameManager.Instance.attackSpeedMulti;
+        if (prefixType == "Speed")
+        {
+            newAttackSpeed -= newAttackSpeed * (speedPrefixes[newPrefix] - 1);
+        }
+        newAttackSpeed = (float)Math.Round(newAttackSpeed, 2);
         if (newAttackSpeed <= 0) { newAttackSpeed = 0.1f; }
 
 
         //float newRange = random.Next(newLevel + newLevel / 5, newLevel + newLevel / 5);
         float newRange = rangeBonus;
+        if (prefixType == "Range")
+        {
+            newRange *= rangePrefixes[newPrefix];
+        }
 
         if (newRange <= 0) { newRange = 0.1f; }
 
 
 
-
         Debug.Log(weaponType);
+        Debug.Log(newPrefix);
         Debug.Log(newDamage);
         Debug.Log(newAttackSpeed);
         Debug.Log(newRange);
         Debug.Log(newLevel);
-        return new Weapon(weaponType, newDamage, newAttackSpeed / (float)PersistantGameManager.Instance.attackSpeedMulti, newAttackSpeed, newRange, newLevel);
+        
+        return new Weapon(weaponType, newPrefix, newDamage, newAttackSpeed / (float)PersistantGameManager.Instance.attackSpeedMulti, newAttackSpeed, newRange, newLevel);
     }
 
     public static Consumable GenerateConsumable(int value)
