@@ -1254,7 +1254,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &303832651
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1718,7 +1718,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &480811691
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3165,7 +3165,7 @@ MonoBehaviour:
   - TripleJump
   levelToUnlock: 1
   nessesaryXPLevel: 1
-  maxLevel: 10
+  maxLevel: 1
   skillPointCost: 1
   text: 
 --- !u!1 &754292122
@@ -3667,7 +3667,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &877312015
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5374,7 +5374,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1284483527
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6992,7 +6992,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1689995767
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8405,7 +8405,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1906033585
 RectTransform:
   m_ObjectHideFlags: 0

@@ -108,12 +108,12 @@ public class EnemyAttacks : MonoBehaviour
 
         if (PersistantGameManager.Instance.playerStats.playerLevel < 4)
         {
-            projectileDamage = (float)(multiplier * (5 * Math.Pow(enemyMonitor.enemyStats.enemyLevel, 2) + 10) * 0.4f);
+            projectileDamage = (float)(multiplier * (2.5 * Math.Pow(enemyMonitor.enemyStats.enemyLevel, 2) + 10) * 0.4f);
         }
         else
         {
 
-            projectileDamage = (float)(multiplier * (5 * Math.Pow(enemyMonitor.enemyStats.enemyLevel, 2) + 10));
+            projectileDamage = (float)(multiplier * (2.5 * Math.Pow(enemyMonitor.enemyStats.enemyLevel, 2) + 10));
         }
     }
 

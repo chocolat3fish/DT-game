@@ -81,6 +81,8 @@ public class PlayerControls : MonoBehaviour
 
     private bool useFireball;
 
+    private static System.Random random = new System.Random();
+
     private void Awake()
     {
         animator = gameObject.GetComponent<Animator>();
@@ -158,10 +160,17 @@ public class PlayerControls : MonoBehaviour
 
         }
 
-        if (Input.GetKeyDown(KeyCode.Q) && PersistantGameManager.Instance.hasSmite)
+        if (Input.GetKeyDown(KeyCode.Q) && PersistantGameManager.Instance.hasSmite && Time.time >= timeOfMagic + magicCooldown)
         {
             //on attack press, fireball function and set cooldown
             StartCoroutine(Fireball());
+            if (PersistantGameManager.Instance.skillLevels["SmiteDuration"] > 0)
+            {
+                //activate smite's duration and record time.
+                PersistantGameManager.Instance.timeOfAbility = Time.time;
+                timeOfMagic = Time.time;
+                SmiteDuration();
+            }
         }
 
         if (Input.GetKeyDown(KeyCode.R) && PersistantGameManager.Instance.damageResist && Time.time >= timeOfMagic + magicCooldown)
@@ -176,7 +185,7 @@ public class PlayerControls : MonoBehaviour
         //changes x axis speed and keeps current y axis velocity
         if (playerInput != Vector2.zero)
         {
-            playerRigidbody.velocity = new Vector2(playerInput.x * moveSpeed, playerRigidbody.velocity.y);
+            playerRigidbody.velocity = new Vector2(playerInput.x * moveSpeed * PersistantGameManager.Instance.moveSpeedMulti, playerRigidbody.velocity.y);
         }
         //tells animator what the speed is as a positive value so it can then activate the running/walking animation
         animator.SetFloat("Speed", Mathf.Abs(playerRigidbody.velocity.x));
@@ -191,7 +200,7 @@ public class PlayerControls : MonoBehaviour
                 //float newMoveResist =  ( PersistantGameManager.Instance.movementResistMulti * (playerRigidbody.velocity.x / 10));
 
                 //PersistantGameManager.Instance.damageResistMulti = (stockDamageResist * newMoveResist);
-                PersistantGameManager.Instance.damageResistMulti = (1 - PersistantGameManager.Instance.movementResistMulti * (playerRigidbody.velocity.x / 10)) * PersistantGameManager.Instance.turtleResistMulti;
+                PersistantGameManager.Instance.damageResistMulti = (1 - PersistantGameManager.Instance.movementResistMulti * (playerRigidbody.velocity.x / 10)) * (PersistantGameManager.Instance.turtleResistMulti * PersistantGameManager.Instance.turtleMultiMulti);
             }
             else
             {
@@ -208,7 +217,7 @@ public class PlayerControls : MonoBehaviour
                 //float newMoveResist = (PersistantGameManager.Instance.movementResistMulti * (playerRigidbody.velocity.x / 10) * -1);
 
                 //PersistantGameManager.Instance.damageResistMulti = (stockDamageResist * newMoveResist);
-                PersistantGameManager.Instance.damageResistMulti = (1 - PersistantGameManager.Instance.movementResistMulti * (playerRigidbody.velocity.x / 10) * -1) * PersistantGameManager.Instance.turtleResistMulti;
+                PersistantGameManager.Instance.damageResistMulti = (1 - PersistantGameManager.Instance.movementResistMulti * (playerRigidbody.velocity.x / 10) * -1) * (PersistantGameManager.Instance.turtleResistMulti * PersistantGameManager.Instance.turtleMultiMulti);
             }
 
             else
@@ -241,12 +250,24 @@ public class PlayerControls : MonoBehaviour
         //if player moving exceedingly fast, pushes the camera ahead to keep player visible
         if (playerRigidbody.velocity.y < -(jumpSpeed + 2))
         {
-            cameraMovement.offset.y = -4.5f;
+            cameraMovement.offset.y = -5f;
         }
+        //if fast downward movement suddenly snaps to upward velocity (fixes old problem)
+        if (playerRigidbody.velocity.y < -(jumpSpeed + 2) && Input.GetKeyDown(KeyCode.Space) && canJump)
+        {
+            cameraMovement.offset.y = 2f;
+        }
+        //if falling but not too fast so you can see the ground
+        if (playerRigidbody.velocity.y < -jumpSpeed)
+        {
+            cameraMovement.offset.y = -4f;
+        }
+        // if moving up, camera goes ahead of you
         if (playerRigidbody.velocity.y > jumpSpeed + 2)
         {
-            cameraMovement.offset.y = 4.5f;
+            cameraMovement.offset.y = 2f;
         }
+        //if not enough velocity to warrant a camera offset
         if (playerRigidbody.velocity.y < 0.05f && playerRigidbody.velocity.y > -0.05)
         {
             cameraMovement.offset.y = 0f;
@@ -267,7 +288,7 @@ public class PlayerControls : MonoBehaviour
             animator.SetBool("IsJumping", true);
 
             playerRigidbody.velocity = new Vector2(playerRigidbody.velocity.x, 0);
-            playerRigidbody.AddForce(Vector2.up * jumpSpeed, ForceMode2D.Impulse);
+            playerRigidbody.AddForce(Vector2.up * jumpSpeed * PersistantGameManager.Instance.jumpHeightMulti, ForceMode2D.Impulse);
             shouldJump = false;
             canJump = true;
             currentJumps++;
@@ -370,7 +391,7 @@ public class PlayerControls : MonoBehaviour
             useFireball = false;
             leftDetector.enabled = false;
 
-
+            
         }
         if (facingRight)
         {
@@ -386,10 +407,18 @@ public class PlayerControls : MonoBehaviour
 
     public void ResistDamage()
     {
-        PersistantGameManager.Instance.damageResistMulti = PersistantGameManager.Instance.turtleResistMulti;
+        PersistantGameManager.Instance.damageResistMulti = PersistantGameManager.Instance.turtleResistMulti * PersistantGameManager.Instance.turtleMultiMulti;
         PersistantGameManager.Instance.currentActiveAbility = "Turtle";
         PersistantGameManager.Instance.abilityIsActive = true;
         PersistantGameManager.Instance.abilityDuration = PersistantGameManager.Instance.damageResistDuration;
+    }
+
+    public void SmiteDuration()
+    {
+        PersistantGameManager.Instance.currentAttackMultiplier = 1 + PersistantGameManager.Instance.smiteDurationMulti;
+        PersistantGameManager.Instance.currentActiveAbility = "Smite";
+        PersistantGameManager.Instance.abilityIsActive = true;
+        PersistantGameManager.Instance.abilityDuration = PersistantGameManager.Instance.smiteDuration;
     }
 
     public float CalculatePlayerHealing()
@@ -402,34 +431,52 @@ public class PlayerControls : MonoBehaviour
     {
         if (useFireball)
         {
-            return (CalculateHighDamage() * PersistantGameManager.Instance.currentAttackMultiplier);
+            if (playerRigidbody.velocity.y > 0f || playerRigidbody.velocity.y < 0f)
+            {
+                return CalculateHighDamage() * PersistantGameManager.Instance.currentAttackMultiplier * PersistantGameManager.Instance.airAttackMulti;
+            }
+            return CalculateHighDamage() * PersistantGameManager.Instance.currentAttackMultiplier;
         }
         else
         {
+            int randomNumber = random.Next(1, 100);
+            if(randomNumber <= PersistantGameManager.Instance.instantKillChance)
+            {
+                Debug.Log("big damage");
+                return playerDamage = (float)Math.Pow(100, 4);
+            }
+
             float timeSinceAttack = Time.time - timeOfAttack;
             if (timeSinceAttack > attackSpeed)
             {
                 timeOfAttack = Time.time;
+
+                if (playerRigidbody.velocity.y > 0f || playerRigidbody.velocity.y < 0f)
+                {
+                    return playerDamage * 1.2f * PersistantGameManager.Instance.currentAttackMultiplier * PersistantGameManager.Instance.airAttackMulti;
+                }
                 return playerDamage * 1.2f * PersistantGameManager.Instance.currentAttackMultiplier;
             }
-            double newPlayerDamage = playerDamage * (timeSinceAttack / attackSpeed);
+            double newPlayerDamage = playerDamage * ((timeSinceAttack / attackSpeed) / 2);
             timeOfAttack = Time.time;
-            return newPlayerDamage * PersistantGameManager.Instance.currentAttackMultiplier;
+            if (playerRigidbody.velocity.y > 0f || playerRigidbody.velocity.y < 0f)
+            {
+                return newPlayerDamage * PersistantGameManager.Instance.currentAttackMultiplier * PersistantGameManager.Instance.airAttackMulti;
+            }
+            return newPlayerDamage * PersistantGameManager.Instance.currentAttackMultiplier; 
         }
     }
 
     private float CalculateHighDamage()
     {
-        float timeSinceMagic = Time.time - timeOfMagic;
+        //float timeSinceMagic = Time.time - timeOfMagic;
         float magicDamage;
-        if (timeSinceMagic > magicCooldown)
-        {
-            timeOfMagic = Time.time;
-            magicDamage = playerDamage * 2f;
-            return magicDamage * 2f;
+        //if (timeSinceMagic > magicCooldown)
 
-        }
-        return magicDamage = 0;
+        timeOfMagic = Time.time;
+        magicDamage = playerDamage * 2f * PersistantGameManager.Instance.smiteDamageMulti;
+        return magicDamage * 2f;
+
 
 
     }

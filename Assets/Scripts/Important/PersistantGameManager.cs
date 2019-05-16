@@ -46,12 +46,21 @@ public class PersistantGameManager : MonoBehaviour
     //Skill related multipliers
     public double attackSpeedMulti = 1;
     public float attackRangeMulti = 1;
-    public float attackDamageMulti = 1;
+    public float currentAttackMultiplier = 1; // player damage multi
+    public float smiteDamageMulti = 1; // skill damage multi
+    public float smiteDurationMulti = 1; // skill's duration effect damage multi
     public float lifeStealMulti = 0;
     public float totalHealthMulti = 0;
     public float damageResistMulti = 1;
-    public float turtleResistMulti = 0.5f;
+    public float turtleResistMulti = 0.5f; // player resist multi
+    public float turtleMultiMulti = 1; // skill resistance multi
+    public float turtleDurationMulti = 1; 
     public float movementResistMulti = 1;
+    public float moveSpeedMulti = 1;
+    public float jumpHeightMulti = 1;
+    public float airAttackMulti = 1;
+    public float instantKillChance = 0;
+    public float betterLootChance = 0;
 
     [Header("Menu Statuses")]
     public bool compareScreenOpen;
@@ -77,6 +86,7 @@ public class PersistantGameManager : MonoBehaviour
     public float timeOfAbility;
     public float abilityDuration;
     public float damageResistDuration = 15;
+    public float smiteDuration = 10;
     public bool checkSkills;
     public bool checkExp;
 
@@ -122,7 +132,7 @@ public class PersistantGameManager : MonoBehaviour
     public int attackSpeedUpgrades;
     public bool potionIsActive;
     public string activePotionType;
-    public float currentAttackMultiplier = 1;
+
     public float currentLeechMultiplier = 0;
     public float timeOfAttackMultiplierChange;
     public float timeOfLeechMultiplierChange;
@@ -218,9 +228,10 @@ public class PersistantGameManager : MonoBehaviour
     void Update()
     {
 
-        if (Time.time > (timeOfAbility + abilityDuration) && damageResistMulti < 1)
+        if (Time.time > (timeOfAbility + abilityDuration) && (damageResistMulti < 1 || currentAttackMultiplier > 1))
         {
             damageResistMulti = 1;
+            currentAttackMultiplier = 1;
             currentActiveAbility = "";
             abilityIsActive = false;
         }
@@ -511,17 +522,13 @@ public class PersistantGameManager : MonoBehaviour
     {
         checkSkills = false;
 
-        #region AttackSpeed
-
+        #region Damage
         attackSpeedMulti = 1 - (0.05 * skillLevels["AttackSpeed"]);
         foreach (Weapon weapon in playerWeaponInventory)
         {
-            weapon.trueItemSpeed = weapon.stockItemSpeed* (float) attackSpeedMulti;
+            weapon.trueItemSpeed = weapon.stockItemSpeed * (float) attackSpeedMulti;
         }
 
-        #endregion
-
-        #region Smite
 
         if (skillLevels["Smite"] > 0)
         {
@@ -529,30 +536,24 @@ public class PersistantGameManager : MonoBehaviour
             hasSmite = true;
         }
 
-        #endregion
+        smiteDamageMulti = 1 + (0.05f * skillLevels["SmiteDamage"]);
 
-        #region LifeSteal
+        smiteDurationMulti = 1 + (0.05f * skillLevels["SmiteDuration"]);
+
 
         lifeStealMulti = 0.05f * skillLevels["LifeSteal"];
 
         #endregion
 
-        #region HealthBonus
-
+        #region Tank
         float missingHealth = player.totalHealth - player.currentHealth;
         totalHealthMulti = 0.05f * skillLevels["HealthBonus"];
         player.totalHealth = player.stockHealth + (player.stockHealth * totalHealthMulti);
         player.currentHealth = player.totalHealth - missingHealth;
 
-        #endregion
-
-        #region MoveDefence
 
         movementResistMulti = 1 - (0.06f * skillLevels["DefenceWithMovement"]);
 
-        #endregion
-
-        #region Turtle
 
         if (skillLevels["Turtle"] > 0)
         {
@@ -560,26 +561,40 @@ public class PersistantGameManager : MonoBehaviour
             damageResist = true;
         }
 
+        turtleMultiMulti = 1 - (0.05f * skillLevels["TurtleDefense"]);
+
+        turtleDurationMulti = 1 + (0.05f * skillLevels["TurtleDuration"]);
+        damageResistDuration = 15 * turtleDurationMulti;
+
         #endregion
 
-        #region TripleJump
+        #region Mobility
+
+        moveSpeedMulti = 1 + (0.05f * skillLevels["MoveSpeed"]);
+
+        airAttackMulti = 1 + (0.05f * skillLevels["AirAttack"]);
 
         if (skillLevels["TripleJump"] > 0)
         {
             tripleJump = true;
         }
 
-        #endregion
-
-        #region GripWalls
-
         if (skillLevels["GripWalls"] > 0)
         {
             gripWalls = true;
         }
 
+        jumpHeightMulti = 1 + (0.05f * skillLevels["JumpHeight"]);
+
         #endregion
 
+        #region Misc
+
+        instantKillChance = 0 + (1f * skillLevels["InstantKill"]);
+
+        betterLootChance = 0 + (1f * skillLevels["WeaponDropValue"]);
+
+        #endregion
 
 
     }

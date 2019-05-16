@@ -245,8 +245,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 1301386320, guid: f70555f144d8491a825f0804e09c671c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   m_IgnoreReversedGraphics: 1
   m_BlockingObjects: 0
   m_BlockingMask:
@@ -262,8 +262,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 1980459831, guid: f70555f144d8491a825f0804e09c671c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   m_UiScaleMode: 0
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
@@ -344,8 +344,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 1301386320, guid: f70555f144d8491a825f0804e09c671c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   m_IgnoreReversedGraphics: 1
   m_BlockingObjects: 0
   m_BlockingMask:
@@ -361,8 +361,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 1980459831, guid: f70555f144d8491a825f0804e09c671c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   m_UiScaleMode: 0
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
@@ -456,8 +456,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0fdd4c612d7c540c88b4b61d472da602, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   patrolPoints: []
   player: {fileID: 0}
   hasJumped: 0
@@ -527,8 +527,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0fdd4c612d7c540c88b4b61d472da602, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   patrolPoints: []
   player: {fileID: 0}
   hasJumped: 0
@@ -602,8 +602,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 1077351063, guid: f70555f144d8491a825f0804e09c671c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   m_HorizontalAxis: Horizontal
   m_VerticalAxis: Vertical
   m_SubmitButton: Submit
@@ -621,8 +621,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: -619905303, guid: f70555f144d8491a825f0804e09c671c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   m_FirstSelected: {fileID: 0}
   m_sendNavigationEvents: 1
   m_DragThreshold: 10
@@ -688,8 +688,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 0.392}
   m_RaycastTarget: 1
@@ -937,8 +937,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 77621813b48d04d3fba942c0b465370e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   currentHealth: 0
   distanceToPlayer: 0
   droppedQuestItem: 0
@@ -1307,8 +1307,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 77621813b48d04d3fba942c0b465370e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   currentHealth: 0
   distanceToPlayer: 0
   droppedQuestItem: 0
@@ -1325,7 +1325,7 @@ MonoBehaviour:
   weaponValue: 10
   itemValue: 100
   questTarget: 0
-  questReward: 
+  questReward:
   waitingForCollision: 0
 --- !u!212 &603987000
 SpriteRenderer:
@@ -1518,8 +1518,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 1301386320, guid: f70555f144d8491a825f0804e09c671c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   m_IgnoreReversedGraphics: 1
   m_BlockingObjects: 0
   m_BlockingMask:
@@ -1535,8 +1535,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 1980459831, guid: f70555f144d8491a825f0804e09c671c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   m_UiScaleMode: 0
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
@@ -1595,8 +1595,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0fdd4c612d7c540c88b4b61d472da602, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   patrolPoints: []
   player: {fileID: 0}
   hasJumped: 0
@@ -1690,8 +1690,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3efdf97c81c604cc8bd63b50183e89ac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
 --- !u!114 &808667711
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1702,8 +1702,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
@@ -2017,8 +2017,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 1301386320, guid: f70555f144d8491a825f0804e09c671c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   m_IgnoreReversedGraphics: 1
   m_BlockingObjects: 0
   m_BlockingMask:
@@ -2034,8 +2034,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 1980459831, guid: f70555f144d8491a825f0804e09c671c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   m_UiScaleMode: 0
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
@@ -2115,8 +2115,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3efdf97c81c604cc8bd63b50183e89ac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
 --- !u!114 &1169497610
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2127,8 +2127,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
@@ -2201,8 +2201,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   m_Material: {fileID: 0}
   m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_RaycastTarget: 1
@@ -2387,8 +2387,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3bac5b867d1fa45f6a3bcc6d240712f9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   player: {fileID: 2104623955}
   nextScene: New Scene Test
   currentScene: Character Control with enemy attack
@@ -2469,8 +2469,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 77621813b48d04d3fba942c0b465370e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   currentHealth: 0
   distanceToPlayer: 0
   droppedQuestItem: 0
@@ -2487,7 +2487,7 @@ MonoBehaviour:
   weaponValue: 50
   itemValue: 0
   questTarget: 0
-  questReward: 
+  questReward:
   waitingForCollision: 0
 --- !u!212 &1348077151
 SpriteRenderer:
@@ -4512,8 +4512,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0fea31952ec21f048a9ce1f4f3dc5816, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   isTalking: 0
   canContinueDialouge: 0
   characterQuests:
@@ -4571,29 +4571,29 @@ MonoBehaviour:
     - goodbye
     questItemName: Hood of Sartuka
     questKey: Ja03
-  - questName: 
-    questType: 
+  - questName:
+    questType:
     sentencesBeforeQuest1stTime: []
     sentencesBeforeQuest2ndTime: []
-    questStatment: 
-    questStatmentWithItem: 
+    questStatment:
+    questStatmentWithItem:
     sentencesAfterQuest: []
-    questDescription: 
+    questDescription:
     sentencesAfterQuestEnd: []
-    questItemName: 
-    questKey: 
+    questItemName:
+    questKey:
   currentQuest:
-    questName: 
-    questType: 
+    questName:
+    questType:
     sentencesBeforeQuest1stTime: []
     sentencesBeforeQuest2ndTime: []
-    questStatment: 
-    questStatmentWithItem: 
+    questStatment:
+    questStatmentWithItem:
     sentencesAfterQuest: []
-    questDescription: 
+    questDescription:
     sentencesAfterQuestEnd: []
-    questItemName: 
-    questKey: 
+    questItemName:
+    questKey:
   nameOfNpc: Jason
 --- !u!212 &1481913874
 SpriteRenderer:
@@ -4726,8 +4726,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 25e8871b84d6b46a5968feec181a4038, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   player: {fileID: 0}
 --- !u!1 &1645279217
 GameObject:
@@ -4757,8 +4757,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4b1ab7afe4a41468bbb38ae3b264a759, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
 --- !u!114 &1645279219
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4769,8 +4769,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4cd19ec11e1dbbd41ac1db47758d69a3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   possibleConsumables:
   - 20%H
   - 50%H
@@ -4785,32 +4785,41 @@ MonoBehaviour:
   - Hood of Sartuka
   - Claw of Straphagus
   currentDialogueQuest:
-    questName: 
-    questType: 
+    questName:
+    questType:
     sentencesBeforeQuest1stTime: []
     sentencesBeforeQuest2ndTime: []
-    questStatment: 
-    questStatmentWithItem: 
+    questStatment:
+    questStatmentWithItem:
     sentencesAfterQuest: []
-    questDescription: 
+    questDescription:
     sentencesAfterQuestEnd: []
-    questItemName: 
-    questKey: 
+    questItemName:
+    questKey:
   activeQuests: []
   attackSpeedMulti: 1
   attackRangeMulti: 1
-  attackDamageMulti: 1
+  currentAttackMultiplier: 1
+  smiteDamageMulti: 1
+  smiteDurationMulti: 1
   lifeStealMulti: 0
   totalHealthMulti: 1
   damageResistMulti: 1
   turtleResistMulti: 0.5
+  turtleMultiMulti: 1
+  turtleDurationMulti: 1
   movementResistMulti: 1
+  moveSpeedMulti: 1
+  jumpHeightMulti: 1
+  airAttackMulti: 1
+  instantKillChance: 0
+  betterLootChance: 0
   compareScreenOpen: 0
   characterScreenOpen: 0
   skillsScreenOpen: 0
   menuCanvasOpen: 0
   comparingWeapon:
-    itemName: 
+    itemName:
     itemDamage: 0
     stockItemSpeed: 0
     trueItemSpeed: 0
@@ -4824,21 +4833,22 @@ MonoBehaviour:
   _camera: {fileID: 0}
   magicBar: {fileID: 0}
   hasMagic: 0
-  currentActiveAbility: 
+  currentActiveAbility:
   abilityIsActive: 0
   timeOfAbility: 0
   abilityDuration: 0
   damageResistDuration: 15
+  smiteDuration: 10
   checkSkills: 0
   checkExp: 0
-  currentScene: 
+  currentScene:
   currentIndex: 0
   previousIndex: 0
   tutorialComplete: 0
   totalExperience: 300
   GodMode: 0
   currentWeapon:
-    itemName: 
+    itemName:
     itemDamage: 0
     stockItemSpeed: 0
     trueItemSpeed: 0
@@ -4847,34 +4857,33 @@ MonoBehaviour:
   playerWeaponInventory: []
   playerStats:
     health: 0
-    playerLevel: 4
+    playerLevel: 100
     playerExperience: 0
-    playerSkillPoints: 3
+    playerSkillPoints: 99
   damageProgress: 0
   tankProgress: 0
   mobilityProgress: 0
   attackSpeedUpgrades: 0
   potionIsActive: 0
-  activePotionType: 
-  currentAttackMultiplier: 1
+  activePotionType:
   currentLeechMultiplier: 0
   timeOfAttackMultiplierChange: 0
   timeOfLeechMultiplierChange: 0
   healthPotionUseTime: 0
   potionCoolDownTime: 30
   currentArmour:
-    armourType: 
+    armourType:
     defence: 0
   comparingArmour:
-    armourType: 
+    armourType:
     defence: 0
   tripleJump: 0
   hasSmite: 0
   gripWalls: 0
   maxedSpeed: 0
   damageResist: 0
-  equippedItemOne: 
-  equippedItemTwo: 
+  equippedItemOne:
+  equippedItemTwo:
 --- !u!4 &1645279220
 Transform:
   m_ObjectHideFlags: 0
@@ -5036,8 +5045,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 25e8871b84d6b46a5968feec181a4038, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   player: {fileID: 0}
 --- !u!1 &1817080698
 GameObject:
@@ -5066,8 +5075,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0c60aa1a9c3a149ca99c692e2c3e9324, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   dialoguePanel: {fileID: 0}
 --- !u!4 &1817080700
 Transform:
@@ -5131,8 +5140,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3efdf97c81c604cc8bd63b50183e89ac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
 --- !u!114 &1820669295
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5143,8 +5152,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
@@ -5272,8 +5281,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 83db00ea8e87a45149bed5f06c2034d5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   smoothSpeed: 0.05
   adjustSmoothSpeed: 0.85
   offset: {x: 0, y: 0}
@@ -5400,7 +5409,7 @@ Animator:
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
-  m_WarningMessage: 
+  m_WarningMessage:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
@@ -5500,8 +5509,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cba78c7378c2c4242a4e0d5833a66959, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   range: 1
   moveSpeed: 7
   jumpSpeed: 6
@@ -5509,9 +5518,9 @@ MonoBehaviour:
   totalJumps: 2
   playerStats:
     health: 0
-    playerLevel: 0
+    playerLevel: 100
     playerExperience: 0
-    playerSkillPoints: 0
+    playerSkillPoints: 99
   deathScene: You lost
   playerDamage: 1
   attackSpeed: 1
@@ -5563,8 +5572,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 825048b295e9b4575bc1769b9d069190, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
 --- !u!114 &2104623964
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5575,8 +5584,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fdf3b4e924af656409709616e6d4032b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
 --- !u!1 &2146851574
 GameObject:
   m_ObjectHideFlags: 0
