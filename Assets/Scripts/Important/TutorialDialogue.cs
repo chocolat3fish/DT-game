@@ -87,6 +87,7 @@ public class TutorialDialogue : MonoBehaviour
             if(distance < 2 && Input.GetKeyDown(KeyCode.M))
             {
                 currentSentenceIndex = 1;
+                toTalkPanel.SetActive(false);
                 ContinueDialogue();
             }
         }
@@ -125,8 +126,8 @@ public class TutorialDialogue : MonoBehaviour
             }
             previousChar = ch;
             text.text += ch;
-            yield return null;
-            yield return null;
+            yield return new WaitForSecondsRealtime(0.02f);
+
 
             if (shouldWait)
             {
@@ -252,7 +253,7 @@ public class TutorialDialogue : MonoBehaviour
                     GameObject questDrop = Instantiate(Resources.Load("Loot Drop"), player.transform.position, Quaternion.identity) as GameObject;
                     LootDropMonitor questDropMonitor = questDrop.GetComponent<LootDropMonitor>();
                     questDropMonitor.type = 0;
-                    questDropMonitor.itemStats = new Weapon("Jason's Dagger", 1, 0.5f, 0.5f, 1, 1);
+                    questDropMonitor.itemStats = new Weapon("Jason's Dagger", 5, 0.5f, 0.5f, 1, 1.5f);
                     StartCoroutine(AddChars("Here's my dagger, I don't use it much anyway, Use 'e' to pick up a weapon, and use 1, 2 or 3 to choose the slot.../d", canvasMainText));
                     currentSentenceIndex = 6;
                 }
@@ -261,15 +262,15 @@ public class TutorialDialogue : MonoBehaviour
                     print("Continued");
                     bool hasPickedItUp = false;
 
-                    foreach(Weapon weapon in PersistantGameManager.Instance.playerWeaponInventory)
+                    foreach (Weapon weapon in PersistantGameManager.Instance.playerWeaponInventory)
                     {
-                        if(weapon.itemName == "Jason's Dagger")
+                        if (weapon.itemName == "Jason's Dagger")
                         {
                             hasPickedItUp = true;
                             break;
                         }
                     }
-                    if(hasPickedItUp)
+                    if (hasPickedItUp)
                     {
                         currentSentenceIndex = 7;
                         ContinueDialogue();
@@ -284,7 +285,7 @@ public class TutorialDialogue : MonoBehaviour
                         currentSentenceIndex = 7;
                     }
                 }
-                else if(currentSentenceIndex == 7)
+                else if (currentSentenceIndex == 7)
                 {
                     canContinueDialogue = false;
                     StopAllCoroutines();
@@ -294,11 +295,11 @@ public class TutorialDialogue : MonoBehaviour
                     StartCoroutine(WaitForPlayerToKillEnemy());
                     currentSentenceIndex = 8;
                 }
-                else if(currentSentenceIndex == 8)
+                else if (currentSentenceIndex == 8)
                 {
                     canContinueDialogue = false;
                     StopAllCoroutines();
-                    if(player.currentHealth > player.totalHealth - 0.01f)
+                    if (player.currentHealth > player.totalHealth - 0.01f)
                     {
                         StartCoroutine(AddChars("Wow, I'm impressed you did that without taking any damage!.../d", canvasMainText));
                         currentSentenceIndex = 9;
@@ -312,20 +313,91 @@ public class TutorialDialogue : MonoBehaviour
                     }
 
                 }
-                else if(currentSentenceIndex == 9)
+                else if (currentSentenceIndex == 9)
                 {
                     canContinueDialogue = false;
                     StopAllCoroutines();
                     StartCoroutine(AddChars("But if you do take damage your health regenerates after a few seconds of no combat.../d", canvasMainText));
                     currentSentenceIndex = 10;
                 }
-                else if(currentSentenceIndex == 10)
+                else if (currentSentenceIndex == 10)
+                {
+                    canContinueDialogue = false;
+                    StopAllCoroutines();
+                    StartCoroutine(AddChars("If you want you can pick up the weapon the enemy dropped.../d ", canvasMainText));
+                    currentSentenceIndex = 11;
+                }
+                else if (currentSentenceIndex == 11)
+                {
+                    canContinueDialogue = false;
+                    StopAllCoroutines();
+                    StartCoroutine(AddChars("He also gave you some xp, You need a certian ammount of xp to level up\nAnd you seem to have leveled up.../d", canvasMainText));
+                    currentSentenceIndex = 13;
+                }
+                /*Obselete
+                else if (currentSentenceIndex == 12)
+                {
+                    canContinueDialogue = false;
+                    StopAllCoroutines();
+                    StartCoroutine(AddChars("Click 'u' to open the player canvas, Then from there click 'k' to open the skills panel, to unlock a skill you must spend a skill point.../d", canvasMainText));
+                    currentSentenceIndex = 13;
+                }
+                */
+                else if (currentSentenceIndex == 13)
+                {
+                    if (PersistantGameManager.Instance.playerStats.playerSkillPoints == 0)
+                    {
+                        currentSentenceIndex = 14;
+                        ContinueDialogue();
+                    }
+                    if(PersistantGameManager.Instance.playerStats.playerSkillPoints >  0)
+                    {
+                        canvasContinueButton.gameObject.SetActive(false);
+                        canContinueDialogue = false;
+                        StopAllCoroutines();
+                        StartCoroutine(AddChars("Using 'u' then 'k' you can open the skills panel, on that you can spend skill points to unlock skills, try that now...", canvasMainText));
+                        StartCoroutine(WaitForPlayerToUnlockSkill());
+                        currentSentenceIndex = 14;
+                    }
+                }
+                else if (currentSentenceIndex == 14)
                 {
                     StopAllCoroutines();
-                    StartCoroutine(AddChars("You have completed the tutorial so far!", canvasMainText));
+                    canContinueDialogue = false;
+                    StartCoroutine(AddChars("Every time you level up you get a skill point, you will use these to unlock skills, remember to use them.../d", canvasMainText));
+                    currentSentenceIndex = 15;
                 }
-
-
+                else if(currentSentenceIndex == 15)
+                {
+                    StopAllCoroutines();
+                    canContinueDialogue = false;
+                    StartCoroutine(AddChars("Ok quick test before you leave.../d", canvasMainText));
+                    currentSentenceIndex = 16;
+                }
+                else if(currentSentenceIndex == 16)
+                {
+                    StopAllCoroutines();
+                    canContinueDialogue = false;
+                    canvasContinueButton.gameObject.SetActive(false);
+                    StartCoroutine(AddChars("Try to arrange your weapons so my dagger is in slot 1, and the weapon the enemy dropped in slot 2...", canvasMainText));
+                    StartCoroutine(WaitForPlayerToArrangeWeapons());
+                    currentSentenceIndex = 17;
+                }
+                else if(currentSentenceIndex == 17)
+                {
+                    StopAllCoroutines();
+                    canContinueDialogue = false;
+                    StartCoroutine(AddChars("I have taught you all I can, you have done well in the short ammount of time we had.../d", canvasMainText));
+                    currentSentenceIndex = 18;
+                }
+                else if (currentSentenceIndex == 18)
+                {
+                    StopAllCoroutines();
+                    canContinueDialogue = false;
+                    canvasContinueButton.gameObject.SetActive(false);
+                    StartCoroutine(AddChars("Use 'enter' to go through doors, now begone and explore the world. Goodbye", canvasMainText));
+                    PersistantGameManager.Instance.tutorialComplete = true;
+                }
 
 
 
@@ -507,12 +579,12 @@ public class TutorialDialogue : MonoBehaviour
         {
             try
             {
-                print("Alive");
+            
                 GameObject nothing = FindObjectOfType<EnemyAttacks>().gameObject;
             }
             catch
             {
-                print("Dead");
+          
                 killed = true;
             }
             if(killed)
@@ -537,4 +609,33 @@ public class TutorialDialogue : MonoBehaviour
             yield return new WaitForSecondsRealtime(0.2f);
         }
     }
+    IEnumerator WaitForPlayerToUnlockSkill()
+    {
+        while (true)
+        {
+            if (PersistantGameManager.Instance.playerStats.playerSkillPoints == 0)
+            {
+                canContinueDialogue = true;
+                canvasContinueButton.gameObject.SetActive(true);
+                break;
+            }
+            yield return new WaitForSecondsRealtime(0.2f);
+        }
+    }
+    IEnumerator WaitForPlayerToArrangeWeapons()
+    {
+        while (true)
+        {
+
+            if (PersistantGameManager.Instance.playerWeaponInventory[0].itemName == "Jason's Dagger" && PersistantGameManager.Instance.playerWeaponInventory[1].itemDamage > 0.1f)
+            {
+                break;
+            }
+            yield return new WaitForSecondsRealtime(0.2f);
+        }
+        canContinueDialogue = true;
+        canvasContinueButton.gameObject.SetActive(true);
+
+    }
+
 }

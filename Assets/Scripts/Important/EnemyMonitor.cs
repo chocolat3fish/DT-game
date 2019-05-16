@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.SceneManagement;
 
 //******MUST BE CHILDED TO AN ENEMY ENEMYSTATS MUST BE SET INSPECTOR******\\
 
@@ -249,7 +250,7 @@ public class EnemyMonitor : MonoBehaviour
         //PersistantGameManager.Instance.checkExp = true;
 
         float xpValue;
-        float multiplier = 1;
+        float multiplier = 1f;
 
         switch (enemyClass)
         {
@@ -264,10 +265,18 @@ public class EnemyMonitor : MonoBehaviour
             case "Heavy":
                 multiplier *= 0.075f;
                 break;
+            default:
+                multiplier *= 0.05f;
+                break;
         }
 
         xpValue = (float)((0.04 * Math.Pow(enemyLevel, 3)) + (0.8 * Math.Pow(enemyLevel, 2)) + 500) * multiplier;
+        if(SceneManager.GetActiveScene().name == "Tutorial")
+        {
+            xpValue = 110;
+        }
         PersistantGameManager.Instance.playerStats.playerExperience += xpValue;
+        print(multiplier);
         Debug.Log(xpValue);
         PersistantGameManager.Instance.checkExp = true;
     }

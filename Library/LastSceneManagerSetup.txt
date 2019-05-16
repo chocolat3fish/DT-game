@@ -1,6 +1,4 @@
 sceneSetups:
-
-- path: Assets/Scenes/Async Scenes/Character Canvas.unity
-
+- path: Assets/Scenes/Tutorial.unity
   isLoaded: 1
   isActive: 1

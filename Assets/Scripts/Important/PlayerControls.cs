@@ -108,7 +108,7 @@ public class PlayerControls : MonoBehaviour
         rightDetector.enabled = false;
 
         currentJumps = 0;
-        stockHealth = (float)(54f * Math.Pow(PersistantGameManager.Instance.playerStats.playerLevel, 2) + 10f);
+        stockHealth = (float)(54f * Math.Pow(PersistantGameManager.Instance.playerStats.playerLevel, 2) + 46f);
         totalHealth = stockHealth + (stockHealth * PersistantGameManager.Instance.totalHealthMulti);
         currentHealth = totalHealth;
     }

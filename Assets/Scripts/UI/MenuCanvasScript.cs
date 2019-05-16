@@ -506,19 +506,81 @@ public class MenuCanvasScript : MonoBehaviour
         double itemTwoSpeed = PersistantGameManager.Instance.playerWeaponInventory[1].trueItemSpeed;
         double itemThreeSpeed = PersistantGameManager.Instance.playerWeaponInventory[2].trueItemSpeed;
 
-        wD1Output.text = PersistantGameManager.Instance.playerWeaponInventory[0].itemDamage.ToString();
-        wD2Output.text = PersistantGameManager.Instance.playerWeaponInventory[1].itemDamage.ToString();
-        wD3Output.text = PersistantGameManager.Instance.playerWeaponInventory[2].itemDamage.ToString();
+        if(PersistantGameManager.Instance.playerWeaponInventory[0].itemDamage == 0)
+        {
+            wD1Output.text = "N/A";
+        }
+        else
+        {
+            wD1Output.text = Math.Round(PersistantGameManager.Instance.playerWeaponInventory[0].itemDamage, 1).ToString();
+        }
+        if (PersistantGameManager.Instance.playerWeaponInventory[1].itemDamage == 0)
+        {
+            wD2Output.text = "N/A";
+        }
+        else
+        {
+            wD2Output.text = Math.Round(PersistantGameManager.Instance.playerWeaponInventory[1].itemDamage, 1).ToString();
+        }
+        if (PersistantGameManager.Instance.playerWeaponInventory[2].itemDamage == 0)
+        {
+            wD3Output.text = "N/A";
+        }
+        else
+        {
+            wD3Output.text = Math.Round(PersistantGameManager.Instance.playerWeaponInventory[2].itemDamage, 1).ToString();
+        }
 
 
-        //Converts speed value display to "hits per second" rather than "seconds per hit"
-        wS1Output.text = Math.Round(1 / itemOneSpeed, 2).ToString() + " / s";
-        wS2Output.text = Math.Round(1 / itemTwoSpeed, 2).ToString() + " / s";
-        wS3Output.text = Math.Round(1 / itemThreeSpeed, 2).ToString() + " / s";
+        if(itemOneSpeed == 0)
+        {
+            wS1Output.text = "N/A";
+        }
+        else
+        {
+            wS1Output.text = Math.Round(1 / itemOneSpeed, 2).ToString() + " / s";
+        }
+        if (itemTwoSpeed == 0)
+        {
+            wS2Output.text = "N/A";
+        }
+        else
+        {
+            wS2Output.text = Math.Round(1 / itemTwoSpeed, 2).ToString() + " / s";
+        }
+        if (itemThreeSpeed == 0)
+        {
+            wS3Output.text = "N/A";
+        }
+        else
+        {
+            wS3Output.text = Math.Round(1 / itemThreeSpeed, 2).ToString() + " / s";
+        }
 
-        wR1Output.text = PersistantGameManager.Instance.playerWeaponInventory[0].itemRange.ToString();
-        wR2Output.text = PersistantGameManager.Instance.playerWeaponInventory[1].itemRange.ToString();
-        wR3Output.text = PersistantGameManager.Instance.playerWeaponInventory[2].itemRange.ToString();
+        if(PersistantGameManager.Instance.playerWeaponInventory[0].itemRange == 0)
+        {
+            wR1Output.text = "N/A";
+        }
+        else
+        {
+            wR1Output.text = PersistantGameManager.Instance.playerWeaponInventory[0].itemRange.ToString();
+        }
+        if (PersistantGameManager.Instance.playerWeaponInventory[1].itemRange == 0)
+        {
+            wR2Output.text = "N/A";
+        }
+        else
+        {
+            wR2Output.text = PersistantGameManager.Instance.playerWeaponInventory[1].itemRange.ToString();
+        }
+        if (PersistantGameManager.Instance.playerWeaponInventory[2].itemRange == 0)
+        {
+            wR3Output.text = "N/A";
+        }
+        else
+        {
+            wR3Output.text = PersistantGameManager.Instance.playerWeaponInventory[2].itemRange.ToString();
+        }
 
         sL1Output.text = PersistantGameManager.Instance.playerWeaponInventory[0].itemLevel.ToString();
         sL2Output.text = PersistantGameManager.Instance.playerWeaponInventory[1].itemLevel.ToString();

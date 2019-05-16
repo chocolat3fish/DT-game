@@ -309,7 +309,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentHealth: 0
-  xpEarnings: 100
   distanceToPlayer: 0
   droppedQuestItem: 0
   player: {fileID: 0}
@@ -319,6 +318,8 @@ MonoBehaviour:
     enemyHealth: 5
     attackSpeed: 1
     attackRange: 2
+    enemyClass: Medium
+    enemyLevel: 1
   itemChance: 100
   weaponValue: 1
   itemValue: 0

@@ -27,7 +27,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Async Scenes/Bug Report Canvas.unity
     guid: 1e65ab26dc4584a3ba87765998918884
   - enabled: 1
-    path: Assets/Scenes/Character Control with Async.unity
+    path: Assets/Scenes/Level 1.unity
     guid: c6a83e7c5a7fc4a11acd93fbdb0d6e51
   - enabled: 1
     path: Assets/Scenes/Character Control with enemy attack.unity

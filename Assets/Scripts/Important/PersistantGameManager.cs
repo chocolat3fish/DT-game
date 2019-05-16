@@ -106,6 +106,7 @@ public class PersistantGameManager : MonoBehaviour
     public string currentScene;
     public int currentIndex = 0;
     public int previousIndex = 0;
+    public bool tutorialComplete;
 
     [Header("Stats")]
     public float totalExperience;
@@ -174,7 +175,6 @@ public class PersistantGameManager : MonoBehaviour
     }
     private void Start()
     {
-        StartCoroutine(loadMainCanvas());
         //Shortened to 3 weapons
         for(int i = 0; i <3; i++)
         {
@@ -490,7 +490,7 @@ public class PersistantGameManager : MonoBehaviour
         Destroy(gameObject);
         SceneManager.LoadScene(SceneName);
     }
-    private IEnumerator loadMainCanvas()
+    public IEnumerator loadMainCanvas()
     {
         AsyncOperation loadingMainCanvas = SceneManager.LoadSceneAsync("Main Canvas", LoadSceneMode.Additive);
         while(true)

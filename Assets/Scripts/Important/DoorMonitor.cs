@@ -32,10 +32,11 @@ public class DoorMonitor : MonoBehaviour
     {
         if (CanEnterDoor == true)
         {
-            if (Input.GetKeyDown(KeyCode.Return))
+            if (Input.GetKeyDown(KeyCode.Return) && PersistantGameManager.Instance.tutorialComplete && Time.timeScale != 0f)
             {
                
                 SceneManager.LoadScene(nextScene);
+                PersistantGameManager.Instance.dialogueSceneIsOpen = false;
             }
         }
     }

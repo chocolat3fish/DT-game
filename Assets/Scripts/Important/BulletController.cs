@@ -58,6 +58,7 @@ public class BulletController : MonoBehaviour
                 {
                     enemyAttackDamage = 0.1f;
                 }
+                player.GetComponent<PlayerControls>().attackTime = Time.time;
 
                 //Applys the Damage
                 player.GetComponent<PlayerControls>().currentHealth -= enemyAttackDamage;

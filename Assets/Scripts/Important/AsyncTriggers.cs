@@ -5,6 +5,10 @@ using UnityEngine.SceneManagement;
 public class AsyncTriggers : MonoBehaviour
 {
     public GameObject dialoguePanel;
+    private void Start()
+    {
+        StartCoroutine(PersistantGameManager.Instance.loadMainCanvas());
+    }
     private void Update()
     {
         //Open Menu Canvas

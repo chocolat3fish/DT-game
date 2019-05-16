@@ -950,9 +950,9 @@ MonoBehaviour:
     attackSpeed: 1
     attackRange: 1
     enemyClass: Heavy
-    enemyLevel: 4
+    enemyLevel: 2
   itemChance: 100
-  weaponValue: 100
+  weaponValue: 10
   itemValue: 0
   questTarget: 1
   questReward: Hood of Sartuka
@@ -1320,9 +1320,9 @@ MonoBehaviour:
     attackSpeed: 1
     attackRange: 2
     enemyClass: Heavy
-    enemyLevel: 4
+    enemyLevel: 2
   itemChance: 35
-  weaponValue: 100
+  weaponValue: 10
   itemValue: 100
   questTarget: 0
   questReward: 
@@ -2482,9 +2482,9 @@ MonoBehaviour:
     attackSpeed: 1
     attackRange: 1
     enemyClass: Light
-    enemyLevel: 4
+    enemyLevel: 2
   itemChance: 100
-  weaponValue: 1662
+  weaponValue: 50
   itemValue: 0
   questTarget: 0
   questReward: 
@@ -4771,6 +4771,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4cd19ec11e1dbbd41ac1db47758d69a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  possibleConsumables:
+  - 20%H
+  - 50%H
+  - 100%H
+  - 20%A
+  - 50%A
+  - 100%A
+  - 20%L
+  possibleItems:
+  - Dagger of Kaliphase
+  - Amulet of Honour
+  - Hood of Sartuka
+  - Claw of Straphagus
   currentDialogueQuest:
     questName: 
     questType: 
@@ -4784,11 +4797,6 @@ MonoBehaviour:
     questItemName: 
     questKey: 
   activeQuests: []
-  possibleItems:
-  - Dagger of Kaliphase
-  - Amulet of Honour
-  - Hood of Sartuka
-  - Claw of Straphagus
   attackSpeedMulti: 1
   attackRangeMulti: 1
   attackDamageMulti: 1
@@ -4826,6 +4834,7 @@ MonoBehaviour:
   currentScene: 
   currentIndex: 0
   previousIndex: 0
+  tutorialComplete: 0
   totalExperience: 300
   GodMode: 0
   currentWeapon:
@@ -4866,14 +4875,6 @@ MonoBehaviour:
   damageResist: 0
   equippedItemOne: 
   equippedItemTwo: 
-  possibleConsumables:
-  - 20%H
-  - 50%H
-  - 100%H
-  - 20%A
-  - 50%A
-  - 100%A
-  - 20%L
 --- !u!4 &1645279220
 Transform:
   m_ObjectHideFlags: 0
@@ -5520,8 +5521,10 @@ MonoBehaviour:
   TimeOfItemTwoUse: 0
   itemTwoCooldown: 1
   nextAttack: 1
+  attackTime: 0
   stockHealth: 10
   totalHealth: 10
+  currentJumps: 0
   timeOfAttack: 0
   timeOfMagic: 0
 --- !u!61 &2104623961
