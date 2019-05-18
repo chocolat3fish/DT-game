@@ -151,7 +151,7 @@ public class TutorialDialogue : MonoBehaviour
                 else if(currentSentenceIndex == 1)
                 {
                     StopAllCoroutines();
-                    StartCoroutine(AddChars("Using the Arrow Keys or ‘a’ and ‘d’ you can move left and right,\n/wTry that now...", canvasMainText));
+                    StartCoroutine(AddChars("Using ‘a’ and ‘d’ you can move left and right,\n/wTry that now...", canvasMainText));
                     canvasContinueButton.gameObject.SetActive(false);
                     canContinueDialogue = false;
                     StartCoroutine(WaitForPlayerMove());
@@ -195,7 +195,7 @@ public class TutorialDialogue : MonoBehaviour
                 else if (currentSentenceIndex == 6)
                 {
                     StopAllCoroutines();
-                    StartCoroutine(AddChars("You can look deeper into a quest by clicking on it, Give it a go...", canvasMainText));
+                    StartCoroutine(AddChars("You can look deeper into a quest by clicking on it in the quests menu, Give it a go...", canvasMainText));
                     canvasContinueButton.gameObject.SetActive(false);
                     canContinueDialogue = false;
                     StartCoroutine(WaitForPlayerToOpenQuestDesc());
@@ -220,7 +220,7 @@ public class TutorialDialogue : MonoBehaviour
                 {
                     dialogueCanvas.SetActive(true);
                     StopAllCoroutines();
-                    StartCoroutine(AddChars("Nice you figured out how to talk to me using ‘m’.../d", canvasMainText));
+                    StartCoroutine(AddChars("Nice, you figured out how to talk to me using ‘m’.../d", canvasMainText));
                     canContinueDialogue = false;
                     currentSentenceIndex = 2;
                 }
@@ -254,7 +254,7 @@ public class TutorialDialogue : MonoBehaviour
                     LootDropMonitor questDropMonitor = questDrop.GetComponent<LootDropMonitor>();
                     questDropMonitor.type = 0;
                     questDropMonitor.itemStats = new Weapon("Jason's Dagger", "",  5, 0.5f, 0.5f, 1, 1.5f);
-                    StartCoroutine(AddChars("Here's my dagger, I don't use it much anyway, Use 'e' to pick up a weapon, and use 1, 2 or 3 to choose the slot.../d", canvasMainText));
+                    StartCoroutine(AddChars("Here's my dagger, I don't use it much anyway, Use 'e' to pick up a weapon. Pressing 1, 2 or 3 will change the slot you are comparing and switching into.../d", canvasMainText));
                     currentSentenceIndex = 6;
                 }
                 else if (currentSentenceIndex == 6)
@@ -291,7 +291,7 @@ public class TutorialDialogue : MonoBehaviour
                     StopAllCoroutines();
                     Instantiate(Resources.Load("Tutorial Enemy"));
                     canvasContinueButton.gameObject.SetActive(false);
-                    StartCoroutine(AddChars("Oh no, a evil door broke in, use 'w' to attack,\nBut make sure not to touch it or it will hurt you...", canvasMainText));
+                    StartCoroutine(AddChars("You can see the equipped weapon slot in the bottom left of the screen. Pressing 1, 2, or 3 will change the weapon you are using. \nOh no, an evil door broke in on the right, use 'w' to attack, But make sure not to touch it or it will hurt you...", canvasMainText));
                     StartCoroutine(WaitForPlayerToKillEnemy());
                     currentSentenceIndex = 8;
                 }
@@ -324,14 +324,14 @@ public class TutorialDialogue : MonoBehaviour
                 {
                     canContinueDialogue = false;
                     StopAllCoroutines();
-                    StartCoroutine(AddChars("If you want you can pick up the weapon the enemy dropped.../d ", canvasMainText));
+                    StartCoroutine(AddChars("This enemy dropped a weapon, as do others. Taking a weapon on the ground will switch it with your old weapon, so whatever you used to have will be on the ground should you change your mind./d ", canvasMainText));
                     currentSentenceIndex = 11;
                 }
                 else if (currentSentenceIndex == 11)
                 {
                     canContinueDialogue = false;
                     StopAllCoroutines();
-                    StartCoroutine(AddChars("He also gave you some xp, You need a certian ammount of xp to level up\nAnd you seem to have leveled up.../d", canvasMainText));
+                    StartCoroutine(AddChars("He also gave you some xp, You need a certain amount of xp to level up\nAnd you seem to have leveled up.../d", canvasMainText));
                     currentSentenceIndex = 13;
                 }
                 /*Obselete
@@ -355,7 +355,7 @@ public class TutorialDialogue : MonoBehaviour
                         canvasContinueButton.gameObject.SetActive(false);
                         canContinueDialogue = false;
                         StopAllCoroutines();
-                        StartCoroutine(AddChars("Using 'u' then 'k' you can open the skills panel, on that you can spend skill points to unlock skills, try that now...", canvasMainText));
+                        StartCoroutine(AddChars("Using 'u' then 'k' you can open the skills panel, on that you can spend skill points \nto unlock skills. You earned one from levelling up, try spending it now...", canvasMainText));
                         StartCoroutine(WaitForPlayerToUnlockSkill());
                         currentSentenceIndex = 14;
                     }
@@ -371,7 +371,7 @@ public class TutorialDialogue : MonoBehaviour
                 {
                     StopAllCoroutines();
                     canContinueDialogue = false;
-                    StartCoroutine(AddChars("Ok quick test before you leave.../d", canvasMainText));
+                    StartCoroutine(AddChars("Ok, quick test before you leave.../d", canvasMainText));
                     currentSentenceIndex = 16;
                 }
                 else if(currentSentenceIndex == 16)
@@ -379,7 +379,7 @@ public class TutorialDialogue : MonoBehaviour
                     StopAllCoroutines();
                     canContinueDialogue = false;
                     canvasContinueButton.gameObject.SetActive(false);
-                    StartCoroutine(AddChars("Try to arrange your weapons so my dagger is in slot 1, and the weapon the enemy dropped in slot 2...", canvasMainText));
+                    StartCoroutine(AddChars("Try to arrange your weapons so my dagger is in slot 1, and the weapon the enemy dropped in slot 2, by switching with the weapon on the ground.", canvasMainText));
                     StartCoroutine(WaitForPlayerToArrangeWeapons());
                     currentSentenceIndex = 17;
                 }
@@ -387,7 +387,7 @@ public class TutorialDialogue : MonoBehaviour
                 {
                     StopAllCoroutines();
                     canContinueDialogue = false;
-                    StartCoroutine(AddChars("I have taught you all I can, you have done well in the short ammount of time we had.../d", canvasMainText));
+                    StartCoroutine(AddChars("I have taught you all I can, you have done well in the short amount of time we had.../d", canvasMainText));
                     currentSentenceIndex = 18;
                 }
                 else if (currentSentenceIndex == 18)

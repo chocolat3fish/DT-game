@@ -117,6 +117,7 @@ public class PersistantGameManager : MonoBehaviour
     public int currentIndex = 0;
     public int previousIndex = 0;
     public bool tutorialComplete;
+    public int lastEnemyLevel;
 
     [Header("Stats")]
     public float totalExperience;

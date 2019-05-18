@@ -41,7 +41,6 @@ public class LootManager : MonoBehaviour
         {"Fat", 1.9f}
     };
 
-
     //The main referenced method that controls wether a weapon is dropped
     //Based off a chance out of 100 and the value of the weapon
     public static LootItem DropItem(int chance, int weaponValue)
@@ -167,74 +166,74 @@ public class LootManager : MonoBehaviour
                 damageBonus = 1.5f;
                 break;
         }
-            /*
+        /*
 
-            if (randomNumber == 0 && allowsDaggers)
-            {
-                weaponType = "Dagger";
-                minD = 1;
-                if (weaponValue >= 25) { maxD = 25; }
-                else { maxD = weaponValue; }
-                minAS = 0.25f;
-                maxAS = 0.75f;
-                minR = 0.5f;
-                maxR = 1;
+        if (randomNumber == 0 && allowsDaggers)
+        {
+            weaponType = "Dagger";
+            minD = 1;
+            if (weaponValue >= 25) { maxD = 25; }
+            else { maxD = weaponValue; }
+            minAS = 0.25f;
+            maxAS = 0.75f;
+            minR = 0.5f;
+            maxR = 1;
 
-                selectingTypeOfWeapon = false;
-            }
-            else if (randomNumber == 1 && allowsShortSwords)
-            {
-                weaponType = "Short Sword";
-                minD = 1;
-                if (weaponValue >= 30) { maxD = 30; }
-                else { maxD = weaponValue; }
-                minAS = 0.5f;
-                maxAS = 1f;
-                minR = 1f;
-                maxR = 1.25f;
+            selectingTypeOfWeapon = false;
+        }
+        else if (randomNumber == 1 && allowsShortSwords)
+        {
+            weaponType = "Short Sword";
+            minD = 1;
+            if (weaponValue >= 30) { maxD = 30; }
+            else { maxD = weaponValue; }
+            minAS = 0.5f;
+            maxAS = 1f;
+            minR = 1f;
+            maxR = 1.25f;
 
-                selectingTypeOfWeapon = false;
-            }
-            else if (randomNumber == 2 && allowsLongSwords)
-            {
-                weaponType = "Long Sword";
-                minD = 1;
-                if (weaponValue >= 40) { maxD = 40; }
-                else { maxD = weaponValue; }
-                minAS = 1f;
-                maxAS = 1.5f;
-                minR = 1f;
-                maxR = 1.5f;
+            selectingTypeOfWeapon = false;
+        }
+        else if (randomNumber == 2 && allowsLongSwords)
+        {
+            weaponType = "Long Sword";
+            minD = 1;
+            if (weaponValue >= 40) { maxD = 40; }
+            else { maxD = weaponValue; }
+            minAS = 1f;
+            maxAS = 1.5f;
+            minR = 1f;
+            maxR = 1.5f;
 
-                selectingTypeOfWeapon = false;
-            }
-            else if (randomNumber == 3 && allowsLances)
-            {
-                weaponType = "Lance";
-                minD = 1;
-                if (weaponValue >= 50) { maxD = 50; }
-                else { maxD = weaponValue; }
-                minAS = 1.5f;
-                maxAS = 2f;
-                minR = 1.5f;
-                maxR = 2f;
+            selectingTypeOfWeapon = false;
+        }
+        else if (randomNumber == 3 && allowsLances)
+        {
+            weaponType = "Lance";
+            minD = 1;
+            if (weaponValue >= 50) { maxD = 50; }
+            else { maxD = weaponValue; }
+            minAS = 1.5f;
+            maxAS = 2f;
+            minR = 1.5f;
+            maxR = 2f;
 
-                selectingTypeOfWeapon = false;
-            }
-            else if (randomNumber == 4 && allowsAxes)
-            {
-                weaponType = "Axes";
-                minD = 1;
-                if (weaponValue >= 60) { maxD = 60; }
-                else { maxD = weaponValue; }
-                minAS = 1.5f;
-                maxAS = 2f;
-                minR = 0.75f;
-                maxR = 1.25f;
+            selectingTypeOfWeapon = false;
+        }
+        else if (randomNumber == 4 && allowsAxes)
+        {
+            weaponType = "Axes";
+            minD = 1;
+            if (weaponValue >= 60) { maxD = 60; }
+            else { maxD = weaponValue; }
+            minAS = 1.5f;
+            maxAS = 2f;
+            minR = 0.75f;
+            maxR = 1.25f;
 
-                selectingTypeOfWeapon = false;
-            }
-            */
+            selectingTypeOfWeapon = false;
+        }
+        */
 
 
 
@@ -253,10 +252,9 @@ public class LootManager : MonoBehaviour
         newRange = (float)(Math.Round(newRange ,2));
         if (newRange > maxR) { newRange = maxR; }
         */
+        int enemyLevel = PersistantGameManager.Instance.lastEnemyLevel;
 
-        int playerLevel = PersistantGameManager.Instance.playerStats.playerLevel;
-
-        int newLevel = random.Next(playerLevel - 1, playerLevel + 1);
+        int newLevel = random.Next(enemyLevel - 1, enemyLevel + 1);
         if (newLevel <= 0) { newLevel = 1; }
 
         /*
@@ -331,14 +329,14 @@ public class LootManager : MonoBehaviour
                 break;
             }
         }
-
+        if (prefixType == "Speed")
+        {
+            speedBonus *= (2 - speedPrefixes[newPrefix]);
+        }
         float newAttackSpeed = (float)tempSpeed; //(float)Math.Round((decimal)tempSpeed, 2, MidpointRounding.AwayFromZero);
         //float newAttackSpeed = random.Next((newLevel - newLevel / 5) / 10, (newLevel + newLevel / 5) / 10);
         newAttackSpeed *= speedBonus * (float)PersistantGameManager.Instance.attackSpeedMulti;
-        if (prefixType == "Speed")
-        {
-            newAttackSpeed -= newAttackSpeed * (speedPrefixes[newPrefix] - 1);
-        }
+
         newAttackSpeed = (float)Math.Round(newAttackSpeed, 2);
         if (newAttackSpeed <= 0) { newAttackSpeed = 0.1f; }
 
@@ -394,9 +392,9 @@ public class LootManager : MonoBehaviour
                 break;
         }
 
-        int playerLevel = PersistantGameManager.Instance.playerStats.playerLevel;
+        int enemyLevel = PersistantGameManager.Instance.lastEnemyLevel;
 
-        int newLevel = random.Next(playerLevel - 3, playerLevel + 3);
+        int newLevel = random.Next(enemyLevel - 1, enemyLevel + 1);
         if (newLevel <= 0) { newLevel = 1; }
 
         /*
@@ -467,13 +465,15 @@ public class LootManager : MonoBehaviour
                 break;
             }
         }
+
+        if (prefixType == "Speed")
+        {
+            speedBonus *= (2 - speedPrefixes[newPrefix]);
+        }
+
         float newAttackSpeed = (float)Math.Round((decimal)tempSpeed, 2, MidpointRounding.AwayFromZero);
         //float newAttackSpeed = random.Next((newLevel - newLevel / 5) / 10, (newLevel + newLevel / 5) / 10);
         newAttackSpeed *= speedBonus * (float)PersistantGameManager.Instance.attackSpeedMulti;
-        if (prefixType == "Speed")
-        {
-            newAttackSpeed -= newAttackSpeed * (speedPrefixes[newPrefix] - 1);
-        }
         newAttackSpeed = (float)Math.Round(newAttackSpeed, 2);
         if (newAttackSpeed <= 0) { newAttackSpeed = 0.1f; }
 

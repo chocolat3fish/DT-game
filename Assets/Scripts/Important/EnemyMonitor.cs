@@ -157,8 +157,13 @@ public class EnemyMonitor : MonoBehaviour
             Debug.Log("Dropped item " + questReward);
 
         }
+
+        // Sets most recent killed enemy's level to the enemy level for loot to level based on enemy stats rather than the player.
+        PersistantGameManager.Instance.lastEnemyLevel = enemyStats.enemyLevel;
         //Gets the new weapon based off the drop chance and the value of weapon, if a weapon is not going to be droped it returns null
         LootItem newItem = LootManager.DropItem(itemChance, weaponValue);
+
+
 
         //runs if there is a weapon stored in new weapon
         if (newItem != null)
@@ -196,6 +201,7 @@ public class EnemyMonitor : MonoBehaviour
 
         //Gives the player XP
         GiveExp(enemyStats.enemyClass, enemyStats.enemyLevel);
+
 
         //Kills the enemy
         if (transform.parent != null)
