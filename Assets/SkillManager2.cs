@@ -114,6 +114,7 @@ public class SkillManager2 : MonoBehaviour
             PersistantGameManager.Instance.playerStats.playerSkillPoints -= skillButtons.skillPointCost;
         }
         PersistantGameManager.Instance.CheckSkills();
+        FindObjectOfType<skillDescription>().transform.Find("Lvl").GetComponent<Text>().text = "Level: " + PersistantGameManager.Instance.skillLevels[_name] + "/" + Translate(_name).GetComponent<SkillButtons>().maxLevel + ".";
         CheckButtons();
 
     }
