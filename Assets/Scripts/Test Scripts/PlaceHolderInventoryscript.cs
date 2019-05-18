@@ -35,7 +35,7 @@ public class PlaceHolderInventoryscript : MonoBehaviour
             case 6:
                 if (PersistantGameManager.Instance.currentWeapon != null)
                 {
-                    output.text = (PersistantGameManager.Instance.currentIndex + 1) + ": " + PersistantGameManager.Instance.currentWeapon.itemName;
+                    output.text = (PersistantGameManager.Instance.currentIndex + 1) + ": " + PersistantGameManager.Instance.currentWeapon.itemPrefix + " " + PersistantGameManager.Instance.currentWeapon.itemName;
                 }
 
                 else { output.text = ""; }
@@ -124,7 +124,7 @@ public class PlaceHolderInventoryscript : MonoBehaviour
             case 19:
                 Weapon equippedWeapon = PersistantGameManager.Instance.currentWeapon;
                 int weaponIndex = PersistantGameManager.Instance.playerWeaponInventory.IndexOf(equippedWeapon) + 1;
-                output.text = equippedWeapon.itemName + " (Slot " + weaponIndex + ")" ;
+                output.text = equippedWeapon.itemPrefix + " " + equippedWeapon.itemName + " (Slot " + weaponIndex + ")" ;
                 break;
             case 20:
                 output.text = "Lvl: " + PersistantGameManager.Instance.playerStats.playerLevel;

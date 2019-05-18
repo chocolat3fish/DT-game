@@ -11,15 +11,17 @@ public class Weapon
 { 
 
     public string itemName;
+    public string itemPrefix;
     public float itemDamage;
     public float stockItemSpeed, trueItemSpeed;
     public float itemRange;
     public float itemLevel;
 
     //Weapon Constructor
-    public Weapon(string itemName, float itemDamage, float stockItemSpeed, float trueItemSpeed, float itemRange, float itemLevel)
+    public Weapon(string itemName, string itemPrefix, float itemDamage, float stockItemSpeed, float trueItemSpeed, float itemRange, float itemLevel)
     {
         this.itemName = itemName;
+        this.itemPrefix = itemPrefix;
         this.itemDamage = itemDamage;
         this.stockItemSpeed = stockItemSpeed;
         this.trueItemSpeed = trueItemSpeed;

@@ -126,7 +126,7 @@ public class TutorialDialogue : MonoBehaviour
             }
             previousChar = ch;
             text.text += ch;
-            yield return new WaitForSecondsRealtime(0.02f);
+            yield return new WaitForSecondsRealtime(0.005f);
 
 
             if (shouldWait)
@@ -253,7 +253,7 @@ public class TutorialDialogue : MonoBehaviour
                     GameObject questDrop = Instantiate(Resources.Load("Loot Drop"), player.transform.position, Quaternion.identity) as GameObject;
                     LootDropMonitor questDropMonitor = questDrop.GetComponent<LootDropMonitor>();
                     questDropMonitor.type = 0;
-                    questDropMonitor.itemStats = new Weapon("Jason's Dagger", 5, 0.5f, 0.5f, 1, 1.5f);
+                    questDropMonitor.itemStats = new Weapon("Jason's Dagger", "",  5, 0.5f, 0.5f, 1, 1.5f);
                     StartCoroutine(AddChars("Here's my dagger, I don't use it much anyway, Use 'e' to pick up a weapon, and use 1, 2 or 3 to choose the slot.../d", canvasMainText));
                     currentSentenceIndex = 6;
                 }

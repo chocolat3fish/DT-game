@@ -220,6 +220,27 @@ public class MenuCanvasScript : MonoBehaviour
         }
 
         */
+
+        if (PersistantGameManager.Instance.currentWeapon == PersistantGameManager.Instance.playerWeaponInventory[0])
+        {
+            sW1Output.fontStyle = FontStyle.Bold;
+            sW2Output.fontStyle = FontStyle.Normal;
+            sW3Output.fontStyle = FontStyle.Normal;
+        }
+        else if (PersistantGameManager.Instance.currentWeapon == PersistantGameManager.Instance.playerWeaponInventory[1])
+        {
+            sW1Output.fontStyle = FontStyle.Normal;
+            sW2Output.fontStyle = FontStyle.Bold;
+            sW3Output.fontStyle = FontStyle.Normal;
+        }
+        else if (PersistantGameManager.Instance.currentWeapon == PersistantGameManager.Instance.playerWeaponInventory[2])
+        {
+            sW1Output.fontStyle = FontStyle.Normal;
+            sW2Output.fontStyle = FontStyle.Normal;
+            sW3Output.fontStyle = FontStyle.Bold;
+        }
+
+
         if (mainPanel.activeSelf && Input.GetKeyDown(KeyCode.L) && weaponsPanel.activeSelf == true)
         {
 
@@ -479,29 +500,11 @@ public class MenuCanvasScript : MonoBehaviour
     {
         
 
-        sW1Output.text = PersistantGameManager.Instance.playerWeaponInventory[0].itemName;
-        sW2Output.text = PersistantGameManager.Instance.playerWeaponInventory[1].itemName;
-        sW3Output.text = PersistantGameManager.Instance.playerWeaponInventory[2].itemName;
+        sW1Output.text = PersistantGameManager.Instance.playerWeaponInventory[0].itemPrefix + " " + PersistantGameManager.Instance.playerWeaponInventory[0].itemName;
+        sW2Output.text = PersistantGameManager.Instance.playerWeaponInventory[1].itemPrefix + " " + PersistantGameManager.Instance.playerWeaponInventory[1].itemName;
+        sW3Output.text = PersistantGameManager.Instance.playerWeaponInventory[2].itemPrefix + " " + PersistantGameManager.Instance.playerWeaponInventory[2].itemName;
 
-        if(PersistantGameManager.Instance.currentWeapon.itemName == sW1Output.text)
-        {
-            sW1Output.fontStyle = FontStyle.Bold;
-            sW2Output.fontStyle = FontStyle.Normal;
-            sW3Output.fontStyle = FontStyle.Normal;
-        }
-        else if(PersistantGameManager.Instance.currentWeapon.itemName == sW2Output.text)
-        {
-            sW1Output.fontStyle = FontStyle.Normal;
-            sW2Output.fontStyle = FontStyle.Bold;
-            sW3Output.fontStyle = FontStyle.Normal;
-        }
-        else if (PersistantGameManager.Instance.currentWeapon.itemName == sW3Output.text)
-        {
-            sW1Output.fontStyle = FontStyle.Normal;
-            sW2Output.fontStyle = FontStyle.Normal;
-            sW3Output.fontStyle = FontStyle.Bold;
-        }
-
+       
         double itemOneSpeed = PersistantGameManager.Instance.playerWeaponInventory[0].trueItemSpeed;
         double itemTwoSpeed = PersistantGameManager.Instance.playerWeaponInventory[1].trueItemSpeed;
         double itemThreeSpeed = PersistantGameManager.Instance.playerWeaponInventory[2].trueItemSpeed;

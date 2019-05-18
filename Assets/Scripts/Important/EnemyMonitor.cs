@@ -86,10 +86,16 @@ public class EnemyMonitor : MonoBehaviour
         if (PersistantGameManager.Instance.playerStats.playerLevel < 4)
         {
             enemyStats.enemyDamage = (float)(multiplier * (2.5 * Math.Pow(enemyStats.enemyLevel, 2) + 10) * 0.4f);
+            //sets the current health to the inital health and set health based on level, but less if low level
+            enemyStats.enemyHealth = (float)(multiplier * (27 * Math.Pow(enemyStats.enemyLevel, 2) + 10));
+            currentHealth = enemyStats.enemyHealth;
         }
         else
         {
             enemyStats.enemyDamage = (float)(multiplier * (2.5 * Math.Pow(enemyStats.enemyLevel, 2) + 10));
+            //sets the current health to the inital health and set health based on level
+            enemyStats.enemyHealth = (float)(multiplier * (27 * Math.Pow(enemyStats.enemyLevel, 2) + 10)) * 2;
+            currentHealth = enemyStats.enemyHealth;
         }
 
 
