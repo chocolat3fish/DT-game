@@ -185,6 +185,7 @@ public class PersistantGameManager : MonoBehaviour
     }
     private void Start()
     {
+        timeOfAbility -= 30f;
         //Shortened to 3 weapons
         for(int i = 0; i <3; i++)
         {
