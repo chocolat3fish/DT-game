@@ -27,6 +27,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Async Scenes/Bug Report Canvas.unity
     guid: 1e65ab26dc4584a3ba87765998918884
   - enabled: 1
+    path: Assets/Scenes/Loading.unity
+    guid: c355c7dd3d84693418043b0b3023b925
+  - enabled: 1
     path: Assets/Scenes/Level 1.unity
     guid: c6a83e7c5a7fc4a11acd93fbdb0d6e51
   - enabled: 1
@@ -53,6 +56,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Async Scenes/Character Canvas.unity
     guid: 4942fd09eaa974914bb43e251a4adde8
+  - enabled: 1
+    path: Assets/Scenes/Async Scenes/Load And Save Canvas.unity
+    guid: e9caaeb4cf53ad14082a703488bdaf5b
   - enabled: 1
     path: Assets/Scenes/Async Scenes/Dialogue Canvas.unity
     guid: 063583f0df47948b7b86531c26d63086

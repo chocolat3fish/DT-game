@@ -134,5 +134,13 @@ public class AsyncTriggers : MonoBehaviour
         }
         Time.timeScale = 1;
     }
+    public void OpenSaveAndLoadCanvas()
+    {
+        PersistantGameManager.Instance.bugReportSceneIsOpen = true;
+        SceneManager.UnloadSceneAsync("Main Canvas");
+        SceneManager.LoadSceneAsync("Save And Load Canvas", LoadSceneMode.Additive);
+        Time.timeScale = 0;
+    }
+
 
 }
