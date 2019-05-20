@@ -124,21 +124,24 @@ public class AsyncTriggers : MonoBehaviour
         PersistantGameManager.Instance.bugReportSceneIsOpen = false;
         SceneManager.UnloadSceneAsync("Bug Report Canvas");
         SceneManager.LoadSceneAsync("Main Canvas", LoadSceneMode.Additive);
-        if (PersistantGameManager.Instance.dialogueSceneIsOpen)
-        {
-            if (dialoguePanel != null)
-            {
-                dialoguePanel.SetActive(true);
-            }
-            dialoguePanel = null;
-        }
-        Time.timeScale = 1;
+        PersistantGameManager.Instance.firstTimeOpeningMenuCanvas = true;
+        PersistantGameManager.Instance.menuCanvasOpen = true;
+        Time.timeScale = 0;
     }
     public void OpenSaveAndLoadCanvas()
     {
         PersistantGameManager.Instance.bugReportSceneIsOpen = true;
         SceneManager.UnloadSceneAsync("Main Canvas");
         SceneManager.LoadSceneAsync("Save And Load Canvas", LoadSceneMode.Additive);
+        Time.timeScale = 0;
+    }
+    public void CloseSaveAndLoadCanvas()
+    {
+        PersistantGameManager.Instance.bugReportSceneIsOpen = false;
+        SceneManager.UnloadSceneAsync("Save And Load Canvas");
+        SceneManager.LoadSceneAsync("Main Canvas", LoadSceneMode.Additive);
+        PersistantGameManager.Instance.firstTimeOpeningMenuCanvas = true;
+        PersistantGameManager.Instance.menuCanvasOpen = true;
         Time.timeScale = 0;
     }
 

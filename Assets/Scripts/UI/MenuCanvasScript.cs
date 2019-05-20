@@ -38,8 +38,8 @@ public class MenuCanvasScript : MonoBehaviour
 
     public int index;
 
-    private Button BugReportButton;
-    private Button BugReportContinue;
+    private Button BugReportButton, LoadAndSaveButton;
+
 
     void Awake()
     {
@@ -136,14 +136,20 @@ public class MenuCanvasScript : MonoBehaviour
         AsyncTriggers asyncTriggers = FindObjectOfType<AsyncTriggers>();
         Button[] buttons = FindObjectsOfType<Button>();
         foreach(Button button in buttons)
-        { if(button.gameObject.name == "BugReportButton")
+        {
+            if (button.gameObject.name == "BugReportButton")
             {
                 BugReportButton = button;
-                break;
+            }
+            if(button.gameObject.name == "SaveOrLoadButton")
+            {
+                LoadAndSaveButton = button;
             }
         }
         BugReportButton.onClick.AddListener(asyncTriggers.OpenBugReportCanvas);
         BugReportButton.onClick.AddListener(closeMenuAndOtherPanels);
+        LoadAndSaveButton.onClick.AddListener(asyncTriggers.OpenSaveAndLoadCanvas);
+        LoadAndSaveButton.onClick.AddListener(closeMenuAndOtherPanels);
 
     }
 

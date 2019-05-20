@@ -31,6 +31,8 @@ public class LootDropMonitor : MonoBehaviour
     //Distance to player
     public float distanceToPlayer;
 
+    public bool selfDestruct = false;
+
 
 
     private void Awake()
@@ -54,6 +56,7 @@ public class LootDropMonitor : MonoBehaviour
     }
     private void Start()
     {
+        
         if(IsForMap)
         {
             type = transform.parent.GetComponent<LootDropMonitor>().type;
@@ -82,6 +85,10 @@ public class LootDropMonitor : MonoBehaviour
 
     private void Update()
     {
+        if (selfDestruct)
+        {
+            Destroy(gameObject);
+        }
         //Gets the distance to the player
         distanceToPlayer = Vector2.Distance(player.transform.position, transform.position);
 

@@ -154,6 +154,8 @@ public class PersistantGameManager : MonoBehaviour
     private int currentItemOneIndex, currentItemTwoIndex;
     private bool changeItemOne, changeItemTwo;
 
+    bool justReloaded;
+
 
     public Dictionary<string, int> amountOfConsumables = new Dictionary<string, int>
     {
@@ -173,7 +175,7 @@ public class PersistantGameManager : MonoBehaviour
     {
         if(Instance == null || gameObject.name == "PersistantGameManager - Reload")
         {
-            if(gameObject.name == "PersistantGameManager - Reload")
+            if (gameObject.name == "PersistantGameManager - Reload")
             {
                 gameObject.name = "PersistantGameManager";
                 GameManagerData data = FindObjectOfType<LoadSceneMonitor>().data;
@@ -247,11 +249,20 @@ public class PersistantGameManager : MonoBehaviour
 
                 amountOfConsumables = data.amountOfConsumables;
                 #endregion
-                StartCoroutine(loadNewScene(data.currentScene));
+
+                justReloaded = true;
+                Time.timeScale = 1;
+
+                Instance = this;
+                DontDestroyOnLoad(gameObject);
+                LoadNewScene(data.currentScene);
 
             }
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
+            else
+            {
+                Instance = this;
+                DontDestroyOnLoad(gameObject);
+            }
         }
         else
         {
@@ -261,26 +272,20 @@ public class PersistantGameManager : MonoBehaviour
         currentScene = SceneManager.GetActiveScene().name;
 
     }
-    IEnumerator loadNewScene(string sceneName)
+    void LoadNewScene(string sceneName)
     {
-        AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(sceneName);
-        while(!asyncOperation.isDone)
-        {
-            yield return null;
-        }
+        SceneManager.LoadScene(sceneName);
         currentScene = sceneName;
         LootDropMonitor[] lootDropMonitors = FindObjectsOfType<LootDropMonitor>();
         foreach(LootDropMonitor lDM in lootDropMonitors)
         {
-            print("loop");
             if(lDM.type == 2)
             {
-                print("found");
-                print(lDM.item);
+                
                 if(itemInventory[lDM.item] > 0)
                 {
-                    print("Destroy");
-                    Destroy(lDM.gameObject);
+                    print(lDM.item + ": " + Instance.itemInventory[lDM.item].ToString());
+                    GameObject.Destroy(lDM.gameObject);
                 }
             }
 
@@ -289,7 +294,7 @@ public class PersistantGameManager : MonoBehaviour
 
     private void Start()
     {
-        if (SceneManager.GetActiveScene().name != "Loading")
+        if (SceneManager.GetActiveScene().name != "Loading" && !justReloaded)
         {
             timeOfAbility -= 30f;
             //Shortened to 3 weapons
@@ -301,7 +306,6 @@ public class PersistantGameManager : MonoBehaviour
             TestGiveItem.GiveItem();
             player = FindObjectOfType<PlayerControls>();
             currentWeapon = playerWeaponInventory[0];
-            itemInventory.Add("Empty", 0);
             foreach (string element in possibleItems)
             {
                 itemInventory.Add(element, 0);
@@ -341,7 +345,7 @@ public class PersistantGameManager : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.H))
         {
-            StartCoroutine(LoadDataFromSave(1));
+            LoadDataFromSave(1);
         }
         if (Time.time > (timeOfAbility + abilityDuration) && (damageResistMulti < 1 || currentAttackMultiplier > 1))
         {
@@ -423,7 +427,7 @@ public class PersistantGameManager : MonoBehaviour
             ChangeItem(99);
         }
 
-        if(currentScene != SceneManager.GetActiveScene().ToString())
+        if(currentScene != SceneManager.GetActiveScene().ToString() && SceneManager.GetActiveScene().name != "Load And Save Canvas")
         {
             OnSceneChange();
         }
@@ -637,25 +641,24 @@ public class PersistantGameManager : MonoBehaviour
 
         data.amountOfConsumables = amountOfConsumables;
 
-        File.WriteAllText(Application.dataPath + "/SavedData/Save" + slot + ".json", JsonConvert.SerializeObject(data, Formatting.Indented));
+        File.WriteAllText(Application.dataPath + "/SavedData/Slot" + slot + ".json", JsonConvert.SerializeObject(data, Formatting.Indented));
         Debug.Log("Saved");
 
     }
 
-    public IEnumerator LoadDataFromSave(int slot)
+    public void LoadDataFromSave(int slot)
     {
-        AsyncOperation AO = SceneManager.LoadSceneAsync("Loading");
-        while(!AO.isDone)
-        {
-            yield return null;
-        }
+        SceneManager.LoadScene("Loading");
+        print("done");
         GameObject empty = new GameObject("Load Scene Controller");
         LoadSceneMonitor load = empty.AddComponent<LoadSceneMonitor>();
         string jsonData = File.ReadAllText(Application.dataPath + "/SavedData/Slot" + slot + ".json");
         GameManagerData data = JsonConvert.DeserializeObject<GameManagerData>(jsonData);
         load.data = data;
         new GameObject("PersistantGameManager - Reload").AddComponent<PersistantGameManager>();
+        print("done");
         Destroy(gameObject);
+        print("this shouldn't exist");
         
 
 

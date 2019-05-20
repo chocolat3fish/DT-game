@@ -316,7 +316,6 @@ public class LootManager : MonoBehaviour
             newDamage *= damagePrefixes[newPrefix];
         }
 
-        Debug.Log(weaponValue);
         if (newDamage <= 0) { newDamage = 0.1f; }
 
 
