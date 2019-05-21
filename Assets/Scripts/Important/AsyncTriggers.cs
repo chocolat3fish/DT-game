@@ -12,7 +12,7 @@ public class AsyncTriggers : MonoBehaviour
     private void Update()
     {
         //Open Menu Canvas
-        if (Input.GetKeyDown(KeyCode.Tab) && !PersistantGameManager.Instance.menuCanvasOpen && Time.timeScale != 0 && !PersistantGameManager.Instance.bugReportSceneIsOpen)
+        if (Input.GetKeyDown(KeyCode.Tab) && !PersistantGameManager.Instance.menuCanvasOpen && Time.timeScale != 0 && !PersistantGameManager.Instance.bugReportSceneIsOpen && !PersistantGameManager.Instance.saveAndLoadSceneIsOpen)
         {
             if (PersistantGameManager.Instance.dialogueSceneIsOpen)
             {
@@ -29,17 +29,30 @@ public class AsyncTriggers : MonoBehaviour
         //Close Menu Canvas
         else if (Input.GetKeyDown(KeyCode.Tab) && PersistantGameManager.Instance.menuCanvasOpen)
         {
-            SceneManager.UnloadSceneAsync("Menu Canvas");
-            Time.timeScale = 1;
-            PersistantGameManager.Instance.menuCanvasOpen = false;
-            if (PersistantGameManager.Instance.dialogueSceneIsOpen)
+            if(PersistantGameManager.Instance.bugReportSceneIsOpen)
             {
-                if (dialoguePanel != null)
-                {
-                    dialoguePanel.SetActive(true);
-                }
-                dialoguePanel = null;
+                CloseBugReportCanvas();
+                
             }
+            else if(PersistantGameManager.Instance.saveAndLoadSceneIsOpen)
+            {
+                CloseSaveAndLoadCanvas();
+            }
+            else
+            {
+                SceneManager.UnloadSceneAsync("Menu Canvas");
+                Time.timeScale = 1;
+                PersistantGameManager.Instance.menuCanvasOpen = false;
+                if (PersistantGameManager.Instance.dialogueSceneIsOpen)
+                {
+                    if (dialoguePanel != null)
+                    {
+                        dialoguePanel.SetActive(true);
+                    }
+                    dialoguePanel = null;
+                }
+            }
+            
         }
         //Close Character Canvas with tab
         else if (Input.GetKeyDown(KeyCode.Tab) && PersistantGameManager.Instance.characterScreenOpen || PersistantGameManager.Instance.skillsScreenOpen)
@@ -59,7 +72,7 @@ public class AsyncTriggers : MonoBehaviour
         }
 
         //Open Character Canvas
-        else if (Input.GetKeyDown(KeyCode.U) && Time.timeScale != 0 && !PersistantGameManager.Instance.characterScreenOpen && !PersistantGameManager.Instance.bugReportSceneIsOpen)
+        else if (Input.GetKeyDown(KeyCode.U) && Time.timeScale != 0 && !PersistantGameManager.Instance.characterScreenOpen && !PersistantGameManager.Instance.bugReportSceneIsOpen && !PersistantGameManager.Instance.saveAndLoadSceneIsOpen)
         {
             if (PersistantGameManager.Instance.dialogueSceneIsOpen)
             {
@@ -88,14 +101,14 @@ public class AsyncTriggers : MonoBehaviour
                 dialoguePanel = null;
             }
         }
-            if (PersistantGameManager.Instance.menuCanvasOpen && PersistantGameManager.Instance.characterScreenOpen)
-            {
+        if (PersistantGameManager.Instance.menuCanvasOpen && PersistantGameManager.Instance.characterScreenOpen)
+        {
 
-                SceneManager.UnloadSceneAsync("Character Canvas");
-                PersistantGameManager.Instance.characterScreenOpen = false;
-                PersistantGameManager.Instance.skillsScreenOpen = false;
-            }
-        } 
+            SceneManager.UnloadSceneAsync("Character Canvas");
+            PersistantGameManager.Instance.characterScreenOpen = false;
+            PersistantGameManager.Instance.skillsScreenOpen = false;
+        }
+    } 
 
     public void OpenCompareCanvas(Weapon compareWeapon)
     {
@@ -124,15 +137,26 @@ public class AsyncTriggers : MonoBehaviour
         PersistantGameManager.Instance.bugReportSceneIsOpen = false;
         SceneManager.UnloadSceneAsync("Bug Report Canvas");
         SceneManager.LoadSceneAsync("Main Canvas", LoadSceneMode.Additive);
-        if (PersistantGameManager.Instance.dialogueSceneIsOpen)
-        {
-            if (dialoguePanel != null)
-            {
-                dialoguePanel.SetActive(true);
-            }
-            dialoguePanel = null;
-        }
-        Time.timeScale = 1;
+        PersistantGameManager.Instance.firstTimeOpeningMenuCanvas = true;
+        PersistantGameManager.Instance.menuCanvasOpen = true;
+        Time.timeScale = 0;
     }
+    public void OpenSaveAndLoadCanvas()
+    {
+        PersistantGameManager.Instance.saveAndLoadSceneIsOpen = true;
+        SceneManager.UnloadSceneAsync("Main Canvas");
+        SceneManager.LoadSceneAsync("Save And Load Canvas", LoadSceneMode.Additive);
+        Time.timeScale = 0;
+    }
+    public void CloseSaveAndLoadCanvas()
+    {
+        PersistantGameManager.Instance.saveAndLoadSceneIsOpen = false;
+        SceneManager.UnloadSceneAsync("Save And Load Canvas");
+        SceneManager.LoadSceneAsync("Main Canvas", LoadSceneMode.Additive);
+        PersistantGameManager.Instance.firstTimeOpeningMenuCanvas = true;
+        PersistantGameManager.Instance.menuCanvasOpen = true;
+        Time.timeScale = 0;
+    }
+
 
 }

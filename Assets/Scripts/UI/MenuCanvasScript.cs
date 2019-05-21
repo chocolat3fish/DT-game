@@ -46,16 +46,18 @@ public class MenuCanvasScript : MonoBehaviour
 
     public int index;
 
-    private Button BugReportButton;
-    private Button BugReportContinue;
+    private Button BugReportButton, LoadAndSaveButton;
+
 
     void Awake()
     {
+
         //For switching weapon slots
         switchWeaponsPanel = gameObject.transform.Find("SwitchWeaponsPanel").gameObject;
         switchOne = switchWeaponsPanel.transform.Find("W1S").gameObject.GetComponent<Button>();
         switchTwo = switchWeaponsPanel.transform.Find("W2S").gameObject.GetComponent<Button>();
         switchThree = switchWeaponsPanel.transform.Find("W3S").gameObject.GetComponent<Button>();
+
 
         #region Assigns all Text and Panel GameObjects
         mainPanel = gameObject.transform.Find("MainPanel").gameObject;
@@ -150,14 +152,20 @@ public class MenuCanvasScript : MonoBehaviour
         AsyncTriggers asyncTriggers = FindObjectOfType<AsyncTriggers>();
         Button[] buttons = FindObjectsOfType<Button>();
         foreach(Button button in buttons)
-        { if(button.gameObject.name == "BugReportButton")
+        {
+            if (button.gameObject.name == "BugReportButton")
             {
                 BugReportButton = button;
-                break;
+            }
+            if(button.gameObject.name == "SaveOrLoadButton")
+            {
+                LoadAndSaveButton = button;
             }
         }
         BugReportButton.onClick.AddListener(asyncTriggers.OpenBugReportCanvas);
         BugReportButton.onClick.AddListener(closeMenuAndOtherPanels);
+        LoadAndSaveButton.onClick.AddListener(asyncTriggers.OpenSaveAndLoadCanvas);
+        LoadAndSaveButton.onClick.AddListener(closeMenuAndOtherPanels);
 
     }
 

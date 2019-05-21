@@ -1,42 +1,164 @@
 {
+  "currentScene": "Level 1",
+  "itemInventory": {
+    "Empty": 0,
+    "Dagger of Kaliphase": 0,
+    "Amulet of Honour": 0,
+    "Hood of Sartuka": 0,
+    "Claw of Straphagus": 0
+  },
+  "possibleItems": [
+    "Dagger of Kaliphase",
+    "Amulet of Honour",
+    "Hood of Sartuka",
+    "Claw of Straphagus"
+  ],
+  "currentDialogueQuest": {
+    "questName": "",
+    "questType": "",
+    "sentencesBeforeQuest1stTime": [],
+    "sentencesBeforeQuest2ndTime": [],
+    "questStatment": "",
+    "questStatmentWithItem": "",
+    "sentencesAfterQuest": [],
+    "questDescription": "",
+    "sentencesAfterQuestEnd": [],
+    "questItemName": "",
+    "questKey": ""
+  },
+  "characterQuests": {
+    "Jason": 0
+  },
+  "possibleQuests": {},
+  "activeQuests": [],
+  "rewards": {
+    "Ja00": "Reward: A 100% attack potion",
+    "Ja01": "Reward: A 20% Leech potion",
+    "Ja02": "Ha you don't get anything",
+    "Ja03": "Reward: A new Longsword",
+    "Tutorial": "Reward: A greater insight into the workings of the world + fighting skills"
+  },
+  "questTargets": {
+    "Hood of Sartuka": "Ja03"
+  },
+  "attackSpeedMulti": 1.0,
+  "attackRangeMulti": 1.0,
+  "currentAttackMultiplier": 1.0,
+  "smiteDamageMulti": 1.0,
+  "smiteDurationMulti": 1.0,
+  "lifeStealMulti": 0.0,
+  "totalHealthMulti": 0.0,
+  "damageResistMulti": 1.0,
+  "turtleResistMulti": 0.5,
+  "turtleMultiMulti": 1.0,
+  "turtleDurationMulti": 1.0,
+  "movementResistMulti": 1.0,
+  "moveSpeedMulti": 1.0,
+  "jumpHeightMulti": 1.0,
+  "airAttackMulti": 1.0,
+  "instantKillChance": 0.0,
+  "betterLootChance": 0.0,
+  "hasMagic": false,
+  "damageResistDuration": 15.0,
+  "smiteDuration": 10.0,
+  "skillLevels": {
+    "AttackSpeed": 0,
+    "Smite": 0,
+    "SmiteDuration": 0,
+    "SmiteDamage": 0,
+    "LifeSteal": 0,
+    "AirAttack": 0,
+    "DefenceWithMovement": 0,
+    "MoveSpeed": 0,
+    "TripleJump": 0,
+    "JumpHeight": 0,
+    "GripWalls": 0,
+    "HealthBonus": 0,
+    "Turtle": 0,
+    "TurtleDuration": 0,
+    "TurtleDefense": 0,
+    "WeaponDropValue": 0,
+    "InstantKill": 0
+  },
+  "tutorialComplete": false,
+  "lastEnemyLevel": 0,
+  "totalExperience": 48100.0,
   "currentIndex": 0,
   "currentWeapon": {
-    "itemName": "Short Sword",
-    "itemDamage": 2.0,
-    "itemSpeed": 0.5,
-    "itemRange": 1.0
+    "itemName": "Long Sword",
+    "itemPrefix": "Keen",
+    "itemDamage": 25.3000011,
+    "stockItemSpeed": 0.78,
+    "trueItemSpeed": 0.78,
+    "itemRange": 2.0,
+    "itemLevel": 1.0
   },
   "playerWeaponInventory": [
     {
-      "itemName": "Short Sword",
-      "itemDamage": 2.0,
-      "itemSpeed": 0.5,
-      "itemRange": 1.0
+      "itemName": "Long Sword",
+      "itemPrefix": "Keen",
+      "itemDamage": 25.3000011,
+      "stockItemSpeed": 0.78,
+      "trueItemSpeed": 0.78,
+      "itemRange": 2.0,
+      "itemLevel": 1.0
     },
     {
-      "itemName": "Knife",
-      "itemDamage": 1.0,
-      "itemSpeed": 0.25,
-      "itemRange": 0.5
+      "itemName": "Dagger",
+      "itemPrefix": "Nimble",
+      "itemDamage": 15.000001,
+      "stockItemSpeed": 0.25,
+      "trueItemSpeed": 0.25,
+      "itemRange": 1.0,
+      "itemLevel": 1.0
     },
     {
-      "itemName": "Spear",
-      "itemDamage": 4.0,
-      "itemSpeed": 0.75,
-      "itemRange": 2.0
+      "itemName": "Long Sword",
+      "itemPrefix": "Swift",
+      "itemDamage": 26.0,
+      "stockItemSpeed": 0.55,
+      "trueItemSpeed": 0.55,
+      "itemRange": 2.0,
+      "itemLevel": 1.0
     }
   ],
-  "currentArmour": {
-    "armourType": "Steel",
-    "defence": 150
-  },
-  "playerArmourInventory": [],
   "playerStats": {
     "health": 0,
-    "playerLevel": 1,
-    "playerExperience": 0,
-    "playerSkillPoints": 0
+    "playerLevel": 100,
+    "playerExperience": 0.0,
+    "playerSkillPoints": 99
   },
-  "totalExperience": 300.0,
-  "currentScene": "Character Control 3 Weapons"
+  "damageProgress": 0,
+  "tankProgress": 0,
+  "mobilityProgress": 0,
+  "attackSpeedUpgrades": 0,
+  "potionIsActive": false,
+  "activePotionType": "",
+  "currentLeechMultiplier": 0.0,
+  "potionCoolDownTime": 30.0,
+  "currentArmour": {
+    "armourType": "",
+    "defence": 0.0
+  },
+  "comparingArmour": {
+    "armourType": "",
+    "defence": 0.0
+  },
+  "tripleJump": false,
+  "hasSmite": false,
+  "gripWalls": false,
+  "maxedSpeed": false,
+  "damageResist": false,
+  "equippedItemOne": "20%H",
+  "equippedItemTwo": "20%L",
+  "amountOfConsumables": {
+    "20%H": 1,
+    "50%H": 0,
+    "100%H": 0,
+    "20%A": 0,
+    "50%A": 0,
+    "100%A": 0,
+    "20%L": 1,
+    "Empty": 0
+  }
 }

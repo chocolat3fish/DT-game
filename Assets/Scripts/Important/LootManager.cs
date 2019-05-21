@@ -14,8 +14,10 @@ public class LootManager : MonoBehaviour
     //which genreates a random number between ranges
     private static System.Random random = new System.Random();
 
+
     //Dictionaries with different classes of prefixes
     public static Dictionary<string, float> damagePrefixes = new Dictionary<string, float>
+
     {
         {"Keen", 1.1f},
         {"Sharp", 1.3f},
@@ -256,8 +258,10 @@ public class LootManager : MonoBehaviour
         if (newRange > maxR) { newRange = maxR; }
         */
 
+
         //sets weapon level to the level of the enemy you killed
         int enemyLevel = PersistantGameManager.Instance.lastEnemyLevel;
+
 
         int newLevel = random.Next(enemyLevel - 1, enemyLevel + 1);
         if (newLevel <= 0) { newLevel = 1; }
@@ -314,6 +318,7 @@ public class LootManager : MonoBehaviour
         string newPrefix = listPrefix;
 
 
+
         //calculates damage
         float newDamage = random.Next((int)((16 * Math.Pow(newLevel, 2) + 10) * 0.9f), (int)((16 * Math.Pow(newLevel, 2) + 10) * 1.1f));
         newDamage *= damageBonus + (damageBonus * (weaponValue / 100));
@@ -322,10 +327,11 @@ public class LootManager : MonoBehaviour
             newDamage *= damagePrefixes[newPrefix];
         }
 
-        Debug.Log(weaponValue);
         if (newDamage <= 0) { newDamage = 0.1f; }
 
+
         //calculates speed
+
         double tempSpeed;
         while (true)
         {
@@ -347,8 +353,11 @@ public class LootManager : MonoBehaviour
         if (newAttackSpeed <= 0) { newAttackSpeed = 0.1f; }
 
 
+
+
         //calculates range
         float newRange = rangeBonus;
+
         if (prefixType == "Range")
         {
             newRange *= rangePrefixes[newPrefix];
@@ -363,7 +372,9 @@ public class LootManager : MonoBehaviour
 
     public static Weapon GenerateSpecificWeapon(string weaponType, int weaponValue)
     { 
+
         //Takes specific weapon type for quests, rather than a random weapon choice.
+
         switch (weaponType)
         {
             case "Dagger":
@@ -403,6 +414,7 @@ public class LootManager : MonoBehaviour
 
         int newLevel = random.Next(playerLevel - 1, playerLevel + 1);
         if (newLevel <= 0) { newLevel = 1; }
+
 
         /*
         float newDamage = random.Next(newLevel - newLevel / 5, newLevel + newLevel / 5);
@@ -455,6 +467,7 @@ public class LootManager : MonoBehaviour
         string newPrefix = listPrefix;
 
         //calculates damage
+
         float newDamage = random.Next((int)((16 * Math.Pow(newLevel, 2) + 10) * 0.9f), (int)((16 * Math.Pow(newLevel, 2) + 10) * 1.1f));
         newDamage *= damageBonus + (damageBonus * (weaponValue / 100));
         if (prefixType == "Damage")
@@ -509,9 +522,11 @@ public class LootManager : MonoBehaviour
         return new Weapon(weaponType, newPrefix, newDamage, newAttackSpeed / (float)PersistantGameManager.Instance.attackSpeedMulti, newAttackSpeed, newRange, newLevel);
     }
 
+
     //delete
     public static Consumable GenerateConsumable(int value)
     {
+
         int randomChance = random.Next(0, 100);
         if (randomChance < 40)
         {

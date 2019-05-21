@@ -1,11 +1,10 @@
-﻿using System.Collections;
+﻿using Newtonsoft.Json;
+using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using System.IO;
-using System;
-using UnityEngine.UI;
-using Newtonsoft.Json;
 public class PersistantGameManager : MonoBehaviour
 {
     public static PersistantGameManager Instance { get; private set; }
@@ -71,6 +70,7 @@ public class PersistantGameManager : MonoBehaviour
     public bool firstTimeOpeningMenuCanvas, menuCanvasIsOpen;
     public bool dialogueSceneIsOpen;
     public bool bugReportSceneIsOpen;
+    public bool saveAndLoadSceneIsOpen;
 
     [Header("Objects")]
     public PlayerControls player;
@@ -154,6 +154,8 @@ public class PersistantGameManager : MonoBehaviour
     private int currentItemOneIndex, currentItemTwoIndex;
     private bool changeItemOne, changeItemTwo;
 
+    public bool justReloaded;
+
 
     public Dictionary<string, int> amountOfConsumables = new Dictionary<string, int>
     {
@@ -171,65 +173,186 @@ public class PersistantGameManager : MonoBehaviour
 
     private void Awake()
     {
-        if(Instance == null)
+        if(Instance == null || gameObject.name == "PersistantGameManager - Reload")
         {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
+            if (gameObject.name == "PersistantGameManager - Reload")
+            {
+                gameObject.name = "PersistantGameManager";
+                GameManagerData data = FindObjectOfType<LoadSceneMonitor>().data;
+                Destroy(FindObjectOfType<LoadSceneMonitor>().gameObject);
+                #region UpdateData
+                itemInventory = data.itemInventory;
+                possibleItems = data.possibleItems;
+                currentDialogueQuest = data.currentDialogueQuest;
+                characterQuests = data.characterQuests;
+                possibleQuests = data.possibleQuests;
+                activeQuests = data.activeQuests;
+                rewards = data.rewards;
+                questTargets = data.questTargets;
+
+                attackSpeedMulti = data.attackSpeedMulti;
+                attackRangeMulti = data.attackRangeMulti;
+                currentAttackMultiplier = data.currentAttackMultiplier;
+                smiteDamageMulti = data.smiteDamageMulti;
+                smiteDurationMulti = data.smiteDurationMulti;
+                lifeStealMulti = data.lifeStealMulti;
+                totalHealthMulti = data.totalHealthMulti;
+                damageResistMulti = data.damageResistMulti;
+                turtleResistMulti = data.turtleResistMulti;
+                turtleMultiMulti = data.turtleMultiMulti;
+                turtleDurationMulti = data.turtleDurationMulti;
+                movementResistMulti = data.movementResistMulti;
+                moveSpeedMulti = data.moveSpeedMulti;
+                jumpHeightMulti = data.jumpHeightMulti;
+                airAttackMulti = data.airAttackMulti;
+                instantKillChance = data.instantKillChance;
+                betterLootChance = data.betterLootChance;
+
+                hasMagic = data.hasMagic;
+                damageResistDuration = data.damageResistDuration;
+                smiteDuration = data.smiteDuration;
+
+                skillLevels = data.skillLevels;
+
+                tutorialComplete = data.tutorialComplete;
+                lastEnemyLevel = data.lastEnemyLevel;
+
+                totalExperience = data.totalExperience;
+
+                currentIndex = data.currentIndex;
+                currentWeapon = data.currentWeapon;
+                playerWeaponInventory = data.playerWeaponInventory;
+                playerStats = data.playerStats;
+
+                damageProgress = data.damageProgress;
+                tankProgress = data.tankProgress;
+                mobilityProgress = data.mobilityProgress;
+                attackSpeedUpgrades = data.attackSpeedUpgrades;
+                potionIsActive = data.potionIsActive;
+                activePotionType = data.activePotionType;
+
+                currentLeechMultiplier = data.currentLeechMultiplier;
+                potionCoolDownTime = data.potionCoolDownTime;
+
+                currentArmour = data.currentArmour;
+                comparingArmour = data.comparingArmour;
+
+                tripleJump = data.tripleJump;
+                hasSmite = data.hasSmite;
+                gripWalls = data.gripWalls;
+                maxedSpeed = data.maxedSpeed;
+                damageResist = data.damageResist;
+
+                equippedItemOne = data.equippedItemOne;
+                equippedItemTwo = data.equippedItemTwo;
+
+
+                amountOfConsumables = data.amountOfConsumables;
+                #endregion
+
+                justReloaded = true;
+
+                Instance = this;
+                DontDestroyOnLoad(gameObject);
+                LoadNewScene(data.currentScene);
+
+            }
+            else
+            {
+                Instance = this;
+                DontDestroyOnLoad(gameObject);
+            }
         }
         else
         {
+          
             Destroy(gameObject);
         }
         currentScene = SceneManager.GetActiveScene().name;
 
+    }
+    void LoadNewScene(string sceneName)
+    {
+        SceneManager.LoadScene(sceneName);
+        currentScene = sceneName;
+        LootDropMonitor[] lootDropMonitors = FindObjectsOfType<LootDropMonitor>();
+        foreach(LootDropMonitor lDM in lootDropMonitors)
+        {
+            if(lDM.type == 2)
+            {
+                print(currentScene);
+                if(itemInventory[lDM.item] > 0 && !lDM.IsForMap)
+                {
+                    print(lDM.item + ": " + Instance.itemInventory[lDM.item].ToString());
+                    StartCoroutine(WaitThenDestroy(lDM.gameObject, 0.5f));
+                }
+            }
 
+        }
+        Time.timeScale = 1;
+    }
+
+    IEnumerator WaitThenDestroy(GameObject gameObject, float time)
+    {
+        yield return new WaitForSecondsRealtime(time);
+        Destroy(gameObject);
+        print("die");
     }
     private void Start()
     {
-        timeOfAbility -= 30f;
-        //Shortened to 3 weapons
-        for(int i = 0; i <3; i++)
+        if (SceneManager.GetActiveScene().name != "Loading" && !justReloaded)
         {
-            playerWeaponInventory.Add(null);
-        }
-
-        TestGiveItem.GiveItem();
-        player = FindObjectOfType<PlayerControls>();
-        currentWeapon = playerWeaponInventory[0];
-        itemInventory.Add("Empty", 0);
-        foreach(string element in possibleItems)
-        {
-            itemInventory.Add(element, 0);
-        }
-        foreach(string element in possibleConsumables)
-        {
-            if(equippedItemOne == "" && amountOfConsumables[element] > 0)
+            timeOfAbility -= 30f;
+            //Shortened to 3 weapons
+            for (int i = 0; i < 3; i++)
             {
-                equippedItemOne = element;
-            }
-            else if(equippedItemTwo == "" && amountOfConsumables[element] > 0)
-            {
-                equippedItemTwo = element;
+                playerWeaponInventory.Add(null);
             }
 
-        }
-        if(equippedItemOne == "")
-        {
-            equippedItemOne = "Empty";
-        }
-        if (equippedItemTwo == "")
-        {
-            equippedItemTwo = "Empty";
-        }
-        //LoadDataFromSave();
+            TestGiveItem.GiveItem();
+            player = FindObjectOfType<PlayerControls>();
+            currentWeapon = playerWeaponInventory[0];
+            foreach (string element in possibleItems)
+            {
+                itemInventory.Add(element, 0);
+            }
+            foreach (string element in possibleConsumables)
+            {
+                if (equippedItemOne == "" && amountOfConsumables[element] > 0)
+                {
+                    equippedItemOne = element;
+                }
+                else if (equippedItemTwo == "" && amountOfConsumables[element] > 0)
+                {
+                    equippedItemTwo = element;
+                }
 
-        //Generates total xp (Cubic graph) based on level
-        totalExperience = (float)((0.04 * Math.Pow(playerStats.playerLevel, 3)) + (0.8 * Math.Pow(playerStats.playerLevel, 2)) + 100);
-        totalHealthMulti = 0.05f * skillLevels["HealthBonus"];
+            }
+            if (equippedItemOne == "")
+            {
+                equippedItemOne = "Empty";
+            }
+            if (equippedItemTwo == "")
+            {
+                equippedItemTwo = "Empty";
+            }
+            //LoadDataFromSave();
+
+            //Generates total xp (Cubic graph) based on level
+            totalExperience = (float)((0.04 * Math.Pow(playerStats.playerLevel, 3)) + (0.8 * Math.Pow(playerStats.playerLevel, 2)) + 100);
+            totalHealthMulti = 0.05f * skillLevels["HealthBonus"];
+        }
     }
     void Update()
     {
-
+        if(Input.GetKeyDown(KeyCode.G))
+        {
+            SaveGameManagerData(1);
+        }
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            LoadDataFromSave(1);
+        }
         if (Time.time > (timeOfAbility + abilityDuration) && (damageResistMulti < 1 || currentAttackMultiplier > 1))
         {
             damageResistMulti = 1;
@@ -310,7 +433,7 @@ public class PersistantGameManager : MonoBehaviour
             ChangeItem(99);
         }
 
-        if(currentScene != SceneManager.GetActiveScene().ToString())
+        if(currentScene != SceneManager.GetActiveScene().ToString() && SceneManager.GetActiveScene().name != "Load And Save Canvas")
         {
             OnSceneChange();
         }
@@ -450,24 +573,105 @@ public class PersistantGameManager : MonoBehaviour
 
         }
     }
-   public void SaveGameManagerData()
+   public void SaveGameManagerData(int slot)
     {
         GameManagerData data = new GameManagerData();
+
+        data.currentScene = currentScene;
+
+        data.itemInventory = itemInventory;
+        data.possibleItems = possibleItems;
+        data.currentDialogueQuest = currentDialogueQuest;
+        data.characterQuests = characterQuests;
+        data.possibleQuests = possibleQuests;
+        data.activeQuests = activeQuests;
+        data.rewards = rewards;
+        data.questTargets = questTargets;
+
+        data.attackSpeedMulti = attackSpeedMulti;
+        data.attackRangeMulti = attackRangeMulti;
+        data.currentAttackMultiplier = currentAttackMultiplier;
+        data.smiteDamageMulti = smiteDamageMulti;
+        data.smiteDurationMulti = smiteDurationMulti;
+        data.lifeStealMulti = lifeStealMulti;
+        data.totalHealthMulti = totalHealthMulti;
+        data.damageResistMulti = damageResistMulti;
+        data.turtleResistMulti = turtleResistMulti;
+        data.turtleMultiMulti = turtleMultiMulti;
+        data.turtleDurationMulti = turtleDurationMulti;
+        data.movementResistMulti = movementResistMulti;
+        data.moveSpeedMulti = moveSpeedMulti;
+        data.jumpHeightMulti = jumpHeightMulti;
+        data.airAttackMulti = airAttackMulti;
+        data.instantKillChance = instantKillChance;
+        data.betterLootChance = betterLootChance;
+
+        data.hasMagic = hasMagic;
+        data.damageResistDuration = damageResistDuration;
+        data.smiteDuration = smiteDuration;
+
+        data.skillLevels = skillLevels;
+
+        data.tutorialComplete = tutorialComplete;
+        data.lastEnemyLevel = lastEnemyLevel;
+
+        data.totalExperience = totalExperience;
+
         data.currentIndex = currentIndex;
         data.currentWeapon = currentWeapon;
         data.playerWeaponInventory = playerWeaponInventory;
-        data.currentArmour = currentArmour;
         data.playerStats = playerStats;
-        data.totalExperience = totalExperience;
-        data.currentScene = currentScene;
-        File.WriteAllText(Application.dataPath + "/SavedData/GameManagerData.json", JsonConvert.SerializeObject(data, Formatting.Indented));
+
+        data.damageProgress = damageProgress;
+        data.tankProgress = tankProgress;
+        data.mobilityProgress = mobilityProgress;
+        data.attackSpeedUpgrades = attackSpeedUpgrades;
+        data.potionIsActive = potionIsActive;
+        data.activePotionType = activePotionType;
+
+        data.currentLeechMultiplier = currentLeechMultiplier;
+        data.potionCoolDownTime = potionCoolDownTime;
+
+        data.currentArmour = currentArmour;
+        data.comparingArmour = comparingArmour;
+
+        data.tripleJump = tripleJump;
+        data.hasSmite = hasSmite;
+        data.gripWalls = gripWalls;
+        data.maxedSpeed = maxedSpeed;
+        data.damageResist = damageResist;
+
+        data.equippedItemOne = equippedItemOne;
+        data.equippedItemTwo = equippedItemTwo;
+
+
+        data.amountOfConsumables = amountOfConsumables;
+
+        File.WriteAllText(Application.dataPath + "/SavedData/Slot" + slot + ".json", JsonConvert.SerializeObject(data, Formatting.Indented));
         Debug.Log("Saved");
 
     }
-    public void LoadDataFromSave()
+
+    public void LoadDataFromSave(int slot)
     {
-        string jsonData = File.ReadAllText(Application.dataPath + "/SavedData/GameManagerData.json");
+        SceneManager.LoadScene("Loading");
+        print("done");
+        GameObject empty = new GameObject("Load Scene Controller");
+        LoadSceneMonitor load = empty.AddComponent<LoadSceneMonitor>();
+        string jsonData = File.ReadAllText(Application.dataPath + "/SavedData/Slot" + slot + ".json");
         GameManagerData data = JsonConvert.DeserializeObject<GameManagerData>(jsonData);
+        load.data = data;
+        new GameObject("PersistantGameManager - Reload").AddComponent<PersistantGameManager>();
+        print("done");
+        Destroy(gameObject);
+        print("this shouldn't exist");
+        
+
+
+
+
+        /*
+        
         currentIndex = data.currentIndex;
         playerWeaponInventory = data.playerWeaponInventory;
         currentArmour = data.currentArmour;
@@ -477,6 +681,7 @@ public class PersistantGameManager : MonoBehaviour
         currentScene = data.currentScene;
         checkExp = true;
         Debug.Log("Load");
+        */
     }
 
 

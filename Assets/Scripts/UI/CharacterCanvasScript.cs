@@ -8,7 +8,7 @@ public class CharacterCanvasScript : MonoBehaviour
     public bool isActive;
     public GameObject mainPanel;
     public GameObject skillsPanel;
-
+    public Button back;
     private bool openSkills, closeSkills;
 
     void Awake()
@@ -16,6 +16,8 @@ public class CharacterCanvasScript : MonoBehaviour
         mainPanel = gameObject.transform.Find("Character Panel").gameObject;
         skillsPanel = gameObject.transform.Find("Skills Panel").gameObject;
 
+        back = mainPanel.transform.Find("Back").GetComponent<Button>();
+        back.onClick.AddListener(delegate { CloseCharacterScene(); });
     }
 
     void Start()
@@ -42,6 +44,7 @@ public class CharacterCanvasScript : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.U) && isActive)
         {
+
             if (PersistantGameManager.Instance.dialogueSceneIsOpen)
             {
                 GameObject dialoguePanel = FindObjectOfType<AsyncTriggers>().dialoguePanel;
@@ -62,6 +65,9 @@ public class CharacterCanvasScript : MonoBehaviour
             Time.timeScale = 1;
            
             SceneManager.UnloadSceneAsync("Character Canvas");
+
+            CloseCharacterScene();
+
         }
         if (mainPanel.activeSelf && Input.GetKeyDown(KeyCode.K) && skillsPanel.activeSelf == false)
         {
@@ -77,6 +83,29 @@ public class CharacterCanvasScript : MonoBehaviour
         }
 
 
+    }
+
+    private void CloseCharacterScene()
+    {
+        if (PersistantGameManager.Instance.dialogueSceneIsOpen)
+        {
+            GameObject dialoguePanel = FindObjectOfType<AsyncTriggers>().dialoguePanel;
+            if (dialoguePanel != null)
+            {
+                dialoguePanel.SetActive(false);
+                if (dialoguePanel != null)
+                {
+                    dialoguePanel.SetActive(true);
+                }
+                dialoguePanel = null;
+            }
+        }
+        isActive = false;
+        PersistantGameManager.Instance.characterScreenOpen = false;
+        PersistantGameManager.Instance.skillsScreenOpen = false;
+        Time.timeScale = 1;
+
+        SceneManager.UnloadSceneAsync("Character Canvas");
     }
 
     private void LateUpdate()

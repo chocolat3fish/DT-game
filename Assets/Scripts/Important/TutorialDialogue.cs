@@ -15,9 +15,13 @@ public class TutorialDialogue : MonoBehaviour
     PlayerControls player;
     void Awake()
     {
-        StartCoroutine(StartDialogue());
+        
         player = FindObjectOfType<PlayerControls>();
 
+    }
+    private void Start()
+    {
+        StartCoroutine(StartDialogue());
     }
     IEnumerator StartDialogue()
     {
@@ -62,8 +66,11 @@ public class TutorialDialogue : MonoBehaviour
         canvasRewardText.text = "";
         PersistantGameManager.Instance.dialogueSceneIsOpen = true;
         toTalkPanel.SetActive(false);
-        PersistantGameManager.Instance.activeQuests.Add(tutorialQuest.questKey);
-        PersistantGameManager.Instance.possibleQuests.Add(tutorialQuest.questKey, tutorialQuest);
+        if (!PersistantGameManager.Instance.justReloaded)
+        {
+            PersistantGameManager.Instance.activeQuests.Add(tutorialQuest.questKey);
+            PersistantGameManager.Instance.possibleQuests.Add(tutorialQuest.questKey, tutorialQuest);
+        }
         yield return new WaitForSecondsRealtime(1f);
         StopAllCoroutines();
         StartCoroutine(AddChars("Hello Player, \nMy name is Jason welcome to the incredible world of [insert].../d", canvasMainText));
@@ -281,6 +288,7 @@ public class TutorialDialogue : MonoBehaviour
                         canContinueDialogue = false;
                         canvasContinueButton.gameObject.SetActive(false);
                         StartCoroutine(AddChars("Pick up my dagger, use 'e' and click the [Take] button or 'L' to take the weapon. Pressing the [Keep] button or 'K' will keep your current weapon and leave the new one./d", canvasMainText));
+
                         StartCoroutine(WaitForPlayerToPickupWeapon());
                         currentSentenceIndex = 7;
                     }
@@ -353,11 +361,13 @@ public class TutorialDialogue : MonoBehaviour
                     if(PersistantGameManager.Instance.playerStats.playerSkillPoints >  0)
                     {
                         canvasContinueButton.gameObject.SetActive(false);
+
                         canContinueDialogue = false;
                         StopAllCoroutines();
                         StartCoroutine(AddChars("Press 'U' to open the character menu and find the [Skills] button. in that screen can spend skill points to unlock skills. You earned one from levelling up, try spending it now...", canvasMainText));
                         StartCoroutine(WaitForPlayerToUnlockSkill());
                         currentSentenceIndex = 14;
+
                     }
                 }
                 else if (currentSentenceIndex == 14)
