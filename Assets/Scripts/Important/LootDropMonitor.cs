@@ -85,10 +85,14 @@ public class LootDropMonitor : MonoBehaviour
 
     private void Update()
     {
-        if (selfDestruct)
+        if(type == 2)
         {
-            Destroy(gameObject);
+            if (PersistantGameManager.Instance.itemInventory[item] > 0)
+            {
+                Destroy(gameObject);
+            }
         }
+        
         //Gets the distance to the player
         distanceToPlayer = Vector2.Distance(player.transform.position, transform.position);
 

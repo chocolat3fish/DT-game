@@ -11,7 +11,7 @@ public class LoadAndSave : MonoBehaviour
     Text S1T, S2T, S3T, L1T, L2T, L3T;
     GameObject ConfirmPanel;
     Text Title, Question, LoadOrSaveDetails;
-    Button Confirm, Decline;
+    Button Confirm, Decline, Back;
     Timestamps timestamps = new Timestamps();
     Color32 emptyC = new Color32(192, 0, 0, 255);
     Color32 defaultC = new Color32(50, 50, 50, 255);
@@ -33,6 +33,9 @@ public class LoadAndSave : MonoBehaviour
 
         Confirm = ConfirmPanel.transform.Find("ConfirmB").GetComponent<Button>();
         Decline = ConfirmPanel.transform.Find("DeclineB").GetComponent<Button>();
+
+        Back = transform.Find("Back").GetComponent<Button>();
+        Back.onClick.AddListener(delegate { FindObjectOfType<AsyncTriggers>().CloseSaveAndLoadCanvas(); });
         UpdateTimestamps();
 
         ConfirmPanel.SetActive(false);
@@ -98,7 +101,7 @@ public class LoadAndSave : MonoBehaviour
         {
             Title.text = "Save";
             Question.text = "Are you sure you want to save?\nIt will override your current saved game!";
-            LoadOrSaveDetails.text = "Overwrite: Slot " + slot + "\nSaved at: " + time;
+            LoadOrSaveDetails.text = "Override: Slot " + slot + "\nSaved at: " + time;
             Confirm.onClick.RemoveAllListeners();
             Confirm.onClick.AddListener(delegate { SaveOverride(slot); CloseConfirmPanel(); });
         }

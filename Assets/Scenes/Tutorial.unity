@@ -236,7 +236,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -856,167 +856,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1066947785}
   m_CullTransparentMesh: 0
---- !u!1 &1161114262
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1161114265}
-  - component: {fileID: 1161114264}
-  - component: {fileID: 1161114263}
-  m_Layer: 0
-  m_Name: PersistantGameManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1161114263
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1161114262}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4b1ab7afe4a41468bbb38ae3b264a759, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1161114264
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1161114262}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4cd19ec11e1dbbd41ac1db47758d69a3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  possibleConsumables:
-  - 20%H
-  - 50%H
-  - 100%H
-  - 20%A
-  - 50%A
-  - 100%A
-  - 20%L
-  possibleItems:
-  - Dagger of Kaliphase
-  - Amulet of Honour
-  - Hood of Sartuka
-  - Claw of Straphagus
-  - Jason's Belt
-  currentDialogueQuest:
-    questName: 
-    questType: 
-    sentencesBeforeQuest1stTime: []
-    sentencesBeforeQuest2ndTime: []
-    questStatment: 
-    questStatmentWithItem: 
-    sentencesAfterQuest: []
-    questDescription: 
-    sentencesAfterQuestEnd: []
-    questItemName: 
-    questKey: 
-  activeQuests: []
-  attackSpeedMulti: 1
-  attackRangeMulti: 1
-  attackDamageMulti: 1
-  lifeStealMulti: 0
-  totalHealthMulti: 1
-  damageResistMulti: 1
-  turtleResistMulti: 0.5
-  movementResistMulti: 1
-  compareScreenOpen: 0
-  characterScreenOpen: 0
-  skillsScreenOpen: 0
-  menuCanvasOpen: 0
-  comparingWeapon:
-    itemName: 
-    itemDamage: 0
-    stockItemSpeed: 0
-    trueItemSpeed: 0
-    itemRange: 0
-    itemLevel: 0
-  firstTimeOpeningMenuCanvas: 0
-  menuCanvasIsOpen: 0
-  dialogueSceneIsOpen: 0
-  bugReportSceneIsOpen: 0
-  player: {fileID: 0}
-  _camera: {fileID: 0}
-  magicBar: {fileID: 0}
-  hasMagic: 0
-  currentActiveAbility: 
-  abilityIsActive: 0
-  timeOfAbility: 0
-  abilityDuration: 0
-  damageResistDuration: 15
-  checkSkills: 0
-  checkExp: 0
-  currentScene: 
-  currentIndex: 0
-  previousIndex: 0
-  tutorialComplete: 0
-  totalExperience: 100
-  GodMode: 0
-  currentWeapon:
-    itemName: 
-    itemDamage: 0
-    stockItemSpeed: 0
-    trueItemSpeed: 0
-    itemRange: 0
-    itemLevel: 0
-  playerWeaponInventory: []
-  playerStats:
-    health: 0
-    playerLevel: 1
-    playerExperience: 0
-    playerSkillPoints: 0
-  damageProgress: 0
-  tankProgress: 0
-  mobilityProgress: 0
-  attackSpeedUpgrades: 0
-  potionIsActive: 0
-  activePotionType: 
-  currentAttackMultiplier: 1
-  currentLeechMultiplier: 0
-  timeOfAttackMultiplierChange: 0
-  timeOfLeechMultiplierChange: 0
-  healthPotionUseTime: 0
-  potionCoolDownTime: 30
-  currentArmour:
-    armourType: 
-    defence: 0
-  comparingArmour:
-    armourType: 
-    defence: 0
-  tripleJump: 0
-  hasSmite: 0
-  gripWalls: 0
-  maxedSpeed: 0
-  damageResist: 0
-  equippedItemOne: 
-  equippedItemTwo: 
---- !u!4 &1161114265
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1161114262}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.4190652, y: 2.560698, z: -1.3213003}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1171816443
 GameObject:
   m_ObjectHideFlags: 0
@@ -1465,6 +1304,75 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!1001 &1537332674
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4344124287774354196, guid: 327a394b01ce63e419ab9b9fbbe7590e,
+        type: 3}
+      propertyPath: m_Name
+      value: PersistantGameManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 4344124287774354193, guid: 327a394b01ce63e419ab9b9fbbe7590e,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 2.4190652
+      objectReference: {fileID: 0}
+    - target: {fileID: 4344124287774354193, guid: 327a394b01ce63e419ab9b9fbbe7590e,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.560698
+      objectReference: {fileID: 0}
+    - target: {fileID: 4344124287774354193, guid: 327a394b01ce63e419ab9b9fbbe7590e,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -1.3213003
+      objectReference: {fileID: 0}
+    - target: {fileID: 4344124287774354193, guid: 327a394b01ce63e419ab9b9fbbe7590e,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4344124287774354193, guid: 327a394b01ce63e419ab9b9fbbe7590e,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4344124287774354193, guid: 327a394b01ce63e419ab9b9fbbe7590e,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4344124287774354193, guid: 327a394b01ce63e419ab9b9fbbe7590e,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4344124287774354193, guid: 327a394b01ce63e419ab9b9fbbe7590e,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4344124287774354193, guid: 327a394b01ce63e419ab9b9fbbe7590e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4344124287774354193, guid: 327a394b01ce63e419ab9b9fbbe7590e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4344124287774354193, guid: 327a394b01ce63e419ab9b9fbbe7590e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 327a394b01ce63e419ab9b9fbbe7590e, type: 3}
 --- !u!1 &1632911261
 GameObject:
   m_ObjectHideFlags: 0

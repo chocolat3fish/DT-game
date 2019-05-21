@@ -1,11 +1,10 @@
-﻿using System.Collections;
+﻿using Newtonsoft.Json;
+using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using System.IO;
-using System;
-using UnityEngine.UI;
-using Newtonsoft.Json;
 public class PersistantGameManager : MonoBehaviour
 {
     public static PersistantGameManager Instance { get; private set; }
@@ -71,6 +70,7 @@ public class PersistantGameManager : MonoBehaviour
     public bool firstTimeOpeningMenuCanvas, menuCanvasIsOpen;
     public bool dialogueSceneIsOpen;
     public bool bugReportSceneIsOpen;
+    public bool saveAndLoadSceneIsOpen;
 
     [Header("Objects")]
     public PlayerControls player;
@@ -154,7 +154,7 @@ public class PersistantGameManager : MonoBehaviour
     private int currentItemOneIndex, currentItemTwoIndex;
     private bool changeItemOne, changeItemTwo;
 
-    bool justReloaded;
+    public bool justReloaded;
 
 
     public Dictionary<string, int> amountOfConsumables = new Dictionary<string, int>
@@ -251,7 +251,6 @@ public class PersistantGameManager : MonoBehaviour
                 #endregion
 
                 justReloaded = true;
-                Time.timeScale = 1;
 
                 Instance = this;
                 DontDestroyOnLoad(gameObject);
@@ -281,17 +280,24 @@ public class PersistantGameManager : MonoBehaviour
         {
             if(lDM.type == 2)
             {
-                
-                if(itemInventory[lDM.item] > 0)
+                print(currentScene);
+                if(itemInventory[lDM.item] > 0 && !lDM.IsForMap)
                 {
                     print(lDM.item + ": " + Instance.itemInventory[lDM.item].ToString());
-                    GameObject.Destroy(lDM.gameObject);
+                    StartCoroutine(WaitThenDestroy(lDM.gameObject, 0.5f));
                 }
             }
 
         }
+        Time.timeScale = 1;
     }
 
+    IEnumerator WaitThenDestroy(GameObject gameObject, float time)
+    {
+        yield return new WaitForSecondsRealtime(time);
+        Destroy(gameObject);
+        print("die");
+    }
     private void Start()
     {
         if (SceneManager.GetActiveScene().name != "Loading" && !justReloaded)

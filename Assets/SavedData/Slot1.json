@@ -1,16 +1,18 @@
 {
-  "currentScene": "Level 1",
+  "currentScene": "Tutorial",
   "itemInventory": {
     "Dagger of Kaliphase": 0,
     "Amulet of Honour": 0,
     "Hood of Sartuka": 0,
-    "Claw of Straphagus": 0
+    "Claw of Straphagus": 0,
+    "Jason's Belt": 0
   },
   "possibleItems": [
     "Dagger of Kaliphase",
     "Amulet of Honour",
     "Hood of Sartuka",
-    "Claw of Straphagus"
+    "Claw of Straphagus",
+    "Jason's Belt"
   ],
   "currentDialogueQuest": {
     "questName": "",
@@ -28,8 +30,24 @@
   "characterQuests": {
     "Jason": 0
   },
-  "possibleQuests": {},
-  "activeQuests": [],
+  "possibleQuests": {
+    "Tutorial": {
+      "questName": "Learning the Ropes",
+      "questType": "Tutorial",
+      "sentencesBeforeQuest1stTime": [],
+      "sentencesBeforeQuest2ndTime": [],
+      "questStatment": "",
+      "questStatmentWithItem": "",
+      "sentencesAfterQuest": [],
+      "questDescription": "Jason, A very kind and compassionate man, has taking a liking to you and despite of your obvious ignorance has taken you under his wing to unlock the potential within you.",
+      "sentencesAfterQuestEnd": [],
+      "questItemName": "",
+      "questKey": "Tutorial"
+    }
+  },
+  "activeQuests": [
+    "Tutorial"
+  ],
   "rewards": {
     "Ja00": "Reward: A 100% attack potion",
     "Ja01": "Reward: A 20% Leech potion",
@@ -81,51 +99,51 @@
   },
   "tutorialComplete": false,
   "lastEnemyLevel": 0,
-  "totalExperience": 48100.0,
+  "totalExperience": 100.84,
   "currentIndex": 0,
   "currentWeapon": {
-    "itemName": "Short Sword",
-    "itemPrefix": "Sharp",
-    "itemDamage": 28.08,
-    "stockItemSpeed": 0.48,
-    "trueItemSpeed": 0.48,
-    "itemRange": 1.5,
-    "itemLevel": 1.0
+    "itemName": "Nothing",
+    "itemPrefix": "",
+    "itemDamage": 0.0,
+    "stockItemSpeed": 0.0,
+    "trueItemSpeed": 0.0,
+    "itemRange": 0.0,
+    "itemLevel": 0.0
   },
   "playerWeaponInventory": [
     {
-      "itemName": "Short Sword",
-      "itemPrefix": "Sharp",
-      "itemDamage": 28.08,
-      "stockItemSpeed": 0.48,
-      "trueItemSpeed": 0.48,
-      "itemRange": 1.5,
-      "itemLevel": 1.0
+      "itemName": "Nothing",
+      "itemPrefix": "",
+      "itemDamage": 0.0,
+      "stockItemSpeed": 0.0,
+      "trueItemSpeed": 0.0,
+      "itemRange": 0.0,
+      "itemLevel": 0.0
     },
     {
-      "itemName": "Short Sword",
-      "itemPrefix": "Keen",
-      "itemDamage": 22.0,
-      "stockItemSpeed": 0.39,
-      "trueItemSpeed": 0.39,
-      "itemRange": 1.5,
-      "itemLevel": 1.0
+      "itemName": "More Nothing",
+      "itemPrefix": "",
+      "itemDamage": 0.0,
+      "stockItemSpeed": 0.0,
+      "trueItemSpeed": 0.0,
+      "itemRange": 0.0,
+      "itemLevel": 0.0
     },
     {
-      "itemName": "Short Sword",
-      "itemPrefix": "Sharp",
-      "itemDamage": 27.04,
-      "stockItemSpeed": 0.51,
-      "trueItemSpeed": 0.51,
-      "itemRange": 1.5,
-      "itemLevel": 1.0
+      "itemName": "And More Nothing",
+      "itemPrefix": "",
+      "itemDamage": 0.0,
+      "stockItemSpeed": 0.0,
+      "trueItemSpeed": 0.0,
+      "itemRange": 0.0,
+      "itemLevel": 0.0
     }
   ],
   "playerStats": {
     "health": 0,
-    "playerLevel": 100,
+    "playerLevel": 1,
     "playerExperience": 0.0,
-    "playerSkillPoints": 99
+    "playerSkillPoints": 0
   },
   "damageProgress": 0,
   "tankProgress": 0,

@@ -15,9 +15,13 @@ public class TutorialDialogue : MonoBehaviour
     PlayerControls player;
     void Awake()
     {
-        StartCoroutine(StartDialogue());
+        
         player = FindObjectOfType<PlayerControls>();
 
+    }
+    private void Start()
+    {
+        StartCoroutine(StartDialogue());
     }
     IEnumerator StartDialogue()
     {
@@ -62,8 +66,11 @@ public class TutorialDialogue : MonoBehaviour
         canvasRewardText.text = "";
         PersistantGameManager.Instance.dialogueSceneIsOpen = true;
         toTalkPanel.SetActive(false);
-        PersistantGameManager.Instance.activeQuests.Add(tutorialQuest.questKey);
-        PersistantGameManager.Instance.possibleQuests.Add(tutorialQuest.questKey, tutorialQuest);
+        if (!PersistantGameManager.Instance.justReloaded)
+        {
+            PersistantGameManager.Instance.activeQuests.Add(tutorialQuest.questKey);
+            PersistantGameManager.Instance.possibleQuests.Add(tutorialQuest.questKey, tutorialQuest);
+        }
         yield return new WaitForSecondsRealtime(1f);
         StopAllCoroutines();
         StartCoroutine(AddChars("Hello Player, \nMy name is Jason welcome to the incredible world of [insert].../d", canvasMainText));

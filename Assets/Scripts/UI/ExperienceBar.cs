@@ -8,8 +8,8 @@ public class ExperienceBar : MonoBehaviour {
 
     void Start()
     {
-        //sets scale to default
-        localScale = transform.localScale;
+        localScale.x = PersistantGameManager.Instance.playerStats.playerExperience / PersistantGameManager.Instance.totalExperience;
+        transform.localScale = new Vector3(localScale.x, transform.localScale.y, transform.localScale.z);
     }
 
     void Update()
