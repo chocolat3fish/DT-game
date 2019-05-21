@@ -405,6 +405,7 @@ public class PlayerControls : MonoBehaviour
 
     }
 
+    //activates turtle
     public void ResistDamage()
     {
         PersistantGameManager.Instance.damageResistMulti = PersistantGameManager.Instance.turtleResistMulti * PersistantGameManager.Instance.turtleMultiMulti;
@@ -413,6 +414,7 @@ public class PlayerControls : MonoBehaviour
         PersistantGameManager.Instance.abilityDuration = PersistantGameManager.Instance.damageResistDuration;
     }
 
+    //activates the post-smite duration ability
     public void SmiteDuration()
     {
         PersistantGameManager.Instance.currentAttackMultiplier = 1 + PersistantGameManager.Instance.smiteDurationMulti;
@@ -421,6 +423,7 @@ public class PlayerControls : MonoBehaviour
         PersistantGameManager.Instance.abilityDuration = PersistantGameManager.Instance.smiteDuration;
     }
 
+    //calculates health return with life steal skill
     public float CalculatePlayerHealing()
     {
         return playerDamage * PersistantGameManager.Instance.lifeStealMulti;
@@ -431,6 +434,7 @@ public class PlayerControls : MonoBehaviour
     {
         if (useFireball)
         {
+            //checks if player is in the air, requires airborne damage skill
             if (playerRigidbody.velocity.y > 0f || playerRigidbody.velocity.y < 0f)
             {
                 return CalculateHighDamage() * PersistantGameManager.Instance.currentAttackMultiplier * PersistantGameManager.Instance.airAttackMulti;
@@ -439,6 +443,8 @@ public class PlayerControls : MonoBehaviour
         }
         else
         {
+
+            //decides if enemy instantly dies, requires the instant kill skill
             int randomNumber = random.Next(1, 100);
             if(randomNumber <= PersistantGameManager.Instance.instantKillChance)
             {
@@ -446,11 +452,13 @@ public class PlayerControls : MonoBehaviour
                 return playerDamage = (float)Math.Pow(100, 4);
             }
 
+            //if you attack early (spam), you do minimal damage, but timing attacks gives a damage bonus
             float timeSinceAttack = Time.time - timeOfAttack;
             if (timeSinceAttack > attackSpeed)
             {
                 timeOfAttack = Time.time;
 
+                //checks if player is in the air, requires airborne damage skill
                 if (playerRigidbody.velocity.y > 0f || playerRigidbody.velocity.y < 0f)
                 {
                     return playerDamage * 1.2f * PersistantGameManager.Instance.currentAttackMultiplier * PersistantGameManager.Instance.airAttackMulti;
@@ -459,6 +467,7 @@ public class PlayerControls : MonoBehaviour
             }
             double newPlayerDamage = playerDamage * ((timeSinceAttack / attackSpeed) / 2);
             timeOfAttack = Time.time;
+            //checks if player is in the air, requires airborne damage skill
             if (playerRigidbody.velocity.y > 0f || playerRigidbody.velocity.y < 0f)
             {
                 return newPlayerDamage * PersistantGameManager.Instance.currentAttackMultiplier * PersistantGameManager.Instance.airAttackMulti;
@@ -467,12 +476,10 @@ public class PlayerControls : MonoBehaviour
         }
     }
 
+    //smite damage calculations
     private float CalculateHighDamage()
     {
-        //float timeSinceMagic = Time.time - timeOfMagic;
         float magicDamage;
-        //if (timeSinceMagic > magicCooldown)
-
         timeOfMagic = Time.time;
         magicDamage = playerDamage * 2f * PersistantGameManager.Instance.smiteDamageMulti;
         return magicDamage * 2f;

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class MenuCanvasScript : MonoBehaviour
 {
@@ -14,7 +15,14 @@ public class MenuCanvasScript : MonoBehaviour
     public GameObject consumablesPanel;
     public GameObject itemsPanel;
     public GameObject questsPanel, questDescPanel;
-    
+    public GameObject switchWeaponsPanel;
+
+    public bool switchingWeapons;
+    public Button switchOne, switchTwo, switchThree;
+    public string firstButtonPressed = "";
+    public string lastButtonPressed = "";
+    public int lastButtonIndex;
+
 
     private bool openWeapons, closeWeapons, openConsumables, closeConsumables, openItems, closeItems, openQuests, closeQuests, closeSlot;
 
@@ -43,6 +51,12 @@ public class MenuCanvasScript : MonoBehaviour
 
     void Awake()
     {
+        //For switching weapon slots
+        switchWeaponsPanel = gameObject.transform.Find("SwitchWeaponsPanel").gameObject;
+        switchOne = switchWeaponsPanel.transform.Find("W1S").gameObject.GetComponent<Button>();
+        switchTwo = switchWeaponsPanel.transform.Find("W2S").gameObject.GetComponent<Button>();
+        switchThree = switchWeaponsPanel.transform.Find("W3S").gameObject.GetComponent<Button>();
+
         #region Assigns all Text and Panel GameObjects
         mainPanel = gameObject.transform.Find("MainPanel").gameObject;
         weaponsPanel = gameObject.transform.Find("WeaponsPanel").gameObject;
@@ -151,6 +165,7 @@ public class MenuCanvasScript : MonoBehaviour
     {
         mainPanel.SetActive(false);
         weaponsPanel.SetActive(false);
+        switchWeaponsPanel.SetActive(false);
         consumablesPanel.SetActive(false);
         itemsPanel.SetActive(false);
         questsPanel.SetActive(false);
@@ -173,6 +188,7 @@ public class MenuCanvasScript : MonoBehaviour
     {
         mainPanel.SetActive(false);
         weaponsPanel.SetActive(false);
+        switchWeaponsPanel.SetActive(false);
         consumablesPanel.SetActive(false);
         itemsPanel.SetActive(false);
         questsPanel.SetActive(false);
@@ -453,6 +469,7 @@ public class MenuCanvasScript : MonoBehaviour
     {
         UpdateData();
         weaponsPanel.SetActive(true);
+        switchWeaponsPanel.SetActive(true);
         questsPanel.SetActive(false);
         questDescPanel.SetActive(false);
         
@@ -461,6 +478,7 @@ public class MenuCanvasScript : MonoBehaviour
     public void CloseWeaponsMenu()
     {
         weaponsPanel.SetActive(false);
+        switchWeaponsPanel.SetActive(false);
 
     }
 
@@ -485,6 +503,7 @@ public class MenuCanvasScript : MonoBehaviour
         UpdateData();
         questsPanel.SetActive(true);
         weaponsPanel.SetActive(false);
+        switchWeaponsPanel.SetActive(false);
         questDescPanel.SetActive(false);
     }
 
@@ -1166,6 +1185,61 @@ public class MenuCanvasScript : MonoBehaviour
             asyncTriggers.dialoguePanel = null;
         }
         SceneManager.UnloadSceneAsync("Menu Canvas");
+    }
+
+
+    public void SwitchWeaponSlot()
+    {
+        if (switchingWeapons == false)
+        {
+            switchingWeapons = true;
+
+            firstButtonPressed = EventSystem.current.currentSelectedGameObject.name;
+            if (firstButtonPressed == "W1S")
+            {
+                lastButtonIndex = 0;
+                switchOne.interactable = false;
+            }
+            else if (firstButtonPressed == "W2S")
+            {
+                lastButtonIndex = 1;
+                switchTwo.interactable = false;
+            }
+            else if (firstButtonPressed == "W3S")
+            {
+                lastButtonIndex = 2;
+                switchThree.interactable = false;
+            }
+        }
+
+        else if (switchingWeapons == true)
+        {
+            lastButtonPressed = EventSystem.current.currentSelectedGameObject.name;
+            if (lastButtonPressed == "W1S")
+            {
+                Weapon tempWeapon = PersistantGameManager.Instance.playerWeaponInventory[0];
+                PersistantGameManager.Instance.playerWeaponInventory[0] = PersistantGameManager.Instance.playerWeaponInventory[lastButtonIndex];
+                PersistantGameManager.Instance.playerWeaponInventory[lastButtonIndex] = tempWeapon;
+            }
+            else if (lastButtonPressed == "W2S")
+            {
+                Weapon tempWeapon = PersistantGameManager.Instance.playerWeaponInventory[1];
+                PersistantGameManager.Instance.playerWeaponInventory[1] = PersistantGameManager.Instance.playerWeaponInventory[lastButtonIndex];
+                PersistantGameManager.Instance.playerWeaponInventory[lastButtonIndex] = tempWeapon;
+            }
+            else if (lastButtonPressed == "W3S")
+            {
+                Weapon tempWeapon = PersistantGameManager.Instance.playerWeaponInventory[2];
+                PersistantGameManager.Instance.playerWeaponInventory[2] = PersistantGameManager.Instance.playerWeaponInventory[lastButtonIndex];
+                PersistantGameManager.Instance.playerWeaponInventory[lastButtonIndex] = tempWeapon;
+            }
+
+            switchOne.interactable = true;
+            switchTwo.interactable = true;
+            switchThree.interactable = true;
+            UpdateData();
+            switchingWeapons = false;
+        }
     }
 
 }

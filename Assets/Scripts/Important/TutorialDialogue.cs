@@ -151,7 +151,7 @@ public class TutorialDialogue : MonoBehaviour
                 else if(currentSentenceIndex == 1)
                 {
                     StopAllCoroutines();
-                    StartCoroutine(AddChars("Using ‘a’ and ‘d’ you can move left and right,\n/wTry that now...", canvasMainText));
+                    StartCoroutine(AddChars("Using ‘A’ and ‘D’ you can move left and right,\n/wTry that now...", canvasMainText));
                     canvasContinueButton.gameObject.SetActive(false);
                     canContinueDialogue = false;
                     StartCoroutine(WaitForPlayerMove());
@@ -170,7 +170,7 @@ public class TutorialDialogue : MonoBehaviour
                 else if(currentSentenceIndex == 3)
                 {
                     StopAllCoroutines();
-                    StartCoroutine(AddChars("Head to your right and grab that item on the topmost platform,\nUse ‘e’ to interact with items...", canvasMainText));
+                    StartCoroutine(AddChars("Head to your right and grab that item on the topmost platform,\nUse ‘E’ to interact with items...", canvasMainText));
                     canvasContinueButton.gameObject.SetActive(false);
                     canContinueDialogue = false;
                     StartCoroutine(WaitForPlayerPickup());
@@ -179,7 +179,7 @@ public class TutorialDialogue : MonoBehaviour
                 else if (currentSentenceIndex == 4)
                 {
                     StopAllCoroutines();
-                    StartCoroutine(AddChars("Now lets have a look at the items you hold, Click 'tab' to open the\nmenu, And click the items button to view your inventory...", canvasMainText));
+                    StartCoroutine(AddChars("Now lets have a look at the items you hold, Click 'tab' to open the menu, And click the [items] button to view your inventory...", canvasMainText));
                     canvasContinueButton.gameObject.SetActive(false);
                     canContinueDialogue = false;
                     StartCoroutine(WaitForPlayerToOpenMenu());
@@ -195,7 +195,7 @@ public class TutorialDialogue : MonoBehaviour
                 else if (currentSentenceIndex == 6)
                 {
                     StopAllCoroutines();
-                    StartCoroutine(AddChars("You can look deeper into a quest by clicking on it in the quests menu, Give it a go...", canvasMainText));
+                    StartCoroutine(AddChars("You can look deeper into a quest by clicking on it in the [quests] menu, Give it a go...", canvasMainText));
                     canvasContinueButton.gameObject.SetActive(false);
                     canContinueDialogue = false;
                     StartCoroutine(WaitForPlayerToOpenQuestDesc());
@@ -280,7 +280,7 @@ public class TutorialDialogue : MonoBehaviour
                         StopAllCoroutines();
                         canContinueDialogue = false;
                         canvasContinueButton.gameObject.SetActive(false);
-                        StartCoroutine(AddChars("Pick up my dagger, use 'e' and click the Take button or 'L' to take the weapon/d", canvasMainText));
+                        StartCoroutine(AddChars("Pick up my dagger, use 'e' and click the [Take] button or 'L' to take the weapon. Pressing the [Keep] button or 'K' will keep your current weapon and leave the new one./d", canvasMainText));
                         StartCoroutine(WaitForPlayerToPickupWeapon());
                         currentSentenceIndex = 7;
                     }
@@ -291,7 +291,7 @@ public class TutorialDialogue : MonoBehaviour
                     StopAllCoroutines();
                     Instantiate(Resources.Load("Tutorial Enemy"));
                     canvasContinueButton.gameObject.SetActive(false);
-                    StartCoroutine(AddChars("You can see the equipped weapon slot in the bottom left of the screen. Pressing 1, 2, or 3 will change the weapon you are using. \nOh no, an evil door broke in on the right, use 'w' to attack, But make sure not to touch it or it will hurt you...", canvasMainText));
+                    StartCoroutine(AddChars("You can see the equipped weapon slot in the bottom left of the screen. Pressing 1, 2, or 3 will change the weapon you are using. \nAn enemy has appeared on the right. Use 'W' to attack, but try not to touch it...", canvasMainText));
                     StartCoroutine(WaitForPlayerToKillEnemy());
                     currentSentenceIndex = 8;
                 }
@@ -355,7 +355,7 @@ public class TutorialDialogue : MonoBehaviour
                         canvasContinueButton.gameObject.SetActive(false);
                         canContinueDialogue = false;
                         StopAllCoroutines();
-                        StartCoroutine(AddChars("Using 'u' then 'k' you can open the skills panel, on that you can spend skill points \nto unlock skills. You earned one from levelling up, try spending it now...", canvasMainText));
+                        StartCoroutine(AddChars("Press 'U' to open the character menu and find the [Skills] button. in that screen can spend skill points to unlock skills. You earned one from levelling up, try spending it now...", canvasMainText));
                         StartCoroutine(WaitForPlayerToUnlockSkill());
                         currentSentenceIndex = 14;
                     }

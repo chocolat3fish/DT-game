@@ -393,20 +393,22 @@ public class NPCMonitor : MonoBehaviour
     {
         if (key == "Ja00")
         {
+            ReceiveWeapon("Short Sword", 10);
             PersistantGameManager.Instance.itemInventory["Claw of Straphagus"] --;
-            PersistantGameManager.Instance.amountOfConsumables["100%A"]++;
+
            
         }
 
         if (key == "Ja01")
         {
+            ReceiveWeapon("Lance", 10);
             PersistantGameManager.Instance.itemInventory["Amulet of Honour"]--;
-            PersistantGameManager.Instance.amountOfConsumables["20%L"]++;
+
         }
 
         if (key == "Ja03")
         {
-            ReceiveWeapon("Long Sword", 100);
+            ReceiveWeapon("Long Sword", 10);
             PersistantGameManager.Instance.itemInventory["Hood of Sartuka"]--;
         }
 

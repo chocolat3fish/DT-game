@@ -722,7 +722,7 @@ EdgeCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.07, y: 0}
   m_EdgeRadius: 0
   m_Points:
   - {x: -3.6427994, y: -1.872829}
@@ -740,7 +740,7 @@ EdgeCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.13, y: 0}
   m_EdgeRadius: 0
   m_Points:
   - {x: -6.6427917, y: -1.872833}
@@ -758,7 +758,7 @@ EdgeCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.06, y: 0}
   m_EdgeRadius: 0
   m_Points:
   - {x: -0.6427994, y: 0.37715757}
@@ -776,7 +776,7 @@ EdgeCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.05, y: 0}
   m_EdgeRadius: 0
   m_Points:
   - {x: -3.6427994, y: 0.37716937}
@@ -927,18 +927,28 @@ MonoBehaviour:
   activeQuests: []
   attackSpeedMulti: 1
   attackRangeMulti: 1
-  attackDamageMulti: 1
+  currentAttackMultiplier: 1
+  smiteDamageMulti: 1
+  smiteDurationMulti: 1
   lifeStealMulti: 0
   totalHealthMulti: 1
   damageResistMulti: 1
   turtleResistMulti: 0.5
+  turtleMultiMulti: 1
+  turtleDurationMulti: 1
   movementResistMulti: 1
+  moveSpeedMulti: 1
+  jumpHeightMulti: 1
+  airAttackMulti: 1
+  instantKillChance: 0
+  betterLootChance: 0
   compareScreenOpen: 0
   characterScreenOpen: 0
   skillsScreenOpen: 0
   menuCanvasOpen: 0
   comparingWeapon:
     itemName: 
+    itemPrefix: 
     itemDamage: 0
     stockItemSpeed: 0
     trueItemSpeed: 0
@@ -957,16 +967,19 @@ MonoBehaviour:
   timeOfAbility: 0
   abilityDuration: 0
   damageResistDuration: 15
+  smiteDuration: 10
   checkSkills: 0
   checkExp: 0
   currentScene: 
   currentIndex: 0
   previousIndex: 0
   tutorialComplete: 0
+  lastEnemyLevel: 0
   totalExperience: 100
   GodMode: 0
   currentWeapon:
     itemName: 
+    itemPrefix: 
     itemDamage: 0
     stockItemSpeed: 0
     trueItemSpeed: 0
@@ -984,7 +997,6 @@ MonoBehaviour:
   attackSpeedUpgrades: 0
   potionIsActive: 0
   activePotionType: 
-  currentAttackMultiplier: 1
   currentLeechMultiplier: 0
   timeOfAttackMultiplierChange: 0
   timeOfLeechMultiplierChange: 0

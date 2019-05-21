@@ -28,11 +28,11 @@ public class PersistantGameManager : MonoBehaviour
 
     public Dictionary<string, string> rewards = new Dictionary<string, string>
     {
-        {"Ja00", "Reward: A 100% attack potion"},
-        {"Ja01", "Reward: A 20% Leech potion"},
-        {"Ja02", "Ha you don't get anything" },
+        {"Ja00", "Reward: A new Shortsword"},
+        {"Ja01", "Reward:A new Lance"},
+        {"Ja02", "No reward" },
         {"Ja03", "Reward: A new Longsword"},
-        {"Tutorial", "Reward: A greater insight into the workings of the world + fighting skills"}
+        {"Tutorial", "Reward: A greater insight into the workings of the world"}
     };
 
     public Dictionary<string, string> questTargets = new Dictionary<string, string>

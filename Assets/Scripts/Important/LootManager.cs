@@ -14,6 +14,7 @@ public class LootManager : MonoBehaviour
     //which genreates a random number between ranges
     private static System.Random random = new System.Random();
 
+    //Dictionaries with different classes of prefixes
     public static Dictionary<string, float> damagePrefixes = new Dictionary<string, float>
     {
         {"Keen", 1.1f},
@@ -121,6 +122,7 @@ public class LootManager : MonoBehaviour
         }
         */
 
+        //useless
         if (weaponValue > 60)
         {
             powerBoost = weaponValue - 40;
@@ -128,6 +130,7 @@ public class LootManager : MonoBehaviour
 
         //while (selectingTypeOfWeapon)
 
+        //picks weapon type at random.
         randomNumber = random.Next(0, 4);
         switch (randomNumber)
         {
@@ -252,6 +255,8 @@ public class LootManager : MonoBehaviour
         newRange = (float)(Math.Round(newRange ,2));
         if (newRange > maxR) { newRange = maxR; }
         */
+
+        //sets weapon level to the level of the enemy you killed
         int enemyLevel = PersistantGameManager.Instance.lastEnemyLevel;
 
         int newLevel = random.Next(enemyLevel - 1, enemyLevel + 1);
@@ -263,6 +268,7 @@ public class LootManager : MonoBehaviour
         if (newDamage <= 0) { newDamage = 0.1f; }
         */
 
+        //for the better loot skill
         int randomChance = random.Next(1, 100);
         if (randomChance <= PersistantGameManager.Instance.betterLootChance)
         {
@@ -308,7 +314,7 @@ public class LootManager : MonoBehaviour
         string newPrefix = listPrefix;
 
 
-
+        //calculates damage
         float newDamage = random.Next((int)((16 * Math.Pow(newLevel, 2) + 10) * 0.9f), (int)((16 * Math.Pow(newLevel, 2) + 10) * 1.1f));
         newDamage *= damageBonus + (damageBonus * (weaponValue / 100));
         if (prefixType == "Damage")
@@ -319,7 +325,7 @@ public class LootManager : MonoBehaviour
         Debug.Log(weaponValue);
         if (newDamage <= 0) { newDamage = 0.1f; }
 
-
+        //calculates speed
         double tempSpeed;
         while (true)
         {
@@ -341,7 +347,7 @@ public class LootManager : MonoBehaviour
         if (newAttackSpeed <= 0) { newAttackSpeed = 0.1f; }
 
 
-        //float newRange = random.Next(newLevel + newLevel / 5, newLevel + newLevel / 5);
+        //calculates range
         float newRange = rangeBonus;
         if (prefixType == "Range")
         {
@@ -357,7 +363,7 @@ public class LootManager : MonoBehaviour
 
     public static Weapon GenerateSpecificWeapon(string weaponType, int weaponValue)
     { 
-
+        //Takes specific weapon type for quests, rather than a random weapon choice.
         switch (weaponType)
         {
             case "Dagger":
@@ -392,15 +398,18 @@ public class LootManager : MonoBehaviour
                 break;
         }
 
-        int enemyLevel = PersistantGameManager.Instance.lastEnemyLevel;
+        //quests use player level instead of enemy level
+        int playerLevel = PersistantGameManager.Instance.playerStats.playerLevel;
 
-        int newLevel = random.Next(enemyLevel - 1, enemyLevel + 1);
+        int newLevel = random.Next(playerLevel - 1, playerLevel + 1);
         if (newLevel <= 0) { newLevel = 1; }
 
         /*
         float newDamage = random.Next(newLevel - newLevel / 5, newLevel + newLevel / 5);
         newDamage *= damageBonus + (damageBonus * (weaponValue / 100));
         */
+
+        //for better loot skill, might remove
         int randomChance = random.Next(1, 100);
         if(randomChance <= PersistantGameManager.Instance.betterLootChance)
         {
@@ -445,6 +454,7 @@ public class LootManager : MonoBehaviour
         string listPrefix = dictKeys[random.Next(dictKeys.Count)];
         string newPrefix = listPrefix;
 
+        //calculates damage
         float newDamage = random.Next((int)((16 * Math.Pow(newLevel, 2) + 10) * 0.9f), (int)((16 * Math.Pow(newLevel, 2) + 10) * 1.1f));
         newDamage *= damageBonus + (damageBonus * (weaponValue / 100));
         if (prefixType == "Damage")
@@ -454,7 +464,7 @@ public class LootManager : MonoBehaviour
 
         if (newDamage <= 0) { newDamage = 0.1f; }
               
-
+        //calculates speed
         double tempSpeed;
         while (true)
         {   
@@ -478,7 +488,7 @@ public class LootManager : MonoBehaviour
         if (newAttackSpeed <= 0) { newAttackSpeed = 0.1f; }
 
 
-        //float newRange = random.Next(newLevel + newLevel / 5, newLevel + newLevel / 5);
+        //calculates range
         float newRange = rangeBonus;
         if (prefixType == "Range")
         {
@@ -499,6 +509,7 @@ public class LootManager : MonoBehaviour
         return new Weapon(weaponType, newPrefix, newDamage, newAttackSpeed / (float)PersistantGameManager.Instance.attackSpeedMulti, newAttackSpeed, newRange, newLevel);
     }
 
+    //delete
     public static Consumable GenerateConsumable(int value)
     {
         int randomChance = random.Next(0, 100);

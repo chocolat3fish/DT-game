@@ -19,7 +19,7 @@ public class SkillButtons : MonoBehaviour
     private skillDescription descriptionPanel;
     public string descriptionName;
     [TextArea(5,10)]
-    public string questDescription;
+    public string skillDescription;
     public Color32 unlockedC = new Color32(0, 245, 7, 255);
     public Color32 notUnlockedC = new Color32(245, 0, 29, 255);
     public bool right, up;
@@ -60,7 +60,7 @@ public class SkillButtons : MonoBehaviour
         }
         descriptionPanel.transform.position = Input.mousePosition + descriptionPanel.offest;
         descriptionPanel.transform.Find("Title").GetComponent<Text>().text = AddSpacesToSentence(_name);
-        descriptionPanel.transform.Find("Desc").GetComponent<Text>().text = questDescription;
+        descriptionPanel.transform.Find("Desc").GetComponent<Text>().text = skillDescription;
         bool go = false;
         bool something = false;
         string output = "";

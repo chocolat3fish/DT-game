@@ -45,6 +45,7 @@ public class SkillManager2 : MonoBehaviour
         colorBlock.highlightedColor = highlightedColor;
         colorBlock.colorMultiplier = 1;
 
+        //finds all the buttons
         SmiteB = gameObject.transform.Find("SMB").GetComponent<Button>();
         SmiteDurationB = gameObject.transform.Find("SMDuB").GetComponent<Button>();
         SmiteDamageB = gameObject.transform.Find("SMDaB").GetComponent<Button>();
@@ -63,7 +64,7 @@ public class SkillManager2 : MonoBehaviour
         InstantKillB = gameObject.transform.Find("IKB").GetComponent<Button>();
         WeaponDropValueB = gameObject.transform.Find("WDVB").GetComponent<Button>();
 
-
+        //finds the locks
         HR2Tu = transform.Find("HR2Tu").transform.Find("Text").GetComponent<Text>();
         HR2DaM = transform.Find("HR2DaM").transform.Find("Text").GetComponent<Text>(); 
         MS2DaM = transform.Find("MS2DaM").transform.Find("Text").GetComponent<Text>(); 
@@ -83,18 +84,14 @@ public class SkillManager2 : MonoBehaviour
         WDV = transform.Find("WDV").transform.Find("Text").GetComponent<Text>();
 
 
-
-
-
-
+        //adds all the buttons
         AddButtons(SmiteB, SmiteDurationB, SmiteDamageB, AttackSpeedB, LifeStealB,
-    AirAttackB, HealthBonusB, MoveSpeedB, MoveDefenceB, TripleJumpB, TurtleB, TurtleDefenseB,
-    TurtleDurationB, GripWallsB, JumpHeightB, InstantKillB, WeaponDropValueB);
+        AirAttackB, HealthBonusB, MoveSpeedB, MoveDefenceB, TripleJumpB, TurtleB, TurtleDefenseB,
+        TurtleDurationB, GripWallsB, JumpHeightB, InstantKillB, WeaponDropValueB);
         
    
 }
 
-    // Start is called before the first frame update
     void Start()
     {
         foreach(Button b in buttons)

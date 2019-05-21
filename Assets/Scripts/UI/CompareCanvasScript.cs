@@ -106,6 +106,11 @@ public class CompareCanvasScript : MonoBehaviour
             ChooseNewWeapon();
         }
 
+        if (Input.GetKeyDown(KeyCode.Tab) && !detecting && PersistantGameManager.Instance.compareScreenOpen)
+        {
+            ContinueGame();
+        }
+
     }
     public void UpdateData()
     {
@@ -131,8 +136,7 @@ public class CompareCanvasScript : MonoBehaviour
         PersistantGameManager.Instance.currentWeapon = PersistantGameManager.Instance.comparingWeapon;
         PersistantGameManager.Instance.comparingWeapon = tempWeapon;
         PersistantGameManager.Instance.playerWeaponInventory[PersistantGameManager.Instance.currentIndex] = PersistantGameManager.Instance.currentWeapon;
-        shouldUpdate = false;
-        ContinueGame();
+        shouldUpdate = true;
     }
 
     public void ContinueGame()
