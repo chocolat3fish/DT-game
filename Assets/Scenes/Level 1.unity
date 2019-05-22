@@ -498,7 +498,7 @@ Transform:
   - {fileID: 217973335}
   - {fileID: 2146851575}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &265776206
 GameObject:
@@ -567,7 +567,7 @@ RectTransform:
   m_Children:
   - {fileID: 1348077152}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -638,7 +638,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &354895135
 GameObject:
@@ -949,8 +949,9 @@ MonoBehaviour:
     enemyHealth: 5
     attackSpeed: 1
     attackRange: 1
-    enemyClass: Heavy
+    enemyTier: Medium
     enemyLevel: 2
+    enemyClass: Energy
   itemChance: 100
   weaponValue: 10
   itemValue: 0
@@ -1319,8 +1320,9 @@ MonoBehaviour:
     enemyHealth: 15
     attackSpeed: 1
     attackRange: 2
-    enemyClass: Heavy
+    enemyTier: Heavy
     enemyLevel: 2
+    enemyClass: Fire
   itemChance: 35
   weaponValue: 10
   itemValue: 100
@@ -1635,7 +1637,7 @@ RectTransform:
   m_Children:
   - {fileID: 486535260}
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -2278,7 +2280,7 @@ Transform:
   - {fileID: 888362253}
   - {fileID: 1458632231}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1347226474
 GameObject:
@@ -2359,7 +2361,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!70 &1347226477
 CapsuleCollider2D:
@@ -2481,8 +2483,9 @@ MonoBehaviour:
     enemyHealth: 40
     attackSpeed: 1
     attackRange: 1
-    enemyClass: Light
+    enemyTier: Light
     enemyLevel: 2
+    enemyClass: Light
   itemChance: 100
   weaponValue: 50
   itemValue: 0
@@ -4656,7 +4659,7 @@ Transform:
   m_Children:
   - {fileID: 1063977876}
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1569865083
 GameObject:
@@ -4729,7 +4732,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
-
 --- !u!1 &1645279217
 GameObject:
   m_ObjectHideFlags: 0
@@ -4822,6 +4824,8 @@ MonoBehaviour:
   comparingWeapon:
     itemName: 
     itemPrefix: 
+    itemElement: 
+    itemSuffix: 
     itemDamage: 0
     stockItemSpeed: 0
     trueItemSpeed: 0
@@ -4831,6 +4835,7 @@ MonoBehaviour:
   menuCanvasIsOpen: 0
   dialogueSceneIsOpen: 0
   bugReportSceneIsOpen: 0
+  saveAndLoadSceneIsOpen: 0
   player: {fileID: 0}
   _camera: {fileID: 0}
   magicBar: {fileID: 0}
@@ -4853,6 +4858,8 @@ MonoBehaviour:
   currentWeapon:
     itemName: 
     itemPrefix: 
+    itemElement: 
+    itemSuffix: 
     itemDamage: 0
     stockItemSpeed: 0
     trueItemSpeed: 0
@@ -4888,6 +4895,7 @@ MonoBehaviour:
   damageResist: 0
   equippedItemOne: 
   equippedItemTwo: 
+  justReloaded: 0
 --- !u!4 &1645279220
 Transform:
   m_ObjectHideFlags: 0
@@ -4900,9 +4908,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-
 --- !u!1001 &1656818067
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4953,7 +4960,7 @@ PrefabInstance:
     - target: {fileID: 1226106938924304396, guid: afe732dca4786402d9b7cb7126088342,
         type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1226106938924304396, guid: afe732dca4786402d9b7cb7126088342,
         type: 3}
@@ -5095,7 +5102,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1820669292
 GameObject:
@@ -5481,7 +5488,7 @@ Transform:
   - {fileID: 1734038414}
   - {fileID: 529460840}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &2104623959
 Rigidbody2D:

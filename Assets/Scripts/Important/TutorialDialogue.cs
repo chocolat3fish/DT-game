@@ -260,7 +260,7 @@ public class TutorialDialogue : MonoBehaviour
                     GameObject questDrop = Instantiate(Resources.Load("Loot Drop"), player.transform.position, Quaternion.identity) as GameObject;
                     LootDropMonitor questDropMonitor = questDrop.GetComponent<LootDropMonitor>();
                     questDropMonitor.type = 0;
-                    questDropMonitor.itemStats = new Weapon("Jason's Dagger", "",  5, 0.5f, 0.5f, 1, 1.5f);
+                    questDropMonitor.itemStats = new Weapon("Jason's Dagger", "", "", "", 5, 0.5f, 0.5f, 1, 1.5f);
                     StartCoroutine(AddChars("Here's my dagger, I don't use it much anyway, Use 'e' to pick up a weapon. Pressing 1, 2 or 3 will change the slot you are comparing and switching into.../d", canvasMainText));
                     currentSentenceIndex = 6;
                 }

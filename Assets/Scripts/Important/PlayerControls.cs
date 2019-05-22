@@ -430,16 +430,18 @@ public class PlayerControls : MonoBehaviour
     }
 
 
-    public double CalculatePlayerDamage()
+    public double CalculatePlayerDamage(float elementDamage)
     {
+        //elementDamage changes damage based on your weapon element vs the enemy's element
+
         if (useFireball)
         {
             //checks if player is in the air, requires airborne damage skill
             if (playerRigidbody.velocity.y > 0f || playerRigidbody.velocity.y < 0f)
             {
-                return CalculateHighDamage() * PersistantGameManager.Instance.currentAttackMultiplier * PersistantGameManager.Instance.airAttackMulti;
+                return CalculateHighDamage() * PersistantGameManager.Instance.currentAttackMultiplier * PersistantGameManager.Instance.airAttackMulti * elementDamage;
             }
-            return CalculateHighDamage() * PersistantGameManager.Instance.currentAttackMultiplier;
+            return CalculateHighDamage() * PersistantGameManager.Instance.currentAttackMultiplier * elementDamage;
         }
         else
         {
@@ -461,18 +463,18 @@ public class PlayerControls : MonoBehaviour
                 //checks if player is in the air, requires airborne damage skill
                 if (playerRigidbody.velocity.y > 0f || playerRigidbody.velocity.y < 0f)
                 {
-                    return playerDamage * 1.2f * PersistantGameManager.Instance.currentAttackMultiplier * PersistantGameManager.Instance.airAttackMulti;
+                    return playerDamage * 1.2f * PersistantGameManager.Instance.currentAttackMultiplier * PersistantGameManager.Instance.airAttackMulti * elementDamage;
                 }
-                return playerDamage * 1.2f * PersistantGameManager.Instance.currentAttackMultiplier;
+                return playerDamage * 1.2f * PersistantGameManager.Instance.currentAttackMultiplier * elementDamage;
             }
             double newPlayerDamage = playerDamage * ((timeSinceAttack / attackSpeed) / 2);
             timeOfAttack = Time.time;
             //checks if player is in the air, requires airborne damage skill
             if (playerRigidbody.velocity.y > 0f || playerRigidbody.velocity.y < 0f)
             {
-                return newPlayerDamage * PersistantGameManager.Instance.currentAttackMultiplier * PersistantGameManager.Instance.airAttackMulti;
+                return newPlayerDamage * PersistantGameManager.Instance.currentAttackMultiplier * PersistantGameManager.Instance.airAttackMulti * elementDamage;
             }
-            return newPlayerDamage * PersistantGameManager.Instance.currentAttackMultiplier; 
+            return newPlayerDamage * PersistantGameManager.Instance.currentAttackMultiplier * elementDamage; 
         }
     }
 
