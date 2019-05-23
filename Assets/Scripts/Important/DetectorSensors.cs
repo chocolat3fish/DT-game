@@ -36,7 +36,7 @@ public class DetectorSensors : MonoBehaviour
             EnemyMonitor enemy = collision.gameObject.GetComponent<EnemyMonitor>();
             float elementDamage;
 
-            if (PersistantGameManager.Instance.currentWeapon.itemElement == "")
+            if (PersistantGameManager.Instance.currentWeapon.itemElement == "" || PersistantGameManager.Instance.currentWeapon.itemElement == enemy.enemyStats.enemyClass)
             {
                 elementDamage = 1;
             }

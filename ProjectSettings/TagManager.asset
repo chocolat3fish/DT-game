@@ -13,6 +13,7 @@ TagManager:
   - Wall
   - Roof
   - DialoguePanel
+  - Collider
   layers:
   - Default
   - TransparentFX
