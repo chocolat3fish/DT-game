@@ -122,7 +122,7 @@ MonoBehaviour:
   previousIndex: 0
   tutorialComplete: 0
   lastEnemyLevel: 0
-  totalExperience: 300
+  totalExperience: 100
   GodMode: 0
   currentWeapon:
     itemName: 

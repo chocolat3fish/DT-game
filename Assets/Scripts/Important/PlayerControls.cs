@@ -26,6 +26,17 @@ public class PlayerControls : MonoBehaviour
     public float doubleJumpSpeed;
     public int totalJumps;
     private Rigidbody2D playerRigidbody;
+    private BoxCollider2D collider;
+
+
+    public int layerMask;
+    public bool useWallSlippy;
+    public bool useWallGrippy;
+    public bool useFloorGrippy;
+    private float rayCastLength = 0.05f;
+    private float colliderWidth;
+    private float colliderHeight;
+
 
     public PlayerStats playerStats;
 
@@ -89,6 +100,7 @@ public class PlayerControls : MonoBehaviour
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         cameraMovement = FindObjectOfType<CameraMovement>();
         playerRigidbody = gameObject.GetComponent<Rigidbody2D>();
+        collider = gameObject.GetComponent<BoxCollider2D>();
         leftDetector = gameObject.transform.Find("Left Detector").GetComponent<BoxCollider2D>();
         rightDetector = gameObject.transform.Find("Right Detector").GetComponent<BoxCollider2D>();
         EnemyMonitor[] enemyColliders = FindObjectsOfType<EnemyMonitor>();
@@ -97,6 +109,9 @@ public class PlayerControls : MonoBehaviour
         {
             Physics2D.IgnoreCollision(gameObject.GetComponent<BoxCollider2D>(), m.GetComponent<BoxCollider2D>());
         }
+
+        colliderWidth = GetComponent<Collider2D>().bounds.extents.x; // + 0.1f;
+        colliderHeight = GetComponent<Collider2D>().bounds.extents.y; // + 0.2f;
 
     }
     void Start()
@@ -118,6 +133,41 @@ public class PlayerControls : MonoBehaviour
 
     void Update()
     {
+
+        if (PlayerIsOnGround())
+        {
+            canJump = true;
+            shouldJump = false;
+            currentJumps = 0;
+            // tells animator to stop playing Jump animation
+            animator.SetBool("IsJumping", false);
+            Debug.Log("ground");
+            collider.sharedMaterial = (PhysicsMaterial2D)Resources.Load("PhysicsMaterials/FloorGrippy");
+        }
+
+        if (PlayerIsOnWall())
+        {
+            if (PersistantGameManager.Instance.gripWalls == true)
+            {
+                canJump = true;
+                currentJumps = 0;
+                // tells animator to stop playing Jump animation
+                animator.SetBool("IsJumping", false);
+                collider.sharedMaterial = (PhysicsMaterial2D)Resources.Load("PhysicsMaterials/WallGrippy");
+            }
+            else
+            {
+                collider.sharedMaterial = (PhysicsMaterial2D)Resources.Load("PhysicsMaterials/WallSlippery");
+                /*
+                useFloorGrippy = false;
+                useWallGrippy = false;
+                useWallSlippy = true;
+                */               
+            }
+            shouldJump = false;
+
+        }
+       
 
 
         if (currentHealth <= 0)
@@ -322,15 +372,38 @@ public class PlayerControls : MonoBehaviour
     }
 
     //detects if player hits ground, which re enables ability to jump
+    /*
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Floor")
+        if (collision.gameObject.tag == "Collider")
         {
-            canJump = true;
-            shouldJump = false;
-            currentJumps = 0;
-            // tells animator to stop playing Jump animation
-            animator.SetBool("IsJumping", false);
+            bool groundCheck1 = Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y - colliderHeight), -Vector2.up, rayCastLength);
+            bool groundCheck2 = Physics2D.Raycast(new Vector2(transform.position.x + (colliderWidth - 0.2f), transform.position.y - colliderHeight), -Vector2.up, rayCastLength);
+            bool groundCheck3 = Physics2D.Raycast(new Vector2(transform.position.x - (colliderWidth - 0.2f), transform.position.y - colliderHeight), -Vector2.up, rayCastLength);
+            if ((groundCheck1 || groundCheck2 || groundCheck3))
+            {
+                canJump = true;
+                shouldJump = false;
+                currentJumps = 0;
+                // tells animator to stop playing Jump animation
+                animator.SetBool("IsJumping", false);
+            }
+            bool wallOnLeft = Physics2D.Raycast(new Vector2(transform.position.x - colliderWidth, transform.position.y), -Vector2.right, rayCastLength);
+            bool wallOnRight = Physics2D.Raycast(new Vector2(transform.position.x + colliderWidth, transform.position.y), Vector2.right, rayCastLength);
+            if ((wallOnRight || wallOnLeft) && PersistantGameManager.Instance.gripWalls)
+            {
+                canJump = true;
+                shouldJump = false;
+                currentJumps = 0;
+                // tells animator to stop playing Jump animation
+                animator.SetBool("IsJumping", false);
+            }
+            if ((wallOnRight || wallOnLeft) && !PersistantGameManager.Instance.gripWalls)
+            {
+                shouldJump = false;
+            }
+
+
 
         }
         else if (collision.gameObject.tag == "Wall" && PersistantGameManager.Instance.gripWalls)
@@ -349,11 +422,35 @@ public class PlayerControls : MonoBehaviour
             shouldJump = false;
 
         }
+           
+
+        if (PlayerIsOnGround())
+        {
+            canJump = true;
+            shouldJump = false;
+            currentJumps = 0;
+            // tells animator to stop playing Jump animation
+            animator.SetBool("IsJumping", false);
+            Debug.Log("ground");
+        }
 
 
+        if (PlayerIsOnWall())
+        {
+            if (PersistantGameManager.Instance.gripWalls == true)
+            {
+                canJump = true;
+                currentJumps = 0;
+                // tells animator to stop playing Jump animation
+                animator.SetBool("IsJumping", false);
+            }
+            shouldJump = false;
+        }
+        
 
 
     }
+    */   
     private void OnCollisionExit2D(Collision2D collision)
     {
         animator.SetBool("IsJumping", true);
@@ -361,6 +458,31 @@ public class PlayerControls : MonoBehaviour
     private void OnCollisionStay2D(Collision2D collision)
     {
         animator.SetBool("IsJumping", false);
+    }
+
+    // Detecting whether player hits the ground to re enable ability to jump (using raycasts)
+    public bool PlayerIsOnGround()
+    {
+        bool groundCheck1 = Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y - colliderHeight), - Vector2.up, rayCastLength, layerMask = LayerMask.GetMask("Map"));
+        bool groundCheck2 = Physics2D.Raycast(new Vector2(transform.position.x + (colliderWidth - 0.2f), transform.position.y - colliderHeight), - Vector2.up, rayCastLength, layerMask = LayerMask.GetMask("Map"));
+        bool groundCheck3 = Physics2D.Raycast(new Vector2(transform.position.x - (colliderWidth - 0.2f),transform.position.y - colliderHeight), - Vector2.up, rayCastLength, layerMask = LayerMask.GetMask("Map"));
+
+        if (groundCheck1 || groundCheck2 || groundCheck3)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    public bool PlayerIsOnWall()
+    {
+        bool wallOnLeft = Physics2D.Raycast(new Vector2(transform.position.x - colliderWidth, transform.position.y), -Vector2.right, rayCastLength, layerMask = LayerMask.GetMask("Map"));
+        bool wallOnRight = Physics2D.Raycast(new Vector2(transform.position.x + colliderWidth, transform.position.y), Vector2.right, rayCastLength, layerMask = LayerMask.GetMask("Map"));
+        if (wallOnRight || wallOnLeft)
+        {
+            return true;
+        }
+        return false;
     }
 
     //shoots projectile
@@ -430,16 +552,18 @@ public class PlayerControls : MonoBehaviour
     }
 
 
-    public double CalculatePlayerDamage()
+    public double CalculatePlayerDamage(float elementDamage)
     {
+        //elementDamage changes damage based on your weapon element vs the enemy's element
+
         if (useFireball)
         {
             //checks if player is in the air, requires airborne damage skill
             if (playerRigidbody.velocity.y > 0f || playerRigidbody.velocity.y < 0f)
             {
-                return CalculateHighDamage() * PersistantGameManager.Instance.currentAttackMultiplier * PersistantGameManager.Instance.airAttackMulti;
+                return CalculateHighDamage() * PersistantGameManager.Instance.currentAttackMultiplier * PersistantGameManager.Instance.airAttackMulti * elementDamage;
             }
-            return CalculateHighDamage() * PersistantGameManager.Instance.currentAttackMultiplier;
+            return CalculateHighDamage() * PersistantGameManager.Instance.currentAttackMultiplier * elementDamage;
         }
         else
         {
@@ -461,18 +585,18 @@ public class PlayerControls : MonoBehaviour
                 //checks if player is in the air, requires airborne damage skill
                 if (playerRigidbody.velocity.y > 0f || playerRigidbody.velocity.y < 0f)
                 {
-                    return playerDamage * 1.2f * PersistantGameManager.Instance.currentAttackMultiplier * PersistantGameManager.Instance.airAttackMulti;
+                    return playerDamage * 1.2f * PersistantGameManager.Instance.currentAttackMultiplier * PersistantGameManager.Instance.airAttackMulti * elementDamage;
                 }
-                return playerDamage * 1.2f * PersistantGameManager.Instance.currentAttackMultiplier;
+                return playerDamage * 1.2f * PersistantGameManager.Instance.currentAttackMultiplier * elementDamage;
             }
             double newPlayerDamage = playerDamage * ((timeSinceAttack / attackSpeed) / 2);
             timeOfAttack = Time.time;
             //checks if player is in the air, requires airborne damage skill
             if (playerRigidbody.velocity.y > 0f || playerRigidbody.velocity.y < 0f)
             {
-                return newPlayerDamage * PersistantGameManager.Instance.currentAttackMultiplier * PersistantGameManager.Instance.airAttackMulti;
+                return newPlayerDamage * PersistantGameManager.Instance.currentAttackMultiplier * PersistantGameManager.Instance.airAttackMulti * elementDamage;
             }
-            return newPlayerDamage * PersistantGameManager.Instance.currentAttackMultiplier; 
+            return newPlayerDamage * PersistantGameManager.Instance.currentAttackMultiplier * elementDamage; 
         }
     }
 

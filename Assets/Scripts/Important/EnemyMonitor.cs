@@ -64,7 +64,7 @@ public class EnemyMonitor : MonoBehaviour
 
         float multiplier = 1;
 
-        switch (enemyStats.enemyClass)
+        switch (enemyStats.enemyTier)
         {
             case "Light":
                 multiplier *= 0.8f;
@@ -200,7 +200,7 @@ public class EnemyMonitor : MonoBehaviour
         }
 
         //Gives the player XP
-        GiveExp(enemyStats.enemyClass, enemyStats.enemyLevel);
+        GiveExp(enemyStats.enemyTier, enemyStats.enemyLevel);
 
 
         //Kills the enemy

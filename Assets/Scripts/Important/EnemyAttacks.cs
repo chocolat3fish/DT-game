@@ -91,7 +91,7 @@ public class EnemyAttacks : MonoBehaviour
     {
         float multiplier = 1;
 
-        switch (enemyMonitor.enemyStats.enemyClass)
+        switch (enemyMonitor.enemyStats.enemyTier)
         {
             case "Light":
                 multiplier *= 0.8f;

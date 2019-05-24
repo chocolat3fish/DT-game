@@ -525,11 +525,11 @@ public class MenuCanvasScript : MonoBehaviour
 
     private void UpdateData()
     {
-        
 
-        sW1Output.text = PersistantGameManager.Instance.playerWeaponInventory[0].itemPrefix + " " + PersistantGameManager.Instance.playerWeaponInventory[0].itemName;
-        sW2Output.text = PersistantGameManager.Instance.playerWeaponInventory[1].itemPrefix + " " + PersistantGameManager.Instance.playerWeaponInventory[1].itemName;
-        sW3Output.text = PersistantGameManager.Instance.playerWeaponInventory[2].itemPrefix + " " + PersistantGameManager.Instance.playerWeaponInventory[2].itemName;
+
+        sW1Output.text = PersistantGameManager.Instance.playerWeaponInventory[0].itemPrefix + " " + PersistantGameManager.Instance.playerWeaponInventory[0].itemName + PersistantGameManager.Instance.playerWeaponInventory[0].itemSuffix;
+        sW2Output.text = PersistantGameManager.Instance.playerWeaponInventory[1].itemPrefix + " " + PersistantGameManager.Instance.playerWeaponInventory[1].itemName + PersistantGameManager.Instance.playerWeaponInventory[1].itemSuffix;
+        sW3Output.text = PersistantGameManager.Instance.playerWeaponInventory[2].itemPrefix + " " + PersistantGameManager.Instance.playerWeaponInventory[2].itemName + PersistantGameManager.Instance.playerWeaponInventory[2].itemSuffix;
 
        
         double itemOneSpeed = PersistantGameManager.Instance.playerWeaponInventory[0].trueItemSpeed;

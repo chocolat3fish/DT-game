@@ -44,6 +44,17 @@ public class LootManager : MonoBehaviour
         {"Fat", 1.9f}
     };
 
+    public static Dictionary<string, string> weaponElements = new Dictionary<string, string>
+    {
+        {"Energy", " of Sparks"},
+        {"Fire", " of Flames"},
+        {"Acid", " of Poison"},
+        {"Water", " of Drowning"},
+        {"Shadow", " of Nightmares"},
+        {"Light", " of Cleansing"},
+        {"Void", " of The Abyss"}
+    };
+
     //The main referenced method that controls wether a weapon is dropped
     //Based off a chance out of 100 and the value of the weapon
     public static LootItem DropItem(int chance, int weaponValue)
@@ -318,6 +329,30 @@ public class LootManager : MonoBehaviour
         string newPrefix = listPrefix;
 
 
+        //chooses a suffix / element, but has a small chance
+        string newElement;
+        string newSuffix;
+        int elementChance = random.Next(1, 100);
+        if (elementChance <= 10 + PersistantGameManager.Instance.betterLootChance)
+        {
+            List<string> dictElements = new List<string>(weaponElements.Keys);
+            string listElement = dictElements[random.Next(dictElements.Count)];
+            newElement = listElement;
+
+            newSuffix = weaponElements[newElement];
+            Debug.Log(newSuffix);
+        }
+        else
+        {
+            newElement = "";
+
+            newSuffix = "";
+        }
+
+
+
+
+
 
         //calculates damage
         float newDamage = random.Next((int)((16 * Math.Pow(newLevel, 2) + 10) * 0.9f), (int)((16 * Math.Pow(newLevel, 2) + 10) * 1.1f));
@@ -364,7 +399,7 @@ public class LootManager : MonoBehaviour
         }
 
         if (newRange <= 0) { newRange = 0.1f; }
-        return new Weapon(weaponType, newPrefix, newDamage, newAttackSpeed / (float)PersistantGameManager.Instance.attackSpeedMulti, newAttackSpeed, newRange, newLevel);
+        return new Weapon(weaponType, newPrefix, newElement, newSuffix, newDamage, newAttackSpeed / (float)PersistantGameManager.Instance.attackSpeedMulti, newAttackSpeed, newRange, newLevel);
         
 
     
@@ -466,6 +501,26 @@ public class LootManager : MonoBehaviour
         string listPrefix = dictKeys[random.Next(dictKeys.Count)];
         string newPrefix = listPrefix;
 
+        //chooses a suffix / element, but has a small chance
+        string newElement;
+        string newSuffix;
+        int elementChance = random.Next(1, 100);
+        if (elementChance <= 10 + PersistantGameManager.Instance.betterLootChance)
+        {
+            List<string> dictElements = new List<string>(weaponElements.Keys);
+            string listElement = dictElements[random.Next(dictElements.Count)];
+            newElement = listElement;
+
+            newSuffix = weaponElements[newElement];
+            Debug.Log(newSuffix);
+        }
+        else
+        {
+            newElement = "";
+
+            newSuffix = "";
+        }
+
         //calculates damage
 
         float newDamage = random.Next((int)((16 * Math.Pow(newLevel, 2) + 10) * 0.9f), (int)((16 * Math.Pow(newLevel, 2) + 10) * 1.1f));
@@ -519,7 +574,7 @@ public class LootManager : MonoBehaviour
         Debug.Log(newRange);
         Debug.Log(newLevel);
         
-        return new Weapon(weaponType, newPrefix, newDamage, newAttackSpeed / (float)PersistantGameManager.Instance.attackSpeedMulti, newAttackSpeed, newRange, newLevel);
+        return new Weapon(weaponType, newPrefix, newElement, newSuffix, newDamage, newAttackSpeed / (float)PersistantGameManager.Instance.attackSpeedMulti, newAttackSpeed, newRange, newLevel);
     }
 
 
