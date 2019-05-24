@@ -9,7 +9,6 @@ public class TutorialDialogue : MonoBehaviour
     public Quest tutorialQuest;
     public Text canvasMainText, canvasNameText, canvasRewardText;
     Button canvasAcceptButton, canvasContinueButton;
-    bool dialogueBoxOpen;
     int stageOfConvo, currentSentenceIndex;
     bool isTalking, canContinueDialogue;
     PlayerControls player;
@@ -48,7 +47,6 @@ public class TutorialDialogue : MonoBehaviour
                 canvasNameText = dialogueCanvas.transform.Find("Name").Find("Text").GetComponent<Text>();
                 canvasAcceptButton = dialogueCanvas.transform.Find("GiveItem").GetComponent<Button>();
                 canvasRewardText = dialogueCanvas.transform.Find("RewardText").GetComponent<Text>();
-                dialogueBoxOpen = true;
                 break;
             }
             else
@@ -66,7 +64,7 @@ public class TutorialDialogue : MonoBehaviour
         canvasRewardText.text = "";
         PersistantGameManager.Instance.dialogueSceneIsOpen = true;
         toTalkPanel.SetActive(false);
-        if (!PersistantGameManager.Instance.justReloaded)
+        if (!PersistantGameManager.Instance.activeQuests.Contains(tutorialQuest.questKey))
         {
             PersistantGameManager.Instance.activeQuests.Add(tutorialQuest.questKey);
             PersistantGameManager.Instance.possibleQuests.Add(tutorialQuest.questKey, tutorialQuest);

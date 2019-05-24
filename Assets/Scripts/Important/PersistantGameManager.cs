@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 public class PersistantGameManager : MonoBehaviour
@@ -74,7 +75,7 @@ public class PersistantGameManager : MonoBehaviour
 
     [Header("Objects")]
     public PlayerControls player;
-    public Camera _camera;
+    public GameObject _camera;
     public GameObject magicBar;
 
 
@@ -114,6 +115,7 @@ public class PersistantGameManager : MonoBehaviour
 
     [Header("Other")]
     public string currentScene;
+    public string previousScene;
     public int currentIndex = 0;
     public int previousIndex = 0;
     public bool tutorialComplete;
@@ -248,9 +250,10 @@ public class PersistantGameManager : MonoBehaviour
 
 
                 amountOfConsumables = data.amountOfConsumables;
+                previousScene = data.previousScene;
                 #endregion
 
-                justReloaded = true;
+                StartCoroutine(TurnOnAndOffJustLoaded());
 
                 Instance = this;
                 DontDestroyOnLoad(gameObject);
@@ -268,9 +271,17 @@ public class PersistantGameManager : MonoBehaviour
           
             Destroy(gameObject);
         }
-        currentScene = SceneManager.GetActiveScene().name;
+        currentScene = "Autoload";
 
     }
+
+    IEnumerator TurnOnAndOffJustLoaded()
+    {
+        justReloaded = true;
+        yield return new WaitForSecondsRealtime(2);
+        justReloaded = false;
+    }
+
     void LoadNewScene(string sceneName)
     {
         SceneManager.LoadScene(sceneName);
@@ -280,7 +291,6 @@ public class PersistantGameManager : MonoBehaviour
         {
             if(lDM.type == 2)
             {
-                print(currentScene);
                 if(itemInventory[lDM.item] > 0 && !lDM.IsForMap)
                 {
                     print(lDM.item + ": " + Instance.itemInventory[lDM.item].ToString());
@@ -345,14 +355,6 @@ public class PersistantGameManager : MonoBehaviour
     }
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.G))
-        {
-            SaveGameManagerData(1);
-        }
-        if (Input.GetKeyDown(KeyCode.H))
-        {
-            LoadDataFromSave(1);
-        }
         if (Time.time > (timeOfAbility + abilityDuration) && (damageResistMulti < 1 || currentAttackMultiplier > 1))
         {
             damageResistMulti = 1;
@@ -433,7 +435,7 @@ public class PersistantGameManager : MonoBehaviour
             ChangeItem(99);
         }
 
-        if(currentScene != SceneManager.GetActiveScene().ToString() && SceneManager.GetActiveScene().name != "Load And Save Canvas")
+        if(currentScene != SceneManager.GetActiveScene().name && SceneManager.GetActiveScene().name != "You lost")
         {
             OnSceneChange();
         }
@@ -575,9 +577,20 @@ public class PersistantGameManager : MonoBehaviour
     }
    public void SaveGameManagerData(int slot)
     {
+        BinaryFormatter bF = new BinaryFormatter();
+        FileStream file;
+        if (File.Exists(Application.persistentDataPath + "/SavedData/slot" + slot + ".txt"))
+        {
+            file = File.Open(Application.persistentDataPath + "/SavedData/slot" + slot + ".txt", FileMode.Open);
+        }
+        else
+        {
+            file = File.Create(Application.persistentDataPath + "/SavedData/slot" + slot + ".txt");
+        }
         GameManagerData data = new GameManagerData();
 
         data.currentScene = currentScene;
+        data.previousScene = previousScene;
 
         data.itemInventory = itemInventory;
         data.possibleItems = possibleItems;
@@ -647,7 +660,8 @@ public class PersistantGameManager : MonoBehaviour
 
         data.amountOfConsumables = amountOfConsumables;
 
-        File.WriteAllText(Application.dataPath + "/SavedData/Slot" + slot + ".json", JsonConvert.SerializeObject(data, Formatting.Indented));
+        bF.Serialize(file, data);
+        file.Close();
         Debug.Log("Saved");
 
     }
@@ -658,13 +672,24 @@ public class PersistantGameManager : MonoBehaviour
         print("done");
         GameObject empty = new GameObject("Load Scene Controller");
         LoadSceneMonitor load = empty.AddComponent<LoadSceneMonitor>();
-        string jsonData = File.ReadAllText(Application.dataPath + "/SavedData/Slot" + slot + ".json");
-        GameManagerData data = JsonConvert.DeserializeObject<GameManagerData>(jsonData);
+
+        BinaryFormatter bF = new BinaryFormatter();
+        FileStream file;
+        if (File.Exists(Application.persistentDataPath + "/SavedData/slot" + slot + ".txt"))
+        {
+            file = File.Open(Application.persistentDataPath + "/SavedData/slot" +slot + ".txt", FileMode.Open);
+        }
+        else
+        {
+            file = File.Create(Application.persistentDataPath + "/SavedData/SavedData/slot" + slot + ".txt");
+        }
+
+        GameManagerData data = (GameManagerData)bF.Deserialize(file);
+
         load.data = data;
         new GameObject("PersistantGameManager - Reload").AddComponent<PersistantGameManager>();
         print("done");
         Destroy(gameObject);
-        print("this shouldn't exist");
         
 
 
@@ -687,25 +712,29 @@ public class PersistantGameManager : MonoBehaviour
 
     private void OnSceneChange()
     {
+        print("OnSceneChange");
         player = FindObjectOfType<PlayerControls>();
-        _camera = FindObjectOfType<Camera>();
+        _camera = FindObjectOfType<CameraMovement>().gameObject;
         DoorMonitor[] doors = FindObjectsOfType<DoorMonitor>();
+        if(!justReloaded)
+        {
+            previousScene = currentScene;
+        }
         foreach (DoorMonitor door in doors)
         {
-            if (door.gameObject.name.Replace(" Door","") == currentScene)
+            if (door.gameObject.name.Replace(" Door","") == previousScene)
             {
                 player.transform.position = door.transform.position;
                 _camera.transform.position = new Vector3(player.transform.position.x, player.transform.position.y , -10f);
-
             }
         }
-
         currentScene = SceneManager.GetActiveScene().name;
     }
     public void Restart(string SceneName)
     {
         Instance = null;
         Destroy(gameObject);
+        currentScene = "Autoload";
         SceneManager.LoadScene(SceneName);
     }
     public IEnumerator loadMainCanvas()

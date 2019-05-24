@@ -950,7 +950,7 @@ MonoBehaviour:
     attackSpeed: 1
     attackRange: 1
     enemyClass: Heavy
-    enemyLevel: 2
+    enemyLevel: 50
   itemChance: 100
   weaponValue: 10
   itemValue: 0
@@ -1320,7 +1320,7 @@ MonoBehaviour:
     attackSpeed: 1
     attackRange: 2
     enemyClass: Heavy
-    enemyLevel: 2
+    enemyLevel: 100
   itemChance: 35
   weaponValue: 10
   itemValue: 100
@@ -2154,6 +2154,52 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1169497607}
   m_CullTransparentMesh: 0
+--- !u!1 &1225892447
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1225892449}
+  - component: {fileID: 1225892448}
+  m_Layer: 0
+  m_Name: Autoload Door
+  m_TagString: Untagged
+  m_Icon: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1225892448
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1225892447}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bac5b867d1fa45f6a3bcc6d240712f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  nextScene: 
+  currentScene: 
+--- !u!4 &1225892449
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1225892447}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -80.69, y: -1.14, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 14
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1277895545
 GameObject:
   m_ObjectHideFlags: 0
@@ -2293,7 +2339,7 @@ GameObject:
   - component: {fileID: 1347226477}
   - component: {fileID: 1347226478}
   m_Layer: 0
-  m_Name: New Scene Test Door
+  m_Name: Tutorial Door
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2481,8 +2527,8 @@ MonoBehaviour:
     enemyHealth: 40
     attackSpeed: 1
     attackRange: 1
-    enemyClass: Light
-    enemyLevel: 2
+    enemyClass: Heavy
+    enemyLevel: 100
   itemChance: 100
   weaponValue: 50
   itemValue: 0
@@ -4729,180 +4775,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
-
---- !u!1 &1645279217
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1645279220}
-  - component: {fileID: 1645279219}
-  - component: {fileID: 1645279218}
-  m_Layer: 0
-  m_Name: PersistantGameManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1645279218
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1645279217}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4b1ab7afe4a41468bbb38ae3b264a759, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1645279219
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1645279217}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4cd19ec11e1dbbd41ac1db47758d69a3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  possibleConsumables:
-  - 20%H
-  - 50%H
-  - 100%H
-  - 20%A
-  - 50%A
-  - 100%A
-  - 20%L
-  possibleItems:
-  - Dagger of Kaliphase
-  - Amulet of Honour
-  - Hood of Sartuka
-  - Claw of Straphagus
-  currentDialogueQuest:
-    questName: 
-    questType: 
-    sentencesBeforeQuest1stTime: []
-    sentencesBeforeQuest2ndTime: []
-    questStatment: 
-    questStatmentWithItem: 
-    sentencesAfterQuest: []
-    questDescription: 
-    sentencesAfterQuestEnd: []
-    questItemName: 
-    questKey: 
-  activeQuests: []
-  attackSpeedMulti: 1
-  attackRangeMulti: 1
-  currentAttackMultiplier: 1
-  smiteDamageMulti: 1
-  smiteDurationMulti: 1
-  lifeStealMulti: 0
-  totalHealthMulti: 1
-  damageResistMulti: 1
-  turtleResistMulti: 0.5
-  turtleMultiMulti: 1
-  turtleDurationMulti: 1
-  movementResistMulti: 1
-  moveSpeedMulti: 1
-  jumpHeightMulti: 1
-  airAttackMulti: 1
-  instantKillChance: 0
-  betterLootChance: 0
-  compareScreenOpen: 0
-  characterScreenOpen: 0
-  skillsScreenOpen: 0
-  menuCanvasOpen: 0
-  comparingWeapon:
-    itemName: 
-    itemPrefix: 
-    itemDamage: 0
-    stockItemSpeed: 0
-    trueItemSpeed: 0
-    itemRange: 0
-    itemLevel: 0
-  firstTimeOpeningMenuCanvas: 0
-  menuCanvasIsOpen: 0
-  dialogueSceneIsOpen: 0
-  bugReportSceneIsOpen: 0
-  player: {fileID: 0}
-  _camera: {fileID: 0}
-  magicBar: {fileID: 0}
-  hasMagic: 0
-  currentActiveAbility: 
-  abilityIsActive: 0
-  timeOfAbility: 0
-  abilityDuration: 0
-  damageResistDuration: 15
-  smiteDuration: 10
-  checkSkills: 0
-  checkExp: 0
-  currentScene: 
-  currentIndex: 0
-  previousIndex: 0
-  tutorialComplete: 0
-  lastEnemyLevel: 0
-  totalExperience: 300
-  GodMode: 0
-  currentWeapon:
-    itemName: 
-    itemPrefix: 
-    itemDamage: 0
-    stockItemSpeed: 0
-    trueItemSpeed: 0
-    itemRange: 0
-    itemLevel: 0
-  playerWeaponInventory: []
-  playerStats:
-    health: 0
-    playerLevel: 100
-    playerExperience: 0
-    playerSkillPoints: 99
-  damageProgress: 0
-  tankProgress: 0
-  mobilityProgress: 0
-  attackSpeedUpgrades: 0
-  potionIsActive: 0
-  activePotionType: 
-  currentLeechMultiplier: 0
-  timeOfAttackMultiplierChange: 0
-  timeOfLeechMultiplierChange: 0
-  healthPotionUseTime: 0
-  potionCoolDownTime: 30
-  currentArmour:
-    armourType: 
-    defence: 0
-  comparingArmour:
-    armourType: 
-    defence: 0
-  tripleJump: 0
-  hasSmite: 0
-  gripWalls: 0
-  maxedSpeed: 0
-  damageResist: 0
-  equippedItemOne: 
-  equippedItemTwo: 
---- !u!4 &1645279220
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1645279217}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.4190652, y: 2.560698, z: -1.3213003}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-
 --- !u!1001 &1656818067
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5537,7 +5409,7 @@ MonoBehaviour:
   nextAttack: 1
   attackTime: 0
   stockHealth: 10
-  totalHealth: 10
+  totalHealth: 0
   currentJumps: 0
   timeOfAttack: 0
   timeOfMagic: 0
@@ -5692,6 +5564,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4344124287774354198, guid: 327a394b01ce63e419ab9b9fbbe7590e,
+        type: 3}
+      propertyPath: playerStats.playerLevel
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 4344124287774354198, guid: 327a394b01ce63e419ab9b9fbbe7590e,
+        type: 3}
+      propertyPath: playerStats.playerSkillPoints
+      value: 99
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 327a394b01ce63e419ab9b9fbbe7590e, type: 3}

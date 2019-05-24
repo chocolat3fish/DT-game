@@ -1,10 +1,13 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[Serializable]
 public class GameManagerData
 {
     public string currentScene;
+    public string previousScene;
 
     public Dictionary<string, int> itemInventory;
     public List<string> possibleItems;

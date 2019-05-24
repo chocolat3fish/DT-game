@@ -5,25 +5,24 @@ using UnityEngine.UI;
 using Newtonsoft.Json;
 using System.IO;
 using System;
+using System.Runtime.Serialization.Formatters.Binary;
 
 public class LoadAndSave : MonoBehaviour
 {
-    Text S1T, S2T, S3T, L1T, L2T, L3T;
+    public Text L1T, L2T, L3T;
     GameObject ConfirmPanel;
     Text Title, Question, LoadOrSaveDetails;
     Button Confirm, Decline, Back;
     Timestamps timestamps = new Timestamps();
+    InputField inputField;
     Color32 emptyC = new Color32(192, 0, 0, 255);
     Color32 defaultC = new Color32(50, 50, 50, 255);
+    Color32 iFDefaultC;
     private void Awake()
     {
-        S1T = transform.Find("S1T").GetComponent<Text>();
-        S2T = transform.Find("S2T").GetComponent<Text>();
-        S3T = transform.Find("S3T").GetComponent<Text>();
         L1T = transform.Find("L1T").GetComponent<Text>();
         L2T = transform.Find("L2T").GetComponent<Text>();
         L3T = transform.Find("L3T").GetComponent<Text>();
-
 
         ConfirmPanel = transform.Find("Confirm").gameObject;
  
@@ -36,16 +35,52 @@ public class LoadAndSave : MonoBehaviour
 
         Back = transform.Find("Back").GetComponent<Button>();
         Back.onClick.AddListener(delegate { FindObjectOfType<AsyncTriggers>().CloseSaveAndLoadCanvas(); });
-        UpdateTimestamps();
 
+        inputField = ConfirmPanel.transform.Find("InputField").GetComponent<InputField>();
+        iFDefaultC = inputField.transform.Find("Placeholder").GetComponent<Text>().color;
         ConfirmPanel.SetActive(false);
 
-    }
+        if (!File.Exists(Application.persistentDataPath + "/SavedData/Timestamps.txt"))
+        {
+            Directory.CreateDirectory(Application.persistentDataPath + "/SavedData");
 
+            FileStream file;
+            file = File.Create(Application.persistentDataPath + "/SavedData/Timestamps.txt");
+            file.Close();
+
+            file = File.Create(Application.persistentDataPath + "/SavedData/Slot1.txt");
+            file.Close();
+            file = File.Create(Application.persistentDataPath + "/SavedData/Slot2.txt");
+            file.Close();
+            file = File.Create(Application.persistentDataPath + "/SavedData/Slot3.txt");
+            file.Close();
+
+            Reset();
+        }
+
+        UpdateTimestamps();
+    }
+    public Timestamps GetTimestamps()
+    {
+        BinaryFormatter bF = new BinaryFormatter();
+        FileStream file;
+        file = File.Open(Application.persistentDataPath + "/SavedData/Timestamps.txt", FileMode.Open);
+        Timestamps returnData = (Timestamps)bF.Deserialize(file);
+        file.Close();
+        return returnData;
+    }
+    public void SaveTimestamps(Timestamps data)
+    {
+        BinaryFormatter bF = new BinaryFormatter();
+        FileStream file;
+        file = File.Open(Application.persistentDataPath + "/SavedData/Timestamps.txt", FileMode.Open);
+        bF.Serialize(file, data);
+        file.Close();
+    }
     public void Save(int slot)
     {
-        string jsonData = File.ReadAllText(Application.dataPath + "/SavedData/Timestamps.json");
-        timestamps = JsonConvert.DeserializeObject<Timestamps>(jsonData);
+        timestamps = GetTimestamps();
+
         bool shouldSave = false;
         if(slot == 1 && timestamps.S1T == "Empty")
         {
@@ -65,28 +100,39 @@ public class LoadAndSave : MonoBehaviour
 
         if(shouldSave)
         {
-            File.WriteAllText(Application.dataPath + "/SavedData/Timestamps.json", JsonConvert.SerializeObject(timestamps, Formatting.Indented));
-            PersistantGameManager.Instance.SaveGameManagerData(slot);
+            if (slot == 1)
+            {
+                OpenConfirmPanel(false, false, slot, timestamps.S1T);
+            }
+            if (slot == 2)
+            {
+                OpenConfirmPanel(false, false, slot, timestamps.S2T);
+            }
+            if (slot == 3)
+            {
+                OpenConfirmPanel(false, false, slot, timestamps.S3T);
+            }
+
             UpdateTimestamps();
         }
         else
         {
             if(slot == 1)
             {
-                OpenConfirmPanel(false, slot, timestamps.S1T);
+                OpenConfirmPanel(false, true, slot, timestamps.S1T);
             }
             if (slot == 2)
             {
-                OpenConfirmPanel(false, slot, timestamps.S2T);
+                OpenConfirmPanel(false, true, slot, timestamps.S2T);
             }
             if (slot == 3)
             {
-                OpenConfirmPanel(false, slot, timestamps.S3T);
+                OpenConfirmPanel(false, true, slot, timestamps.S3T);
             }
         }
     }
 
-    public void OpenConfirmPanel(bool load, int slot, string time)
+    public void OpenConfirmPanel(bool load, bool overwrite, int slot, string time)
     {
         ConfirmPanel.SetActive(true);
         if(load)
@@ -95,15 +141,37 @@ public class LoadAndSave : MonoBehaviour
             Question.text = "Are you sure you want to load?\nIt will override your current game!\nMake sure you have saved if you want to";
             LoadOrSaveDetails.text = "Load from: Slot " + slot + "\nSaved at: " +  time;
             Confirm.onClick.RemoveAllListeners();
+            inputField.gameObject.SetActive(false);
             Confirm.onClick.AddListener(delegate { PersistantGameManager.Instance.LoadDataFromSave(slot); });
         }
         else
         {
-            Title.text = "Save";
-            Question.text = "Are you sure you want to save?\nIt will override your current saved game!";
-            LoadOrSaveDetails.text = "Override: Slot " + slot + "\nSaved at: " + time;
-            Confirm.onClick.RemoveAllListeners();
-            Confirm.onClick.AddListener(delegate { SaveOverride(slot); CloseConfirmPanel(); });
+            if (overwrite)
+            {
+                Title.text = "Save";
+                Question.text = "Are you sure you want to save?\nIt will override your current saved game!";
+                LoadOrSaveDetails.text = "Override: Slot " + slot + "\nSave: " + time + "\nPlease enter name of game:";
+                inputField.gameObject.SetActive(true);
+                Text placeholder = inputField.transform.Find("Placeholder").GetComponent<Text>();
+                placeholder.text = "Please enter name of game...";
+                placeholder.color = iFDefaultC;
+                inputField.text = "";
+                Confirm.onClick.RemoveAllListeners();
+                Confirm.onClick.AddListener(delegate { SaveOverride(slot); });
+            }
+            else
+            {
+                Title.text = "Save";
+                Question.text = "You are saving over an empty slot.\nSaving allows you to load a game and keep your progress.";
+                LoadOrSaveDetails.text = "\n\n\nPlease enter name of game:";
+                inputField.gameObject.SetActive(true);
+                Text placeholder = inputField.transform.Find("Placeholder").GetComponent<Text>();
+                placeholder.text = "Please enter name of game...";
+                placeholder.color = iFDefaultC;
+                inputField.text = "";
+                Confirm.onClick.RemoveAllListeners();
+                Confirm.onClick.AddListener(delegate { SaveOverride(slot); });
+            }
         }
     }
     
@@ -114,75 +182,84 @@ public class LoadAndSave : MonoBehaviour
 
     public void Load(int slot)
     {
-        string jsonData = File.ReadAllText(Application.dataPath + "/SavedData/Timestamps.json");
-        timestamps = JsonConvert.DeserializeObject<Timestamps>(jsonData);
+        timestamps = GetTimestamps();
         if (slot == 1 && timestamps.S1T == "Empty")
         {
             L1T.color = emptyC;
-            StartCoroutine(Shake(L1T));
+            StartCoroutine(Shake(L1T.gameObject, defaultC));
         }
         else if (slot == 2 && timestamps.S2T == "Empty")
         {
             L2T.color = emptyC;
-            StartCoroutine(Shake(L2T));
+            StartCoroutine(Shake(L2T.gameObject, defaultC));
         }
         else if (slot == 3 && timestamps.S3T == "Empty")
         {
             L3T.color = emptyC;
-            StartCoroutine(Shake(L3T));
+            StartCoroutine(Shake(L3T.gameObject, defaultC));
         }
         else
         {
             if (slot == 1)
             {
-                OpenConfirmPanel(true, slot, timestamps.S1T);
+                OpenConfirmPanel(true, false, slot, timestamps.S1T);
             }
             if (slot == 2)
             {
-                OpenConfirmPanel(true, slot, timestamps.S2T);
+                OpenConfirmPanel(true, false, slot, timestamps.S2T);
             }
             if (slot == 3)
             {
-                OpenConfirmPanel(true, slot, timestamps.S3T);
+                OpenConfirmPanel(true, false, slot, timestamps.S3T);
             }
         }
         
     }
+
     public void SaveOverride(int slot)
     {
-        string jsonData = File.ReadAllText(Application.dataPath + "/SavedData/Timestamps.json");
-        timestamps = JsonConvert.DeserializeObject<Timestamps>(jsonData);
-        if (slot == 1)
+        if(inputField.text == "")
         {
-            timestamps.S1T = DateTime.Now.ToString().Substring(0, DateTime.Now.ToString().Length - 8);
+            Text placeholder = inputField.transform.Find("Placeholder").GetComponent<Text>();
+            placeholder.text = "Please fill in";
+            placeholder.color = emptyC;
+            StartCoroutine(Shake(placeholder.gameObject, iFDefaultC));
         }
-        if (slot == 2)
+        else
         {
-            timestamps.S2T = DateTime.Now.ToString().Substring(0, DateTime.Now.ToString().Length - 8);
+            timestamps = GetTimestamps();
+            if (slot == 1)
+            {
+                timestamps.S1T = inputField.text + "\n" + DateTime.Now.ToString().Substring(0, DateTime.Now.ToString().Length - 8);
+            }
+            if (slot == 2)
+            {
+                timestamps.S2T = inputField.text + "\n" + DateTime.Now.ToString().Substring(0, DateTime.Now.ToString().Length - 8);
+            }
+            if (slot == 3)
+            {
+                timestamps.S3T = inputField.text + "\n" + DateTime.Now.ToString().Substring(0, DateTime.Now.ToString().Length - 8);
+            }
+
+            SaveTimestamps(timestamps);
+            PersistantGameManager.Instance.SaveGameManagerData(slot);
+            CloseConfirmPanel();
+            UpdateTimestamps();
         }
-        if (slot == 3)
-        {
-            timestamps.S3T = DateTime.Now.ToString().Substring(0, DateTime.Now.ToString().Length - 8);
-        }
-        File.WriteAllText(Application.dataPath + "/SavedData/Timestamps.json", JsonConvert.SerializeObject(timestamps, Formatting.Indented));
-        PersistantGameManager.Instance.SaveGameManagerData(slot);
-        UpdateTimestamps();
+
     }
 
     private void UpdateTimestamps()
     {
         StopAllCoroutines();
-        string jsonData = File.ReadAllText(Application.dataPath + "/SavedData/Timestamps.json");
-        timestamps = JsonConvert.DeserializeObject<Timestamps>(jsonData);
-        S1T.text = timestamps.S1T;
-        S2T.text = timestamps.S2T;
-        S3T.text = timestamps.S3T;
+        timestamps = GetTimestamps();
+        Debug.Log(timestamps.S1T);
         L1T.text = timestamps.S1T;
         L2T.text = timestamps.S2T;
         L3T.text = timestamps.S3T;
     }
 
-    IEnumerator Shake(Text text)
+    IEnumerator Shake(GameObject text, Color32 defaultC)
     {
         Vector3 orignalPos = text.transform.position;
         text.transform.position -= new Vector3(2.5f, 0, 0);
@@ -194,13 +271,25 @@ public class LoadAndSave : MonoBehaviour
             text.transform.position -= new Vector3(5f, 0, 0);
         }
         text.transform.position = orignalPos;
-        text.color = defaultC;
+        text.GetComponent<Text>().color = defaultC;
     }
 
     public void Reset()
     {
-        string timestamps = File.ReadAllText(Application.dataPath + "/SavedData/EmptyTimestamps.json");
-        File.WriteAllText(Application.dataPath + "/SavedData/Timestamps.json", timestamps);
+        BinaryFormatter bF = new BinaryFormatter();
+        FileStream file;
+        file = File.Open(Application.persistentDataPath + "/SavedData/Timestamps.txt", FileMode.Open);
+        Timestamps emptyTimestamps = new Timestamps()
+        {
+            S1T = "Empty",
+            S2T = "Empty",
+            S3T = "Empty"
+        };
+
+
+        bF.Serialize(file, emptyTimestamps);
+        file.Close();
+
         UpdateTimestamps();
     }
 }

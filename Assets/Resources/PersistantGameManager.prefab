@@ -135,9 +135,9 @@ MonoBehaviour:
   playerWeaponInventory: []
   playerStats:
     health: 0
-    playerLevel: 100
+    playerLevel: 1
     playerExperience: 0
-    playerSkillPoints: 99
+    playerSkillPoints: 0
   damageProgress: 0
   tankProgress: 0
   mobilityProgress: 0

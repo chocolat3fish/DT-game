@@ -32,7 +32,7 @@ public class DoorMonitor : MonoBehaviour
     {
         if (CanEnterDoor == true)
         {
-            if (Input.GetKeyDown(KeyCode.Return) && PersistantGameManager.Instance.tutorialComplete && Time.timeScale != 0f)
+            if (Input.GetKeyDown(KeyCode.Return) && (SceneManager.GetActiveScene().name != "Tutorial" || PersistantGameManager.Instance.tutorialComplete) && Time.timeScale != 0f)
             {
                
                 SceneManager.LoadScene(nextScene);
@@ -46,6 +46,7 @@ public class DoorMonitor : MonoBehaviour
         if (collider.gameObject == player)
         {
             CanEnterDoor = true;
+            print("CAN");
         }
     }
     //If the player enters the doors trigger lets them enter
@@ -54,6 +55,7 @@ public class DoorMonitor : MonoBehaviour
         if (collider.gameObject == player)
         {
             CanEnterDoor = false;
+            print("CANNOT");
         }
     }
 }
