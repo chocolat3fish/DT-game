@@ -14,6 +14,9 @@ using System;
 
 public class PlayerControls : MonoBehaviour
 {
+    public float offset;
+    public float rayCastLength = 0.05f;
+
     private Animator animator;
     private SpriteRenderer spriteRenderer;
 
@@ -33,7 +36,6 @@ public class PlayerControls : MonoBehaviour
     public bool useWallSlippy;
     public bool useWallGrippy;
     public bool useFloorGrippy;
-    private float rayCastLength = 0.05f;
     private float colliderWidth;
     private float colliderHeight;
 
@@ -93,6 +95,7 @@ public class PlayerControls : MonoBehaviour
     private bool useFireball;
 
     private static System.Random random = new System.Random();
+    private bool justJumped;
 
     private void Awake()
     {
@@ -134,7 +137,7 @@ public class PlayerControls : MonoBehaviour
     void Update()
     {
 
-        if (PlayerIsOnGround())
+        if (PlayerIsOnGround() && !justJumped)
         {
             canJump = true;
             shouldJump = false;
@@ -145,7 +148,7 @@ public class PlayerControls : MonoBehaviour
             collider.sharedMaterial = (PhysicsMaterial2D)Resources.Load("PhysicsMaterials/FloorGrippy");
         }
 
-        if (PlayerIsOnWall())
+        if (PlayerIsOnWall() && !justJumped)
         {
             if (PersistantGameManager.Instance.gripWalls == true)
             {
@@ -342,13 +345,7 @@ public class PlayerControls : MonoBehaviour
             shouldJump = false;
             canJump = true;
             currentJumps++;
-        }
-        else if (shouldJump && currentJumps > 0)
-        {
-            playerRigidbody.AddForce(Vector2.up * doubleJumpSpeed, ForceMode2D.Impulse);
-            shouldJump = false;
-            canJump = true;
-            currentJumps++;
+            StartCoroutine(ActivateJustJumped());
         }
         /*
         if (Input.GetKeyDown(KeyCode.H) && PersistantGameManager.Instance.amountOfConsumables[PersistantGameManager.Instance.equippedItemOne] > 0 && Time.time > (TimeOfItemOneUse + itemOneCooldown))
@@ -369,6 +366,15 @@ public class PlayerControls : MonoBehaviour
         attackSpeed = PersistantGameManager.Instance.currentWeapon.trueItemSpeed;
         range = PersistantGameManager.Instance.currentWeapon.itemRange;
 
+    }
+
+    private IEnumerator ActivateJustJumped()
+    {
+        justJumped = true;
+        yield return null;
+        yield return null;
+        yield return null;
+        justJumped = false;
     }
 
     //detects if player hits ground, which re enables ability to jump
@@ -450,7 +456,7 @@ public class PlayerControls : MonoBehaviour
 
 
     }
-    */   
+    */
     private void OnCollisionExit2D(Collision2D collision)
     {
         animator.SetBool("IsJumping", true);
@@ -466,7 +472,6 @@ public class PlayerControls : MonoBehaviour
         bool groundCheck1 = Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y - colliderHeight), - Vector2.up, rayCastLength, layerMask = LayerMask.GetMask("Map"));
         bool groundCheck2 = Physics2D.Raycast(new Vector2(transform.position.x + (colliderWidth - 0.2f), transform.position.y - colliderHeight), - Vector2.up, rayCastLength, layerMask = LayerMask.GetMask("Map"));
         bool groundCheck3 = Physics2D.Raycast(new Vector2(transform.position.x - (colliderWidth - 0.2f),transform.position.y - colliderHeight), - Vector2.up, rayCastLength, layerMask = LayerMask.GetMask("Map"));
-
         if (groundCheck1 || groundCheck2 || groundCheck3)
         {
             return true;
@@ -477,8 +482,13 @@ public class PlayerControls : MonoBehaviour
     public bool PlayerIsOnWall()
     {
         bool wallOnLeft = Physics2D.Raycast(new Vector2(transform.position.x - colliderWidth, transform.position.y), -Vector2.right, rayCastLength, layerMask = LayerMask.GetMask("Map"));
+        bool wallOnLeft1 = Physics2D.Raycast(new Vector2(transform.position.x - colliderWidth, transform.position.y + colliderHeight), -Vector2.right, rayCastLength, layerMask = LayerMask.GetMask("Map"));
+        bool wallOnLeft2 = Physics2D.Raycast(new Vector2(transform.position.x - colliderWidth, transform.position.y - colliderHeight), -Vector2.right, rayCastLength, layerMask = LayerMask.GetMask("Map"));
         bool wallOnRight = Physics2D.Raycast(new Vector2(transform.position.x + colliderWidth, transform.position.y), Vector2.right, rayCastLength, layerMask = LayerMask.GetMask("Map"));
-        if (wallOnRight || wallOnLeft)
+        bool wallOnRight1 = Physics2D.Raycast(new Vector2(transform.position.x + colliderWidth, transform.position.y + colliderHeight), Vector2.right, rayCastLength, layerMask = LayerMask.GetMask("Map"));
+        bool wallOnRight2 = Physics2D.Raycast(new Vector2(transform.position.x + colliderWidth, transform.position.y - colliderHeight), Vector2.right, rayCastLength, layerMask = LayerMask.GetMask("Map"));
+
+        if (wallOnRight || wallOnRight1 || wallOnRight2 || wallOnLeft || wallOnLeft1 || wallOnLeft2)
         {
             return true;
         }
