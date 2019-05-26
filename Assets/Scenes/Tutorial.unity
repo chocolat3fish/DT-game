@@ -139,8 +139,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0c60aa1a9c3a149ca99c692e2c3e9324, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   dialoguePanel: {fileID: 0}
 --- !u!4 &162382181
 Transform:
@@ -154,7 +154,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &294233165
 GameObject:
@@ -369,7 +369,7 @@ Transform:
   m_Children:
   - {fileID: 1763111588}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &557244818
 GameObject:
@@ -401,8 +401,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 83db00ea8e87a45149bed5f06c2034d5, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   smoothSpeed: 0.05
   adjustSmoothSpeed: 0.85
   offset: {x: 0, y: 0}
@@ -521,8 +521,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 25e8871b84d6b46a5968feec181a4038, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   player: {fileID: 0}
 --- !u!61 &557935878
 BoxCollider2D:
@@ -826,8 +826,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 0.392}
   m_RaycastTarget: 1
@@ -853,185 +853,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1066947785}
   m_CullTransparentMesh: 0
---- !u!1 &1161114262
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1161114265}
-  - component: {fileID: 1161114264}
-  - component: {fileID: 1161114263}
-  m_Layer: 0
-  m_Name: PersistantGameManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1161114263
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1161114262}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4b1ab7afe4a41468bbb38ae3b264a759, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
---- !u!114 &1161114264
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1161114262}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4cd19ec11e1dbbd41ac1db47758d69a3, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
-  possibleConsumables:
-  - 20%H
-  - 50%H
-  - 100%H
-  - 20%A
-  - 50%A
-  - 100%A
-  - 20%L
-  possibleItems:
-  - Dagger of Kaliphase
-  - Amulet of Honour
-  - Hood of Sartuka
-  - Claw of Straphagus
-  - Jason's Belt
-  currentDialogueQuest:
-    questName:
-    questType:
-    sentencesBeforeQuest1stTime: []
-    sentencesBeforeQuest2ndTime: []
-    questStatment:
-    questStatmentWithItem:
-    sentencesAfterQuest: []
-    questDescription:
-    sentencesAfterQuestEnd: []
-    questItemName:
-    questKey:
-  activeQuests: []
-  attackSpeedMulti: 1
-  attackRangeMulti: 1
-  currentAttackMultiplier: 1
-  smiteDamageMulti: 1
-  smiteDurationMulti: 1
-  lifeStealMulti: 0
-  totalHealthMulti: 1
-  damageResistMulti: 1
-  turtleResistMulti: 0.5
-  turtleMultiMulti: 1
-  turtleDurationMulti: 1
-  movementResistMulti: 1
-  moveSpeedMulti: 1
-  jumpHeightMulti: 1
-  airAttackMulti: 1
-  instantKillChance: 0
-  betterLootChance: 0
-  compareScreenOpen: 0
-  characterScreenOpen: 0
-  skillsScreenOpen: 0
-  menuCanvasOpen: 0
-  comparingWeapon:
-    itemName:
-    itemPrefix:
-    itemElement:
-    itemSuffix:
-    itemDamage: 0
-    stockItemSpeed: 0
-    trueItemSpeed: 0
-    itemRange: 0
-    itemLevel: 0
-  firstTimeOpeningMenuCanvas: 0
-  menuCanvasIsOpen: 0
-  dialogueSceneIsOpen: 0
-  bugReportSceneIsOpen: 0
-  saveAndLoadSceneIsOpen: 0
-  player: {fileID: 0}
-  _camera: {fileID: 0}
-  magicBar: {fileID: 0}
-  hasMagic: 0
-  currentActiveAbility:
-  abilityIsActive: 0
-  timeOfAbility: 0
-  abilityDuration: 0
-  damageResistDuration: 15
-  smiteDuration: 10
-  checkSkills: 0
-  checkExp: 0
-  currentScene:
-  currentIndex: 0
-  previousIndex: 0
-  tutorialComplete: 0
-  lastEnemyLevel: 0
-  totalExperience: 100
-  GodMode: 0
-  currentWeapon:
-    itemName:
-    itemPrefix:
-    itemElement:
-    itemSuffix:
-    itemDamage: 0
-    stockItemSpeed: 0
-    trueItemSpeed: 0
-    itemRange: 0
-    itemLevel: 0
-  playerWeaponInventory: []
-  playerStats:
-    health: 0
-    playerLevel: 1
-    playerExperience: 0
-    playerSkillPoints: 0
-  damageProgress: 0
-  tankProgress: 0
-  mobilityProgress: 0
-  attackSpeedUpgrades: 0
-  potionIsActive: 0
-  activePotionType:
-  currentLeechMultiplier: 0
-  timeOfAttackMultiplierChange: 0
-  timeOfLeechMultiplierChange: 0
-  healthPotionUseTime: 0
-  potionCoolDownTime: 30
-  currentArmour:
-    armourType:
-    defence: 0
-  comparingArmour:
-    armourType:
-    defence: 0
-  tripleJump: 0
-  hasSmite: 0
-  gripWalls: 0
-  maxedSpeed: 0
-  damageResist: 0
-  equippedItemOne:
-  equippedItemTwo:
-  justReloaded: 0
---- !u!4 &1161114265
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1161114262}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.4190652, y: 2.560698, z: -1.3213003}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1171816443
 GameObject:
   m_ObjectHideFlags: 0
@@ -1128,8 +949,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 1077351063, guid: f70555f144d8491a825f0804e09c671c, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   m_HorizontalAxis: Horizontal
   m_VerticalAxis: Vertical
   m_SubmitButton: Submit
@@ -1147,8 +968,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: -619905303, guid: f70555f144d8491a825f0804e09c671c, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   m_FirstSelected: {fileID: 0}
   m_sendNavigationEvents: 1
   m_DragThreshold: 10
@@ -1164,7 +985,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1420756588
 GameObject:
@@ -1246,8 +1067,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fdf3b4e924af656409709616e6d4032b, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1420756592
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1258,8 +1079,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 825048b295e9b4575bc1769b9d069190, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1420756593
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1270,8 +1091,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cba78c7378c2c4242a4e0d5833a66959, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
+  offset: 0
+  rayCastLength: 0.05
   range: 1
   moveSpeed: 7
   jumpSpeed: 6.3
@@ -1316,7 +1139,7 @@ Animator:
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
-  m_WarningMessage:
+  m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
@@ -1383,7 +1206,7 @@ Transform:
   - {fileID: 557935876}
   - {fileID: 776257182}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1421890352
 GameObject:
@@ -1434,8 +1257,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 1301386320, guid: f70555f144d8491a825f0804e09c671c, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   m_IgnoreReversedGraphics: 1
   m_BlockingObjects: 0
   m_BlockingMask:
@@ -1451,8 +1274,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 1980459831, guid: f70555f144d8491a825f0804e09c671c, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   m_UiScaleMode: 0
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
@@ -1669,11 +1492,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3bac5b867d1fa45f6a3bcc6d240712f9, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   player: {fileID: 0}
-  nextScene:
-  currentScene:
+  nextScene: 
+  currentScene: 
 --- !u!61 &1640368674
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1760,7 +1583,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1763111587
 GameObject:
@@ -2909,8 +2732,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 25e8871b84d6b46a5968feec181a4038, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   player: {fileID: 0}
 --- !u!61 &1861424196
 BoxCollider2D:
@@ -2966,21 +2789,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 88bd9b92c7a8144bb92ed33946438c0b, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   tutorialQuest:
     questName: Learning the Ropes
     questType: Tutorial
     sentencesBeforeQuest1stTime: []
     sentencesBeforeQuest2ndTime: []
-    questStatment:
-    questStatmentWithItem:
+    questStatment: 
+    questStatmentWithItem: 
     sentencesAfterQuest: []
     questDescription: Jason, A very kind and compassionate man, has taking a liking
       to you and despite of your obvious ignorance has taken you under his wing to
       unlock the potential within you.
     sentencesAfterQuestEnd: []
-    questItemName:
+    questItemName: 
     questKey: Tutorial
   canvasMainText: {fileID: 0}
   canvasNameText: {fileID: 0}
@@ -3046,7 +2869,7 @@ Transform:
   m_Children:
   - {fileID: 1421890353}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2054191673
 GameObject:
@@ -3095,8 +2918,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_RaycastTarget: 1
@@ -3154,11 +2977,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3bac5b867d1fa45f6a3bcc6d240712f9, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   player: {fileID: 0}
-  nextScene:
-  currentScene:
+  nextScene: 
+  currentScene: 
 --- !u!4 &2129638931
 Transform:
   m_ObjectHideFlags: 0

@@ -46,7 +46,6 @@ public class DoorMonitor : MonoBehaviour
         if (collider.gameObject == player)
         {
             CanEnterDoor = true;
-            print("CAN");
         }
     }
     //If the player enters the doors trigger lets them enter
@@ -55,7 +54,6 @@ public class DoorMonitor : MonoBehaviour
         if (collider.gameObject == player)
         {
             CanEnterDoor = false;
-            print("CANNOT");
         }
     }
 }
