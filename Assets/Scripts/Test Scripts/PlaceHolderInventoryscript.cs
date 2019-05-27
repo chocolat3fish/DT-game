@@ -90,7 +90,7 @@ public class PlaceHolderInventoryscript : MonoBehaviour
                 break;
 
             case 14:
-                output.text = PersistantGameManager.Instance.playerStats.playerSkillPoints.ToString();
+                output.text = PersistantGameManager.Instance.playerStats.playerLevel.ToString();
                 break;
 
             case 15:

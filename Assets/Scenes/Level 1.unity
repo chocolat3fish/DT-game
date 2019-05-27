@@ -2762,9 +2762,9 @@ MonoBehaviour:
     enemyHealth: 1
     attackSpeed: 1
     attackRange: 1
-    enemyTier: 
-    enemyLevel: 50
-    enemyClass: Heavy
+    enemyTier: Heavy
+    enemyLevel: 2
+    enemyClass: 
   itemChance: 100
   weaponValue: 10
   itemValue: 0
@@ -3454,6 +3454,8 @@ MonoBehaviour:
   neededLevel: 2
   skill: AttackSpeed
   skillLevel: 5
+  panel: {fileID: 0}
+  message: {fileID: 0}
 --- !u!483693784 &1041114516
 TilemapRenderer:
   m_ObjectHideFlags: 0
@@ -4238,6 +4240,19 @@ MonoBehaviour:
     - Why thank you. You don't know how long I been trying to get hold of this.
     questItemName: Claw of Straphagus
     questKey: Ja00
+    questReward:
+      itemName: 
+      itemPrefix: 
+      itemElement: 
+      itemSuffix: 
+      itemDamage: 0
+      stockItemSpeed: 0
+      trueItemSpeed: 0
+      itemRange: 0
+      itemLevel: 0
+    weaponType: Short Sword
+    questExperience: 0
+    levelClaimedAt: 2
   - questName: Amulet of Honour
     questType: Fetch
     sentencesBeforeQuest1stTime:
@@ -4257,6 +4272,19 @@ MonoBehaviour:
     - Thank you so much. well I hope this helps.
     questItemName: Amulet of Honour
     questKey: Ja01
+    questReward:
+      itemName: 
+      itemPrefix: 
+      itemElement: 
+      itemSuffix: 
+      itemDamage: 0
+      stockItemSpeed: 0
+      trueItemSpeed: 0
+      itemRange: 0
+      itemLevel: 0
+    weaponType: Long Sword
+    questExperience: 0
+    levelClaimedAt: 3
   - questName: Hood of Sartuka
     questType: Kill
     sentencesBeforeQuest1stTime:
@@ -4273,6 +4301,19 @@ MonoBehaviour:
     - goodbye
     questItemName: Hood of Sartuka
     questKey: Ja03
+    questReward:
+      itemName: 
+      itemPrefix: 
+      itemElement: 
+      itemSuffix: 
+      itemDamage: 0
+      stockItemSpeed: 0
+      trueItemSpeed: 0
+      itemRange: 0
+      itemLevel: 0
+    weaponType: Lance
+    questExperience: 0
+    levelClaimedAt: 4
   - questName: 
     questType: 
     sentencesBeforeQuest1stTime: []
@@ -4284,6 +4325,19 @@ MonoBehaviour:
     sentencesAfterQuestEnd: []
     questItemName: 
     questKey: 
+    questReward:
+      itemName: 
+      itemPrefix: 
+      itemElement: 
+      itemSuffix: 
+      itemDamage: 0
+      stockItemSpeed: 0
+      trueItemSpeed: 0
+      itemRange: 0
+      itemLevel: 0
+    weaponType: 
+    questExperience: 0
+    levelClaimedAt: 0
   currentQuest:
     questName: 
     questType: 
@@ -4296,6 +4350,19 @@ MonoBehaviour:
     sentencesAfterQuestEnd: []
     questItemName: 
     questKey: 
+    questReward:
+      itemName: 
+      itemPrefix: 
+      itemElement: 
+      itemSuffix: 
+      itemDamage: 0
+      stockItemSpeed: 0
+      trueItemSpeed: 0
+      itemRange: 0
+      itemLevel: 0
+    weaponType: 
+    questExperience: 0
+    levelClaimedAt: 0
   nameOfNpc: Jason
 --- !u!212 &1481913874
 SpriteRenderer:
@@ -5034,7 +5101,7 @@ MonoBehaviour:
   rayCastLength: 0.05
   range: 1
   moveSpeed: 7
-  jumpSpeed: 6
+  jumpSpeed: 6.3
   doubleJumpSpeed: 0.6
   totalJumps: 2
   layerMask: 0
@@ -5255,12 +5322,12 @@ PrefabInstance:
     - target: {fileID: 4344124287774354198, guid: 327a394b01ce63e419ab9b9fbbe7590e,
         type: 3}
       propertyPath: playerStats.playerLevel
-      value: 100
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4344124287774354198, guid: 327a394b01ce63e419ab9b9fbbe7590e,
         type: 3}
       propertyPath: playerStats.playerSkillPoints
-      value: 99
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 327a394b01ce63e419ab9b9fbbe7590e, type: 3}
@@ -5339,7 +5406,7 @@ PrefabInstance:
     - target: {fileID: 5063218916052873963, guid: 07198a555d3b04a3aa6b9e9c8972f98f,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 13
+      value: 12.31
       objectReference: {fileID: 0}
     - target: {fileID: 5063218916052873963, guid: 07198a555d3b04a3aa6b9e9c8972f98f,
         type: 3}
@@ -5386,5 +5453,10 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 2104623955}
+    - target: {fileID: 5063218917215227861, guid: 07198a555d3b04a3aa6b9e9c8972f98f,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -0.54
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 07198a555d3b04a3aa6b9e9c8972f98f, type: 3}

@@ -1170,7 +1170,7 @@ public class MenuCanvasScript : MonoBehaviour
 
         questName.text = questToOpen.questName;
         questDescription.text = questToOpen.questDescription;
-        questReward.text = PersistantGameManager.Instance.rewards[questToOpen.questKey];
+        questReward.text = questToOpen.questReward + ", " + questToOpen.questExperience + " XP";
 
     }
 

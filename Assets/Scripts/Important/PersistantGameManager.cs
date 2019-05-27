@@ -26,14 +26,7 @@ public class PersistantGameManager : MonoBehaviour
 
     public List<string> activeQuests = new List<string>();
 
-    public Dictionary<string, string> rewards = new Dictionary<string, string>
-    {
-        {"Ja00", "Reward: A new Shortsword"},
-        {"Ja01", "Reward:A new Lance"},
-        {"Ja02", "No reward" },
-        {"Ja03", "Reward: A new Longsword"},
-        {"Tutorial", "Reward: A greater insight into the workings of the world"}
-    };
+
 
     public Dictionary<string, string> questTargets = new Dictionary<string, string>
     {
@@ -189,7 +182,6 @@ public class PersistantGameManager : MonoBehaviour
                 characterQuests = data.characterQuests;
                 possibleQuests = data.possibleQuests;
                 activeQuests = data.activeQuests;
-                rewards = data.rewards;
                 questTargets = data.questTargets;
 
                 attackSpeedMulti = data.attackSpeedMulti;
@@ -598,7 +590,6 @@ public class PersistantGameManager : MonoBehaviour
         data.characterQuests = characterQuests;
         data.possibleQuests = possibleQuests;
         data.activeQuests = activeQuests;
-        data.rewards = rewards;
         data.questTargets = questTargets;
 
         data.attackSpeedMulti = attackSpeedMulti;
