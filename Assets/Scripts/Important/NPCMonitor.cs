@@ -6,6 +6,7 @@ using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using System;
 
 //******MUST BE CHILDED TO A GAMEOBJECT ACTING AS A NPC IT MUST HAVE A TO TALK CANVAS CHILDED AND A CANVAS NAMED "Dialouge Canvas" IN THE SCENE******\\
 
@@ -174,21 +175,21 @@ public class NPCMonitor : MonoBehaviour
                 {
                     StopAllCoroutines();
                     StartCoroutine(AddChars(currentQuest.questStatmentWithItem, overlayMainText));
-                    StartCoroutine(AddChars(PersistantGameManager.Instance.rewards[currentQuest.questKey], overlayRewardText));
+                    StartCoroutine(AddChars(currentQuest.questReward + ", " + currentQuest.questExperience + " XP", overlayRewardText));
                     stageOfConvo = 2;
                     currentSentenceIndex = -1;
                     OpenNewButtons(1);
                     return;
-                    
+
                 }
                 else
                 {
-
-
+                    currentQuest.questReward = LootManager.GenerateSpecificWeapon(currentQuest.weaponType, 10);
+                    currentQuest.questExperience = (float)(0.1f * (0.04 * Math.Pow(currentQuest.levelClaimedAt, 3) + (0.8 * Math.Pow(currentQuest.levelClaimedAt, 2) + 100)));
                     StopAllCoroutines();
                     hasTalkedBefore = true;
                     StartCoroutine(AddChars(currentQuest.questStatment, overlayMainText));
-                    StartCoroutine(AddChars(PersistantGameManager.Instance.rewards[currentQuest.questKey], overlayRewardText));
+                    StartCoroutine(AddChars(currentQuest.questReward + ", " + currentQuest.questExperience + " XP", overlayRewardText));
                     stageOfConvo = 2;
                     currentSentenceIndex = -1;
 
@@ -397,6 +398,7 @@ public class NPCMonitor : MonoBehaviour
         if (key == "Ja00")
         {
             ReceiveWeapon("Short Sword", 10);
+            PersistantGameManager.Instance.playerStats.playerExperience += PersistantGameManager.Instance.totalExperience / 4;
             PersistantGameManager.Instance.itemInventory["Claw of Straphagus"] --;
 
            
@@ -405,6 +407,7 @@ public class NPCMonitor : MonoBehaviour
         if (key == "Ja01")
         {
             ReceiveWeapon("Lance", 10);
+            PersistantGameManager.Instance.playerStats.playerExperience += PersistantGameManager.Instance.totalExperience / 4;
             PersistantGameManager.Instance.itemInventory["Amulet of Honour"]--;
 
         }
@@ -412,7 +415,7 @@ public class NPCMonitor : MonoBehaviour
         if (key == "Ja03")
         {
             ReceiveWeapon("Long Sword", 10);
-            PersistantGameManager.Instance.itemInventory["Hood of Sartuka"]--;
+            PersistantGameManager.Instance.playerStats.playerExperience += PersistantGameManager.Instance.totalExperience / 4;
         }
 
 

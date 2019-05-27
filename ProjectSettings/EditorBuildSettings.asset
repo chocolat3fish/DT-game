@@ -39,6 +39,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Level 2.unity
     guid: 7848c1a583ed544d0a6d0138de494d3d
   - enabled: 1
+    path: Assets/Scenes/Level 3.unity
+    guid: 6bdc237f5be8747b897f23f48937d390
+  - enabled: 1
     path: Assets/Scenes/Character Control with enemy attack.unity
     guid: 3a4485a82a8a84cbd8472b7251ec6e8c
   - enabled: 1

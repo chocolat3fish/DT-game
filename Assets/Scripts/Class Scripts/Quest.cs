@@ -8,6 +8,7 @@ public class Quest
 
     public string questName;
     public string questType;
+   
     [TextArea(5, 20)]
     public string[] sentencesBeforeQuest1stTime;
     [TextArea(5, 20)]
@@ -20,13 +21,19 @@ public class Quest
     public string[] sentencesAfterQuest;
     [TextArea(5, 20)]
     public string questDescription;
-
     [TextArea(5, 20)]
     public string[] sentencesAfterQuestEnd;
 
     public string questItemName;
 
     public string questKey;
+
+    [Header("Rewards")]
+    [HideInInspector]
+    public Weapon questReward;
+    public string weaponType;
+    public float questExperience;
+    public int levelClaimedAt;
 
 
     /*
