@@ -194,7 +194,7 @@ MonoBehaviour:
   droppedQuestItem: 0
   player: {fileID: 0}
   enemyStats:
-    enemyName: Evil Door
+    enemyName: EvilDoor
     enemyDamage: 1
     enemyHealth: 15
     attackSpeed: 1

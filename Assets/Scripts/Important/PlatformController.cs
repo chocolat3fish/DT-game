@@ -6,21 +6,30 @@ using UnityEngine.Tilemaps;
 using UnityEngine.UI;
 public class PlatformController : MonoBehaviour
 {
-    [Header("1 is Level, 2 is Level of a Skill")]
+    [Header("3 is complete quest, 4 is kill a certian ammount of enemies")]
+    [Header("1 is Level, 2 is Level of a Skill,")]
+
     public int type;
     [Header("Stats for Level")]
     public int neededLevel;
     [Header("Stats for Level of a Skill")]
     public string skill;
     public int skillLevel;
-    GameObject colliderGameobject;
+    [Header("Stats for complete quest")]
+    public string questKey;
+    public string NPCName;
+    public string questName;
+    [Header("Stats for kill certian ammount of enemies")]
+    public string typeOfEnemy;
+    public int ammountNeeded;
+    CompositeCollider2D compCollider2D;
     Color32 normalC;
     Color32 greyedOutC = new Color32(81, 81, 81, 81);
     public GameObject panel;
     public Text message;
     string myMessage;
     bool panelOpen;
-    bool active;
+    public bool active;
 
     public void Start()
     {
@@ -41,14 +50,35 @@ public class PlatformController : MonoBehaviour
                 }
                 myMessage = "Must Get " + AddSpacesToSentence(skill) + " To Level " + skillLevel;
                 break;
+            case 3:
+                if(PersistantGameManager.Instance.completedQuests.Contains(questKey))
+                {
+                    active = true;
+                }
+                myMessage = "Must Complete " + questName + " From " + NPCName;
+                break;
+            case 4:
+                try
+                {
+                    if(PersistantGameManager.Instance.currentEnemyKills[typeOfEnemy] >= ammountNeeded)
+                    {
+                        active = true;
+                    }
+                }
+                catch
+                {
+                    myMessage = "Must kill " + ammountNeeded + " " + AddSpacesToSentence(typeOfEnemy) + "s,\n";
+                }
+                myMessage = "Must kill " + ammountNeeded + " " + AddSpacesToSentence(typeOfEnemy) + "s,\n";
+                break;
 
         }
         if (!active)
         {
             normalC = GetComponent<Tilemap>().color;
             GetComponent<Tilemap>().color = greyedOutC;
-            colliderGameobject = transform.Find(gameObject.name + " Collider").gameObject;
-            colliderGameobject.SetActive(false);
+            compCollider2D = GetComponent<CompositeCollider2D>();
+            compCollider2D.isTrigger = true;
         }
 
     }
@@ -70,7 +100,24 @@ public class PlatformController : MonoBehaviour
                         Activate();
                     }
                     break;
-
+                case 3:
+                    if (PersistantGameManager.Instance.completedQuests.Contains(questKey))
+                    {
+                        Activate();
+                    }
+                    break;
+                case 4:
+                    try
+                    {
+                        if (PersistantGameManager.Instance.currentEnemyKills[typeOfEnemy] >= ammountNeeded)
+                        {
+                            Activate();
+                        }
+                    }
+                    catch
+                    {
+                    }
+                    break;
             }
 
         }
@@ -78,7 +125,7 @@ public class PlatformController : MonoBehaviour
     void Activate()
     {
         StartCoroutine(FadeIn());
-        colliderGameobject.SetActive(true);
+        compCollider2D.isTrigger = false;
         active = true;
     }
     IEnumerator FadeIn()
@@ -91,6 +138,7 @@ public class PlatformController : MonoBehaviour
         }
         tilemap.color = normalC;
     }
+
     string AddSpacesToSentence(string text)
     {
         if (string.IsNullOrWhiteSpace(text))
@@ -105,6 +153,7 @@ public class PlatformController : MonoBehaviour
         }
         return newText.ToString();
     }
+
     private void OnMouseOver()
     {
         if (Input.GetKeyDown(KeyCode.Mouse0) && panel != null)
@@ -128,7 +177,24 @@ public class PlatformController : MonoBehaviour
                 {
                     panel.GetComponent<AreaRequirements>().offest.y = 55;
                 }
-                message.text = myMessage;
+
+                if(type == 4)
+                {
+                    int numberNeeded;
+                    try
+                    {
+                        numberNeeded = ammountNeeded - PersistantGameManager.Instance.currentEnemyKills[typeOfEnemy];
+                    }
+                    catch
+                    {
+                        numberNeeded = ammountNeeded;
+                    }
+                    message.text = myMessage + numberNeeded + " To Go";
+                }
+                else
+                {
+                    message.text = myMessage;
+                }
                 panelOpen = true;
             }
             else if (panelOpen)

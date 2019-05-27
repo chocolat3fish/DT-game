@@ -24,6 +24,7 @@ public class LootDropMonitor : MonoBehaviour
     public Weapon itemStats;
     public Consumable consumable;
     public string item;
+    public string quest;
 
     //The Bool that tells the script to check weither the compare screen has closed and should now take the disregared item
     public bool waitingForChange = false;
@@ -85,9 +86,9 @@ public class LootDropMonitor : MonoBehaviour
 
     private void Update()
     {
-        if(type == 2)
+        if(type == 2 )
         {
-            if (PersistantGameManager.Instance.itemInventory[item] > 0)
+            if (PersistantGameManager.Instance.itemInventory[item] > 0 || PersistantGameManager.Instance.completedQuests.Contains(quest))
             {
                 Destroy(gameObject);
             }

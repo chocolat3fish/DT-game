@@ -2451,228 +2451,6 @@ TilemapCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 1
   m_Offset: {x: 0, y: 0}
---- !u!1 &478557216
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 478557217}
-  - component: {fileID: 478557221}
-  - component: {fileID: 478557220}
-  - component: {fileID: 478557219}
-  - component: {fileID: 478557218}
-  m_Layer: 13
-  m_Name: Platform 1 Collider
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &478557217
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 478557216}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1041114514}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!66 &478557218
-CompositeCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 478557216}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_GeometryType: 0
-  m_GenerationType: 0
-  m_EdgeRadius: 0
-  m_ColliderPaths:
-  - m_Collider: {fileID: 478557220}
-    m_ColliderPaths:
-    - - X: -720000000
-        Y: 70000000
-      - X: -760000000
-        Y: 70000000
-      - X: -760000000
-        Y: 60000000
-      - X: -720000000
-        Y: 60000000
-    - - X: -760000000
-        Y: 60000000
-      - X: -770000000
-        Y: 60000000
-      - X: -770000000
-        Y: 50000000
-      - X: -760000000
-        Y: 50000000
-  m_CompositePaths:
-    m_Paths:
-    - - {x: -72, y: 7}
-      - {x: -76, y: 7}
-      - {x: -76, y: 6}
-      - {x: -72, y: 6}
-    - - {x: -76, y: 6}
-      - {x: -77, y: 6}
-      - {x: -77, y: 5}
-      - {x: -76, y: 5}
-  m_VertexDistance: 0.0005
---- !u!50 &478557219
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 478557216}
-  m_BodyType: 2
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
---- !u!19719996 &478557220
-TilemapCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 478557216}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 1
-  m_Offset: {x: 0, y: 0}
---- !u!1839735485 &478557221
-Tilemap:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 478557216}
-  m_Enabled: 1
-  m_Tiles:
-  - first: {x: -77, y: 5, z: 0}
-    second:
-      m_TileIndex: 0
-      m_TileSpriteIndex: 0
-      m_TileMatrixIndex: 0
-      m_TileColorIndex: 0
-      m_ObjectToInstantiate: {fileID: 0}
-      m_TileFlags: 1
-      m_ColliderType: 1
-  - first: {x: -76, y: 6, z: 0}
-    second:
-      m_TileIndex: 0
-      m_TileSpriteIndex: 0
-      m_TileMatrixIndex: 0
-      m_TileColorIndex: 0
-      m_ObjectToInstantiate: {fileID: 0}
-      m_TileFlags: 1
-      m_ColliderType: 1
-  - first: {x: -75, y: 6, z: 0}
-    second:
-      m_TileIndex: 0
-      m_TileSpriteIndex: 0
-      m_TileMatrixIndex: 0
-      m_TileColorIndex: 0
-      m_ObjectToInstantiate: {fileID: 0}
-      m_TileFlags: 1
-      m_ColliderType: 1
-  - first: {x: -74, y: 6, z: 0}
-    second:
-      m_TileIndex: 0
-      m_TileSpriteIndex: 0
-      m_TileMatrixIndex: 0
-      m_TileColorIndex: 0
-      m_ObjectToInstantiate: {fileID: 0}
-      m_TileFlags: 1
-      m_ColliderType: 1
-  - first: {x: -73, y: 6, z: 0}
-    second:
-      m_TileIndex: 0
-      m_TileSpriteIndex: 0
-      m_TileMatrixIndex: 0
-      m_TileColorIndex: 0
-      m_ObjectToInstantiate: {fileID: 0}
-      m_TileFlags: 1
-      m_ColliderType: 1
-  m_AnimatedTiles: {}
-  m_TileAssetArray:
-  - m_RefCount: 5
-    m_Data: {fileID: 11400000, guid: 6ba19d88475e34e058908c9c7b0f5b21, type: 2}
-  m_TileSpriteArray:
-  - m_RefCount: 5
-    m_Data: {fileID: 21300000, guid: f761ce8c395244fadad149562a87231c, type: 3}
-  m_TileMatrixArray:
-  - m_RefCount: 5
-    m_Data:
-      e00: 1
-      e01: 0
-      e02: 0
-      e03: 0
-      e10: 0
-      e11: 1
-      e12: 0
-      e13: 0
-      e20: 0
-      e21: 0
-      e22: 1
-      e23: 0
-      e30: 0
-      e31: 0
-      e32: 0
-      e33: 1
-  m_TileColorArray:
-  - m_RefCount: 5
-    m_Data: {r: 1, g: 1, b: 1, a: 1}
-  m_AnimationFrameRate: 1
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Origin: {x: -77, y: 0, z: 0}
-  m_Size: {x: 77, y: 7, z: 1}
-  m_TileAnchor: {x: 0.5, y: 0.5, z: 0}
-  m_TileOrientation: 0
-  m_TileOrientationMatrix:
-    e00: 1
-    e01: 0
-    e02: 0
-    e03: 0
-    e10: 0
-    e11: 1
-    e12: 0
-    e13: 0
-    e20: 0
-    e21: 0
-    e22: 1
-    e23: 0
-    e30: 0
-    e31: 0
-    e32: 0
-    e33: 1
 --- !u!1 &486535255
 GameObject:
   m_ObjectHideFlags: 0
@@ -3000,6 +2778,11 @@ PrefabInstance:
         type: 3}
       propertyPath: item
       value: Claw of Straphagus
+      objectReference: {fileID: 0}
+    - target: {fileID: 532881255365664461, guid: afe732dca4786402d9b7cb7126088342,
+        type: 3}
+      propertyPath: quest
+      value: Ja00
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: afe732dca4786402d9b7cb7126088342, type: 3}
@@ -3414,9 +3197,11 @@ GameObject:
   - component: {fileID: 1041114514}
   - component: {fileID: 1041114517}
   - component: {fileID: 1041114516}
-  - component: {fileID: 1041114515}
   - component: {fileID: 1041114518}
-  m_Layer: 0
+  - component: {fileID: 1041114520}
+  - component: {fileID: 1041114519}
+  - component: {fileID: 1041114515}
+  m_Layer: 13
   m_Name: Platform 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3433,8 +3218,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 478557217}
+  m_Children: []
   m_Father: {fileID: 1841889130}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3450,10 +3234,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e37a619169702463c963beaa3f70dfd9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 2
+  type: 4
   neededLevel: 2
   skill: AttackSpeed
   skillLevel: 5
+  questKey: Ja00
+  NPCName: Jason
+  questName: Claw of Straphagus
+  typeOfEnemy: EvilDoor
+  ammountNeeded: 5
+  panel: {fileID: 0}
+  message: {fileID: 0}
+  active: 0
 --- !u!483693784 &1041114516
 TilemapRenderer:
   m_ObjectHideFlags: 0
@@ -3617,8 +3409,76 @@ TilemapCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_UsedByEffector: 0
+  m_UsedByComposite: 1
+  m_Offset: {x: 0, y: 0}
+--- !u!66 &1041114519
+CompositeCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1041114513}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
+  m_GeometryType: 1
+  m_GenerationType: 0
+  m_EdgeRadius: 0
+  m_ColliderPaths:
+  - m_Collider: {fileID: 1041114518}
+    m_ColliderPaths:
+    - - X: -720000000
+        Y: 70000000
+      - X: -760000000
+        Y: 70000000
+      - X: -760000000
+        Y: 60000000
+      - X: -720000000
+        Y: 60000000
+    - - X: -760000000
+        Y: 60000000
+      - X: -770000000
+        Y: 60000000
+      - X: -770000000
+        Y: 50000000
+      - X: -760000000
+        Y: 50000000
+  m_CompositePaths:
+    m_Paths:
+    - - {x: -72, y: 7}
+      - {x: -76, y: 7}
+      - {x: -76, y: 6}
+      - {x: -72, y: 6}
+    - - {x: -76, y: 6}
+      - {x: -77, y: 6}
+      - {x: -77, y: 5}
+      - {x: -76, y: 5}
+  m_VertexDistance: 0.0005
+--- !u!50 &1041114520
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1041114513}
+  m_BodyType: 2
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &1063977875
 GameObject:
   m_ObjectHideFlags: 0
@@ -4619,6 +4479,11 @@ PrefabInstance:
         type: 3}
       propertyPath: item
       value: Amulet of Honour
+      objectReference: {fileID: 0}
+    - target: {fileID: 532881255365664461, guid: afe732dca4786402d9b7cb7126088342,
+        type: 3}
+      propertyPath: quest
+      value: Ja01
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: afe732dca4786402d9b7cb7126088342, type: 3}

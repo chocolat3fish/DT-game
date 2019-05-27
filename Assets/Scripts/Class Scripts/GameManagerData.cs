@@ -80,6 +80,8 @@ public class GameManagerData
 
 
     public Dictionary<string, int> amountOfConsumables;
+    public List<string> completedQuests;
 
+    public Dictionary<string, int> currentEnemyKills;
 
 }

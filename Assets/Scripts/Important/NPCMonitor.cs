@@ -420,6 +420,7 @@ public class NPCMonitor : MonoBehaviour
         
         PersistantGameManager.Instance.activeQuests.Remove(key);
         PersistantGameManager.Instance.possibleQuests.Remove(key);
+        PersistantGameManager.Instance.completedQuests.Add(currentQuest.questKey);
         hasTalkedBefore = false;
     }
 

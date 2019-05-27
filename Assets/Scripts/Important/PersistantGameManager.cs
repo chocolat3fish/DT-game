@@ -171,7 +171,8 @@ public class PersistantGameManager : MonoBehaviour
         {"Empty", 0}
     };
 
-
+    public List<string> completedQuests = new List<string>();
+    public Dictionary<string, int> currentEnemyKills = new Dictionary<string, int>();
 
     private void Awake()
     {
@@ -251,6 +252,9 @@ public class PersistantGameManager : MonoBehaviour
 
                 amountOfConsumables = data.amountOfConsumables;
                 previousScene = data.previousScene;
+
+                completedQuests = data.completedQuests;
+                currentEnemyKills = data.currentEnemyKills;
                 #endregion
 
                 StartCoroutine(TurnOnAndOffJustLoaded());
@@ -659,6 +663,8 @@ public class PersistantGameManager : MonoBehaviour
 
 
         data.amountOfConsumables = amountOfConsumables;
+        data.completedQuests = completedQuests;
+        data.currentEnemyKills = currentEnemyKills;
 
         bF.Serialize(file, data);
         file.Close();

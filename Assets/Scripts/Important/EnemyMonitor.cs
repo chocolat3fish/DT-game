@@ -141,6 +141,14 @@ public class EnemyMonitor : MonoBehaviour
     //The Death method, drops a loot item, gives xp and then destorys the enemy will eventully play death animation
     public void EnemyDeath()
     {
+        if(PersistantGameManager.Instance.currentEnemyKills.ContainsKey(enemyStats.enemyName))
+        {
+            PersistantGameManager.Instance.currentEnemyKills[enemyStats.enemyName]++;
+        }
+        else
+        {
+            PersistantGameManager.Instance.currentEnemyKills.Add(enemyStats.enemyName, 1);
+        }
 
         if (questTarget == true && PersistantGameManager.Instance.activeQuests.Contains(PersistantGameManager.Instance.questTargets[questReward]))
         {
