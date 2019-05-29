@@ -10,14 +10,21 @@ public class PlaceHolderInventoryscript : MonoBehaviour
     public int whatAreYouDoing;
     private PlayerControls playerControls;
     private Text output;
-    void Start() {
+
+
+    void Start() 
+    {
         output = GetComponent<Text>();
         playerControls = FindObjectOfType<PlayerControls>();
-     }
+    }
 
 
     private void Update()
     {
+
+        Weapon equippedWeapon = PersistantGameManager.Instance.currentWeapon;
+        int weaponIndex = PersistantGameManager.Instance.playerWeaponInventory.IndexOf(equippedWeapon) + 1;
+
 
         if (whatAreYouDoing < 6)
         {
@@ -122,9 +129,7 @@ public class PlaceHolderInventoryscript : MonoBehaviour
                 break;
 
             case 19:
-                Weapon equippedWeapon = PersistantGameManager.Instance.currentWeapon;
-                int weaponIndex = PersistantGameManager.Instance.playerWeaponInventory.IndexOf(equippedWeapon) + 1;
-                output.text = equippedWeapon.itemPrefix + " " + equippedWeapon.itemName + equippedWeapon.itemSuffix +  " (Slot " + weaponIndex + ")" ;
+                output.text = equippedWeapon.itemPrefix + " " + equippedWeapon.itemName + equippedWeapon.itemSuffix;
                 break;
             case 20:
                 output.text = "Lvl: " + PersistantGameManager.Instance.playerStats.playerLevel;
@@ -132,7 +137,17 @@ public class PlaceHolderInventoryscript : MonoBehaviour
             case 21:
                 output.text = "Skill P: " + PersistantGameManager.Instance.playerStats.playerSkillPoints;
                 break;
+
+            case 22:
+                output.text = "Current Weapon (Slot " + weaponIndex + ")";
+                break;
+
+            case 23:
+                output.text = "Slot " + weaponIndex;
+                break;
         }
     }
+
+
 
 }

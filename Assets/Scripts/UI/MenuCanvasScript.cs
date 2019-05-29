@@ -265,26 +265,26 @@ public class MenuCanvasScript : MonoBehaviour
         }
 
 
-        if (mainPanel.activeSelf && Input.GetKeyDown(KeyCode.L) && weaponsPanel.activeSelf == true)
+        if (mainPanel.activeSelf && Input.GetKeyDown(KeyCode.K) && weaponsPanel.activeSelf == true)
         {
 
             closeWeapons = true;
             openWeapons = false;
 
         }
-        else if (mainPanel.activeSelf && Input.GetKeyDown(KeyCode.L) && weaponsPanel.activeSelf == false && questDescPanel.activeSelf == false)
+        else if (mainPanel.activeSelf && Input.GetKeyDown(KeyCode.K) && weaponsPanel.activeSelf == false && questDescPanel.activeSelf == false)
         {
             openWeapons = true;
             closeWeapons = false;
         }
 
-        if (mainPanel.activeSelf && Input.GetKeyDown(KeyCode.K) && itemsPanel.activeSelf == true)
+        if (mainPanel.activeSelf && Input.GetKeyDown(KeyCode.J) && itemsPanel.activeSelf == true)
         {
             closeItems = true;
             openItems = false;
 
         }
-        else if (mainPanel.activeSelf && Input.GetKeyDown(KeyCode.K) && itemsPanel.activeSelf == false)
+        else if (mainPanel.activeSelf && Input.GetKeyDown(KeyCode.J) && itemsPanel.activeSelf == false)
         {
             openItems = true;
             closeItems = false;
@@ -303,17 +303,17 @@ public class MenuCanvasScript : MonoBehaviour
         }
         */
 
-        if (mainPanel.gameObject.activeSelf && Input.GetKeyDown(KeyCode.Semicolon) && questsPanel.activeSelf == true)
+        if (mainPanel.gameObject.activeSelf && Input.GetKeyDown(KeyCode.L) && questsPanel.activeSelf == true)
         {
             closeQuests = true;
             openQuests = false;
         }
-        else if (mainPanel.gameObject.activeSelf && Input.GetKeyDown(KeyCode.Semicolon) && questsPanel.activeSelf == false && questDescPanel.activeSelf == false)
+        else if (mainPanel.gameObject.activeSelf && Input.GetKeyDown(KeyCode.L) && questsPanel.activeSelf == false && questDescPanel.activeSelf == false)
         {
             openQuests = true;
             closeQuests = false;
         }
-        else if (mainPanel.gameObject.activeSelf && Input.GetKeyDown(KeyCode.Semicolon) && questDescPanel.activeSelf == true)
+        else if (mainPanel.gameObject.activeSelf && Input.GetKeyDown(KeyCode.L) && questDescPanel.activeSelf == true)
         {
             closeSlot = true;
         }

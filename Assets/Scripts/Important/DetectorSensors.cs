@@ -6,21 +6,17 @@ public class DetectorSensors : MonoBehaviour
 {
     public PlayerControls player;
 
-    public static List<string> energyBeats = new List<string> { "Fire", "Void", "Light" };
-    public static List<string> fireBeats = new List<string> { "Acid", "Shadow", "Void" };
-    public static List<string> acidBeats = new List<string> { "Light", "Water", "Energy" };
-    public static List<string> waterBeats = new List<string> { "Fire", "Energy", "Shadow" };
-    public static List<string> shadowBeats = new List<string> { "Acid", "Energy", "Void" };
-    public static List<string> lightBeats = new List<string> { "Water", "Shadow", "Fire" };
-    public static List<string> voidBeats = new List<string> { "Acid", "Water", "Light" };
+    public static List<string> bloodBeats = new List<string> { "Venom", "Shadow" };
+    public static List<string> venomBeats = new List<string> { "Shadow", "Void" };
+    public static List<string> waterBeats = new List<string> { "Blood", "Venom" };
+    public static List<string> shadowBeats = new List<string> { "Water", "Void" };
+    public static List<string> voidBeats = new List<string> { "Blood", "Water" };
     public static Dictionary<string, List<string>> weaponElements = new Dictionary<string, List<string>>
     {
-        {"Energy", energyBeats},
-        {"Fire", fireBeats},
-        {"Acid", acidBeats},
+        {"Blood", bloodBeats},
+        {"Venom", venomBeats},
         {"Water", waterBeats},
         {"Shadow", shadowBeats},
-        {"Light", lightBeats},
         {"Void", voidBeats}
     };
 
@@ -39,6 +35,10 @@ public class DetectorSensors : MonoBehaviour
             if (PersistantGameManager.Instance.currentWeapon.itemElement == "" || PersistantGameManager.Instance.currentWeapon.itemElement == enemy.enemyStats.enemyClass)
             {
                 elementDamage = 1;
+            }
+            else if (PersistantGameManager.Instance.currentWeapon.itemElement == "Light")
+            {
+                elementDamage = 1.2f;
             }
             else if (weaponElements[PersistantGameManager.Instance.currentWeapon.itemElement].Contains(enemy.enemyStats.enemyClass))
             {

@@ -421,7 +421,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Quests (;)
+  m_Text: Quests (L)
 --- !u!222 &103106361
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2431,7 +2431,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Items (K)
+  m_Text: Items (J)
 --- !u!222 &398286712
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -11357,7 +11357,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Weapons (L)
+  m_Text: Weapons (K)
 --- !u!222 &2066829036
 CanvasRenderer:
   m_ObjectHideFlags: 0

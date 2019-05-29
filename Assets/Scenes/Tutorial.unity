@@ -3157,7 +3157,7 @@ MonoBehaviour:
       trueItemSpeed: 0
       itemRange: 0
       itemLevel: 0
-    weaponType: A greater Insight into the workings of the world
+    weaponType: 
     questExperience: 100
     levelClaimedAt: 0
   canvasMainText: {fileID: 0}

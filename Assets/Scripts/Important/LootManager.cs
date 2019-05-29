@@ -46,9 +46,8 @@ public class LootManager : MonoBehaviour
 
     public static Dictionary<string, string> weaponElements = new Dictionary<string, string>
     {
-        {"Energy", " of Sparks"},
-        {"Fire", " of Flames"},
-        {"Acid", " of Poison"},
+        {"Blood", " of Sanguis"},
+        {"Venom", " of Virulence"},
         {"Water", " of Drowning"},
         {"Shadow", " of Nightmares"},
         {"Light", " of Cleansing"},
@@ -333,7 +332,7 @@ public class LootManager : MonoBehaviour
         string newElement;
         string newSuffix;
         int elementChance = random.Next(1, 100);
-        if (elementChance <= 10 + PersistantGameManager.Instance.betterLootChance)
+        if (elementChance <= 100 + PersistantGameManager.Instance.betterLootChance)
         {
             List<string> dictElements = new List<string>(weaponElements.Keys);
             string listElement = dictElements[random.Next(dictElements.Count)];
