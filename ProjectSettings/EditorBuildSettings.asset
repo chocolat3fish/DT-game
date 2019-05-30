@@ -21,6 +21,54 @@ EditorBuildSettings:
     path: Assets/Scenes/Character Control.unity
     guid: 8da405e47547946c29d1f275a511409f
   - enabled: 1
+    path: Assets/Scenes/Front Layer/A1.unity
+    guid: 02d2e98a427a543c5a7da41653f5c5f3
+  - enabled: 1
+    path: Assets/Scenes/Front Layer/A2.unity
+    guid: c665ad284d48e40e89b62d21f3027acb
+  - enabled: 1
+    path: Assets/Scenes/Front Layer/A3.unity
+    guid: fb85e97c47cc949c58ab6c20a09c64dd
+  - enabled: 1
+    path: Assets/Scenes/Front Layer/A4.unity
+    guid: 15dcfbfb0cb4b46b6851ba97dccca78b
+  - enabled: 1
+    path: Assets/Scenes/Front Layer/B1.unity
+    guid: e0202ffe0c19a49e28c7456303fe9c96
+  - enabled: 1
+    path: Assets/Scenes/Front Layer/B2.unity
+    guid: 2e770d6f10bb9452881bec4e07e0285a
+  - enabled: 1
+    path: Assets/Scenes/Front Layer/B3.unity
+    guid: 923df017ac4c841468299469c9aae56d
+  - enabled: 1
+    path: Assets/Scenes/Front Layer/B4.unity
+    guid: 805c8b071e146451495565dc23e605cf
+  - enabled: 1
+    path: Assets/Scenes/Front Layer/C1.unity
+    guid: 7adbdace9087a4c179d34f094980e84f
+  - enabled: 1
+    path: Assets/Scenes/Front Layer/C2.unity
+    guid: d3ae6a6d239ea4d1da39d233027b2ad4
+  - enabled: 1
+    path: Assets/Scenes/Front Layer/C3.unity
+    guid: 233815ef2a34d4fd2b365d3291f02bb5
+  - enabled: 1
+    path: Assets/Scenes/Front Layer/C4.unity
+    guid: f2bb36a989d5d48008b40823515e592c
+  - enabled: 1
+    path: Assets/Scenes/Front Layer/D1.unity
+    guid: 64417f84423e0480882cd338261ed81a
+  - enabled: 1
+    path: Assets/Scenes/Front Layer/D2.unity
+    guid: 257e1a9004cb94bf0a0411c5b35c05ed
+  - enabled: 1
+    path: Assets/Scenes/Front Layer/D3.unity
+    guid: 45f6988c89db14e6a96324d336a75262
+  - enabled: 1
+    path: Assets/Scenes/Front Layer/D4.unity
+    guid: 57b528fac8a9041d8ae00bda98edef28
+  - enabled: 1
     path: Assets/Scenes/Character Control 3 Weapons.unity
     guid: 38479f28373f749ebb0e3fcca6858a90
   - enabled: 1

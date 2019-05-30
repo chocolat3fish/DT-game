@@ -332,7 +332,7 @@ public class LootManager : MonoBehaviour
         string newElement;
         string newSuffix;
         int elementChance = random.Next(1, 100);
-        if (elementChance <= 100 + PersistantGameManager.Instance.betterLootChance)
+        if (elementChance <= 10 + PersistantGameManager.Instance.betterLootChance)
         {
             List<string> dictElements = new List<string>(weaponElements.Keys);
             string listElement = dictElements[random.Next(dictElements.Count)];

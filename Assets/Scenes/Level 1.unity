@@ -2858,7 +2858,7 @@ MonoBehaviour:
   NPCName: Jason
   questName: Claw of Straphagus
   typeOfEnemy: EvilDoor
-  ammountNeeded: 5
+  ammountNeeded: 1
   panel: {fileID: 0}
   message: {fileID: 0}
   active: 0
