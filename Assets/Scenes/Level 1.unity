@@ -2851,6 +2851,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 4
+  opposite: 0
   neededLevel: 2
   skill: AttackSpeed
   skillLevel: 5

@@ -15,23 +15,16 @@ public class PersistantGameManager : MonoBehaviour
 
     public List<string> possibleConsumables = new List<string> { "20%H", "50%H", "100%H", "20%A", "50%A", "100%A", "20%L"};
     public Dictionary<string, int> itemInventory = new Dictionary<string, int>();
-    public List<string> possibleItems = new List<string> { "Dagger of Kaliphase", "Amulet of Honour", "Hood of Sartuka", "Claw of Straphagus", "Jason's Belt" };
+
+    [NonSerialized]
+    public List<string> possibleItems = new List<string> { "Dagger of Kaliphase", "Amulet of Honour", "Hood of Sartuka", "Claw of Straphagus", "Jason's Belt", "Steve's Wristband" };
     public Quest currentDialogueQuest;
-    public Dictionary<string, int> characterQuests = new Dictionary<string, int>
-    {
-        {"Jason", 0 }
-    };
+
+    public Dictionary<string, int> characterQuests = new Dictionary<string, int>();
 
     public Dictionary<string, Quest> possibleQuests = new Dictionary<string, Quest>();
 
     public List<string> activeQuests = new List<string>();
-
-
-
-    public Dictionary<string, string> questTargets = new Dictionary<string, string>
-    {
-        {"Hood of Sartuka", "Ja03"}
-    };
 
 
 
@@ -183,7 +176,6 @@ public class PersistantGameManager : MonoBehaviour
                 characterQuests = data.characterQuests;
                 possibleQuests = data.possibleQuests;
                 activeQuests = data.activeQuests;
-                questTargets = data.questTargets;
 
                 attackSpeedMulti = data.attackSpeedMulti;
                 attackRangeMulti = data.attackRangeMulti;
@@ -594,7 +586,6 @@ public class PersistantGameManager : MonoBehaviour
         data.characterQuests = characterQuests;
         data.possibleQuests = possibleQuests;
         data.activeQuests = activeQuests;
-        data.questTargets = questTargets;
 
         data.attackSpeedMulti = attackSpeedMulti;
         data.attackRangeMulti = attackRangeMulti;

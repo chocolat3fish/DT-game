@@ -7,7 +7,6 @@ public class Quest
 
 
     public string questName;
-    public string questType;
    
     [TextArea(5, 20)]
     public string[] sentencesBeforeQuest1stTime;
@@ -32,6 +31,8 @@ public class Quest
     [HideInInspector]
     public Weapon questReward;
     public string weaponType;
+    public float XPMultiplier; 
+    [HideInInspector]
     public float questExperience;
     public int levelClaimedAt;
 

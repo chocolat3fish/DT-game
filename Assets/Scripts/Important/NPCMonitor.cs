@@ -27,6 +27,7 @@ public class NPCMonitor : MonoBehaviour
     public Quest currentQuest;
 
     public string nameOfNpc;
+    public string waitingText;
     private float dialogueBoxQueryTime;
     private bool dialogueBoxQuery;
     private bool canTalk;
@@ -125,8 +126,12 @@ public class NPCMonitor : MonoBehaviour
     }
     public void ContinueDialogue()
     {
+        if(currentQuest == null)
+        {
+            EndDialogue();
+        }
 
-        if (canContinueDialouge)
+        else if (canContinueDialouge)
         {
             canContinueDialouge = false;
             dialogueBoxQuery = true;
@@ -185,7 +190,7 @@ public class NPCMonitor : MonoBehaviour
                 else
                 {
                     currentQuest.questReward = LootManager.GenerateSpecificWeapon(currentQuest.weaponType, 10);
-                    currentQuest.questExperience = (float)(0.1f * (0.04 * Math.Pow(currentQuest.levelClaimedAt, 3) + (0.8 * Math.Pow(currentQuest.levelClaimedAt, 2) + 100)));
+                    currentQuest.questExperience = (float)(0.1f * (0.04 * Math.Pow(currentQuest.levelClaimedAt, 3) + (0.8 * Math.Pow(currentQuest.levelClaimedAt, 2) + 100))) * currentQuest.XPMultiplier;
                     StopAllCoroutines();
                     hasTalkedBefore = true;
                     StartCoroutine(AddChars(currentQuest.questStatment, overlayMainText));
@@ -214,7 +219,42 @@ public class NPCMonitor : MonoBehaviour
 
             if(stageOfConvo == 2)
             {
-                if(characterQuests[PersistantGameManager.Instance.characterQuests[nameOfNpc]].questKey != currentQuest.questKey)
+                if (characterQuests.Length - 1 >= PersistantGameManager.Instance.characterQuests[nameOfNpc])
+                {
+                    if (characterQuests[PersistantGameManager.Instance.characterQuests[nameOfNpc]].questKey != currentQuest.questKey)
+                    {
+                        overlayRewardText.text = "";
+                        currentSentenceIndex++;
+                        CloseNewButtons();
+                        if (currentSentenceIndex >= currentQuest.sentencesAfterQuestEnd.Length)
+                        {
+                            EndDialogue();
+                            return;
+                        }
+                        else
+                        {
+                            StopAllCoroutines();
+                            StartCoroutine(AddChars(currentQuest.sentencesAfterQuestEnd[currentSentenceIndex], overlayMainText));
+                        }
+                    }
+                    else
+                    {
+                        overlayRewardText.text = "";
+                        currentSentenceIndex++;
+                        CloseNewButtons();
+                        if (currentSentenceIndex >= currentQuest.sentencesAfterQuest.Length)
+                        {
+                            EndDialogue();
+                            return;
+                        }
+                        else
+                        {
+                            StopAllCoroutines();
+                            StartCoroutine(AddChars(currentQuest.sentencesAfterQuest[currentSentenceIndex], overlayMainText));
+                        }
+                    }
+                }
+                else
                 {
                     overlayRewardText.text = "";
                     currentSentenceIndex++;
@@ -229,24 +269,10 @@ public class NPCMonitor : MonoBehaviour
                         StopAllCoroutines();
                         StartCoroutine(AddChars(currentQuest.sentencesAfterQuestEnd[currentSentenceIndex], overlayMainText));
                     }
+
                 }
-                else
-                {
-                    overlayRewardText.text = "";
-                    currentSentenceIndex++;
-                    CloseNewButtons();
-                    if (currentSentenceIndex >= currentQuest.sentencesAfterQuest.Length)
-                    {
-                        EndDialogue();
-                        return;
-                    }
-                    else
-                    {
-                        StopAllCoroutines();
-                        StartCoroutine(AddChars(currentQuest.sentencesAfterQuest[currentSentenceIndex], overlayMainText));
-                    }
-                }
-                
+
+
 
 
 
@@ -295,8 +321,21 @@ public class NPCMonitor : MonoBehaviour
 
     private IEnumerator CreateDialogueBox()
     {
-        currentQuest = characterQuests[PersistantGameManager.Instance.characterQuests[nameOfNpc]];
-        PersistantGameManager.Instance.currentDialogueQuest = currentQuest;
+        if(!PersistantGameManager.Instance.characterQuests.ContainsKey(nameOfNpc))
+        {
+            PersistantGameManager.Instance.characterQuests.Add(nameOfNpc, 0);
+        }
+        if(characterQuests.Length - 1 >= PersistantGameManager.Instance.characterQuests[nameOfNpc])
+        {
+            currentQuest = characterQuests[PersistantGameManager.Instance.characterQuests[nameOfNpc]];
+            PersistantGameManager.Instance.currentDialogueQuest = currentQuest;
+        }
+        else
+        {
+            currentQuest = null;
+            PersistantGameManager.Instance.currentDialogueQuest.questKey = nameOfNpc;
+        }
+
         AsyncOperation loadDialogueCanvas = SceneManager.LoadSceneAsync("Dialogue Canvas", LoadSceneMode.Additive);
         while (true)
         {
@@ -335,14 +374,18 @@ public class NPCMonitor : MonoBehaviour
         overlayContinueButton.gameObject.SetActive(true);
         overlayRewardText.text = "";
         PersistantGameManager.Instance.dialogueSceneIsOpen = true;
-
-        if (hasTalkedBefore)
+        if (currentQuest == null)
+        {
+            StartCoroutine(AddChars(waitingText, overlayMainText));
+        }
+        else if (hasTalkedBefore)
         {
             StartCoroutine(AddChars(currentQuest.sentencesBeforeQuest2ndTime[0], overlayMainText));
         }
         else
         {
             StartCoroutine(AddChars(currentQuest.sentencesBeforeQuest1stTime[0], overlayMainText));
+            currentQuest.levelClaimedAt = PersistantGameManager.Instance.playerStats.playerLevel;
         }
     }
 

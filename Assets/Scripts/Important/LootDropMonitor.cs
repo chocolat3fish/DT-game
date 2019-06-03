@@ -88,9 +88,12 @@ public class LootDropMonitor : MonoBehaviour
     {
         if(type == 2 )
         {
-            if (PersistantGameManager.Instance.itemInventory[item] > 0 || PersistantGameManager.Instance.completedQuests.Contains(quest))
+            if (PersistantGameManager.Instance.itemInventory.ContainsKey(item))
             {
-                Destroy(gameObject);
+                if (PersistantGameManager.Instance.itemInventory[item] > 0 || PersistantGameManager.Instance.completedQuests.Contains(quest))
+                {
+                    Destroy(gameObject);
+                }
             }
         }
         
@@ -134,6 +137,11 @@ public class LootDropMonitor : MonoBehaviour
             }
             else if(!PersistantGameManager.Instance.compareScreenOpen && closestLootDrop == this && type == 2)
             {
+                if(!PersistantGameManager.Instance.itemInventory.ContainsKey(item))
+                {
+                    PersistantGameManager.Instance.itemInventory.Add(item, 0);
+                }
+
                 PersistantGameManager.Instance.itemInventory[item] += 1;
                 Destroy(gameObject);
             }

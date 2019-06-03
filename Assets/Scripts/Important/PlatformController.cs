@@ -6,16 +6,18 @@ using UnityEngine.Tilemaps;
 using UnityEngine.UI;
 public class PlatformController : MonoBehaviour
 {
-    [Header("3 is complete quest, 4 is kill a certian ammount of enemies")]
+    [Header("5 is kill a certian ammount of enemies")]
+    [Header("3 is complete quest, 4 is unlock during and after quest")]
     [Header("1 is Level, 2 is Level of a Skill,")]
 
     public int type;
+    public bool opposite;
     [Header("Stats for Level")]
     public int neededLevel;
     [Header("Stats for Level of a Skill")]
     public string skill;
     public int skillLevel;
-    [Header("Stats for complete quest")]
+    [Header("Stats for complete quest and during a quest")]
     public string questKey;
     public string NPCName;
     public string questName;
@@ -58,6 +60,13 @@ public class PlatformController : MonoBehaviour
                 myMessage = "Must Complete " + questName + " From " + NPCName;
                 break;
             case 4:
+                if(PersistantGameManager.Instance.completedQuests.Contains(questKey) || PersistantGameManager.Instance.activeQuests.Contains(questKey))
+                {
+                    active = true;
+                }
+                myMessage = "Must Start " + questName + "From " + NPCName;
+                break;
+            case 5:
                 try
                 {
                     if(PersistantGameManager.Instance.currentEnemyKills[typeOfEnemy] >= ammountNeeded)
@@ -75,10 +84,20 @@ public class PlatformController : MonoBehaviour
         }
         if (!active)
         {
-            normalC = GetComponent<Tilemap>().color;
-            GetComponent<Tilemap>().color = greyedOutC;
-            compCollider2D = GetComponent<CompositeCollider2D>();
-            compCollider2D.isTrigger = true;
+            if (opposite)
+            {
+                normalC = GetComponent<Tilemap>().color;
+                GetComponent<Tilemap>().color = new Color32(192, 192, 192, 255);
+                compCollider2D = GetComponent<CompositeCollider2D>();
+                compCollider2D.isTrigger = false;
+            }
+            else
+            {
+                normalC = GetComponent<Tilemap>().color;
+                GetComponent<Tilemap>().color = greyedOutC;
+                compCollider2D = GetComponent<CompositeCollider2D>();
+                compCollider2D.isTrigger = true;
+            }
         }
 
     }
@@ -107,6 +126,12 @@ public class PlatformController : MonoBehaviour
                     }
                     break;
                 case 4:
+                    if (PersistantGameManager.Instance.completedQuests.Contains(questKey) || PersistantGameManager.Instance.activeQuests.Contains(questKey))
+                    {
+                        Activate();
+                    }
+                    break;
+                case 5:
                     try
                     {
                         if (PersistantGameManager.Instance.currentEnemyKills[typeOfEnemy] >= ammountNeeded)
@@ -124,9 +149,18 @@ public class PlatformController : MonoBehaviour
     } 
     void Activate()
     {
-        StartCoroutine(FadeIn());
-        compCollider2D.isTrigger = false;
-        active = true;
+        if (opposite)
+        {
+            StartCoroutine(FadeOut());
+            compCollider2D.isTrigger = true;
+            active = true;
+        }
+        else
+        {
+            StartCoroutine(FadeIn());
+            compCollider2D.isTrigger = false;
+            active = true;
+        }
     }
     IEnumerator FadeIn()
     {
@@ -137,6 +171,16 @@ public class PlatformController : MonoBehaviour
             yield return new WaitForSeconds(0.81f / i);
         }
         tilemap.color = normalC;
+    }
+    IEnumerator FadeOut()
+    {
+        Tilemap tilemap = GetComponent<Tilemap>();
+        for(int i = 192; i >= 81; i--)
+        {
+            tilemap.color = new Color32((byte)i, (byte)i, (byte)i, (byte)i);
+            yield return new WaitForSecondsRealtime(0.81f / i);
+        }
+        tilemap.color = greyedOutC;
     }
 
     string AddSpacesToSentence(string text)
@@ -178,7 +222,7 @@ public class PlatformController : MonoBehaviour
                     panel.GetComponent<AreaRequirements>().offest.y = 55;
                 }
 
-                if(type == 4)
+                if(type == 5)
                 {
                     int numberNeeded;
                     try

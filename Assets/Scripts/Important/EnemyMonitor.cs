@@ -42,6 +42,7 @@ public class EnemyMonitor : MonoBehaviour
 
     public bool questTarget;
     public string questReward;
+    public string questKey;
 
     //Name of the loot drop prefab
     private string lootDropPreFabName = "Loot Drop";
@@ -150,7 +151,7 @@ public class EnemyMonitor : MonoBehaviour
             PersistantGameManager.Instance.currentEnemyKills.Add(enemyStats.enemyName, 1);
         }
 
-        if (questTarget == true && PersistantGameManager.Instance.activeQuests.Contains(PersistantGameManager.Instance.questTargets[questReward]))
+        if (questTarget == true && PersistantGameManager.Instance.activeQuests.Contains(questKey))
         {
             GameObject questDrop = Instantiate(Resources.Load(lootDropPreFabName), transform.position, Quaternion.identity) as GameObject;
             LootDropMonitor questDropMonitor = questDrop.GetComponent<LootDropMonitor>();
