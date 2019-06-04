@@ -5,10 +5,12 @@ using System;
 
 public class EnemyAttacks : MonoBehaviour
 {
+
     [HideInInspector]
     public List<Transform> patrolPoints = new List<Transform>();
     [HideInInspector]
     public GameObject player;
+    public PlayerStats playerStats;
     private int currentPointIndex;
     private GameObject enemy;
     private float distanceBetweenPoints;
@@ -65,6 +67,7 @@ public class EnemyAttacks : MonoBehaviour
     {
         enemy = gameObject.transform.Find("Enemy").gameObject;
         enemyMonitor = enemy.GetComponent<EnemyMonitor>();
+
 
         if (patrol || charge)
         {

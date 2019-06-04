@@ -47,6 +47,8 @@ public class EnemyMonitor : MonoBehaviour
     //Name of the loot drop prefab
     private string lootDropPreFabName = "Loot Drop";
 
+    private static System.Random random = new System.Random();
+
 
     private EnemyAttacks parentController;
     public bool waitingForCollision;
@@ -61,6 +63,20 @@ public class EnemyMonitor : MonoBehaviour
         player = FindObjectOfType<PlayerControls>().gameObject;
         enemyRigidbody = gameObject.GetComponent<Rigidbody2D>();
         playerControls = player.GetComponent<PlayerControls>();
+
+        if (PersistantGameManager.Instance.playerStats.playerLevel < enemyStats.enemyMinLevel)
+        {
+            enemyStats.enemyLevel = enemyStats.enemyMinLevel;
+        }
+        else if (PersistantGameManager.Instance.playerStats.playerLevel > enemyStats.enemyMaxLevel)
+        {
+            enemyStats.enemyLevel = enemyStats.enemyMaxLevel;
+        }
+        else //if player level in between min and max
+        {
+            int dif = random.Next(0, 1);
+            enemyStats.enemyLevel = PersistantGameManager.Instance.playerStats.playerLevel + dif;
+        }
 
 
         float multiplier = 1;

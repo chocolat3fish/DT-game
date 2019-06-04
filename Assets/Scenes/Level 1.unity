@@ -2397,12 +2397,15 @@ MonoBehaviour:
     attackRange: 1
     enemyTier: Heavy
     enemyLevel: 2
+    enemyMinLevel: 3
+    enemyMaxLevel: 6
     enemyClass: 
   itemChance: 100
   weaponValue: 10
   itemValue: 0
   questTarget: 1
   questReward: Hood of Sartuka
+  questKey: 
   waitingForCollision: 0
 --- !u!212 &486535259
 SpriteRenderer:
@@ -2759,6 +2762,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   patrolPoints: []
   player: {fileID: 0}
+  playerStats:
+    health: 0
+    playerLevel: 0
+    playerExperience: 0
+    playerSkillPoints: 0
   hasJumped: 0
   rb: {fileID: 0}
   timeOfShake: 0
@@ -3553,7 +3561,6 @@ MonoBehaviour:
   canContinueDialouge: 0
   characterQuests:
   - questName: Claw of Straphagus
-    questType: Fetch
     sentencesBeforeQuest1stTime:
     - "Hello I'm Jason, \nNice to meet you..."
     - Just wondering if you could do something little for me...
@@ -3582,10 +3589,10 @@ MonoBehaviour:
       itemRange: 0
       itemLevel: 0
     weaponType: Short Sword
+    XPMultiplier: 0
     questExperience: 0
     levelClaimedAt: 2
   - questName: Amulet of Honour
-    questType: Fetch
     sentencesBeforeQuest1stTime:
     - Thanks for before...
     - Though may I ask one more favour..
@@ -3614,10 +3621,10 @@ MonoBehaviour:
       itemRange: 0
       itemLevel: 0
     weaponType: Long Sword
+    XPMultiplier: 0
     questExperience: 0
     levelClaimedAt: 3
   - questName: Hood of Sartuka
-    questType: Kill
     sentencesBeforeQuest1stTime:
     - good morning
     sentencesBeforeQuest2ndTime:
@@ -3643,10 +3650,10 @@ MonoBehaviour:
       itemRange: 0
       itemLevel: 0
     weaponType: Lance
+    XPMultiplier: 0
     questExperience: 0
     levelClaimedAt: 4
   - questName: 
-    questType: 
     sentencesBeforeQuest1stTime: []
     sentencesBeforeQuest2ndTime: []
     questStatment: 
@@ -3667,11 +3674,11 @@ MonoBehaviour:
       itemRange: 0
       itemLevel: 0
     weaponType: 
+    XPMultiplier: 0
     questExperience: 0
     levelClaimedAt: 0
   currentQuest:
     questName: 
-    questType: 
     sentencesBeforeQuest1stTime: []
     sentencesBeforeQuest2ndTime: []
     questStatment: 
@@ -3692,9 +3699,11 @@ MonoBehaviour:
       itemRange: 0
       itemLevel: 0
     weaponType: 
+    XPMultiplier: 0
     questExperience: 0
     levelClaimedAt: 0
   nameOfNpc: Jason
+  waitingText: 
 --- !u!212 &1481913874
 SpriteRenderer:
   m_ObjectHideFlags: 0
