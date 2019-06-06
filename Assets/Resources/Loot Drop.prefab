@@ -103,6 +103,9 @@ MonoBehaviour:
   type: 0
   itemStats:
     itemName: 
+    itemPrefix: 
+    itemElement: 
+    itemSuffix: 
     itemDamage: 0
     stockItemSpeed: 0
     trueItemSpeed: 0
@@ -111,8 +114,10 @@ MonoBehaviour:
   consumable:
     type: 
   item: 
+  quest: 
   waitingForChange: 0
   distanceToPlayer: 0
+  selfDestruct: 0
 --- !u!1 &4242005004080712964
 GameObject:
   m_ObjectHideFlags: 0
@@ -219,6 +224,9 @@ MonoBehaviour:
   type: 0
   itemStats:
     itemName: 
+    itemPrefix: 
+    itemElement: 
+    itemSuffix: 
     itemDamage: 0
     stockItemSpeed: 0
     trueItemSpeed: 0
@@ -227,8 +235,10 @@ MonoBehaviour:
   consumable:
     type: 
   item: 
+  quest: 
   waitingForChange: 0
   distanceToPlayer: 0
+  selfDestruct: 0
 --- !u!61 &5554571298297591365
 BoxCollider2D:
   m_ObjectHideFlags: 0

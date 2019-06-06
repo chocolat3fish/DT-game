@@ -3578,18 +3578,11 @@ MonoBehaviour:
     - Why thank you. You don't know how long I been trying to get hold of this.
     questItemName: Claw of Straphagus
     questKey: Ja00
-    questReward:
-      itemName: 
-      itemPrefix: 
-      itemElement: 
-      itemSuffix: 
-      itemDamage: 0
-      stockItemSpeed: 0
-      trueItemSpeed: 0
-      itemRange: 0
-      itemLevel: 0
+    questReward: 
     weaponType: Short Sword
-    XPMultiplier: 0
+    XPMultiplier: 1
+    giveWeapon: 1
+    weaponValue: 10
     questExperience: 0
     levelClaimedAt: 2
   - questName: Amulet of Honour
@@ -3610,18 +3603,11 @@ MonoBehaviour:
     - Thank you so much. well I hope this helps.
     questItemName: Amulet of Honour
     questKey: Ja01
-    questReward:
-      itemName: 
-      itemPrefix: 
-      itemElement: 
-      itemSuffix: 
-      itemDamage: 0
-      stockItemSpeed: 0
-      trueItemSpeed: 0
-      itemRange: 0
-      itemLevel: 0
+    questReward: 
     weaponType: Long Sword
     XPMultiplier: 0
+    giveWeapon: 0
+    weaponValue: 0
     questExperience: 0
     levelClaimedAt: 3
   - questName: Hood of Sartuka
@@ -3639,18 +3625,11 @@ MonoBehaviour:
     - goodbye
     questItemName: Hood of Sartuka
     questKey: Ja03
-    questReward:
-      itemName: 
-      itemPrefix: 
-      itemElement: 
-      itemSuffix: 
-      itemDamage: 0
-      stockItemSpeed: 0
-      trueItemSpeed: 0
-      itemRange: 0
-      itemLevel: 0
+    questReward: 
     weaponType: Lance
     XPMultiplier: 0
+    giveWeapon: 0
+    weaponValue: 0
     questExperience: 0
     levelClaimedAt: 4
   - questName: 
@@ -3663,18 +3642,11 @@ MonoBehaviour:
     sentencesAfterQuestEnd: []
     questItemName: 
     questKey: 
-    questReward:
-      itemName: 
-      itemPrefix: 
-      itemElement: 
-      itemSuffix: 
-      itemDamage: 0
-      stockItemSpeed: 0
-      trueItemSpeed: 0
-      itemRange: 0
-      itemLevel: 0
+    questReward: 
     weaponType: 
     XPMultiplier: 0
+    giveWeapon: 0
+    weaponValue: 0
     questExperience: 0
     levelClaimedAt: 0
   currentQuest:
@@ -3688,18 +3660,11 @@ MonoBehaviour:
     sentencesAfterQuestEnd: []
     questItemName: 
     questKey: 
-    questReward:
-      itemName: 
-      itemPrefix: 
-      itemElement: 
-      itemSuffix: 
-      itemDamage: 0
-      stockItemSpeed: 0
-      trueItemSpeed: 0
-      itemRange: 0
-      itemLevel: 0
+    questReward: 
     weaponType: 
     XPMultiplier: 0
+    giveWeapon: 0
+    weaponValue: 0
     questExperience: 0
     levelClaimedAt: 0
   nameOfNpc: Jason

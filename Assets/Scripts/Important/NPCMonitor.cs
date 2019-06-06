@@ -180,7 +180,14 @@ public class NPCMonitor : MonoBehaviour
                 {
                     StopAllCoroutines();
                     StartCoroutine(AddChars(currentQuest.questStatmentWithItem, overlayMainText));
-                    StartCoroutine(AddChars(currentQuest.questReward + ", " + currentQuest.questExperience + " XP", overlayRewardText));
+                    if (currentQuest.questReward == "")
+                    {
+                        StartCoroutine(AddChars(currentQuest.questExperience + " XP", overlayRewardText));
+                    }
+                    else
+                    {
+                        StartCoroutine(AddChars(currentQuest.questReward + ", " + currentQuest.questExperience + " XP", overlayRewardText));
+                    }
                     stageOfConvo = 2;
                     currentSentenceIndex = -1;
                     OpenNewButtons(1);
@@ -189,12 +196,23 @@ public class NPCMonitor : MonoBehaviour
                 }
                 else
                 {
-                    currentQuest.questReward = LootManager.GenerateSpecificWeapon(currentQuest.weaponType, 10);
+                    if (currentQuest.giveWeapon == true)
+                    {
+                        currentQuest.questReward = currentQuest.weaponType;
+                    }
+
                     currentQuest.questExperience = (float)(0.1f * (0.04 * Math.Pow(currentQuest.levelClaimedAt, 3) + (0.8 * Math.Pow(currentQuest.levelClaimedAt, 2) + 100))) * currentQuest.XPMultiplier;
                     StopAllCoroutines();
                     hasTalkedBefore = true;
                     StartCoroutine(AddChars(currentQuest.questStatment, overlayMainText));
-                    StartCoroutine(AddChars(currentQuest.questReward + ", " + currentQuest.questExperience + " XP", overlayRewardText));
+                    if (currentQuest.questReward == "")
+                    {
+                        StartCoroutine(AddChars(currentQuest.questExperience + " XP", overlayRewardText));
+                    }
+                    else
+                    {
+                        StartCoroutine(AddChars(currentQuest.questReward + ", " + currentQuest.questExperience + " XP", overlayRewardText));
+                    }
                     stageOfConvo = 2;
                     currentSentenceIndex = -1;
 
@@ -429,10 +447,33 @@ public class NPCMonitor : MonoBehaviour
     }
     public void GiveItem()
     {
+        /*
         if(PersistantGameManager.Instance.itemInventory[currentQuest.questItemName] > 0)
         {
             GiveReward(currentQuest.questKey);
         }
+        */
+        if (currentQuest.giveWeapon == true)
+        {
+            GameObject questDrop = Instantiate(Resources.Load("Loot Drop"), player.transform.position, Quaternion.identity) as GameObject;
+            LootDropMonitor questDropMonitor = questDrop.GetComponent<LootDropMonitor>();
+
+            questDropMonitor.type = 0;
+            //questDropMonitor.item = PersistantGameManager.Instance.questTargets[nPCMonitor.currentQuest.questKey];
+            questDropMonitor.itemStats = LootManager.GenerateSpecificWeapon(currentQuest.weaponType, currentQuest.weaponValue);
+
+        }
+
+        PersistantGameManager.Instance.playerStats.playerExperience += PersistantGameManager.Instance.totalExperience / 4;
+        PersistantGameManager.Instance.itemInventory[currentQuest.questItemName]--;
+
+        PersistantGameManager.Instance.characterQuests[nameOfNpc]++;
+
+        PersistantGameManager.Instance.activeQuests.Remove(currentQuest.questKey);
+        PersistantGameManager.Instance.possibleQuests.Remove(currentQuest.questKey);
+        PersistantGameManager.Instance.completedQuests.Add(currentQuest.questKey);
+        hasTalkedBefore = false;
+
         ContinueDialogue();
     }
 

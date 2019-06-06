@@ -28,11 +28,11 @@ public class Quest
     public string questKey;
 
     [Header("Rewards")]
-    [HideInInspector]
-    public Weapon questReward;
+    public string questReward;
     public string weaponType;
-    public float XPMultiplier; 
-    [HideInInspector]
+    public float XPMultiplier;
+    public bool giveWeapon;
+    public int weaponValue;
     public float questExperience;
     public int levelClaimedAt;
 

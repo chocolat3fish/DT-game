@@ -3135,7 +3135,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tutorialQuest:
     questName: Learning the Ropes
-    questType: Tutorial
     sentencesBeforeQuest1stTime: []
     sentencesBeforeQuest2ndTime: []
     questStatment: 
@@ -3147,17 +3146,11 @@ MonoBehaviour:
     sentencesAfterQuestEnd: []
     questItemName: 
     questKey: Tutorial
-    questReward:
-      itemName: 
-      itemPrefix: 
-      itemElement: 
-      itemSuffix: 
-      itemDamage: 0
-      stockItemSpeed: 0
-      trueItemSpeed: 0
-      itemRange: 0
-      itemLevel: 0
+    questReward: A deeper understanding into the workings of the world.
     weaponType: 
+    XPMultiplier: 0
+    giveWeapon: 0
+    weaponValue: 0
     questExperience: 100
     levelClaimedAt: 0
   canvasMainText: {fileID: 0}

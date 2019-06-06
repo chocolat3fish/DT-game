@@ -297,7 +297,7 @@ public class TutorialDialogue : MonoBehaviour
                     StopAllCoroutines();
                     Instantiate(Resources.Load("Tutorial Enemy"));
                     canvasContinueButton.gameObject.SetActive(false);
-                    StartCoroutine(AddChars("You can see the equipped weapon slot in the bottom left of the screen. Pressing 1, 2, or 3 will change the weapon you are using. \nAn enemy has appeared on the right. Use 'W' to attack, but try not to touch it...", canvasMainText));
+                    StartCoroutine(AddChars("You can see the equipped weapon slot in the bottom left of the screen. Pressing 1, 2, or 3 will change the weapon you are using. An enemy has appeared on the right. Use 'W' to attack, but try not to touch it...", canvasMainText));
                     StartCoroutine(WaitForPlayerToKillEnemy());
                     currentSentenceIndex = 8;
                 }
@@ -404,6 +404,10 @@ public class TutorialDialogue : MonoBehaviour
                     canContinueDialogue = false;
                     canvasContinueButton.gameObject.SetActive(false);
                     StartCoroutine(AddChars("Use 'enter' to go through doors, now begone and explore the world. Goodbye", canvasMainText));
+
+                    PersistantGameManager.Instance.activeQuests.Remove("Tutorial");
+                    PersistantGameManager.Instance.possibleQuests.Remove("Tutorial");
+                    //PersistantGameManager.Instance.itemInventory.Remove("Jason's Belt");
                     PersistantGameManager.Instance.tutorialComplete = true;
                 }
 
