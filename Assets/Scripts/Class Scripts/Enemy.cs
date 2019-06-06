@@ -16,5 +16,7 @@ public class Enemy
     public float attackRange;
     public string enemyTier;
     public int enemyLevel;
+    public int enemyMinLevel;
+    public int enemyMaxLevel;
     public string enemyClass;
 }
