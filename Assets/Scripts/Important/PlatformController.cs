@@ -86,6 +86,7 @@ public class PlatformController : MonoBehaviour
         {
             if (opposite)
             {
+                gameObject.layer = LayerMask.NameToLayer("Map");
                 normalC = GetComponent<Tilemap>().color;
                 GetComponent<Tilemap>().color = new Color32(192, 192, 192, 255);
                 compCollider2D = GetComponent<CompositeCollider2D>();
@@ -93,6 +94,7 @@ public class PlatformController : MonoBehaviour
             }
             else
             {
+                gameObject.layer = LayerMask.NameToLayer("Default");
                 normalC = GetComponent<Tilemap>().color;
                 GetComponent<Tilemap>().color = greyedOutC;
                 compCollider2D = GetComponent<CompositeCollider2D>();
@@ -151,12 +153,14 @@ public class PlatformController : MonoBehaviour
     {
         if (opposite)
         {
+            gameObject.layer = LayerMask.NameToLayer("Default");
             StartCoroutine(FadeOut());
             compCollider2D.isTrigger = true;
             active = true;
         }
         else
         {
+            gameObject.layer = LayerMask.NameToLayer("Map");
             StartCoroutine(FadeIn());
             compCollider2D.isTrigger = false;
             active = true;

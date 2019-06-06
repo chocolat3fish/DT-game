@@ -169,7 +169,7 @@ public class EnemyMonitor : MonoBehaviour
 
         if (questTarget == true && PersistantGameManager.Instance.activeQuests.Contains(questKey))
         {
-            GameObject questDrop = Instantiate(Resources.Load(lootDropPreFabName), transform.position, Quaternion.identity) as GameObject;
+            GameObject questDrop = Instantiate(Resources.Load(lootDropPreFabName), transform.position + new Vector3(0.6f,0,0), Quaternion.identity) as GameObject;
             LootDropMonitor questDropMonitor = questDrop.GetComponent<LootDropMonitor>();
 
 

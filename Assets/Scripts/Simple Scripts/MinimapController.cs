@@ -5,12 +5,20 @@ using UnityEngine;
 public class MinimapController : MonoBehaviour
 {
     GameObject miniMap;
-
+    GameObject miniMapCamera;
     private bool shouldClose, shouldOpen;
 
     private void Awake()
     {
         miniMap = transform.Find("Minimap Panel").gameObject;
+        Camera[] cameras = FindObjectsOfType<Camera>();
+        foreach(Camera camera in cameras)
+        {
+            if(camera.name == "Minimap Camera")
+            { 
+                miniMapCamera = camera.gameObject;
+            }
+        }
         miniMap.SetActive(false);
     }
     // Update is called once per frame
@@ -44,7 +52,11 @@ public class MinimapController : MonoBehaviour
         }
         if(shouldOpen)
         {
+            Vector2 goToPos = PersistantGameManager.Instance.player.transform.position;
+            miniMapCamera.transform.position = new Vector3(goToPos.x, goToPos.y, -10f);
             miniMap.SetActive(true);
+            shouldOpen = false;
+            shouldClose = false;
         }
     }
 }

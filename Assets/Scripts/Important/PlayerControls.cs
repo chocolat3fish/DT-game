@@ -342,6 +342,7 @@ public class PlayerControls : MonoBehaviour
 
             playerRigidbody.velocity = new Vector2(playerRigidbody.velocity.x, 0);
             playerRigidbody.AddForce(Vector2.up * jumpSpeed * PersistantGameManager.Instance.jumpHeightMulti, ForceMode2D.Impulse);
+            cameraMovement.offset = new Vector2(0, 0);
             shouldJump = false;
             canJump = true;
             currentJumps++;

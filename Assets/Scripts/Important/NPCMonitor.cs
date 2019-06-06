@@ -15,7 +15,7 @@ public class NPCMonitor : MonoBehaviour
 {   
     //different panels in game 
     private GameObject overlayPanel;
-    private GameObject toTalkPanel;
+    public GameObject toTalkPanel;
 
     private GameObject player;
 
@@ -43,20 +43,9 @@ public class NPCMonitor : MonoBehaviour
 
 
     private void Awake()
-    { 
+    {
 
-        Canvas[] canvases = FindObjectsOfType<Canvas>();
-        foreach(Canvas canvas in canvases)
-        {
-            if(canvas.gameObject.name == "ToTalkPanel")
-            {
-                toTalkPanel = canvas.gameObject;
-            }
-            /* if (canvas.gameObject.name == "Dialogue Canvas")
-            {
-                overlayPanel = canvas.gameObject.transform.Find("Panel").gameObject;
-            }*/
-        }
+        toTalkPanel = transform.Find("ToTalkPanel").gameObject;
         player = FindObjectOfType<PlayerControls>().gameObject;
         /*
         overlayAcceptButton = overlayPanel.transform.Find("GiveItem").GetComponent<Button>();
