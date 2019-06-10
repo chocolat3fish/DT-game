@@ -101,6 +101,8 @@ GameObject:
   - component: {fileID: 3267055266790819593}
   - component: {fileID: 3267055266790819595}
   - component: {fileID: 3267055266790819598}
+  - component: {fileID: 5236444171845232187}
+  - component: {fileID: 5489187775604429993}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -201,12 +203,15 @@ MonoBehaviour:
     attackRange: 2
     enemyTier: Heavy
     enemyLevel: 2
+    enemyMinLevel: 0
+    enemyMaxLevel: 0
     enemyClass: Fire
   itemChance: 35
   weaponValue: 10
   itemValue: 100
   questTarget: 0
   questReward: 
+  questKey: 
   waitingForCollision: 0
 --- !u!50 &3267055266790819593
 Rigidbody2D:
@@ -281,6 +286,40 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.5316, y: 1.76}
   m_EdgeRadius: 0
+--- !u!95 &5236444171845232187
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3267055266790819588}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!111 &5489187775604429993
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3267055266790819588}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 0}
+  m_Animations: []
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &3267055267179367912
 GameObject:
   m_ObjectHideFlags: 0
@@ -329,6 +368,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   patrolPoints: []
   player: {fileID: 0}
+  playerStats:
+    health: 0
+    playerLevel: 0
+    playerExperience: 0
+    playerSkillPoints: 0
+  currentPointIndex: 0
   hasJumped: 0
   rb: {fileID: 0}
   timeOfShake: 0
@@ -361,7 +406,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3267055267188889957}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: Right Point
   m_TagString: Untagged
   m_Icon: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}

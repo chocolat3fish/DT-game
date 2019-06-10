@@ -12,67 +12,70 @@ EditorBuildSettings:
     path: Assets/Scenes/Async Scenes/Menu Canvas.unity
     guid: c52b94482925543698be531d1f3ee252
   - enabled: 1
-    path: Assets/Scenes/basic movement.unity
+    path: Assets/Scenes/Old/basic movement.unity
     guid: e5a55a65e68b9df41acfc90581eba8cd
   - enabled: 1
     path: Assets/Scenes/Boot Up.unity
     guid: b98f52e9d913003429e8b25f964f9334
   - enabled: 1
-    path: Assets/Scenes/Character Control.unity
+    path: Assets/Scenes/Old/Character Control.unity
     guid: 8da405e47547946c29d1f275a511409f
   - enabled: 1
+    path: Assets/Scenes/Main Room.unity
+    guid: 002a7a20f4a2c42f9a5b47f145c2e57f
+  - enabled: 0
     path: Assets/Scenes/Front Layer/A1.unity
     guid: 02d2e98a427a543c5a7da41653f5c5f3
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Front Layer/A2.unity
     guid: c665ad284d48e40e89b62d21f3027acb
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Front Layer/A3.unity
     guid: fb85e97c47cc949c58ab6c20a09c64dd
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Front Layer/A4.unity
     guid: 15dcfbfb0cb4b46b6851ba97dccca78b
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Front Layer/B1.unity
     guid: e0202ffe0c19a49e28c7456303fe9c96
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Front Layer/B2.unity
     guid: 2e770d6f10bb9452881bec4e07e0285a
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Front Layer/B3.unity
     guid: 923df017ac4c841468299469c9aae56d
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Front Layer/B4.unity
     guid: 805c8b071e146451495565dc23e605cf
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Front Layer/C1.unity
     guid: 7adbdace9087a4c179d34f094980e84f
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Front Layer/C2.unity
     guid: d3ae6a6d239ea4d1da39d233027b2ad4
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Front Layer/C3.unity
     guid: 233815ef2a34d4fd2b365d3291f02bb5
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Front Layer/C4.unity
     guid: f2bb36a989d5d48008b40823515e592c
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Front Layer/D1.unity
     guid: 64417f84423e0480882cd338261ed81a
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Front Layer/D2.unity
     guid: 257e1a9004cb94bf0a0411c5b35c05ed
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Front Layer/D3.unity
     guid: 45f6988c89db14e6a96324d336a75262
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Front Layer/D4.unity
     guid: 57b528fac8a9041d8ae00bda98edef28
   - enabled: 1
-    path: Assets/Scenes/Character Control 3 Weapons.unity
+    path: Assets/Scenes/Old/Character Control 3 Weapons.unity
     guid: 38479f28373f749ebb0e3fcca6858a90
   - enabled: 1
-    path: Assets/Scenes/Character Control 3 Weapons old.unity
+    path: Assets/Scenes/Old/Character Control 3 Weapons old.unity
     guid: 86fe781e68ee24ce58cf6526af96a2bd
   - enabled: 1
     path: Assets/Scenes/Async Scenes/Bug Report Canvas.unity
@@ -81,25 +84,25 @@ EditorBuildSettings:
     path: Assets/Scenes/Loading.unity
     guid: c355c7dd3d84693418043b0b3023b925
   - enabled: 1
-    path: Assets/Scenes/Level 1.unity
+    path: Assets/Scenes/Old/Level 1.unity
     guid: c6a83e7c5a7fc4a11acd93fbdb0d6e51
   - enabled: 1
-    path: Assets/Scenes/Level 2.unity
+    path: Assets/Scenes/Old/Level 2.unity
     guid: 7848c1a583ed544d0a6d0138de494d3d
   - enabled: 1
-    path: Assets/Scenes/Level 3.unity
+    path: Assets/Scenes/Old/Level 3.unity
     guid: 6bdc237f5be8747b897f23f48937d390
   - enabled: 1
-    path: Assets/Scenes/Character Control with enemy attack.unity
+    path: Assets/Scenes/Old/Character Control with enemy attack.unity
     guid: 3a4485a82a8a84cbd8472b7251ec6e8c
   - enabled: 1
-    path: Assets/Scenes/Character Control with New Map setup.unity
+    path: Assets/Scenes/Old/Character Control with New Map setup.unity
     guid: 7211383820d4eea47a1d5dfbe5b77dcc
   - enabled: 1
-    path: Assets/Scenes/New Scene Test.unity
+    path: Assets/Scenes/Old/New Scene Test.unity
     guid: 2f305606e765c7f4d931edf63e0326ff
   - enabled: 1
-    path: Assets/Scenes/NPC Dialouge.unity
+    path: Assets/Scenes/Old/NPC Dialouge.unity
     guid: 36d7aadca1dbbf044a6c89297bea8f28
   - enabled: 1
     path: Assets/Scenes/You lost.unity
@@ -116,6 +119,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Async Scenes/Dialogue Canvas.unity
     guid: 063583f0df47948b7b86531c26d63086
+  - enabled: 1
+    path: Assets/Scenes/Drowned.unity
+    guid: 1237c3d4593694bebb5346e46dd44e23
+  - enabled: 1
+    path: Assets/Scenes/ShadowDrowned.unity
+    guid: e618324671f4f4ecf970c725f595ad6c
   - enabled: 1
     path: Assets/Scenes/Async Scenes/Main Canvas.unity
     guid: a6c3031bdbf5c44cfa4f9fa6d279e6de

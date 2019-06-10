@@ -47,12 +47,13 @@ public class NPCMonitor : MonoBehaviour
 
         toTalkPanel = transform.Find("ToTalkPanel").gameObject;
         player = FindObjectOfType<PlayerControls>().gameObject;
+
         /*
         overlayAcceptButton = overlayPanel.transform.Find("GiveItem").GetComponent<Button>();
         overlayRewardText = overlayPanel.transform.Find("RewardText").GetComponent<Text>();
         */
         //specifically for receiving weapons as rewards
-      
+
     }
 
     private void Start()

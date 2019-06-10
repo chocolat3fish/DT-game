@@ -113,6 +113,7 @@ public class PlayerControls : MonoBehaviour
             Physics2D.IgnoreCollision(gameObject.GetComponent<BoxCollider2D>(), m.GetComponent<BoxCollider2D>());
         }
 
+
         colliderWidth = GetComponent<Collider2D>().bounds.extents.x; // + 0.1f;
         colliderHeight = GetComponent<Collider2D>().bounds.extents.y; // + 0.2f;
 

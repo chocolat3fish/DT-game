@@ -9,6 +9,7 @@ using UnityEngine.SceneManagement;
 //Script for controlling enemy and enemy attack
 public class EnemyMonitor : MonoBehaviour
 {
+
     //The Rigidbody of the enemy
     Rigidbody2D enemyRigidbody;
 
@@ -53,9 +54,14 @@ public class EnemyMonitor : MonoBehaviour
     private EnemyAttacks parentController;
     public bool waitingForCollision;
 
+    private Animator animator;
+    private SpriteRenderer spriteRenderer;
+
     private void Awake()
     {
         parentController = transform.parent.GetComponent<EnemyAttacks>();
+        animator = gameObject.GetComponent<Animator>();
+        spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
     }
     void Start()
     {
@@ -131,6 +137,18 @@ public class EnemyMonitor : MonoBehaviour
 
     void Update()
     {
+
+        if (parentController.patrol == true && parentController.currentPointIndex == 0)
+        {
+            spriteRenderer.flipX = true;
+        }
+        if (parentController.patrol == true && parentController.currentPointIndex == 1)
+        {
+            spriteRenderer.flipX = false;
+        }
+
+
+
         //kills the player if its health drops to or below 0
         if (currentHealth <= 0)
         {
@@ -322,6 +340,8 @@ public class EnemyMonitor : MonoBehaviour
     {
         if (collision.gameObject == player)
         {
+
+
             if (Time.timeScale != 0f)
             {
                 //calculates how much damage to apply to the character
@@ -332,11 +352,13 @@ public class EnemyMonitor : MonoBehaviour
                 {
                     enemyAtackDamage = 0.1f;
                 }
+                animator.Play("DShamblerAttack");
 
                 //Applys the Damage
                 playerControls.currentHealth -= enemyAtackDamage * PersistantGameManager.Instance.damageResistMulti;
                 playerControls.attackTime = Time.time;
             }
+
 
         }
 

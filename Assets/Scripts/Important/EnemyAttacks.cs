@@ -11,7 +11,7 @@ public class EnemyAttacks : MonoBehaviour
     [HideInInspector]
     public GameObject player;
     public PlayerStats playerStats;
-    private int currentPointIndex;
+    public int currentPointIndex;
     private GameObject enemy;
     private float distanceBetweenPoints;
     [HideInInspector]
@@ -27,7 +27,6 @@ public class EnemyAttacks : MonoBehaviour
     public bool inFlight;
     public bool jumpChargeCollision;
     private bool waitingForCollision;
-
 
     [Header("Choose Type Of Enemy")]
     public bool projectile;
@@ -63,6 +62,7 @@ public class EnemyAttacks : MonoBehaviour
     private float _firingAngle;
 
     private EnemyMonitor enemyMonitor;
+
     void Awake()
     {
         enemy = gameObject.transform.Find("Enemy").gameObject;
