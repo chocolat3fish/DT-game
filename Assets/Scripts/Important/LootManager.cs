@@ -143,7 +143,7 @@ public class LootManager : MonoBehaviour
         //while (selectingTypeOfWeapon)
 
         //picks weapon type at random.
-        randomNumber = random.Next(0, 4);
+        randomNumber = random.Next(0, 5);
         switch (randomNumber)
         {
             case 0:
@@ -175,7 +175,7 @@ public class LootManager : MonoBehaviour
                 break;
 
             case 4:
-                weaponType = "Axes";
+                weaponType = "Axe";
                 rangeBonus = 4f;
                 speedBonus = 1.5f;
                 damageBonus = 1.5f;
@@ -436,7 +436,7 @@ public class LootManager : MonoBehaviour
                 damageBonus = 0.8f;
                 break;
 
-            case "Axes":
+            case "Axe":
                 rangeBonus = 4f;
                 speedBonus = 1.5f;
                 damageBonus = 1.5f;

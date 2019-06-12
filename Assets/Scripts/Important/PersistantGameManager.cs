@@ -13,7 +13,7 @@ public class PersistantGameManager : MonoBehaviour
 
     [Header("Quests")]
 
-    public List<string> possibleConsumables = new List<string> { "20%H", "50%H", "100%H", "20%A", "50%A", "100%A", "20%L"};
+
     public Dictionary<string, int> itemInventory = new Dictionary<string, int>();
 
     [NonSerialized]
@@ -25,6 +25,8 @@ public class PersistantGameManager : MonoBehaviour
     public Dictionary<string, Quest> possibleQuests = new Dictionary<string, Quest>();
 
     public List<string> activeQuests = new List<string>();
+
+    public Dictionary<string, int> currentEnemyKills = new Dictionary<string, int>();
 
 
 
@@ -137,28 +139,10 @@ public class PersistantGameManager : MonoBehaviour
     public bool maxedSpeed;
     public bool damageResist;
 
-    public string equippedItemOne, equippedItemTwo;
-
-    private int currentItemOneIndex, currentItemTwoIndex;
-    private bool changeItemOne, changeItemTwo;
-
     public bool justReloaded;
 
-
-    public Dictionary<string, int> amountOfConsumables = new Dictionary<string, int>
-    {
-        {"20%H", 1},
-        {"50%H", 0},
-        {"100%H", 0},
-        {"20%A", 0},
-        {"50%A", 0},
-        {"100%A", 0},
-        {"20%L", 1},
-        {"Empty", 0}
-    };
-
     public List<string> completedQuests = new List<string>();
-    public Dictionary<string, int> currentEnemyKills = new Dictionary<string, int>();
+
 
     private void Awake()
     {
@@ -230,11 +214,7 @@ public class PersistantGameManager : MonoBehaviour
                 maxedSpeed = data.maxedSpeed;
                 damageResist = data.damageResist;
 
-                equippedItemOne = data.equippedItemOne;
-                equippedItemTwo = data.equippedItemTwo;
 
-
-                amountOfConsumables = data.amountOfConsumables;
                 previousScene = data.previousScene;
 
                 completedQuests = data.completedQuests;
@@ -314,26 +294,8 @@ public class PersistantGameManager : MonoBehaviour
             {
                 itemInventory.Add(element, 0);
             }
-            foreach (string element in possibleConsumables)
-            {
-                if (equippedItemOne == "" && amountOfConsumables[element] > 0)
-                {
-                    equippedItemOne = element;
-                }
-                else if (equippedItemTwo == "" && amountOfConsumables[element] > 0)
-                {
-                    equippedItemTwo = element;
-                }
 
-            }
-            if (equippedItemOne == "")
-            {
-                equippedItemOne = "Empty";
-            }
-            if (equippedItemTwo == "")
-            {
-                equippedItemTwo = "Empty";
-            }
+
             //LoadDataFromSave();
 
             //Generates total xp (Cubic graph) based on level
@@ -458,91 +420,6 @@ public class PersistantGameManager : MonoBehaviour
 
     }
 
-    private void FixedUpdate()
-    {
-        if (changeItemOne == true)
-        {
-            int startingIndex = currentItemOneIndex;
-            currentItemOneIndex += 1;
-            bool itemFound = false;
-
-            while (itemFound == false)
-            {
-                if (currentItemOneIndex >= possibleConsumables.Count)
-                {
-                    currentItemOneIndex = 0;
-                }
-                if (currentItemOneIndex == startingIndex)
-                {
-                    if (amountOfConsumables[possibleConsumables[startingIndex]] > 0)
-                    {
-                        equippedItemOne = possibleConsumables[startingIndex];
-                    }
-                    else
-                    {
-                        equippedItemOne = "Empty";
-                    }
-                    changeItemOne = false;
-                    itemFound = true;
-                    break;
-
-                }
-                if (amountOfConsumables[possibleConsumables[currentItemOneIndex]] > 0)
-                {
-                    equippedItemOne = possibleConsumables[currentItemOneIndex];
-                    changeItemOne = false;
-                    itemFound = true;
-                }
-                else
-                {
-                    currentItemOneIndex += 1;
-                }
-
-            }
-
-        }
-
-        if (changeItemTwo == true)
-        {
-            int startingIndex = currentItemTwoIndex;
-            currentItemTwoIndex += 1;
-            bool itemFound = false;
-
-            while (itemFound == false)
-            {
-                if (currentItemTwoIndex >= possibleConsumables.Count)
-                {
-                    currentItemTwoIndex = 0;
-                }
-                if (currentItemTwoIndex == startingIndex)
-                {
-                    if(amountOfConsumables[possibleConsumables[startingIndex]] > 0)
-                    {
-                        equippedItemTwo = possibleConsumables[startingIndex];
-                    }
-                    else
-                    {
-                        equippedItemTwo = "Empty";
-                    }
-
-                    changeItemTwo = false;
-                    itemFound = true;
-                    break;
-                }
-                if (amountOfConsumables[possibleConsumables[currentItemTwoIndex]] > 0)
-                {
-                    equippedItemTwo = possibleConsumables[currentItemTwoIndex];
-                    changeItemTwo = false;
-                    itemFound = true;
-                }
-                else
-                {
-                    currentItemTwoIndex += 1;
-                }
-
-            }
-        }
-    }
 
     public void ChangeItem(int index)
     {
@@ -640,11 +517,7 @@ public class PersistantGameManager : MonoBehaviour
         data.maxedSpeed = maxedSpeed;
         data.damageResist = damageResist;
 
-        data.equippedItemOne = equippedItemOne;
-        data.equippedItemTwo = equippedItemTwo;
 
-
-        data.amountOfConsumables = amountOfConsumables;
         data.completedQuests = completedQuests;
         data.currentEnemyKills = currentEnemyKills;
 

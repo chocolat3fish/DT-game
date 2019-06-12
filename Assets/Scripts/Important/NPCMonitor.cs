@@ -191,7 +191,7 @@ public class NPCMonitor : MonoBehaviour
                         currentQuest.questReward = currentQuest.weaponType;
                     }
 
-                    currentQuest.questExperience = (float)(0.1f * (0.04 * Math.Pow(currentQuest.levelClaimedAt, 3) + (0.8 * Math.Pow(currentQuest.levelClaimedAt, 2) + 100))) * currentQuest.XPMultiplier;
+                    currentQuest.questExperience = (float)(1.1f * (0.04 * Math.Pow(currentQuest.levelClaimedAt, 3) + (0.8 * Math.Pow(currentQuest.levelClaimedAt, 2) + 100))) * currentQuest.XPMultiplier;
                     StopAllCoroutines();
                     hasTalkedBefore = true;
                     StartCoroutine(AddChars(currentQuest.questStatment, overlayMainText));

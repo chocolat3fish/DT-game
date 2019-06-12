@@ -325,7 +325,7 @@ public class EnemyMonitor : MonoBehaviour
                 break;
         }
 
-        xpValue = (float)((0.04 * Math.Pow(enemyLevel, 3)) + (0.8 * Math.Pow(enemyLevel, 2)) + 500) * multiplier;
+        xpValue = (float)((0.3 * Math.Pow(enemyLevel, 3)) + (0.8 * Math.Pow(enemyLevel, 2)) + 500) * multiplier;
         if(SceneManager.GetActiveScene().name == "Tutorial")
         {
             xpValue = 110;

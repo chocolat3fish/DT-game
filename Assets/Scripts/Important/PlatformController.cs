@@ -6,7 +6,7 @@ using UnityEngine.Tilemaps;
 using UnityEngine.UI;
 public class PlatformController : MonoBehaviour
 {
-    [Header("5 is kill a certian ammount of enemies")]
+    [Header("5 is kill a certian amount of enemies")]
     [Header("3 is complete quest, 4 is unlock during and after quest")]
     [Header("1 is Level, 2 is Level of a Skill,")]
 
@@ -21,7 +21,7 @@ public class PlatformController : MonoBehaviour
     public string questKey;
     public string NPCName;
     public string questName;
-    [Header("Stats for kill certian ammount of enemies")]
+    [Header("Stats for kill certian amount of enemies")]
     public string typeOfEnemy;
     public int ammountNeeded;
     CompositeCollider2D compCollider2D;
