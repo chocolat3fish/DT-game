@@ -465,7 +465,7 @@ MonoBehaviour:
   droppedQuestItem: 0
   player: {fileID: 0}
   enemyStats:
-    enemyName: Shambler
+    enemyName: Hidden Charger
     enemyDamage: 1
     enemyHealth: 40
     attackSpeed: 1
@@ -474,7 +474,7 @@ MonoBehaviour:
     enemyLevel: 2
     enemyMinLevel: 2
     enemyMaxLevel: 4
-    enemyClass: Water
+    enemyClass: Shadow
   itemChance: 100
   weaponValue: 50
   itemValue: 0

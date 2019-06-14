@@ -6,7 +6,7 @@ using UnityEngine.Tilemaps;
 using UnityEngine.UI;
 public class PlatformController : MonoBehaviour
 {
-    [Header("5 is kill a certian amount of enemies")]
+    [Header("5 is kill a certian amount of enemies, 6 is have an item in your inventory")]
     [Header("3 is complete quest, 4 is unlock during and after quest")]
     [Header("1 is Level, 2 is Level of a Skill,")]
 
@@ -24,6 +24,10 @@ public class PlatformController : MonoBehaviour
     [Header("Stats for kill certian amount of enemies")]
     public string typeOfEnemy;
     public int ammountNeeded;
+
+    [Header("Item needed")]
+    public string itemNeeded;
+
     CompositeCollider2D compCollider2D;
     Color32 normalC;
     Color32 greyedOutC = new Color32(81, 81, 81, 81);
@@ -64,7 +68,7 @@ public class PlatformController : MonoBehaviour
                 {
                     active = true;
                 }
-                myMessage = "Must Start " + questName + "From " + NPCName;
+                myMessage = "Must Start " + questName + " From " + NPCName;
                 break;
             case 5:
                 try
@@ -101,18 +105,39 @@ public class PlatformController : MonoBehaviour
                 compCollider2D.isTrigger = true;
             }
         }
+        if (active)
+        {
+            if (opposite)
+            {
+                gameObject.layer = LayerMask.NameToLayer("Default");
+                normalC = GetComponent<Tilemap>().color;
+                GetComponent<Tilemap>().color = greyedOutC;
+                compCollider2D = GetComponent<CompositeCollider2D>();
+                compCollider2D.isTrigger = true;
+            }
+            else
+            {
+                gameObject.layer = LayerMask.NameToLayer("Map");
+                normalC = GetComponent<Tilemap>().color;
+                GetComponent<Tilemap>().color = new Color32(192, 192, 192, 255);
+                compCollider2D = GetComponent<CompositeCollider2D>();
+                compCollider2D.isTrigger = false;
+            }
+        }
 
     }
     void Update()
     {
         if (!active)
         {
+
             switch (type)
             {
                 case 1:
-                    if(PersistantGameManager.Instance.playerStats.playerLevel >= neededLevel)
+                    if (PersistantGameManager.Instance.playerStats.playerLevel >= neededLevel)
                     {
-                      Activate();
+                        Activate();
+
                     }
                     break;
                 case 2:
@@ -145,9 +170,17 @@ public class PlatformController : MonoBehaviour
                     {
                     }
                     break;
+
+                case 6:
+                    if (PersistantGameManager.Instance.itemInventory[itemNeeded] > 0)
+                    {
+                        Activate();
+                    }
+                    break;
             }
 
         }
+
     } 
     void Activate()
     {

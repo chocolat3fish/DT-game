@@ -17,7 +17,15 @@ public class PersistantGameManager : MonoBehaviour
     public Dictionary<string, int> itemInventory = new Dictionary<string, int>();
 
     [NonSerialized]
-    public List<string> possibleItems = new List<string> { "Dagger of Kaliphase", "Amulet of Honour", "Hood of Sartuka", "Claw of Straphagus", "Jason's Belt", "Steve's Wristband" };
+    public List<string> possibleItems = new List<string> 
+    { "Dagger of Kaliphase",
+      "Amulet of Honour",
+      "Hood of Sartuka",
+      "Claw of Straphagus",
+      "Jason's Belt",
+      "Steve's Wristband",
+      "Corrupt Key" };
+
     public Quest currentDialogueQuest;
 
     public Dictionary<string, int> characterQuests = new Dictionary<string, int>();

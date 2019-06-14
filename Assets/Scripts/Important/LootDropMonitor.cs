@@ -114,7 +114,7 @@ public class LootDropMonitor : MonoBehaviour
             foreach (LootDropMonitor lootDrop in lootDrops)
             {
                 //if a loot drop is closer than any previous once sets that loot drop as the closest loot drop 
-                if (lootDrop.distanceToPlayer < closestDistance)
+                if (lootDrop.distanceToPlayer <= closestDistance)
                 {
                     closestDistance = lootDrop.distanceToPlayer;
                     closestLootDrop = lootDrop;
@@ -136,7 +136,7 @@ public class LootDropMonitor : MonoBehaviour
             }
             else if(!PersistantGameManager.Instance.compareScreenOpen && closestLootDrop == this && type == 2)
             {
-                if(!PersistantGameManager.Instance.itemInventory.ContainsKey(item))
+                if (!PersistantGameManager.Instance.itemInventory.ContainsKey(item))
                 {
                     PersistantGameManager.Instance.itemInventory.Add(item, 0);
                 }

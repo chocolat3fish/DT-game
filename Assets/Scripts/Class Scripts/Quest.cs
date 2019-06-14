@@ -7,7 +7,7 @@ public class Quest
 
 
     public string questName;
-   
+
     [TextArea(5, 20)]
     public string[] sentencesBeforeQuest1stTime;
     [TextArea(5, 20)]
@@ -23,15 +23,28 @@ public class Quest
     [TextArea(5, 20)]
     public string[] sentencesAfterQuestEnd;
 
+
+    [Header("Kill")]
+    public bool killEnemies;
+    public string enemyToKill;
+    public int killRequirement;
+    public int enemiesKilled;
+
+    [Header("Fetch")]
+    public bool returnItem;
     public string questItemName;
 
     public string questKey;
 
+
     [Header("Rewards")]
+    public bool instantComplete;
     public string questReward;
     public string weaponType;
+    public string itemName;
     public float XPMultiplier;
     public bool giveWeapon;
+    public bool giveItem;
     public int weaponValue;
     public float questExperience;
     public int levelClaimedAt;

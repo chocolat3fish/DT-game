@@ -108,6 +108,7 @@ public class CharacterCanvasScript : MonoBehaviour
         SceneManager.UnloadSceneAsync("Character Canvas");
     }
 
+    //Uses LateUpdate because for whatever reason it's the only one that works regardless of the timescale.
     private void LateUpdate()
     {
         if (openSkills)
