@@ -340,6 +340,7 @@ public class PersistantGameManager : MonoBehaviour
             totalExperience = (float)((0.04 * Math.Pow(playerStats.playerLevel, 3)) + (0.8 * Math.Pow(playerStats.playerLevel, 2)) + 100);
             totalHealthMulti = 0.05f * skillLevels["HealthBonus"];
         }
+        StartCoroutine(Autosave());
     }
     void Update()
     {
@@ -820,6 +821,72 @@ public class PersistantGameManager : MonoBehaviour
 
         #endregion
 
+
+    }
+    public IEnumerator Autosave()
+    {
+        while(true)
+        {
+            yield return new WaitForSecondsRealtime(300);
+
+            if (!File.Exists(Application.persistentDataPath + "/SavedData/Timestamps.txt"))
+            {
+                Directory.CreateDirectory(Application.persistentDataPath + "/SavedData");
+
+                FileStream file;
+                file = File.Create(Application.persistentDataPath + "/SavedData/Timestamps.txt");
+                file.Close();
+
+                file = File.Create(Application.persistentDataPath + "/SavedData/Slot1.txt");
+                file.Close();
+                file = File.Create(Application.persistentDataPath + "/SavedData/Slot2.txt");
+                file.Close();
+                file = File.Create(Application.persistentDataPath + "/SavedData/Slot3.txt");
+                file.Close();
+                file = File.Create(Application.persistentDataPath + "/SavedData/Slot4.txt");
+                file.Close();
+                Reset();
+            }
+            Timestamps timestamps = GetTimestamps();
+            timestamps.S4T = DateTime.Now.ToString().Substring(0, DateTime.Now.ToString().Length - 8);
+            SaveTimestamps(timestamps);
+            SaveGameManagerData(4);
+        }
+
+    }
+    public void SaveTimestamps(Timestamps data)
+    {
+        BinaryFormatter bF = new BinaryFormatter();
+        FileStream file;
+        file = File.Open(Application.persistentDataPath + "/SavedData/Timestamps.txt", FileMode.Open);
+        bF.Serialize(file, data);
+        file.Close();
+    }
+    public Timestamps GetTimestamps()
+    {
+        BinaryFormatter bF = new BinaryFormatter();
+        FileStream file;
+        file = File.Open(Application.persistentDataPath + "/SavedData/Timestamps.txt", FileMode.Open);
+        Timestamps returnData = (Timestamps)bF.Deserialize(file);
+        file.Close();
+        return returnData;
+    }
+    public void Reset()
+    {
+        BinaryFormatter bF = new BinaryFormatter();
+        FileStream file;
+        file = File.Open(Application.persistentDataPath + "/SavedData/Timestamps.txt", FileMode.Open);
+        Timestamps emptyTimestamps = new Timestamps()
+        {
+            S1T = "Empty",
+            S2T = "Empty",
+            S3T = "Empty",
+            S4T = "Empty"
+        };
+
+
+        bF.Serialize(file, emptyTimestamps);
+        file.Close();
 
     }
 }

@@ -121,7 +121,8 @@ public class LoadOnDeath : MonoBehaviour
         {
             S1T = "Empty",
             S2T = "Empty",
-            S3T = "Empty"
+            S3T = "Empty",
+            S4T = "Empty"
         };
 
 
