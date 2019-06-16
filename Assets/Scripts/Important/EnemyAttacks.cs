@@ -109,14 +109,14 @@ public class EnemyAttacks : MonoBehaviour
                 break;
         }
 
-        if (PersistantGameManager.Instance.playerStats.playerLevel < 4)
+        if (PersistantGameManager.Instance.playerStats.playerLevel < 0)
         {
             projectileDamage = (float)(multiplier * (2.5 * Math.Pow(enemyMonitor.enemyStats.enemyLevel, 2) + 10) * 0.4f);
         }
         else
         {
 
-            projectileDamage = (float)(multiplier * (2.5 * Math.Pow(enemyMonitor.enemyStats.enemyLevel, 2) + 10));
+            projectileDamage = (float)(multiplier * (3 * Math.Pow(enemyMonitor.enemyStats.enemyLevel, 2) + 10));
         }
     }
 
@@ -139,10 +139,20 @@ public class EnemyAttacks : MonoBehaviour
 
         if (projectile)
         {
+            if (player.transform.position.x > enemy.transform.position.x)
+            {
+                enemy.GetComponent<SpriteRenderer>().flipX = false;
+            }
+            else if (player.transform.position.x < enemy.transform.position.x)
+            {
+                enemy.GetComponent<SpriteRenderer>().flipX = true;
+            }
+
             if (Time.time > timeOfShot + shootSpeed)
             {
                 Fire();
                 timeOfShot = Time.time;
+
             }
         }
         if (charge && !inFlight)

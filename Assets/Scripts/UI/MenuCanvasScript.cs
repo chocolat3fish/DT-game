@@ -324,19 +324,8 @@ public class MenuCanvasScript : MonoBehaviour
             while (true)
             {
                 index -= 1;
-                if (consumablesPanel.activeSelf)
-                {
-                    if (index < 0)
-                    {
-                        index = startIndex;
-                        break;
-                    }
-                    if (PersistantGameManager.Instance.amountOfConsumables[PersistantGameManager.Instance.possibleConsumables[index]] > 0)
-                    {
-                        break;
-                    }
-                }
-                else if (itemsPanel.activeSelf)
+
+                if (itemsPanel.activeSelf)
                 {
                     if (index < 0)
                     {
@@ -365,19 +354,8 @@ public class MenuCanvasScript : MonoBehaviour
             while(true)
             {
                 index += 1;
-                if(consumablesPanel.activeSelf)
-                {
-                    if (index > PersistantGameManager.Instance.possibleConsumables.Count - 1)
-                    {
-                        index = startIndex;
-                        break;
-                    }
-                    if (PersistantGameManager.Instance.amountOfConsumables[PersistantGameManager.Instance.possibleConsumables[index]] > 0)
-                    {
-                        break;
-                    }
-                }
-                else if( itemsPanel.activeSelf)
+
+                if( itemsPanel.activeSelf)
                 {
                     if (index > PersistantGameManager.Instance.possibleItems.Count - 1)
                     {
@@ -615,182 +593,6 @@ public class MenuCanvasScript : MonoBehaviour
         sL1Output.text = PersistantGameManager.Instance.playerWeaponInventory[0].itemLevel.ToString();
         sL2Output.text = PersistantGameManager.Instance.playerWeaponInventory[1].itemLevel.ToString();
         sL3Output.text = PersistantGameManager.Instance.playerWeaponInventory[2].itemLevel.ToString();
-
-        #region ConsumablesMenu
-
-        cSlot1 = "";
-        cSlot2 = "";
-        cSlot3 = "";
-        cSlot4 = "";
-        cSlot5 = "";
-        cSlot6 = "";
-        cSlot7 = "";
-        cSlot8 = "";
-        cSlot9 = "";
-
-        cSOneOutput.text = "";
-        cSTwoOutput.text = "";
-        cSThreeOutput.text = "";
-        cSFourOutput.text = "";
-        cSFiveOutput.text = "";
-        cSSixOutput.text = "";
-        cSSevenOutput.text = "";
-        cSEightOutput.text = "";
-        cSNineOutput.text = "";
-
-       
-        // for (int element = 1; element < PersistantGameManager.Instance.possibleItems.Count; element++)
-        foreach (string element in PersistantGameManager.Instance.possibleConsumables)
-        {
-            if(index > PersistantGameManager.Instance.possibleConsumables.IndexOf(element))
-            {
-                continue;
-            }
-
-            if (cSlot1 == "")
-            {
-                if (PersistantGameManager.Instance.amountOfConsumables[element] > 0)
-                {
-                    cSlot1 = element;
-                }
-            }
-            else if(cSlot2 == "")
-            {
-                if (PersistantGameManager.Instance.amountOfConsumables[element] > 0)
-                {
-                    cSlot2 = element;
-                }
-            }
-            else if (cSlot3 == "")
-            {
-                if (PersistantGameManager.Instance.amountOfConsumables[element] > 0)
-                {
-                    cSlot3 = element;
-                }
-            }
-            else if (cSlot4 == "")
-            {
-                if (PersistantGameManager.Instance.amountOfConsumables[element] > 0)
-                {
-                    cSlot4 = element;
-                }
-            }
-            else if (cSlot5 == "")
-            {
-                if (PersistantGameManager.Instance.amountOfConsumables[element] > 0)
-                {
-                    cSlot5 = element;
-                }
-            }
-            else if (cSlot6 == "")
-            {
-                if(PersistantGameManager.Instance.amountOfConsumables[element] > 0)
-                {
-                    cSlot6 = element;
-                }
-
-            }
-            else if (cSlot7 == "")
-            {
-                if (PersistantGameManager.Instance.amountOfConsumables[element] > 0)
-                {
-                    cSlot7 = element;
-                }
-
-            }
-            else if (cSlot8 == "")
-            {
-                if (PersistantGameManager.Instance.amountOfConsumables[element] > 0)
-                {
-                    cSlot8 = element;
-                }
-
-            }
-            else if (cSlot9 == "")
-            {
-                if (PersistantGameManager.Instance.amountOfConsumables[element] > 0)
-                {
-                    cSlot9 = element;
-                }
-
-            }
-
-        }
-
-
-
-        cSOneName.text = cSlot1;
-        cSTwoName.text = cSlot2;
-        cSThreeName.text = cSlot3;
-
-        cSFourName.text = cSlot4;
-        cSFiveName.text = cSlot5;
-        cSSixName.text = cSlot6;
-
-        cSSevenName.text = cSlot7;
-        cSEightName.text = cSlot8;
-        cSNineName.text = cSlot9;
-
-
-        if (cSlot1 != "")
-        {
-            cSOneOutput.text = PersistantGameManager.Instance.amountOfConsumables[cSlot1].ToString();
-        }
-        else
-        {
-            cSOneName.text = "No Items";
-            cSOneOutput.text = "";
-        }
-
-        if (cSlot2 != "")
-        {
-            cSTwoOutput.text = PersistantGameManager.Instance.amountOfConsumables[cSlot2].ToString();
-        }
-        else { cSTwoOutput.text = ""; }
-
-        if (cSlot3 != "")
-        {
-           cSThreeOutput.text = PersistantGameManager.Instance.amountOfConsumables[cSlot3].ToString();
-        }
-        else { cSThreeOutput.text = ""; }
-
-        if (cSlot4 != "")
-        {
-            cSFourOutput.text = PersistantGameManager.Instance.amountOfConsumables[cSlot4].ToString();
-        }
-        else { cSFourOutput.text = ""; }
-
-        if (cSlot5 != "")
-        {
-            cSFiveOutput.text = PersistantGameManager.Instance.amountOfConsumables[cSlot5].ToString();
-        }
-        else { cSFiveOutput.text = ""; }
-
-        if (cSlot6 != "")
-        {
-            cSSixOutput.text = PersistantGameManager.Instance.amountOfConsumables[cSlot6].ToString();
-        }
-        else { cSSixOutput.text = ""; }
-
-        if (cSlot7 != "")
-        {
-            cSSevenOutput.text = PersistantGameManager.Instance.amountOfConsumables[cSlot7].ToString();
-        }
-        else { cSSevenOutput.text = ""; }
-
-        if (cSlot8 != "")
-        {
-            cSEightOutput.text = PersistantGameManager.Instance.amountOfConsumables[cSlot8].ToString();
-        }
-        else { cSEightOutput.text = ""; }
-
-        if (cSlot9 != "")
-        {
-            cSNineOutput.text = PersistantGameManager.Instance.amountOfConsumables[cSlot9].ToString();
-        }
-        else { cSNineOutput.text = ""; }
-
-        #endregion
 
 
         #region ItemsMenu

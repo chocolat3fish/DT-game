@@ -100,25 +100,6 @@ public class PlaceHolderInventoryscript : MonoBehaviour
                 output.text = PersistantGameManager.Instance.playerStats.playerLevel.ToString();
                 break;
 
-            case 15:
-                //left item + number of that item, uncomment when ready
-                if(PersistantGameManager.Instance.equippedItemOne == "Empty")
-                {
-                    output.text = "No items";
-                    break;
-                }
-                output.text = PersistantGameManager.Instance.equippedItemOne + " x " + PersistantGameManager.Instance.amountOfConsumables[PersistantGameManager.Instance.equippedItemOne] + " (H)";
-                break;
-
-            case 16:
-                //right item + number of that item, uncomment when ready
-                if (PersistantGameManager.Instance.equippedItemTwo == "Empty")
-                {
-                    output.text = "No items";
-                    break;
-                }
-                output.text = PersistantGameManager.Instance.equippedItemTwo + " x " + PersistantGameManager.Instance.amountOfConsumables[PersistantGameManager.Instance.equippedItemTwo] + " (J)";
-                break;
             case 17:
                 //output.text = PersistantGameManager.Instance.activePotionType + " Potion";
                 output.text = PersistantGameManager.Instance.currentActiveAbility;

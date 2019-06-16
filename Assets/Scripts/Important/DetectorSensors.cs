@@ -6,6 +6,7 @@ public class DetectorSensors : MonoBehaviour
 {
     public PlayerControls player;
 
+    //Stores what beats what in the element paper-scissors-rock
     public static List<string> bloodBeats = new List<string> { "Venom", "Shadow" };
     public static List<string> venomBeats = new List<string> { "Shadow", "Void" };
     public static List<string> waterBeats = new List<string> { "Blood", "Venom" };
@@ -26,7 +27,7 @@ public class DetectorSensors : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-
+        //On collision, easiest script/method to find the enemy element and calculate the bonuses and feed it into the damage function.
         if (collision.gameObject.tag == "Enemy")
         {
             EnemyMonitor enemy = collision.gameObject.GetComponent<EnemyMonitor>();

@@ -465,7 +465,7 @@ MonoBehaviour:
   droppedQuestItem: 0
   player: {fileID: 0}
   enemyStats:
-    enemyName: Shambler
+    enemyName: Hidden Charger
     enemyDamage: 1
     enemyHealth: 40
     attackSpeed: 1
@@ -474,7 +474,7 @@ MonoBehaviour:
     enemyLevel: 2
     enemyMinLevel: 2
     enemyMaxLevel: 4
-    enemyClass: Water
+    enemyClass: Shadow
   itemChance: 100
   weaponValue: 50
   itemValue: 0
@@ -495,18 +495,18 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.037577152, y: -0.27869868}
+  m_Offset: {x: -0.037577152, y: -0.4327209}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2.1333334, y: 2.1333334}
+    oldSize: {x: 3.2, y: 3.2}
     newSize: {x: 0.32, y: 0.64}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.5316, y: 1.6192324}
+  m_Size: {x: 1.5316, y: 2.3507998}
   m_EdgeRadius: 0
 --- !u!61 &893177700294499607
 BoxCollider2D:
@@ -521,18 +521,18 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.2841155}
+  m_Offset: {x: 0, y: -0.4381225}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2.1333334, y: 2.1333334}
+    oldSize: {x: 3.2, y: 3.2}
     newSize: {x: 0.32, y: 0.64}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 1
   serializedVersion: 2
-  m_Size: {x: 1.28, y: 1.6200563}
+  m_Size: {x: 1.28, y: 2.274628}
   m_EdgeRadius: 0
 --- !u!50 &4222801210947391533
 Rigidbody2D:

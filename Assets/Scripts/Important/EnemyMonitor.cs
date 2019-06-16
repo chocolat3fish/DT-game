@@ -106,7 +106,8 @@ public class EnemyMonitor : MonoBehaviour
         currentHealth = enemyStats.enemyHealth;
 
         //Sets the default damage
-        if (PersistantGameManager.Instance.playerStats.playerLevel < 4)
+
+        if (PersistantGameManager.Instance.playerStats.playerLevel < 0)
         {
             enemyStats.enemyDamage = (float)(multiplier * (2.5 * Math.Pow(enemyStats.enemyLevel, 2) + 10) * 0.4f);
             //sets the current health to the inital health and set health based on level, but less if low level
@@ -115,7 +116,7 @@ public class EnemyMonitor : MonoBehaviour
         }
         else
         {
-            enemyStats.enemyDamage = (float)(multiplier * (2.5 * Math.Pow(enemyStats.enemyLevel, 2) + 10));
+            enemyStats.enemyDamage = (float)(multiplier * (5 * Math.Pow(enemyStats.enemyLevel, 2) + 10));
             //sets the current health to the inital health and set health based on level
             enemyStats.enemyHealth = (float)(multiplier * (27 * Math.Pow(enemyStats.enemyLevel, 2) + 10)) * 2;
             currentHealth = enemyStats.enemyHealth;
@@ -325,7 +326,7 @@ public class EnemyMonitor : MonoBehaviour
                 break;
         }
 
-        xpValue = (float)((0.04 * Math.Pow(enemyLevel, 3)) + (0.8 * Math.Pow(enemyLevel, 2)) + 500) * multiplier;
+        xpValue = (float)((0.3 * Math.Pow(enemyLevel, 3)) + (0.8 * Math.Pow(enemyLevel, 2)) + 500) * multiplier;
         if(SceneManager.GetActiveScene().name == "Tutorial")
         {
             xpValue = 110;

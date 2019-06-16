@@ -465,7 +465,7 @@ MonoBehaviour:
   droppedQuestItem: 0
   player: {fileID: 0}
   enemyStats:
-    enemyName: Shambler
+    enemyName: Drowned Shambler
     enemyDamage: 1
     enemyHealth: 40
     attackSpeed: 1

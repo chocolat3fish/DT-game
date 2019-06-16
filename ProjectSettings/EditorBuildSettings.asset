@@ -126,6 +126,12 @@ EditorBuildSettings:
     path: Assets/Scenes/ShadowDrowned.unity
     guid: e618324671f4f4ecf970c725f595ad6c
   - enabled: 1
+    path: Assets/Scenes/Kindred.unity
+    guid: d9d48093a178b42099da29c1a9f0cc7b
+  - enabled: 1
+    path: Assets/Scenes/Corrupt.unity
+    guid: 2c414965528234102bb46355cb1b6efd
+  - enabled: 1
     path: Assets/Scenes/Async Scenes/Main Canvas.unity
     guid: a6c3031bdbf5c44cfa4f9fa6d279e6de
   m_configObjects: {}

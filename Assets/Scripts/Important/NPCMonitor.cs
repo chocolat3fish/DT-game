@@ -33,6 +33,8 @@ public class NPCMonitor : MonoBehaviour
     private bool canTalk;
     private bool dialougeBoxOpen;
     private int currentSentenceIndex;
+
+    //Stage 1 = Quest statement, Stage 2 = Quest done
     private int stageOfConvo;
 
     private Text overlayMainText;
@@ -114,6 +116,8 @@ public class NPCMonitor : MonoBehaviour
 
 
     }
+
+
     public void ContinueDialogue()
     {
         if(currentQuest == null)
@@ -166,7 +170,35 @@ public class NPCMonitor : MonoBehaviour
 
             if(stageOfConvo == 1)
             {
-                if (hasTalkedBefore && PersistantGameManager.Instance.itemInventory[currentQuest.questItemName] > 0)
+                /*
+                if (currentQuest.instantComplete)
+                {
+                    StopAllCoroutines();
+                    StartCoroutine(AddChars(currentQuest.questStatment, overlayMainText));
+
+                    stageOfConvo = 2;
+                    currentSentenceIndex = -1;
+                    return;
+                }
+                */
+                if (hasTalkedBefore && currentQuest.instantComplete == true)
+                {
+                    StopAllCoroutines();
+                    StartCoroutine(AddChars(currentQuest.questStatment, overlayMainText));
+                    if (currentQuest.giveItem == true)
+                    {
+                        currentQuest.questReward = currentQuest.itemName;
+                        StartCoroutine(AddChars(currentQuest.questReward, overlayRewardText));
+                    }
+
+
+                    stageOfConvo = 2;
+                    currentSentenceIndex = -1;
+                    OpenNewButtons(1);
+                    return;
+
+                }
+                if (hasTalkedBefore && PersistantGameManager.Instance.itemInventory[currentQuest.questItemName] > 0 )
                 {
                     StopAllCoroutines();
                     StartCoroutine(AddChars(currentQuest.questStatmentWithItem, overlayMainText));
@@ -191,7 +223,7 @@ public class NPCMonitor : MonoBehaviour
                         currentQuest.questReward = currentQuest.weaponType;
                     }
 
-                    currentQuest.questExperience = (float)(0.1f * (0.04 * Math.Pow(currentQuest.levelClaimedAt, 3) + (0.8 * Math.Pow(currentQuest.levelClaimedAt, 2) + 100))) * currentQuest.XPMultiplier;
+                    currentQuest.questExperience = (float)(1.1f * (0.04 * Math.Pow(currentQuest.levelClaimedAt, 3) + (0.8 * Math.Pow(currentQuest.levelClaimedAt, 2) + 100))) * currentQuest.XPMultiplier;
                     StopAllCoroutines();
                     hasTalkedBefore = true;
                     StartCoroutine(AddChars(currentQuest.questStatment, overlayMainText));
@@ -213,7 +245,15 @@ public class NPCMonitor : MonoBehaviour
                         PersistantGameManager.Instance.possibleQuests.Add(currentQuest.questKey, currentQuest);
                     }
 
-                    if (PersistantGameManager.Instance.itemInventory[currentQuest.questItemName] > 0)
+                    if (currentQuest.instantComplete == true)
+                    {
+                        OpenNewButtons(1);
+                    }
+                    else if (currentQuest.killEnemies == true && currentQuest.enemiesKilled >= currentQuest.killRequirement)
+                    {
+                        OpenNewButtons(1);
+                    }
+                    else if (currentQuest.returnItem == true && PersistantGameManager.Instance.itemInventory[currentQuest.questItemName] > 0)
                     {
                         OpenNewButtons(1);
                     }
@@ -453,9 +493,21 @@ public class NPCMonitor : MonoBehaviour
             questDropMonitor.itemStats = LootManager.GenerateSpecificWeapon(currentQuest.weaponType, currentQuest.weaponValue);
 
         }
+        if (currentQuest.giveItem == true)
+        {
+            GameObject questDrop = Instantiate(Resources.Load("Loot Drop"), player.transform.position, Quaternion.identity) as GameObject;
+            LootDropMonitor questDropMonitor = questDrop.GetComponent<LootDropMonitor>();
+
+            questDropMonitor.type = 2;
+            //questDropMonitor.item = PersistantGameManager.Instance.questTargets[nPCMonitor.currentQuest.questKey];
+            questDropMonitor.item = currentQuest.itemName;
+        }
 
         PersistantGameManager.Instance.playerStats.playerExperience += PersistantGameManager.Instance.totalExperience / 4;
-        PersistantGameManager.Instance.itemInventory[currentQuest.questItemName]--;
+        if (currentQuest.instantComplete == false)
+        {
+            PersistantGameManager.Instance.itemInventory[currentQuest.questItemName]--;
+        }
 
         PersistantGameManager.Instance.characterQuests[nameOfNpc]++;
 
@@ -463,10 +515,9 @@ public class NPCMonitor : MonoBehaviour
         PersistantGameManager.Instance.possibleQuests.Remove(currentQuest.questKey);
         PersistantGameManager.Instance.completedQuests.Add(currentQuest.questKey);
         hasTalkedBefore = false;
-
-        ContinueDialogue();
+        EndDialogue();
     }
-
+    /*
     public void GiveReward(string key)
     {
         if (key == "Ja00")
@@ -500,6 +551,7 @@ public class NPCMonitor : MonoBehaviour
         PersistantGameManager.Instance.completedQuests.Add(currentQuest.questKey);
         hasTalkedBefore = false;
     }
+    */
 
     public void ReceiveWeapon(string weaponType, int weaponValue)
     {

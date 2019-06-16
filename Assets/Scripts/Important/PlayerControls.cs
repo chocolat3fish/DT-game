@@ -209,8 +209,32 @@ public class PlayerControls : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.W))
         {
+            switch (PersistantGameManager.Instance.currentWeapon.itemName)
+            {
+
+                case "Dagger":
+                    animator.Play("DaggerAttack");
+                    break;
+
+                case "Short Sword":
+                    animator.Play("ShortswordAttack");
+                    break;
+
+                case "Long Sword":
+                    animator.Play("LongswordAttack");
+                    break;
+
+                case "Lance":
+                    animator.Play("LanceAttack");
+                    break;
+
+                case "Axe":
+                    animator.Play("AxeAttack");
+                    break;
+            }
             //on attack press, shoot function and set cooldown
             StartCoroutine(Detect());
+
 
         }
 
@@ -622,120 +646,7 @@ public class PlayerControls : MonoBehaviour
 
 
 
-    }
-    private void UseItem(string type)
-    {
-        if (type == "20%H" && Time.timeScale != 0 && PersistantGameManager.Instance.player.currentHealth != PersistantGameManager.Instance.player.totalHealth)
-        {
-            currentHealth += totalHealth * 0.2f;
-            if (currentHealth > totalHealth)
-            {
-                currentHealth = totalHealth;
-            }
-            PersistantGameManager.Instance.amountOfConsumables["20%H"] -= 1;
-            PersistantGameManager.Instance.healthPotionUseTime = Time.time;
-
-        }
-
-        else if (type == "50%H" && Time.timeScale != 0 && PersistantGameManager.Instance.player.currentHealth != PersistantGameManager.Instance.player.totalHealth)
-        {
-
-            currentHealth += totalHealth * 0.5f;
-            if (currentHealth > totalHealth)
-            {
-                currentHealth = totalHealth;
-            }
-            PersistantGameManager.Instance.amountOfConsumables["50%A"] -= 1;
-            PersistantGameManager.Instance.healthPotionUseTime = Time.time;
-
-        }
-        else if (type == "100%H" && Time.timeScale != 0 && PersistantGameManager.Instance.player.currentHealth != PersistantGameManager.Instance.player.totalHealth)
-        {
-
-            currentHealth = totalHealth;
-            PersistantGameManager.Instance.amountOfConsumables["100%H"] -= 1;
-            PersistantGameManager.Instance.healthPotionUseTime = Time.time;
-
-
-        }
-
-        if (type == "20%A" && Time.timeScale != 0)
-        {
-            if (!PersistantGameManager.Instance.potionIsActive)
-            {
-                PersistantGameManager.Instance.activePotionType = "Attack";
-                PersistantGameManager.Instance.potionIsActive = true;
-                PersistantGameManager.Instance.currentAttackMultiplier = 1.2f;
-                PersistantGameManager.Instance.timeOfAttackMultiplierChange = Time.time;
-                PersistantGameManager.Instance.amountOfConsumables["20%A"] -= 1;
-                PersistantGameManager.Instance.potionCoolDownTime = 30;
-            }
-        }
-        else if (type == "50%A" && Time.timeScale != 0)
-        {
-            if (!PersistantGameManager.Instance.potionIsActive)
-            {
-                PersistantGameManager.Instance.activePotionType = "Attack";
-                PersistantGameManager.Instance.potionIsActive = true;
-                PersistantGameManager.Instance.currentAttackMultiplier = 1.5f;
-                PersistantGameManager.Instance.timeOfAttackMultiplierChange = Time.time;
-                PersistantGameManager.Instance.amountOfConsumables["50%A"] -= 1;
-                PersistantGameManager.Instance.potionCoolDownTime = 30;
-            }
-        }
-        else if (type == "100%A" && Time.timeScale != 0)
-        {
-            if (!PersistantGameManager.Instance.potionIsActive)
-            {
-                PersistantGameManager.Instance.activePotionType = "Attack";
-                PersistantGameManager.Instance.potionIsActive = true;
-                PersistantGameManager.Instance.currentAttackMultiplier = 2;
-                PersistantGameManager.Instance.timeOfAttackMultiplierChange = Time.time;
-                PersistantGameManager.Instance.amountOfConsumables["100%A"] -= 1;
-                PersistantGameManager.Instance.potionCoolDownTime = 30;
-
-            }
-        }
-
-        if (type == "20%L" && Time.timeScale != 0)
-        {
-            if (!PersistantGameManager.Instance.potionIsActive)
-            {
-                PersistantGameManager.Instance.activePotionType = "Leech";
-                PersistantGameManager.Instance.potionIsActive = true;
-                PersistantGameManager.Instance.currentLeechMultiplier = 0.2f;
-                PersistantGameManager.Instance.timeOfLeechMultiplierChange = Time.time;
-                PersistantGameManager.Instance.amountOfConsumables["20%L"] -= 1;
-                PersistantGameManager.Instance.potionCoolDownTime = 30;
-            }
-        }
-        /*
-        else if (type == "50%L" && Time.timeScale != 0)
-        {
-            if (!PersistantGameManager.Instance.potionIsActive)
-            {
-                PersistantGameManager.Instance.activePotionType = "Leech";
-                PersistantGameManager.Instance.potionIsActive = true;
-                PersistantGameManager.Instance.currentLeechMultiplier = 0.5f;
-                PersistantGameManager.Instance.timeOfLeechMultiplierChange = Time.time;
-                PersistantGameManager.Instance.amountOfItems["50%L"] -= 1;
-                PersistantGameManager.Instance.potionCoolDownTime = 30;
-            }
-        }
-        else if (type == "100%L" && Time.timeScale != 0)
-        {
-            if (!PersistantGameManager.Instance.potionIsActive)
-            {
-                PersistantGameManager.Instance.activePotionType = "Leech";
-                PersistantGameManager.Instance.potionIsActive = true;
-                PersistantGameManager.Instance.currentLeechMultiplier = 1;
-                PersistantGameManager.Instance.timeOfLeechMultiplierChange = Time.time;
-                PersistantGameManager.Instance.amountOfItems["100%L"] -= 1;
-                PersistantGameManager.Instance.potionCoolDownTime = 30;
-
-            }
-        }
-        */
+  
 
     }
     IEnumerator Shake()
