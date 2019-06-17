@@ -25,6 +25,8 @@ public class EnemyAttacks : MonoBehaviour
     private bool isInZone;
     [HideInInspector]
     public bool inFlight;
+    [HideInInspector]
+    public Vector3 playerPos;
     public bool jumpChargeCollision;
     private bool waitingForCollision;
 
@@ -176,10 +178,12 @@ public class EnemyAttacks : MonoBehaviour
                     if (!JumpCharge)
                     {
                         chargingLeft = true;
+                        playerPos = player.gameObject.transform.position;
                     }
                     else
                     {
                         jumpCharging = true;
+                        playerPos = player.gameObject.transform.position;
                     }
                 }
                 else
@@ -187,10 +191,12 @@ public class EnemyAttacks : MonoBehaviour
                     if (!JumpCharge)
                     {
                         chargingRight = true;
+                        playerPos = player.gameObject.transform.position;
                     }
                     else
                     {
                         jumpCharging = true;
+                        playerPos = player.gameObject.transform.position;
                     }
 
                 }
@@ -199,7 +205,7 @@ public class EnemyAttacks : MonoBehaviour
                     rb.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
                 }
             }
-            if (chargingLeft && isInZone && Time.time > timeOfJump + timeBetweenJumpAndCharge)
+            if (chargingLeft && Time.time > timeOfJump + timeBetweenJumpAndCharge)
             {
                 timeOfCharge = Time.time;
                 enemy.transform.position = Vector2.MoveTowards(enemy.transform.position, patrolPoints[0].transform.position, Time.deltaTime * chargeSpeed);
@@ -215,7 +221,7 @@ public class EnemyAttacks : MonoBehaviour
                 }
 
             }
-            if (chargingRight && isInZone && Time.time > timeOfJump + timeBetweenJumpAndCharge)
+            if (chargingRight && Time.time > timeOfJump + timeBetweenJumpAndCharge)
             {
                 timeOfCharge = Time.time;
                 enemy.transform.position = Vector2.MoveTowards(enemy.transform.position, patrolPoints[1].transform.position, Time.deltaTime * chargeSpeed);
@@ -230,16 +236,16 @@ public class EnemyAttacks : MonoBehaviour
                 }
 
             }
-            if (jumpCharging && isInZone && Time.time > timeOfJump + timeBetweenJumpAndCharge)
+            if (jumpCharging && Time.time > timeOfJump + timeBetweenJumpAndCharge)
             {
                 distanceFromZero = Vector2.Distance(patrolPoints[0].transform.position, player.transform.position);
-                distanceFromOne = Vector2.Distance(patrolPoints[1].transform.position, player.transform.position);
-                isInYOfPointZero = patrolPoints[0].position.y + 2 > player.transform.position.y && patrolPoints[0].position.y - 2 < player.transform.position.y;
-                isInYOfPointOne = patrolPoints[1].position.y + 2 > player.transform.position.y && patrolPoints[1].position.y - 2 < player.transform.position.y;
+                distanceFromOne = Vector2.Distance(patrolPoints[1].transform.position, playerPos);
+                isInYOfPointZero = patrolPoints[0].position.y + 2 > playerPos.y && patrolPoints[0].position.y - 2 < playerPos.y;
+                isInYOfPointOne = patrolPoints[1].position.y + 2 > playerPos.y && patrolPoints[1].position.y - 2 < playerPos.y;
                 isInZone = distanceFromZero < distanceBetweenPoints && distanceFromOne < distanceBetweenPoints && isInYOfPointZero && isInYOfPointOne;
-                float targetDistance = Vector3.Distance(enemy.transform.position, player.transform.position);
+                float targetDistance = Vector3.Distance(enemy.transform.position, playerPos);
                 print("no");
-                if((enemy.transform.position.x - player.transform.position.x < -0.5 || enemy.transform.position.x - player.transform.position.x > 0.5) && isInZone )
+                if((enemy.transform.position.x - playerPos.x < -0.5 || enemy.transform.position.x - playerPos.x > 0.5) && isInZone )
                 {
                     print("yes");
                     timeOfCharge = Time.time;
@@ -265,7 +271,7 @@ public class EnemyAttacks : MonoBehaviour
                         _firingAngle = firingAngle - 7.5f;
                     }
 
-                    Vector2 direction = (player.transform.position - (enemy.transform.position)).normalized;
+                    Vector2 direction = (playerPos - (enemy.transform.position)).normalized;
 
                     // Calculate the velocity needed to throw the object to the target at specified angle.
                     float projectile_Velocity = targetDistance / (Mathf.Sin(2 * _firingAngle * Mathf.Deg2Rad) / (Physics2D.gravity.y * -1));

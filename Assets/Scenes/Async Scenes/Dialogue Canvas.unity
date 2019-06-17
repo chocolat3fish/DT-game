@@ -124,6 +124,7 @@ GameObject:
   - component: {fileID: 344707404}
   - component: {fileID: 344707403}
   - component: {fileID: 344707402}
+  - component: {fileID: 344707401}
   m_Layer: 5
   m_Name: GiveItem
   m_TagString: Untagged
@@ -151,6 +152,21 @@ RectTransform:
   m_AnchoredPosition: {x: 250, y: -65}
   m_SizeDelta: {x: 217.4, y: 40.8}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &344707401
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 344707399}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 990bfbc39a4a8894f9fd793ef26924fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nPCMonitors: []
+  nPCMonitor: {fileID: 0}
+  isGiveItemButton: 1
 --- !u!114 &344707402
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -191,7 +207,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1456730084}
+      - m_Target: {fileID: 344707401}
         m_MethodName: OnGiveItemClick
         m_Mode: 1
         m_Arguments:
@@ -956,6 +972,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nPCMonitors: []
   nPCMonitor: {fileID: 0}
+  isGiveItemButton: 0
 --- !u!114 &1456730085
 MonoBehaviour:
   m_ObjectHideFlags: 0

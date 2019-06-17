@@ -8,6 +8,7 @@ public class DialogueButtons : MonoBehaviour
     public NPCMonitor[] nPCMonitors;
     public NPCMonitor nPCMonitor;
     private bool continueDialouge = false;
+    public bool isGiveItemButton;
     private void Awake()
     {
         nPCMonitors = FindObjectsOfType<NPCMonitor>();
@@ -30,7 +31,7 @@ public class DialogueButtons : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Return))
+        if(Input.GetKeyDown(KeyCode.Return) && isGiveItemButton)
         {
             OnGiveItemClick();
         }
