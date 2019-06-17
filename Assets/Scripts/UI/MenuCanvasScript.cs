@@ -971,7 +971,15 @@ public class MenuCanvasScript : MonoBehaviour
         Quest questToOpen = PersistantGameManager.Instance.possibleQuests[PersistantGameManager.Instance.activeQuests[slot - 1]];
 
         questName.text = questToOpen.questName;
-        questDescription.text = questToOpen.questDescription;
+        if (questToOpen.killEnemies == true)
+        {
+            questDescription.text = questToOpen.questDescription +  (questToOpen.killRequirement - (PersistantGameManager.Instance.currentEnemyKills[questToOpen.enemyToKill] - questToOpen.initialEnemiesKilled) + " Remaining.");
+        }
+        if (questToOpen.killEnemies && questToOpen.killRequirement - (PersistantGameManager.Instance.currentEnemyKills[questToOpen.enemyToKill] - questToOpen.initialEnemiesKilled) < 0)
+        {
+            questDescription.text = questToOpen.questDescription + " 0 Remaining.";
+        }
+        else { questDescription.text = questToOpen.questDescription; }
         questReward.text = questToOpen.questReward + ", " + questToOpen.questExperience + " XP";
 
     }

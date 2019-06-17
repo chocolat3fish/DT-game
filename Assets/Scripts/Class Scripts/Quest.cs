@@ -29,6 +29,8 @@ public class Quest
     public string enemyToKill;
     public int killRequirement;
     public int enemiesKilled;
+    public int initialEnemiesKilled;
+    public int definedInitialKills;
 
     [Header("Fetch")]
     public bool returnItem;
@@ -36,6 +38,9 @@ public class Quest
 
     public string questKey;
 
+    [Header("Level Up")]
+    public bool levelUp;
+    public int levelToReach;
 
     [Header("Rewards")]
     public bool instantComplete;

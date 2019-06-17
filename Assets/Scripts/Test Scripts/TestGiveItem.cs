@@ -30,7 +30,7 @@ public class TestGiveItem : MonoBehaviour
         }
         else
         {
-            PersistantGameManager.Instance.playerWeaponInventory[0] = LootManager.GenerateWeapon(10);
+            PersistantGameManager.Instance.playerWeaponInventory[0] = LootManager.GenerateWeapon(100);
             PersistantGameManager.Instance.playerWeaponInventory[1] = LootManager.GenerateWeapon(10);
             PersistantGameManager.Instance.playerWeaponInventory[2] = LootManager.GenerateWeapon(10);
         }
