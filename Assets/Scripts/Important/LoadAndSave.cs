@@ -54,7 +54,8 @@ public class LoadAndSave : MonoBehaviour
             file.Close();
             file = File.Create(Application.persistentDataPath + "/SavedData/Slot3.txt");
             file.Close();
-
+            file = File.Create(Application.persistentDataPath + "/SavedData/Autosave.txt");
+            file.Close();
             Reset();
         }
 
@@ -82,7 +83,7 @@ public class LoadAndSave : MonoBehaviour
         timestamps = GetTimestamps();
 
         bool shouldSave = false;
-        if(slot == 1 && timestamps.S1T == "Empty")
+        if (slot == 1 && timestamps.S1T == "Empty")
         {
             timestamps.S1T = DateTime.Now.ToString().Substring(0, DateTime.Now.ToString().Length - 8);
             shouldSave = true;
@@ -97,7 +98,6 @@ public class LoadAndSave : MonoBehaviour
             timestamps.S3T = DateTime.Now.ToString().Substring(0, DateTime.Now.ToString().Length - 8);
             shouldSave = true;
         }
-
         if(shouldSave)
         {
             if (slot == 1)
@@ -139,7 +139,14 @@ public class LoadAndSave : MonoBehaviour
         {
             Title.text = "Load";
             Question.text = "Are you sure you want to load?\nIt will override your current game!\nMake sure you have saved if you want to";
-            LoadOrSaveDetails.text = "Load from: Slot " + slot + "\nSaved at: " +  time;
+            if (slot == 4)
+            {
+                LoadOrSaveDetails.text = "Load: Autosave\nSaved at: " + time;
+            }
+            else
+            {
+                LoadOrSaveDetails.text = "Load from: Slot " + slot + "\nSaved at: " + time;
+            }
             Confirm.onClick.RemoveAllListeners();
             inputField.gameObject.SetActive(false);
             Confirm.onClick.AddListener(delegate { PersistantGameManager.Instance.LoadDataFromSave(slot); });
@@ -198,19 +205,27 @@ public class LoadAndSave : MonoBehaviour
             L3T.color = emptyC;
             StartCoroutine(Shake(L3T.gameObject, defaultC));
         }
+        else if (slot == 4 && timestamps.S4T == "Empty")
+        {
+            Debug.Log("empty");
+        }
         else
         {
             if (slot == 1)
             {
                 OpenConfirmPanel(true, false, slot, timestamps.S1T);
             }
-            if (slot == 2)
+            else if (slot == 2)
             {
                 OpenConfirmPanel(true, false, slot, timestamps.S2T);
             }
-            if (slot == 3)
+            else if (slot == 3)
             {
                 OpenConfirmPanel(true, false, slot, timestamps.S3T);
+            }
+            else if(slot == 4)
+            {
+                OpenConfirmPanel(true, false, slot, timestamps.S4T);
             }
         }
         
@@ -232,15 +247,14 @@ public class LoadAndSave : MonoBehaviour
             {
                 timestamps.S1T = inputField.text + "\n" + DateTime.Now.ToString().Substring(0, DateTime.Now.ToString().Length - 8);
             }
-            if (slot == 2)
+            else if (slot == 2)
             {
                 timestamps.S2T = inputField.text + "\n" + DateTime.Now.ToString().Substring(0, DateTime.Now.ToString().Length - 8);
             }
-            if (slot == 3)
+            else if (slot == 3)
             {
                 timestamps.S3T = inputField.text + "\n" + DateTime.Now.ToString().Substring(0, DateTime.Now.ToString().Length - 8);
             }
-
             SaveTimestamps(timestamps);
             PersistantGameManager.Instance.SaveGameManagerData(slot);
             CloseConfirmPanel();
@@ -283,7 +297,8 @@ public class LoadAndSave : MonoBehaviour
         {
             S1T = "Empty",
             S2T = "Empty",
-            S3T = "Empty"
+            S3T = "Empty",
+            S4T = "Empty"
         };
 
 
