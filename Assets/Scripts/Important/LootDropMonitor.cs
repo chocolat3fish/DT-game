@@ -120,6 +120,7 @@ public class LootDropMonitor : MonoBehaviour
                     closestLootDrop = lootDrop;
                 }
             }
+           
 
             //If the compare Screen is not currently open, the compare canvas wont close on a "E" press and this is the closest loot drop
             if (!PersistantGameManager.Instance.compareScreenOpen && closestLootDrop == this && type == 0)

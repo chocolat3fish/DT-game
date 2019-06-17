@@ -181,7 +181,7 @@ public class NPCMonitor : MonoBehaviour
                     return;
                 }
                 */
-                if (hasTalkedBefore && currentQuest.instantComplete == true)
+                if (hasTalkedBefore && currentQuest.instantComplete)
                 {
                     StopAllCoroutines();
                     StartCoroutine(AddChars(currentQuest.questStatment, overlayMainText));
@@ -198,7 +198,29 @@ public class NPCMonitor : MonoBehaviour
                     return;
 
                 }
-                if (hasTalkedBefore && PersistantGameManager.Instance.itemInventory[currentQuest.questItemName] > 0 )
+                
+                if (hasTalkedBefore && currentQuest.returnItem && PersistantGameManager.Instance.itemInventory[currentQuest.questItemName] > 0)                
+                {
+                    StopAllCoroutines();
+                    StartCoroutine(AddChars(currentQuest.questStatmentWithItem, overlayMainText));
+                    if (currentQuest.questReward == "")
+                    {
+                        StartCoroutine(AddChars(currentQuest.questExperience + " XP", overlayRewardText));
+                    }
+                    else
+                    {
+                        StartCoroutine(AddChars(currentQuest.questReward + ", " + currentQuest.questExperience + " XP", overlayRewardText));
+                    }
+                    stageOfConvo = 2;
+                    currentSentenceIndex = -1;
+                    OpenNewButtons(1);
+                    return;
+
+                }
+                else if (hasTalkedBefore && ((currentQuest.killEnemies == true) 
+                    && (currentQuest.killRequirement - (PersistantGameManager.Instance.currentEnemyKills[currentQuest.enemyToKill] - currentQuest.initialEnemiesKilled) <= 0))
+                    || (currentQuest.levelUp == true && PersistantGameManager.Instance.playerStats.playerLevel >= currentQuest.levelToReach))
+
                 {
                     StopAllCoroutines();
                     StartCoroutine(AddChars(currentQuest.questStatmentWithItem, overlayMainText));
@@ -223,6 +245,20 @@ public class NPCMonitor : MonoBehaviour
                         currentQuest.questReward = currentQuest.weaponType;
                     }
 
+                    if (currentQuest.killEnemies == true && currentQuest.definedInitialKills == 0) ;
+                    {
+                        try
+                        {
+                            currentQuest.initialEnemiesKilled = PersistantGameManager.Instance.currentEnemyKills[currentQuest.enemyToKill];
+                        }
+                        catch (KeyNotFoundException)
+                        {
+                            currentQuest.initialEnemiesKilled = 0;
+                        }
+                        currentQuest.definedInitialKills = 1;
+                        Debug.Log(currentQuest.initialEnemiesKilled);
+                    }
+                    //this is bad code
                     currentQuest.questExperience = (float)(1.1f * (0.04 * Math.Pow(currentQuest.levelClaimedAt, 3) + (0.8 * Math.Pow(currentQuest.levelClaimedAt, 2) + 100))) * currentQuest.XPMultiplier;
                     StopAllCoroutines();
                     hasTalkedBefore = true;
@@ -245,12 +281,15 @@ public class NPCMonitor : MonoBehaviour
                         PersistantGameManager.Instance.possibleQuests.Add(currentQuest.questKey, currentQuest);
                     }
 
+                    Debug.Log("Killed Prior: " + currentQuest.initialEnemiesKilled);
+                    Debug.Log("Needed: " + (currentQuest.killRequirement - (PersistantGameManager.Instance.currentEnemyKills[currentQuest.enemyToKill] - currentQuest.initialEnemiesKilled)) + " Killed: " + PersistantGameManager.Instance.currentEnemyKills[currentQuest.enemyToKill]);
                     if (currentQuest.instantComplete == true)
                     {
                         OpenNewButtons(1);
                     }
-                    else if (currentQuest.killEnemies == true && currentQuest.enemiesKilled >= currentQuest.killRequirement)
+                    else if (currentQuest.killEnemies == true && PersistantGameManager.Instance.currentEnemyKills[currentQuest.enemyToKill] >= (currentQuest.killRequirement + currentQuest.initialEnemiesKilled))
                     {
+                        Debug.Log("Passed");
                         OpenNewButtons(1);
                     }
                     else if (currentQuest.returnItem == true && PersistantGameManager.Instance.itemInventory[currentQuest.questItemName] > 0)
@@ -504,7 +543,7 @@ public class NPCMonitor : MonoBehaviour
         }
 
         PersistantGameManager.Instance.playerStats.playerExperience += PersistantGameManager.Instance.totalExperience / 4;
-        if (currentQuest.instantComplete == false)
+        if (currentQuest.instantComplete == false && currentQuest.returnItem == true)
         {
             PersistantGameManager.Instance.itemInventory[currentQuest.questItemName]--;
         }
