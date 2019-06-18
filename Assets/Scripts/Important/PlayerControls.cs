@@ -145,7 +145,6 @@ public class PlayerControls : MonoBehaviour
             currentJumps = 0;
             // tells animator to stop playing Jump animation
             animator.SetBool("IsJumping", false);
-            Debug.Log("ground");
             collider.sharedMaterial = (PhysicsMaterial2D)Resources.Load("PhysicsMaterials/FloorGrippy");
         }
 

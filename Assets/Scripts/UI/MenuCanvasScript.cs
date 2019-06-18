@@ -973,9 +973,18 @@ public class MenuCanvasScript : MonoBehaviour
         questName.text = questToOpen.questName;
         if (questToOpen.killEnemies == true)
         {
-            questDescription.text = questToOpen.questDescription +  (questToOpen.killRequirement - (PersistantGameManager.Instance.currentEnemyKills[questToOpen.enemyToKill] - questToOpen.initialEnemiesKilled) + " Remaining.");
+            print("Kill Enemies");
+            int num = (questToOpen.killRequirement - (PersistantGameManager.Instance.currentEnemyKills[questToOpen.enemyToKill] - questToOpen.initialEnemiesKilled));
+            if (num <= 0)
+            {
+                questDescription.text = "\n\nNone Remaining, You are done";
+            }
+            else 
+            {
+                questDescription.text = questToOpen.questDescription + "\n\n" + num + " Remaining";
+            }
         }
-        if (questToOpen.killEnemies && questToOpen.killRequirement - (PersistantGameManager.Instance.currentEnemyKills[questToOpen.enemyToKill] - questToOpen.initialEnemiesKilled) < 0)
+        else if (questToOpen.killEnemies && questToOpen.killRequirement - (PersistantGameManager.Instance.currentEnemyKills[questToOpen.enemyToKill] - questToOpen.initialEnemiesKilled) < 0)
         {
             questDescription.text = questToOpen.questDescription + " 0 Remaining.";
         }
