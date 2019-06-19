@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Scenes/Main Room.unity
+- path: Assets/Scenes/Corrupt.unity
   isLoaded: 1
   isActive: 1

@@ -1869,12 +1869,12 @@ PrefabInstance:
     - target: {fileID: 4761653873820443592, guid: 65da966ae40fc4190be9ad0efe7db603,
         type: 3}
       propertyPath: characterQuests.Array.data[1].sentencesBeforeQuest2ndTime.Array.size
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4761653873820443592, guid: 65da966ae40fc4190be9ad0efe7db603,
         type: 3}
       propertyPath: characterQuests.Array.data[1].sentencesAfterQuest.Array.size
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4761653873820443592, guid: 65da966ae40fc4190be9ad0efe7db603,
         type: 3}
@@ -1909,12 +1909,12 @@ PrefabInstance:
     - target: {fileID: 4761653873820443592, guid: 65da966ae40fc4190be9ad0efe7db603,
         type: 3}
       propertyPath: characterQuests.Array.data[0].sentencesBeforeQuest2ndTime.Array.size
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4761653873820443592, guid: 65da966ae40fc4190be9ad0efe7db603,
         type: 3}
       propertyPath: characterQuests.Array.data[0].sentencesAfterQuest.Array.size
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4761653873820443592, guid: 65da966ae40fc4190be9ad0efe7db603,
         type: 3}
@@ -1934,7 +1934,7 @@ PrefabInstance:
     - target: {fileID: 4761653873820443592, guid: 65da966ae40fc4190be9ad0efe7db603,
         type: 3}
       propertyPath: characterQuests.Array.data[1].sentencesBeforeQuest2ndTime.Array.data[0]
-      value: Please tell me you found it...
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 4761653873820443592, guid: 65da966ae40fc4190be9ad0efe7db603,
         type: 3}
@@ -1950,7 +1950,7 @@ PrefabInstance:
     - target: {fileID: 4761653873820443592, guid: 65da966ae40fc4190be9ad0efe7db603,
         type: 3}
       propertyPath: characterQuests.Array.data[1].sentencesAfterQuest.Array.data[0]
-      value: I can show you how to get out of this area is you grab it for me. Thanks
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 4761653873820443592, guid: 65da966ae40fc4190be9ad0efe7db603,
         type: 3}
@@ -1976,7 +1976,7 @@ PrefabInstance:
     - target: {fileID: 4761653873820443592, guid: 65da966ae40fc4190be9ad0efe7db603,
         type: 3}
       propertyPath: characterQuests.Array.data[1].questKey
-      value: 
+      value: Co01
       objectReference: {fileID: 0}
     - target: {fileID: 4761653873820443592, guid: 65da966ae40fc4190be9ad0efe7db603,
         type: 3}
@@ -2109,7 +2109,7 @@ PrefabInstance:
     - target: {fileID: 4761653873820443592, guid: 65da966ae40fc4190be9ad0efe7db603,
         type: 3}
       propertyPath: characterQuests.Array.data[0].XPMultiplier
-      value: 0
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 4761653873820443592, guid: 65da966ae40fc4190be9ad0efe7db603,
         type: 3}
@@ -2175,6 +2175,11 @@ PrefabInstance:
         type: 3}
       propertyPath: characterQuests.Array.data[1].killRequirement
       value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 4761653873820443592, guid: 65da966ae40fc4190be9ad0efe7db603,
+        type: 3}
+      propertyPath: characterQuests.Array.data[0].sentencesBeforeQuest2ndTime.Array.data[0]
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 65da966ae40fc4190be9ad0efe7db603, type: 3}
@@ -2295,11 +2300,6 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 4477508220446376457, guid: 170b6ec272bcf4359bc42d3a97e61ad9,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 3.43
-      objectReference: {fileID: 0}
     - target: {fileID: 5063218917151070437, guid: 170b6ec272bcf4359bc42d3a97e61ad9,
         type: 3}
       propertyPath: enemyStats.enemyMinLevel
@@ -2309,6 +2309,11 @@ PrefabInstance:
         type: 3}
       propertyPath: enemyStats.enemyMaxLevel
       value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 4477508220446376457, guid: 170b6ec272bcf4359bc42d3a97e61ad9,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 3.43
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 170b6ec272bcf4359bc42d3a97e61ad9, type: 3}

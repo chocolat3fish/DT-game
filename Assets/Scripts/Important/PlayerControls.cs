@@ -462,7 +462,7 @@ public class PlayerControls : MonoBehaviour
             currentJumps = 0;
             // tells animator to stop playing Jump animation
             animator.SetBool("IsJumping", false);
-            Debug.Log("ground");
+
         }
 
 
@@ -607,7 +607,7 @@ public class PlayerControls : MonoBehaviour
             int randomNumber = random.Next(1, 100);
             if(randomNumber <= PersistantGameManager.Instance.instantKillChance)
             {
-                Debug.Log("big damage");
+
                 return playerDamage = (float)Math.Pow(100, 4);
             }
 

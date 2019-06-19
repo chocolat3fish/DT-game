@@ -198,7 +198,7 @@ public class EnemyMonitor : MonoBehaviour
             questDropMonitor.item = questReward;
             droppedQuestItem = true;
 
-            Debug.Log("Dropped item " + questReward);
+
 
         }
 
@@ -254,7 +254,7 @@ public class EnemyMonitor : MonoBehaviour
         }
         else
         {
-            Debug.Log("no parent");
+
             Destroy(transform.gameObject);
         }
 
@@ -333,7 +333,7 @@ public class EnemyMonitor : MonoBehaviour
         }
         PersistantGameManager.Instance.playerStats.playerExperience += xpValue;
         print(multiplier);
-        Debug.Log(xpValue);
+
         PersistantGameManager.Instance.checkExp = true;
     }
 

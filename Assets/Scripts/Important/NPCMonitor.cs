@@ -120,15 +120,132 @@ public class NPCMonitor : MonoBehaviour
 
 
     }
+    private IEnumerator CreateDialogueBox()
+    {
+        if (!PersistantGameManager.Instance.characterQuests.ContainsKey(nameOfNpc))
+        {
+            PersistantGameManager.Instance.characterQuests.Add(nameOfNpc, 0);
+        }
+        if (characterQuests.Length - 1 >= PersistantGameManager.Instance.characterQuests[nameOfNpc])
+        {
+            print("You suck heaps");
+            if (PersistantGameManager.Instance.activeQuests.Contains(characterQuests[PersistantGameManager.Instance.characterQuests[nameOfNpc]].questKey))
+            {
+                currentQuest = PersistantGameManager.Instance.possibleQuests[characterQuests[PersistantGameManager.Instance.characterQuests[nameOfNpc]].questKey];
+                hasTalkedBefore = true;
+            }
+            else
+            {
+                currentQuest = characterQuests[PersistantGameManager.Instance.characterQuests[nameOfNpc]];
+            }
+            PersistantGameManager.Instance.currentDialogueQuest = currentQuest;
+        }
+        else
+        {
+            print("Set Null");
+            currentQuest = null;
+            PersistantGameManager.Instance.currentDialogueQuest.questKey = nameOfNpc;
+        }
 
+        AsyncOperation loadDialogueCanvas = SceneManager.LoadSceneAsync("Dialogue Canvas", LoadSceneMode.Additive);
+        while (true)
+        {
+            if (loadDialogueCanvas.isDone)
+            {
+                Canvas[] canvases = FindObjectsOfType<Canvas>();
+                foreach (Canvas canvas in canvases)
+                {
+                    if (canvas.gameObject.name == "Dialogue Canvas")
+                    {
+                        overlayPanel = canvas.gameObject.transform.Find("Panel").gameObject;
+                        break;
+                    }
+                }
+                overlayMainText = overlayPanel.transform.Find("Text").GetComponent<Text>();
+                overlayContinueButton = overlayPanel.transform.Find("Continue").GetComponent<Button>();
+                overlayNameText = overlayPanel.transform.Find("Name").Find("Text").GetComponent<Text>();
+                overlayAcceptButton = overlayPanel.transform.Find("GiveItem").GetComponent<Button>();
+                overlayInstantCompleteButton = overlayPanel.transform.Find("InstantComplete").GetComponent<Button>();
+                overlayRewardText = overlayPanel.transform.Find("RewardText").GetComponent<Text>();
+                dialougeBoxOpen = true;
+                break;
+            }
+            else
+            {
+                yield return new WaitForSecondsRealtime(0.01f);
+            }
+        }
+        overlayNameText.text = nameOfNpc;
+        stageOfConvo = 0;
+        currentSentenceIndex = 0;
+        isTalking = true;
+        canContinueDialouge = false;
+        dialogueBoxQuery = true;
+        dialogueBoxQueryTime = Time.time;
+        overlayAcceptButton.gameObject.SetActive(false);
+        overlayContinueButton.gameObject.SetActive(true);
+        overlayInstantCompleteButton.gameObject.SetActive(false);
+        overlayRewardText.text = "";
+        PersistantGameManager.Instance.dialogueSceneIsOpen = true;
+        if (currentQuest != null)
+        {
+            if (currentQuest.killEnemies)
+            {
+                if (!PersistantGameManager.Instance.currentEnemyKills.ContainsKey(currentQuest.enemyToKill))
+                {
+                    PersistantGameManager.Instance.currentEnemyKills.Add(currentQuest.enemyToKill, 0);
+                }
+            }
+        }
+
+        if (currentQuest == null)
+        {
+            StartCoroutine(AddChars(waitingText, overlayMainText));
+            stageOfConvo = 3;
+            currentSentenceIndex = 1;
+            canContinueDialouge = false;
+        }
+        else if (hasTalkedBefore)
+        {
+            StartCoroutine(AddChars(currentQuest.sentencesBeforeQuest2ndTime[0], overlayMainText));
+        }
+        else
+        {
+            try
+            {
+                StartCoroutine(AddChars(currentQuest.sentencesBeforeQuest1stTime[0], overlayMainText));
+                currentQuest.levelClaimedAt = PersistantGameManager.Instance.playerStats.playerLevel;
+            }
+            catch (NullReferenceException)
+            {
+                print("You been caught, you naughty boy");
+                StartCoroutine(AddChars(waitingText, overlayMainText));
+                stageOfConvo = 3;
+                currentSentenceIndex = 1;
+                canContinueDialouge = false;
+            }
+
+        }
+    }
 
     public void ContinueDialogue()
     {
-        Debug.Log("Continue");
         //If the quest has been removed end the dialogue
-        if(currentQuest == null)
+        if(currentQuest == null && stageOfConvo != 3)
         {
             EndDialogue();
+            currentSentenceIndex = 0;
+            return;
+        }
+        else if(stageOfConvo == 3)
+        {
+            if(currentSentenceIndex == 1)
+            {
+                EndDialogue();
+                return;
+            }
+            currentSentenceIndex = 1;
+            return;
         }
         //Runs if player is allowed to continue
         else if (canContinueDialouge)
@@ -180,6 +297,7 @@ public class NPCMonitor : MonoBehaviour
             //Gives the main quest statment
             if(stageOfConvo == 1)
             {
+                /*
                 if (hasTalkedBefore && currentQuest.instantComplete)
                 {
                     StopAllCoroutines();
@@ -197,13 +315,16 @@ public class NPCMonitor : MonoBehaviour
                     return;
 
                 }
-                else if (hasTalkedBefore && currentQuest.returnItem && PersistantGameManager.Instance.itemInventory[currentQuest.questItemName] > 0)                
+                else */
+                if (hasTalkedBefore && currentQuest.returnItem && PersistantGameManager.Instance.itemInventory[currentQuest.questItemName] > 0)                
                 {
                     StopAllCoroutines();
                     StartCoroutine(AddChars(currentQuest.questStatmentWithItem, overlayMainText));
                     if (currentQuest.questReward == "")
                     {
                         StartCoroutine(AddChars(currentQuest.questExperience + " XP", overlayRewardText));
+                        stageOfConvo = 2;
+                        currentSentenceIndex = -1;
                     }
                     else
                     {
@@ -215,17 +336,57 @@ public class NPCMonitor : MonoBehaviour
                     return;
 
                 }
-                else if(hasTalkedBefore && (currentQuest.killEnemies == true))
+                else if(hasTalkedBefore && (currentQuest.killEnemies || currentQuest.levelUp))
                 {
-                    if (((currentQuest.killRequirement - (PersistantGameManager.Instance.currentEnemyKills[currentQuest.enemyToKill] - currentQuest.initialEnemiesKilled) <= 0))
-                    || (currentQuest.levelUp == true && PersistantGameManager.Instance.playerStats.playerLevel >= currentQuest.levelToReach))
-
+                    if(currentQuest.killEnemies)
+                    {
+                        if (((currentQuest.killRequirement - (PersistantGameManager.Instance.currentEnemyKills[currentQuest.enemyToKill] - currentQuest.initialEnemiesKilled) <= 0)))
+                        {
+                            StopAllCoroutines();
+                            StartCoroutine(AddChars(currentQuest.questStatmentWithItem, overlayMainText));
+                            if (currentQuest.questReward == "")
+                            {
+                                StartCoroutine(AddChars(currentQuest.questExperience + " XP", overlayRewardText));
+                                stageOfConvo = 2;
+                                currentSentenceIndex = -1;
+                            }
+                            else
+                            {
+                                StartCoroutine(AddChars(currentQuest.questReward + ", " + currentQuest.questExperience + " XP", overlayRewardText));
+                            }
+                            stageOfConvo = 2;
+                            currentSentenceIndex = -1;
+                            OpenNewButtons(1);
+                            return;
+                        }
+                        else
+                        {
+                            StopAllCoroutines();
+                            StartCoroutine(AddChars(currentQuest.questStatment, overlayMainText));
+                            if (currentQuest.questReward == "")
+                            {
+                                StartCoroutine(AddChars(currentQuest.questExperience + " XP", overlayRewardText));
+                                stageOfConvo = 2;
+                                currentSentenceIndex = -1;
+                            }
+                            else
+                            {
+                                StartCoroutine(AddChars(currentQuest.questReward + ", " + currentQuest.questExperience + " XP", overlayRewardText));
+                                stageOfConvo = 2;
+                                currentSentenceIndex = -1;
+                            }
+                            return;
+                        }
+                    }
+                    else if (currentQuest.levelUp == true && PersistantGameManager.Instance.playerStats.playerLevel >= currentQuest.levelToReach)
                     {
                         StopAllCoroutines();
                         StartCoroutine(AddChars(currentQuest.questStatmentWithItem, overlayMainText));
                         if (currentQuest.questReward == "")
                         {
                             StartCoroutine(AddChars(currentQuest.questExperience + " XP", overlayRewardText));
+                            stageOfConvo = 2;
+                            currentSentenceIndex = -1;
                         }
                         else
                         {
@@ -244,6 +405,8 @@ public class NPCMonitor : MonoBehaviour
                         if (currentQuest.questReward == "")
                         {
                             StartCoroutine(AddChars(currentQuest.questExperience + " XP", overlayRewardText));
+                            stageOfConvo = 2;
+                            currentSentenceIndex = -1;
                         }
                         else
                         {
@@ -253,6 +416,7 @@ public class NPCMonitor : MonoBehaviour
                         }
                         return;
                     }
+
 
                 }
                 else
@@ -312,6 +476,7 @@ public class NPCMonitor : MonoBehaviour
                     }
                     else
                     {
+
                         OpenNewButtons(0);
                     }
                     return;
@@ -320,6 +485,7 @@ public class NPCMonitor : MonoBehaviour
 
             if(stageOfConvo == 2)
             {
+                print(currentQuest == null);
                 if (characterQuests.Length - 1 >= PersistantGameManager.Instance.characterQuests[nameOfNpc])
                 {
                     if (characterQuests[PersistantGameManager.Instance.characterQuests[nameOfNpc]].questKey != currentQuest.questKey)
@@ -354,6 +520,14 @@ public class NPCMonitor : MonoBehaviour
                             StartCoroutine(AddChars(currentQuest.sentencesAfterQuest[currentSentenceIndex], overlayMainText));
                         }
                     }
+                }
+                else if(currentQuest == null)
+                {
+                    if(currentSentenceIndex == 1)
+                    {
+                        EndDialogue();
+                    }
+                    return;
                 }
                 else
                 {
@@ -433,89 +607,7 @@ public class NPCMonitor : MonoBehaviour
         overlayInstantCompleteButton.gameObject.SetActive(false);
     }
 
-    private IEnumerator CreateDialogueBox()
-    {
-        if(!PersistantGameManager.Instance.characterQuests.ContainsKey(nameOfNpc))
-        {
-            PersistantGameManager.Instance.characterQuests.Add(nameOfNpc, 0);
-        }
-        if(characterQuests.Length - 1 >= PersistantGameManager.Instance.characterQuests[nameOfNpc])
-        {
-            if (PersistantGameManager.Instance.activeQuests.Contains(characterQuests[PersistantGameManager.Instance.characterQuests[nameOfNpc]].questKey))
-            {
-                currentQuest = PersistantGameManager.Instance.possibleQuests[characterQuests[PersistantGameManager.Instance.characterQuests[nameOfNpc]].questKey];
-                hasTalkedBefore = true;
-            }
-            else
-            {
-                currentQuest = characterQuests[PersistantGameManager.Instance.characterQuests[nameOfNpc]];
-            }
-            PersistantGameManager.Instance.currentDialogueQuest = currentQuest;
-        }
-        else
-        {
-            currentQuest = null;
-            PersistantGameManager.Instance.currentDialogueQuest.questKey = nameOfNpc;
-        }
 
-        AsyncOperation loadDialogueCanvas = SceneManager.LoadSceneAsync("Dialogue Canvas", LoadSceneMode.Additive);
-        while (true)
-        {
-            if (loadDialogueCanvas.isDone)
-            {
-                Canvas[] canvases = FindObjectsOfType<Canvas>();
-                foreach (Canvas canvas in canvases)
-                {
-                    if (canvas.gameObject.name == "Dialogue Canvas")
-                    {
-                        overlayPanel = canvas.gameObject.transform.Find("Panel").gameObject;
-                        break;
-                    }
-                }
-                overlayMainText = overlayPanel.transform.Find("Text").GetComponent<Text>();
-                overlayContinueButton = overlayPanel.transform.Find("Continue").GetComponent<Button>();
-                overlayNameText = overlayPanel.transform.Find("Name").Find("Text").GetComponent<Text>();
-                overlayAcceptButton = overlayPanel.transform.Find("GiveItem").GetComponent<Button>();
-                overlayInstantCompleteButton = overlayPanel.transform.Find("InstantComplete").GetComponent<Button>();
-                overlayRewardText = overlayPanel.transform.Find("RewardText").GetComponent<Text>();
-                dialougeBoxOpen = true;
-                break;
-            }
-            else
-            {
-                yield return new WaitForSecondsRealtime(0.01f);
-            }
-        }
-        overlayNameText.text = nameOfNpc;
-        stageOfConvo = 0;
-        currentSentenceIndex = 0;
-        isTalking = true;
-        canContinueDialouge = false;
-        dialogueBoxQuery = true;
-        dialogueBoxQueryTime = Time.time;
-        overlayAcceptButton.gameObject.SetActive(false);
-        overlayContinueButton.gameObject.SetActive(true);
-        overlayInstantCompleteButton.gameObject.SetActive(false);
-        overlayRewardText.text = "";
-        PersistantGameManager.Instance.dialogueSceneIsOpen = true;
-        if (!PersistantGameManager.Instance.currentEnemyKills.ContainsKey(currentQuest.enemyToKill))
-        {
-            PersistantGameManager.Instance.currentEnemyKills.Add(currentQuest.enemyToKill, 0);
-        }
-        if (currentQuest == null)
-        {
-            StartCoroutine(AddChars(waitingText, overlayMainText));
-        }
-        else if (hasTalkedBefore)
-        {
-            StartCoroutine(AddChars(currentQuest.sentencesBeforeQuest2ndTime[0], overlayMainText));
-        }
-        else
-        {
-            StartCoroutine(AddChars(currentQuest.sentencesBeforeQuest1stTime[0], overlayMainText));
-            currentQuest.levelClaimedAt = PersistantGameManager.Instance.playerStats.playerLevel;
-        }
-    }
 
     private void EndDialogue()
     {
@@ -595,6 +687,7 @@ public class NPCMonitor : MonoBehaviour
         PersistantGameManager.Instance.possibleQuests.Remove(currentQuest.questKey);
         PersistantGameManager.Instance.completedQuests.Add(currentQuest.questKey);
         hasTalkedBefore = false;
+        currentQuest = null;
         EndDialogue();
         if (mGiveItem)
         {

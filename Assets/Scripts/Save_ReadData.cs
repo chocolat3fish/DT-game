@@ -19,8 +19,7 @@ public class Save_ReadData : MonoBehaviour
             jsonDataFromFile = File.ReadAllText(Application.dataPath + "/SavedData/Player.json");
 
             playerStats = JsonMapper.ToObject<PlayerStats>(jsonDataFromFile);
-            Debug.Log(playerStats);
-            Debug.Log("Complete");
+
             //health = playerStats.health;
             //xp = playerStats.xp;
             //gold = playerStats.gold;

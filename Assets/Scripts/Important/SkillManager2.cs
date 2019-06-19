@@ -439,7 +439,7 @@ public class SkillManager2 : MonoBehaviour
             case "InstantKill":
                 return InstantKillB;
             default:
-                Debug.Log("null");
+
                 return null;
         }
     }
