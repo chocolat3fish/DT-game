@@ -1,7 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
 using UnityEngine;
-using System;
 using UnityEngine.SceneManagement;
 
 //******MUST BE CHILDED TO AN ENEMY ENEMYSTATS MUST BE SET INSPECTOR******\\
@@ -44,6 +42,15 @@ public class EnemyMonitor : MonoBehaviour
     public bool questTarget;
     public string questReward;
     public string questKey;
+
+    [Header("Animation")]
+    public string attack, idle, walk, charge, stopCharge;
+    private bool wasCharging;
+    private bool attacking;
+    private bool stopping;
+    private bool idling;
+    private bool charging;
+    private bool walking;
 
     //Name of the loot drop prefab
     private string lootDropPreFabName = "Loot Drop";
@@ -147,6 +154,86 @@ public class EnemyMonitor : MonoBehaviour
         {
             spriteRenderer.flipX = false;
         }
+
+        //Animation statements determining what animations to play depending on enemy class/action
+
+        if (parentController.patrol && !attacking)
+        {
+            idling = false;
+            walking = true;
+            attacking = false;
+            charging = false;
+            stopping = false;
+        }
+
+        if (parentController.chargingLeft || parentController.chargingRight)
+        {
+            if (parentController.chargingLeft)
+            {
+                spriteRenderer.flipX = true;
+            }
+            if (parentController.chargingRight)
+            {
+                spriteRenderer.flipX = false;
+            }
+            idling = false;
+            walking = false;
+            attacking = false;
+            charging = true;
+            stopping = false;
+            wasCharging = true;
+        }
+        if (!parentController.patrol && (!parentController.chargingLeft || !parentController.chargingRight))
+        {
+            idling = true;
+            walking = false;
+            attacking = false;
+            charging = false;
+            stopping = false;
+        }
+
+        if (!parentController.patrol && (parentController.chargingLeft || parentController.chargingRight))
+        {
+            idling = false;
+            walking = false;
+            attacking = false;
+            charging = true;
+            stopping = false;
+        }
+
+        if ((parentController.charge && transform.position.x <= parentController.patrolPoints[0].position.x 
+            || parentController.charge && transform.position.x >= parentController.patrolPoints[1].position.x)
+            && wasCharging)
+        {
+            idling = false;
+            walking = false;
+            attacking = false;
+            charging = false;
+            stopping = true;
+            wasCharging = false;
+        }
+
+        if (idling)
+        {
+            animator.Play(idle);
+        }
+        if (attacking)
+        {
+            animator.Play(attack);
+        }
+        if (stopping)
+        {
+            animator.Play(stopCharge);
+        }
+        if (charging)
+        {
+            animator.Play(charge);
+        }
+        if (walking)
+        {
+            animator.Play(walk);
+        }
+
 
 
 
@@ -353,7 +440,7 @@ public class EnemyMonitor : MonoBehaviour
                 {
                     enemyAtackDamage = 0.1f;
                 }
-                animator.Play("DShamblerAttack");
+                animator.Play(attack.ToString());
 
                 //Applys the Damage
                 playerControls.currentHealth -= enemyAtackDamage * PersistantGameManager.Instance.damageResistMulti;

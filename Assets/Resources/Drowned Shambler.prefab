@@ -232,6 +232,7 @@ MonoBehaviour:
   rb: {fileID: 0}
   timeOfShake: 0
   inFlight: 0
+  playerPos: {x: 0, y: 0, z: 0}
   jumpChargeCollision: 0
   projectile: 0
   patrol: 1
@@ -248,6 +249,8 @@ MonoBehaviour:
   doJump: 0
   jumpPower: 0
   timeBetweenJumpAndCharge: 0
+  chargingLeft: 0
+  chargingRight: 0
   firingAngle: 0
   gravity: 0
   torque: 0
@@ -481,6 +484,11 @@ MonoBehaviour:
   questTarget: 0
   questReward: 
   questKey: 
+  attack: DShamblerAttack
+  idle: DShamblerWalk
+  walk: DShamblerWalk
+  charge: 
+  stopCharge: 
   waitingForCollision: 0
 --- !u!61 &5063218917151070439
 BoxCollider2D:

@@ -18,13 +18,14 @@ public class PersistantGameManager : MonoBehaviour
 
     [NonSerialized]
     public List<string> possibleItems = new List<string> 
-    { "Dagger of Kaliphase",
-      "Amulet of Honour",
-      "Hood of Sartuka",
-      "Claw of Straphagus",
-      "Jason's Belt",
-      "Steve's Wristband",
-      "Corrupt Key" };
+    {"Dagger of Kaliphase",
+     "Amulet of Honour",
+     "Hood of Sartuka",
+     "Claw of Straphagus",
+     "Jason's Belt",
+     "Steve's Wristband",
+     "Corrupt Key",
+     "Kindred Relic"};
 
     public Quest currentDialogueQuest;
 

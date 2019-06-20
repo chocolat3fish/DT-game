@@ -53,7 +53,7 @@ public class EnemyAttacks : MonoBehaviour
     public bool doJump;
     public float jumpPower;
     public float timeBetweenJumpAndCharge;
-    private bool chargingLeft, chargingRight;
+    public bool chargingLeft, chargingRight;
 
     [Header("Stats for Jump Charge ")]
     public float firingAngle;

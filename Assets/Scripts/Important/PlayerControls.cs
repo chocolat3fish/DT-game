@@ -28,6 +28,7 @@ public class PlayerControls : MonoBehaviour
     public float jumpSpeed;
     public float doubleJumpSpeed;
     public int totalJumps;
+    public int totalGrips;
     private Rigidbody2D playerRigidbody;
     private BoxCollider2D collider;
 
@@ -83,6 +84,8 @@ public class PlayerControls : MonoBehaviour
     private Vector2 playerInput;
     private bool canJump;
     private bool shouldJump;
+    private bool canGrip;
+    private bool wasOnWall;
     [HideInInspector]
     public int currentJumps;
     private bool givenTripleJump;
@@ -143,6 +146,8 @@ public class PlayerControls : MonoBehaviour
             canJump = true;
             shouldJump = false;
             currentJumps = 0;
+            totalGrips = 0;
+            canGrip = true;
             // tells animator to stop playing Jump animation
             animator.SetBool("IsJumping", false);
             collider.sharedMaterial = (PhysicsMaterial2D)Resources.Load("PhysicsMaterials/FloorGrippy");
@@ -150,28 +155,26 @@ public class PlayerControls : MonoBehaviour
 
         if (PlayerIsOnWall() && !justJumped)
         {
-            if (PersistantGameManager.Instance.gripWalls == true)
+            if (PersistantGameManager.Instance.gripWalls == true && canGrip == true && !PlayerIsOnGround())
             {
                 canJump = true;
+                totalGrips += 1;
                 currentJumps = 0;
-                // tells animator to stop playing Jump animation
-                animator.SetBool("IsJumping", false);
+                animator.Play("Grip Wall");
                 collider.sharedMaterial = (PhysicsMaterial2D)Resources.Load("PhysicsMaterials/WallGrippy");
             }
             else
             {
-                collider.sharedMaterial = (PhysicsMaterial2D)Resources.Load("PhysicsMaterials/WallSlippery");
-                /*
-                useFloorGrippy = false;
-                useWallGrippy = false;
-                useWallSlippy = true;
-                */               
+                collider.sharedMaterial = (PhysicsMaterial2D)Resources.Load("PhysicsMaterials/WallSlippery");            
             }
             shouldJump = false;
 
         }
-       
-
+        if (!PlayerIsOnWall() && totalGrips > 0)
+        {
+            canGrip = false;
+            animator.Play("Jumping");
+        }
 
         if (currentHealth <= 0)
         {
@@ -265,7 +268,20 @@ public class PlayerControls : MonoBehaviour
             playerRigidbody.velocity = new Vector2(playerInput.x * moveSpeed * PersistantGameManager.Instance.moveSpeedMulti, playerRigidbody.velocity.y);
         }
         //tells animator what the speed is as a positive value so it can then activate the running/walking animation
-        animator.SetFloat("Speed", Mathf.Abs(playerRigidbody.velocity.x));
+        if (!PlayerIsOnWall() || (PlayerIsOnWall() && currentJumps > 0))
+        {
+            animator.SetFloat("Speed", Mathf.Abs(playerRigidbody.velocity.x));
+        }
+        else if (PlayerIsOnWall() && !PlayerIsOnGround() && PersistantGameManager.Instance.gripWalls)
+        {
+            animator.Play("Grip Wall");
+            animator.SetFloat("Speed", 0f);
+        }
+        else
+        {
+            animator.SetFloat("Speed", 0f);
+            animator.Play("Idle");
+        }
 
 
         //Increases damage resist while moving based on the related skill.
