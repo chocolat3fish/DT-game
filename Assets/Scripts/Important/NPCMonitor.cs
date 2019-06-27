@@ -8,34 +8,38 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System;
 
-//******MUST BE CHILDED TO A GAMEOBJECT ACTING AS A NPC IT MUST HAVE A TO TALK CANVAS CHILDED AND A CANVAS NAMED "Dialouge Canvas" IN THE SCENE******\\
+//******MUST BE CHILDED TO A GAMEOBJECT ACTING AS A NPC IT MUST HAVE A TO TALK CANVAS******\\
 
 //A script that monitors an npc and opens certain canvas at the right time as well as controlling dialouge
 public class NPCMonitor : MonoBehaviour
-{   
-    //different panels in game 
-    private GameObject overlayPanel;
-    public GameObject toTalkPanel;
-
-    private GameObject player;
-
+{  
+    //If the player has talked to npc about a certian quest before
     private bool hasTalkedBefore;
 
-    public bool isTalking;
-    public bool canContinueDialouge;
-    public Quest[] characterQuests;
-    public Quest currentQuest;
+    //Stage 0 = Introductory sentences, Stage 1 = Quest statement, Stage 2 = Quest done
+    private int stageOfConvo;
 
+    //Important quest things
     public string nameOfNpc;
     public string waitingText;
+    public Quest[] characterQuests;
+    [HideInInspector]
+    public Quest currentQuest;
+    [HideInInspector]
+    public bool isTalking, canContinueDialouge;
+
+    //Misc
+    private GameObject player;
     private float dialogueBoxQueryTime;
     private bool dialogueBoxQuery;
     private bool canTalk;
     private bool dialougeBoxOpen;
     private int currentSentenceIndex;
     private bool mGiveItem;
-    //Stage 1 = Quest statement, Stage 2 = Quest done
-    private int stageOfConvo;
+
+    //UI elements
+    private GameObject overlayPanel;
+    public GameObject toTalkPanel;
 
     private Text overlayMainText;
     private Button overlayContinueButton;
@@ -44,30 +48,19 @@ public class NPCMonitor : MonoBehaviour
     private Button overlayAcceptButton;
     private Button overlayInstantCompleteButton;
 
-
     private void Awake()
     {
-
+        //Asigns Panels and Player
         toTalkPanel = transform.Find("ToTalkPanel").gameObject;
         player = FindObjectOfType<PlayerControls>().gameObject;
-
-        /*
-        overlayAcceptButton = overlayPanel.transform.Find("GiveItem").GetComponent<Button>();
-        overlayRewardText = overlayPanel.transform.Find("RewardText").GetComponent<Text>();
-        */
-        //specifically for receiving weapons as rewards
-
-    }
-
-    private void Start()
-    {
+        //Sets everything to its starting state
         toTalkPanel.SetActive(false);
         dialougeBoxOpen = false;
-
     }
 
     private void Update()
     {
+        #region Distance from Player Controls
         float distance = Vector2.Distance(player.transform.position, transform.position);
         if (distance < 3f)
         {
@@ -89,6 +82,9 @@ public class NPCMonitor : MonoBehaviour
                 EndDialogue();
             }
         }
+        #endregion
+
+        #region Start Dialogue with 'M'
         if (canTalk)
         {
             if (Input.GetKeyDown(KeyCode.M))
@@ -105,30 +101,31 @@ public class NPCMonitor : MonoBehaviour
                 {
                     ContinueDialogue();
                 }
-
-
             }
-
         }
+        #endregion
+
+        #region Reset DialogueBoxQuery times 
+        if (dialogueBoxQuery && (dialogueBoxQueryTime < (Time.time - 0.5f)))
         {
-            if (dialogueBoxQuery && (dialogueBoxQueryTime < (Time.time - 0.5f)))
-            {
-                dialogueBoxQuery = false;
-                canContinueDialouge = true;
-            }
+            dialogueBoxQuery = false;
+            canContinueDialouge = true;
         }
-
+        #endregion
 
     }
+
     private IEnumerator CreateDialogueBox()
     {
+        //If the NPC hasn't communicated with PGM before it adds it to the dictionary controlling the quest the enemy is up to
         if (!PersistantGameManager.Instance.characterQuests.ContainsKey(nameOfNpc))
-        {
             PersistantGameManager.Instance.characterQuests.Add(nameOfNpc, 0);
-        }
+
+        //Set the current quest
+        //If there are more quests left to do set it to the correct one
         if (characterQuests.Length - 1 >= PersistantGameManager.Instance.characterQuests[nameOfNpc])
         {
-            print("You suck heaps");
+            //If the quest it already active it retreives it from PGM otherwise just set the quest to the next one
             if (PersistantGameManager.Instance.activeQuests.Contains(characterQuests[PersistantGameManager.Instance.characterQuests[nameOfNpc]].questKey))
             {
                 currentQuest = PersistantGameManager.Instance.possibleQuests[characterQuests[PersistantGameManager.Instance.characterQuests[nameOfNpc]].questKey];
@@ -138,15 +135,18 @@ public class NPCMonitor : MonoBehaviour
             {
                 currentQuest = characterQuests[PersistantGameManager.Instance.characterQuests[nameOfNpc]];
             }
+            //Tells the dialogue button, etc what npc is talking
             PersistantGameManager.Instance.currentDialogueQuest = currentQuest;
         }
+        //Otherwise it sets the the current quest to nothing
         else
         {
-            print("Set Null");
             currentQuest = null;
+            //Tells the dialogue button, etc which npc is talking
             PersistantGameManager.Instance.currentDialogueQuest.questKey = nameOfNpc;
         }
 
+        #region Load and assign the dialogue canvas and the text items within it
         AsyncOperation loadDialogueCanvas = SceneManager.LoadSceneAsync("Dialogue Canvas", LoadSceneMode.Additive);
         while (true)
         {
@@ -175,18 +175,25 @@ public class NPCMonitor : MonoBehaviour
                 yield return new WaitForSecondsRealtime(0.01f);
             }
         }
-        overlayNameText.text = nameOfNpc;
+        #endregion
+
+        //Sets variables to nessecary values for starting dialogue
         stageOfConvo = 0;
         currentSentenceIndex = 0;
         isTalking = true;
         canContinueDialouge = false;
         dialogueBoxQuery = true;
         dialogueBoxQueryTime = Time.time;
+        PersistantGameManager.Instance.dialogueSceneIsOpen = true;
+
+        //Sets dialogue canvas to the nessecary state
+        overlayNameText.text = nameOfNpc;
+        overlayRewardText.text = "";
         overlayAcceptButton.gameObject.SetActive(false);
         overlayContinueButton.gameObject.SetActive(true);
         overlayInstantCompleteButton.gameObject.SetActive(false);
-        overlayRewardText.text = "";
-        PersistantGameManager.Instance.dialogueSceneIsOpen = true;
+        
+        //Make sure that PGM contains the enemy in the dictionary that keeps track of how many enemies are killed 
         if (currentQuest != null)
         {
             if (currentQuest.killEnemies)
@@ -198,6 +205,7 @@ public class NPCMonitor : MonoBehaviour
             }
         }
 
+        //If there is no more quest it shows the waiting text
         if (currentQuest == null)
         {
             StartCoroutine(AddChars(waitingText, overlayMainText));
@@ -205,10 +213,14 @@ public class NPCMonitor : MonoBehaviour
             currentSentenceIndex = 1;
             canContinueDialouge = false;
         }
+
+        //If you have already talked to the npc about a quest runs sentencesBeforeQuest2ndTime
         else if (hasTalkedBefore)
         {
             StartCoroutine(AddChars(currentQuest.sentencesBeforeQuest2ndTime[0], overlayMainText));
         }
+
+        //Run the normal respone 
         else
         {
             try
@@ -218,7 +230,6 @@ public class NPCMonitor : MonoBehaviour
             }
             catch (NullReferenceException)
             {
-                print("You been caught, you naughty boy");
                 StartCoroutine(AddChars(waitingText, overlayMainText));
                 stageOfConvo = 3;
                 currentSentenceIndex = 1;
@@ -228,6 +239,7 @@ public class NPCMonitor : MonoBehaviour
         }
     }
 
+    //Display the Next Sentence + logic for quests
     public void ContinueDialogue()
     {
         //If the quest has been removed end the dialogue

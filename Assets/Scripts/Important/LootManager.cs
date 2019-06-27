@@ -339,7 +339,7 @@ public class LootManager : MonoBehaviour
             newElement = listElement;
 
             newSuffix = weaponElements[newElement];
-            Debug.Log(newSuffix);
+
         }
         else
         {
@@ -511,7 +511,7 @@ public class LootManager : MonoBehaviour
             newElement = listElement;
 
             newSuffix = weaponElements[newElement];
-            Debug.Log(newSuffix);
+           
         }
         else
         {
@@ -538,7 +538,7 @@ public class LootManager : MonoBehaviour
             tempSpeed = random.NextDouble();
             if (tempSpeed >= 0.5)
             {
-                Debug.Log(tempSpeed);
+
                 break;
             }
         }
@@ -566,12 +566,7 @@ public class LootManager : MonoBehaviour
 
 
 
-        Debug.Log(weaponType);
-        Debug.Log(newPrefix);
-        Debug.Log(newDamage);
-        Debug.Log(newAttackSpeed);
-        Debug.Log(newRange);
-        Debug.Log(newLevel);
+       
         
         return new Weapon(weaponType, newPrefix, newElement, newSuffix, newDamage, newAttackSpeed / (float)PersistantGameManager.Instance.attackSpeedMulti, newAttackSpeed, newRange, newLevel);
     }
