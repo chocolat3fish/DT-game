@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 
 //******MUST BE APPLYED TO THE LOOT DROP PREFAB******\\
@@ -141,9 +142,11 @@ public class LootDropMonitor : MonoBehaviour
                 {
                     PersistantGameManager.Instance.itemInventory.Add(item, 0);
                 }
-
                 PersistantGameManager.Instance.itemInventory[item] += 1;
-                Destroy(gameObject);
+                TextMeshProUGUI text = GameObject.FindGameObjectWithTag("Updates").GetComponent<TextMeshProUGUI>();
+                text.text = item + " added to inventory";
+            
+            Destroy(gameObject);
             }
 
         }

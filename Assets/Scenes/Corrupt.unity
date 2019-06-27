@@ -1934,7 +1934,7 @@ PrefabInstance:
     - target: {fileID: 4761653873820443592, guid: 65da966ae40fc4190be9ad0efe7db603,
         type: 3}
       propertyPath: characterQuests.Array.data[1].sentencesBeforeQuest2ndTime.Array.data[0]
-      value: 
+      value: Done?
       objectReference: {fileID: 0}
     - target: {fileID: 4761653873820443592, guid: 65da966ae40fc4190be9ad0efe7db603,
         type: 3}
@@ -8923,7 +8923,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0.10212708, g: 0.4245283, b: 0.13706166, a: 0}
   m_projectionMatrixMode: 1
   m_SensorSize: {x: 36, y: 24}
   m_LensShift: {x: 0, y: 0}

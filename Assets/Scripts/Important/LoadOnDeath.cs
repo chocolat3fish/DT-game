@@ -9,7 +9,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 public class LoadOnDeath : MonoBehaviour
 {
-    public Text L1T, L2T, L3T;
+    public Text L1T, L2T, L3T, L4T;
     Button Confirm, Decline, Back;
     Timestamps timestamps = new Timestamps();
     Color32 emptyC = new Color32(192, 0, 0, 255);
@@ -19,6 +19,8 @@ public class LoadOnDeath : MonoBehaviour
         L1T = transform.Find("L1T").GetComponent<Text>();
         L2T = transform.Find("L2T").GetComponent<Text>();
         L3T = transform.Find("L3T").GetComponent<Text>();
+        L4T = transform.Find("L4T").GetComponent<Text>();
+
 
         if (!File.Exists(Application.persistentDataPath + "/SavedData/Timestamps.txt"))
         {
@@ -34,6 +36,7 @@ public class LoadOnDeath : MonoBehaviour
             file.Close();
             file = File.Create(Application.persistentDataPath + "/SavedData/Slot3.txt");
             file.Close();
+            file = File.Create(Application.persistentDataPath + "/SavedData/Slot4.txt");
 
             Reset();
         }
@@ -43,6 +46,7 @@ public class LoadOnDeath : MonoBehaviour
         transform.Find("Slot1").GetComponent<Button>().onClick.AddListener(delegate { Load(1); });
         transform.Find("Slot2").GetComponent<Button>().onClick.AddListener(delegate { Load(2); });
         transform.Find("Slot3").GetComponent<Button>().onClick.AddListener(delegate { Load(3); });
+        transform.Find("Slot4").GetComponent<Button>().onClick.AddListener(delegate { Load(4); });
     }
     public Timestamps GetTimestamps()
     {
@@ -79,6 +83,12 @@ public class LoadOnDeath : MonoBehaviour
             L3T.color = emptyC;
             StartCoroutine(Shake(L3T.gameObject, defaultC));
         }
+        else if (slot == 4 && timestamps.S4T == "Empty") 
+        {
+            L4T.color = emptyC;
+            StartCoroutine(Shake(L4T.gameObject, defaultC));
+        }
+
         else
         {
             PersistantGameManager.Instance.LoadDataFromSave(slot);
@@ -91,10 +101,10 @@ public class LoadOnDeath : MonoBehaviour
     {
         StopAllCoroutines();
         timestamps = GetTimestamps();
-        Debug.Log(timestamps.S1T);
         L1T.text = timestamps.S1T;
         L2T.text = timestamps.S2T;
         L3T.text = timestamps.S3T;
+        L4T.text = timestamps.S4T;
     }
 
     IEnumerator Shake(GameObject text, Color32 defaultC)

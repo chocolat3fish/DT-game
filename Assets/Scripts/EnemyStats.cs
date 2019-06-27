@@ -29,7 +29,7 @@ public class EnemyStats : MonoBehaviour
     private void Update()
     {
         enemyLevel.text = "Lvl: " + parent.enemyStats.enemyLevel;
-        enemyHealth.text = Math.Round(parent.currentHealth, 2).ToString() + " / " + Math.Round(parent.enemyStats.enemyHealth, 2).ToString();
+        enemyHealth.text = Math.Round(parent.currentHealth, 2).ToString() + " / " + Math.Round(parent.enemyStats.enemyHealth, 0).ToString();
 
         if (PersistantGameManager.Instance.playerStats.playerLevel >= parent.enemyStats.enemyLevel)
         {

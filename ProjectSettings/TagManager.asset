@@ -14,6 +14,7 @@ TagManager:
   - Roof
   - DialoguePanel
   - Collider
+  - Updates
   layers:
   - Default
   - TransparentFX

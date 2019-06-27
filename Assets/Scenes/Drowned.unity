@@ -2050,7 +2050,7 @@ PrefabInstance:
     - target: {fileID: 4761653873820443592, guid: 65da966ae40fc4190be9ad0efe7db603,
         type: 3}
       propertyPath: characterQuests.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4761653873820443592, guid: 65da966ae40fc4190be9ad0efe7db603,
         type: 3}
@@ -2071,6 +2071,31 @@ PrefabInstance:
         type: 3}
       propertyPath: characterQuests.Array.data[1].sentencesAfterQuestEnd.Array.size
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4761653873820443592, guid: 65da966ae40fc4190be9ad0efe7db603,
+        type: 3}
+      propertyPath: characterQuests.Array.data[0].sentencesAfterQuestEnd.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4761653873820443592, guid: 65da966ae40fc4190be9ad0efe7db603,
+        type: 3}
+      propertyPath: characterQuests.Array.data[2].sentencesBeforeQuest1stTime.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4761653873820443592, guid: 65da966ae40fc4190be9ad0efe7db603,
+        type: 3}
+      propertyPath: characterQuests.Array.data[2].sentencesBeforeQuest2ndTime.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4761653873820443592, guid: 65da966ae40fc4190be9ad0efe7db603,
+        type: 3}
+      propertyPath: characterQuests.Array.data[2].sentencesAfterQuest.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4761653873820443592, guid: 65da966ae40fc4190be9ad0efe7db603,
+        type: 3}
+      propertyPath: characterQuests.Array.data[2].sentencesAfterQuestEnd.Array.size
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4761653873820443592, guid: 65da966ae40fc4190be9ad0efe7db603,
         type: 3}
@@ -2096,8 +2121,9 @@ PrefabInstance:
     - target: {fileID: 4761653873820443592, guid: 65da966ae40fc4190be9ad0efe7db603,
         type: 3}
       propertyPath: characterQuests.Array.data[0].questDescription
-      value: '[drowned leader] has acknowledged your efforts and has requested your
-        help in weakening the Corrupt forces.'
+      value: The Drowned Leader has acknowledged your efforts and has requested your
+        help in weakening the Corrupt forces. He gave you a key to access their lair
+        at the top of the main area.
       objectReference: {fileID: 0}
     - target: {fileID: 4761653873820443592, guid: 65da966ae40fc4190be9ad0efe7db603,
         type: 3}
@@ -2147,8 +2173,9 @@ PrefabInstance:
     - target: {fileID: 4761653873820443592, guid: 65da966ae40fc4190be9ad0efe7db603,
         type: 3}
       propertyPath: characterQuests.Array.data[1].questDescription
-      value: '[drowned leader] has acknowledged your efforts and has requested your
-        help in weakening the Corrupt forces. He wants you to kill 15 Corrupt Throwers.'
+      value: The Drowned Leader has acknowledged your efforts and has requested your
+        help in weakening the Corrupt forces. He gave you a key to access their lair
+        at the top of the main area. He wants you to kill 15 Corrupt Throwers.
       objectReference: {fileID: 0}
     - target: {fileID: 4761653873820443592, guid: 65da966ae40fc4190be9ad0efe7db603,
         type: 3}
@@ -2244,7 +2271,7 @@ PrefabInstance:
     - target: {fileID: 4761653873820443592, guid: 65da966ae40fc4190be9ad0efe7db603,
         type: 3}
       propertyPath: characterQuests.Array.data[1].enemyToKill
-      value: Drowned Thrower
+      value: Corrupt Thrower
       objectReference: {fileID: 0}
     - target: {fileID: 4761653873820443592, guid: 65da966ae40fc4190be9ad0efe7db603,
         type: 3}
@@ -2255,6 +2282,104 @@ PrefabInstance:
         type: 3}
       propertyPath: characterQuests.Array.data[1].weaponValue
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4761653873820443592, guid: 65da966ae40fc4190be9ad0efe7db603,
+        type: 3}
+      propertyPath: characterQuests.Array.data[2].questName
+      value: Reclamation
+      objectReference: {fileID: 0}
+    - target: {fileID: 4761653873820443592, guid: 65da966ae40fc4190be9ad0efe7db603,
+        type: 3}
+      propertyPath: characterQuests.Array.data[2].sentencesBeforeQuest1stTime.Array.data[0]
+      value: Welcome back...
+      objectReference: {fileID: 0}
+    - target: {fileID: 4761653873820443592, guid: 65da966ae40fc4190be9ad0efe7db603,
+        type: 3}
+      propertyPath: characterQuests.Array.data[2].sentencesBeforeQuest2ndTime.Array.data[0]
+      value: Are you done?
+      objectReference: {fileID: 0}
+    - target: {fileID: 4761653873820443592, guid: 65da966ae40fc4190be9ad0efe7db603,
+        type: 3}
+      propertyPath: characterQuests.Array.data[2].questStatment
+      value: A relic of ours was taken by the kindred. I need you to find it. I believe
+        it's somewhere within their lair.
+      objectReference: {fileID: 0}
+    - target: {fileID: 4761653873820443592, guid: 65da966ae40fc4190be9ad0efe7db603,
+        type: 3}
+      propertyPath: characterQuests.Array.data[2].questStatmentWithItem
+      value: Have you found it?
+      objectReference: {fileID: 0}
+    - target: {fileID: 4761653873820443592, guid: 65da966ae40fc4190be9ad0efe7db603,
+        type: 3}
+      propertyPath: characterQuests.Array.data[2].sentencesAfterQuest.Array.data[0]
+      value: I appreciate the help.
+      objectReference: {fileID: 0}
+    - target: {fileID: 4761653873820443592, guid: 65da966ae40fc4190be9ad0efe7db603,
+        type: 3}
+      propertyPath: characterQuests.Array.data[2].questDescription
+      value: The Drowned Leader has revealed to you that the kindred stole one of
+        their relics. He needs you to find it and get it back to him. The drowned
+        lair is found to the right of the main area.
+      objectReference: {fileID: 0}
+    - target: {fileID: 4761653873820443592, guid: 65da966ae40fc4190be9ad0efe7db603,
+        type: 3}
+      propertyPath: characterQuests.Array.data[2].sentencesAfterQuestEnd.Array.data[0]
+      value: Thank you.
+      objectReference: {fileID: 0}
+    - target: {fileID: 4761653873820443592, guid: 65da966ae40fc4190be9ad0efe7db603,
+        type: 3}
+      propertyPath: characterQuests.Array.data[2].sentencesAfterQuestEnd.Array.data[1]
+      value: Watch out for the clans though they are quite, lets say, cutthroat
+      objectReference: {fileID: 0}
+    - target: {fileID: 4761653873820443592, guid: 65da966ae40fc4190be9ad0efe7db603,
+        type: 3}
+      propertyPath: characterQuests.Array.data[2].killEnemies
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4761653873820443592, guid: 65da966ae40fc4190be9ad0efe7db603,
+        type: 3}
+      propertyPath: characterQuests.Array.data[2].enemyToKill
+      value: Corrupt Thrower
+      objectReference: {fileID: 0}
+    - target: {fileID: 4761653873820443592, guid: 65da966ae40fc4190be9ad0efe7db603,
+        type: 3}
+      propertyPath: characterQuests.Array.data[2].killRequirement
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 4761653873820443592, guid: 65da966ae40fc4190be9ad0efe7db603,
+        type: 3}
+      propertyPath: characterQuests.Array.data[2].questKey
+      value: Dr02
+      objectReference: {fileID: 0}
+    - target: {fileID: 4761653873820443592, guid: 65da966ae40fc4190be9ad0efe7db603,
+        type: 3}
+      propertyPath: characterQuests.Array.data[2].weaponType
+      value: Short Sword
+      objectReference: {fileID: 0}
+    - target: {fileID: 4761653873820443592, guid: 65da966ae40fc4190be9ad0efe7db603,
+        type: 3}
+      propertyPath: characterQuests.Array.data[2].XPMultiplier
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4761653873820443592, guid: 65da966ae40fc4190be9ad0efe7db603,
+        type: 3}
+      propertyPath: characterQuests.Array.data[2].giveWeapon
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4761653873820443592, guid: 65da966ae40fc4190be9ad0efe7db603,
+        type: 3}
+      propertyPath: characterQuests.Array.data[2].weaponValue
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4761653873820443592, guid: 65da966ae40fc4190be9ad0efe7db603,
+        type: 3}
+      propertyPath: characterQuests.Array.data[2].returnItem
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4761653873820443592, guid: 65da966ae40fc4190be9ad0efe7db603,
+        type: 3}
+      propertyPath: characterQuests.Array.data[2].questItemName
+      value: Drowned Relic
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 65da966ae40fc4190be9ad0efe7db603, type: 3}

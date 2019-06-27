@@ -464,7 +464,7 @@ RectTransform:
   - {fileID: 551670441}
   - {fileID: 418969412}
   m_Father: {fileID: 520081161}
-  m_RootOrder: 14
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -973,8 +973,8 @@ RectTransform:
   - {fileID: 1025469081}
   - {fileID: 1550091580}
   - {fileID: 602445220}
-  - {fileID: 303572436}
   - {fileID: 1752363716}
+  - {fileID: 303572436}
   m_Father: {fileID: 1839870264}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1697,14 +1697,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4cd19ec11e1dbbd41ac1db47758d69a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  possibleConsumables:
-  - 20%H
-  - 50%H
-  - 100%H
-  - 20%A
-  - 50%A
-  - 100%A
-  - 20%L
   currentDialogueQuest:
     questName: 
     sentencesBeforeQuest1stTime: []
@@ -1714,12 +1706,24 @@ MonoBehaviour:
     sentencesAfterQuest: []
     questDescription: 
     sentencesAfterQuestEnd: []
+    killEnemies: 0
+    enemyToKill: 
+    killRequirement: 0
+    enemiesKilled: 0
+    initialEnemiesKilled: 0
+    definedInitialKills: 0
+    returnItem: 0
     questItemName: 
     questKey: 
+    levelUp: 0
+    levelToReach: 0
+    instantComplete: 0
     questReward: 
     weaponType: 
+    itemName: 
     XPMultiplier: 0
     giveWeapon: 0
+    giveItem: 0
     weaponValue: 0
     questExperience: 0
     levelClaimedAt: 0
@@ -1763,6 +1767,7 @@ MonoBehaviour:
   player: {fileID: 0}
   _camera: {fileID: 0}
   magicBar: {fileID: 0}
+  levelUpController: {fileID: 0}
   hasMagic: 0
   currentActiveAbility: 
   abilityIsActive: 0
@@ -1779,6 +1784,7 @@ MonoBehaviour:
   tutorialComplete: 0
   lastEnemyLevel: 0
   totalExperience: 0
+  levellingUp: 0
   GodMode: 0
   currentWeapon:
     itemName: 
@@ -1818,8 +1824,6 @@ MonoBehaviour:
   gripWalls: 0
   maxedSpeed: 0
   damageResist: 0
-  equippedItemOne: 
-  equippedItemTwo: 
   justReloaded: 0
   completedQuests: []
 --- !u!4 &813484628
@@ -3583,7 +3587,7 @@ RectTransform:
   m_Children:
   - {fileID: 1790305377}
   m_Father: {fileID: 520081161}
-  m_RootOrder: 15
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
