@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 public class PersistantGameManager : MonoBehaviour
@@ -18,13 +19,15 @@ public class PersistantGameManager : MonoBehaviour
 
     [NonSerialized]
     public List<string> possibleItems = new List<string> 
-    { "Dagger of Kaliphase",
-      "Amulet of Honour",
-      "Hood of Sartuka",
-      "Claw of Straphagus",
-      "Jason's Belt",
-      "Steve's Wristband",
-      "Corrupt Key" };
+    {"Dagger of Kaliphase",
+     "Amulet of Honour",
+     "Hood of Sartuka",
+     "Claw of Straphagus",
+     "Jason's Belt",
+     "Steve's Wristband",
+     "Corrupt Key",
+     "Kindred Relic",
+     "Drowned Relic"};
 
     public Quest currentDialogueQuest;
 
@@ -73,6 +76,7 @@ public class PersistantGameManager : MonoBehaviour
     public PlayerControls player;
     public GameObject _camera;
     public GameObject magicBar;
+    public LevelUpController levelUpController;
 
 
     [Header("Skill Trackers")]
@@ -119,6 +123,7 @@ public class PersistantGameManager : MonoBehaviour
 
     [Header("Stats")]
     public float totalExperience;
+    public bool levellingUp;
     public bool GodMode;
     public Weapon currentWeapon;
     public List<Weapon> playerWeaponInventory = new List<Weapon>();
@@ -411,12 +416,12 @@ public class PersistantGameManager : MonoBehaviour
             while (playerStats.playerExperience > totalExperience)
             {
                 float oldTotalExperience = totalExperience;
+                levellingUp = true;
                 //levels += 1;
                 skillPoints += 1;
                 playerStats.playerLevel += 1;
                 player.stockHealth = (float)(54f * Math.Pow(playerStats.playerLevel, 2) + 10f);
                 CheckSkills();
-                Debug.Log("Level up + old total: " + oldTotalExperience);
                 totalExperience = (float)((0.04 * Math.Pow(playerStats.playerLevel, 3)) + (0.8 * Math.Pow(playerStats.playerLevel, 2)) + 100);
                 playerStats.playerExperience -= oldTotalExperience;
             }
@@ -708,7 +713,7 @@ public class PersistantGameManager : MonoBehaviour
     {
         while(true)
         {
-            yield return new WaitForSecondsRealtime(300);
+            yield return new WaitForSecondsRealtime(120);
 
             if (!File.Exists(Application.persistentDataPath + "/SavedData/Timestamps.txt"))
             {
@@ -729,9 +734,17 @@ public class PersistantGameManager : MonoBehaviour
                 Reset();
             }
             Timestamps timestamps = GetTimestamps();
-            timestamps.S4T = DateTime.Now.ToString().Substring(0, DateTime.Now.ToString().Length - 8);
+            timestamps.S4T = "Autosave\n " + DateTime.Now.ToString().Substring(0, DateTime.Now.ToString().Length - 8);
             SaveTimestamps(timestamps);
             SaveGameManagerData(4);
+            TextMeshProUGUI text = GameObject.FindGameObjectWithTag("Updates").GetComponent<TextMeshProUGUI>();
+            for(int i = 0; i <= 5; i ++)
+            {
+                text.text = "Autosaving" + new string('.', i);
+                yield return new WaitForSecondsRealtime(0.2f);
+            }
+            text.text = "";
+
         }
 
     }

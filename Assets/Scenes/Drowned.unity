@@ -158,7 +158,7 @@ Transform:
   - {fileID: 1283491492}
   - {fileID: 670140002}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1839735485 &57157784
 Tilemap:
@@ -422,7 +422,7 @@ PrefabInstance:
     - target: {fileID: 5063218916052873963, guid: eb8d73f0f74b640a99988988e3a1caae,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -12.4
+      value: -12.747
       objectReference: {fileID: 0}
     - target: {fileID: 5063218916052873963, guid: eb8d73f0f74b640a99988988e3a1caae,
         type: 3}
@@ -581,7 +581,7 @@ PrefabInstance:
     - target: {fileID: 5063218916052873963, guid: 36dae663a273a4bdf84eceba371463b3,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -1.8
+      value: -2.147
       objectReference: {fileID: 0}
     - target: {fileID: 5063218916052873963, guid: 36dae663a273a4bdf84eceba371463b3,
         type: 3}
@@ -710,7 +710,7 @@ PrefabInstance:
     - target: {fileID: 5063218916052873963, guid: eb8d73f0f74b640a99988988e3a1caae,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -12.25
+      value: -12.597
       objectReference: {fileID: 0}
     - target: {fileID: 5063218916052873963, guid: eb8d73f0f74b640a99988988e3a1caae,
         type: 3}
@@ -839,7 +839,7 @@ PrefabInstance:
     - target: {fileID: 5063218916052873963, guid: 36dae663a273a4bdf84eceba371463b3,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.99
+      value: -1.3370001
       objectReference: {fileID: 0}
     - target: {fileID: 5063218916052873963, guid: 36dae663a273a4bdf84eceba371463b3,
         type: 3}
@@ -1735,6 +1735,93 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!1 &880527441
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 880527444}
+  - component: {fileID: 880527443}
+  - component: {fileID: 880527442}
+  m_Layer: 5
+  m_Name: Minimap Camera
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!81 &880527442
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 880527441}
+  m_Enabled: 1
+--- !u!20 &880527443
+Camera:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 880527441}
+  m_Enabled: 1
+  serializedVersion: 2
+  m_ClearFlags: 1
+  m_BackGroundColor: {r: 1, g: 1, b: 1, a: 0}
+  m_projectionMatrixMode: 1
+  m_SensorSize: {x: 36, y: 24}
+  m_LensShift: {x: 0, y: 0}
+  m_GateFitMode: 2
+  m_FocalLength: 50
+  m_NormalizedViewPortRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
+  near clip plane: 0.3
+  far clip plane: 1000
+  field of view: 54
+  orthographic: 1
+  orthographic size: 35.696053
+  m_Depth: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 12288
+  m_RenderingPath: -1
+  m_TargetTexture: {fileID: 8400000, guid: aa10b383c43e24cbf8c4d80ad0ae53e3, type: 2}
+  m_TargetDisplay: 0
+  m_TargetEye: 3
+  m_HDR: 1
+  m_AllowMSAA: 1
+  m_AllowDynamicResolution: 0
+  m_ForceIntoRT: 0
+  m_OcclusionCulling: 1
+  m_StereoConvergence: 10
+  m_StereoSeparation: 0.022
+--- !u!224 &880527444
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 880527441}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -20.8}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -63.673256, y: 17.801952}
+  m_SizeDelta: {x: 114.66, y: 94.8}
+  m_Pivot: {x: 0.5439316, y: 0.63525265}
 --- !u!1 &906856459
 GameObject:
   m_ObjectHideFlags: 0
@@ -1963,7 +2050,7 @@ PrefabInstance:
     - target: {fileID: 4761653873820443592, guid: 65da966ae40fc4190be9ad0efe7db603,
         type: 3}
       propertyPath: characterQuests.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4761653873820443592, guid: 65da966ae40fc4190be9ad0efe7db603,
         type: 3}
@@ -1984,6 +2071,31 @@ PrefabInstance:
         type: 3}
       propertyPath: characterQuests.Array.data[1].sentencesAfterQuestEnd.Array.size
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4761653873820443592, guid: 65da966ae40fc4190be9ad0efe7db603,
+        type: 3}
+      propertyPath: characterQuests.Array.data[0].sentencesAfterQuestEnd.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4761653873820443592, guid: 65da966ae40fc4190be9ad0efe7db603,
+        type: 3}
+      propertyPath: characterQuests.Array.data[2].sentencesBeforeQuest1stTime.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4761653873820443592, guid: 65da966ae40fc4190be9ad0efe7db603,
+        type: 3}
+      propertyPath: characterQuests.Array.data[2].sentencesBeforeQuest2ndTime.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4761653873820443592, guid: 65da966ae40fc4190be9ad0efe7db603,
+        type: 3}
+      propertyPath: characterQuests.Array.data[2].sentencesAfterQuest.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4761653873820443592, guid: 65da966ae40fc4190be9ad0efe7db603,
+        type: 3}
+      propertyPath: characterQuests.Array.data[2].sentencesAfterQuestEnd.Array.size
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4761653873820443592, guid: 65da966ae40fc4190be9ad0efe7db603,
         type: 3}
@@ -2009,8 +2121,9 @@ PrefabInstance:
     - target: {fileID: 4761653873820443592, guid: 65da966ae40fc4190be9ad0efe7db603,
         type: 3}
       propertyPath: characterQuests.Array.data[0].questDescription
-      value: '[drowned leader] has acknowledged your efforts and has requested your
-        help in weakening the Corrupt forces.'
+      value: The Drowned Leader has acknowledged your efforts and has requested your
+        help in weakening the Corrupt forces. He gave you a key to access their lair
+        at the top of the main area.
       objectReference: {fileID: 0}
     - target: {fileID: 4761653873820443592, guid: 65da966ae40fc4190be9ad0efe7db603,
         type: 3}
@@ -2060,8 +2173,9 @@ PrefabInstance:
     - target: {fileID: 4761653873820443592, guid: 65da966ae40fc4190be9ad0efe7db603,
         type: 3}
       propertyPath: characterQuests.Array.data[1].questDescription
-      value: '[drowned leader] has acknowledged your efforts and has requested your
-        help in weakening the Corrupt forces. He wants you to kill 15 Corrupt Throwers.'
+      value: The Drowned Leader has acknowledged your efforts and has requested your
+        help in weakening the Corrupt forces. He gave you a key to access their lair
+        at the top of the main area. He wants you to kill 15 Corrupt Throwers.
       objectReference: {fileID: 0}
     - target: {fileID: 4761653873820443592, guid: 65da966ae40fc4190be9ad0efe7db603,
         type: 3}
@@ -2157,7 +2271,7 @@ PrefabInstance:
     - target: {fileID: 4761653873820443592, guid: 65da966ae40fc4190be9ad0efe7db603,
         type: 3}
       propertyPath: characterQuests.Array.data[1].enemyToKill
-      value: Drowned Thrower
+      value: Corrupt Thrower
       objectReference: {fileID: 0}
     - target: {fileID: 4761653873820443592, guid: 65da966ae40fc4190be9ad0efe7db603,
         type: 3}
@@ -2168,6 +2282,104 @@ PrefabInstance:
         type: 3}
       propertyPath: characterQuests.Array.data[1].weaponValue
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4761653873820443592, guid: 65da966ae40fc4190be9ad0efe7db603,
+        type: 3}
+      propertyPath: characterQuests.Array.data[2].questName
+      value: Reclamation
+      objectReference: {fileID: 0}
+    - target: {fileID: 4761653873820443592, guid: 65da966ae40fc4190be9ad0efe7db603,
+        type: 3}
+      propertyPath: characterQuests.Array.data[2].sentencesBeforeQuest1stTime.Array.data[0]
+      value: Welcome back...
+      objectReference: {fileID: 0}
+    - target: {fileID: 4761653873820443592, guid: 65da966ae40fc4190be9ad0efe7db603,
+        type: 3}
+      propertyPath: characterQuests.Array.data[2].sentencesBeforeQuest2ndTime.Array.data[0]
+      value: Are you done?
+      objectReference: {fileID: 0}
+    - target: {fileID: 4761653873820443592, guid: 65da966ae40fc4190be9ad0efe7db603,
+        type: 3}
+      propertyPath: characterQuests.Array.data[2].questStatment
+      value: A relic of ours was taken by the kindred. I need you to find it. I believe
+        it's somewhere within their lair.
+      objectReference: {fileID: 0}
+    - target: {fileID: 4761653873820443592, guid: 65da966ae40fc4190be9ad0efe7db603,
+        type: 3}
+      propertyPath: characterQuests.Array.data[2].questStatmentWithItem
+      value: Have you found it?
+      objectReference: {fileID: 0}
+    - target: {fileID: 4761653873820443592, guid: 65da966ae40fc4190be9ad0efe7db603,
+        type: 3}
+      propertyPath: characterQuests.Array.data[2].sentencesAfterQuest.Array.data[0]
+      value: I appreciate the help.
+      objectReference: {fileID: 0}
+    - target: {fileID: 4761653873820443592, guid: 65da966ae40fc4190be9ad0efe7db603,
+        type: 3}
+      propertyPath: characterQuests.Array.data[2].questDescription
+      value: The Drowned Leader has revealed to you that the kindred stole one of
+        their relics. He needs you to find it and get it back to him. The drowned
+        lair is found to the right of the main area.
+      objectReference: {fileID: 0}
+    - target: {fileID: 4761653873820443592, guid: 65da966ae40fc4190be9ad0efe7db603,
+        type: 3}
+      propertyPath: characterQuests.Array.data[2].sentencesAfterQuestEnd.Array.data[0]
+      value: Thank you.
+      objectReference: {fileID: 0}
+    - target: {fileID: 4761653873820443592, guid: 65da966ae40fc4190be9ad0efe7db603,
+        type: 3}
+      propertyPath: characterQuests.Array.data[2].sentencesAfterQuestEnd.Array.data[1]
+      value: Watch out for the clans though they are quite, lets say, cutthroat
+      objectReference: {fileID: 0}
+    - target: {fileID: 4761653873820443592, guid: 65da966ae40fc4190be9ad0efe7db603,
+        type: 3}
+      propertyPath: characterQuests.Array.data[2].killEnemies
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4761653873820443592, guid: 65da966ae40fc4190be9ad0efe7db603,
+        type: 3}
+      propertyPath: characterQuests.Array.data[2].enemyToKill
+      value: Corrupt Thrower
+      objectReference: {fileID: 0}
+    - target: {fileID: 4761653873820443592, guid: 65da966ae40fc4190be9ad0efe7db603,
+        type: 3}
+      propertyPath: characterQuests.Array.data[2].killRequirement
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 4761653873820443592, guid: 65da966ae40fc4190be9ad0efe7db603,
+        type: 3}
+      propertyPath: characterQuests.Array.data[2].questKey
+      value: Dr02
+      objectReference: {fileID: 0}
+    - target: {fileID: 4761653873820443592, guid: 65da966ae40fc4190be9ad0efe7db603,
+        type: 3}
+      propertyPath: characterQuests.Array.data[2].weaponType
+      value: Short Sword
+      objectReference: {fileID: 0}
+    - target: {fileID: 4761653873820443592, guid: 65da966ae40fc4190be9ad0efe7db603,
+        type: 3}
+      propertyPath: characterQuests.Array.data[2].XPMultiplier
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4761653873820443592, guid: 65da966ae40fc4190be9ad0efe7db603,
+        type: 3}
+      propertyPath: characterQuests.Array.data[2].giveWeapon
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4761653873820443592, guid: 65da966ae40fc4190be9ad0efe7db603,
+        type: 3}
+      propertyPath: characterQuests.Array.data[2].weaponValue
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4761653873820443592, guid: 65da966ae40fc4190be9ad0efe7db603,
+        type: 3}
+      propertyPath: characterQuests.Array.data[2].returnItem
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4761653873820443592, guid: 65da966ae40fc4190be9ad0efe7db603,
+        type: 3}
+      propertyPath: characterQuests.Array.data[2].questItemName
+      value: Drowned Relic
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 65da966ae40fc4190be9ad0efe7db603, type: 3}
@@ -2817,7 +3029,7 @@ PrefabInstance:
     - target: {fileID: 5063218916052873963, guid: eb8d73f0f74b640a99988988e3a1caae,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -5.555786
+      value: -5.9027863
       objectReference: {fileID: 0}
     - target: {fileID: 5063218916052873963, guid: eb8d73f0f74b640a99988988e3a1caae,
         type: 3}
@@ -2990,7 +3202,7 @@ PrefabInstance:
     - target: {fileID: 5063218916052873963, guid: eb8d73f0f74b640a99988988e3a1caae,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -5.45
+      value: -5.797
       objectReference: {fileID: 0}
     - target: {fileID: 5063218916052873963, guid: eb8d73f0f74b640a99988988e3a1caae,
         type: 3}
@@ -3119,7 +3331,7 @@ PrefabInstance:
     - target: {fileID: 5063218916052873963, guid: eb8d73f0f74b640a99988988e3a1caae,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -12.25
+      value: -12.597
       objectReference: {fileID: 0}
     - target: {fileID: 5063218916052873963, guid: eb8d73f0f74b640a99988988e3a1caae,
         type: 3}
@@ -3173,93 +3385,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eb8d73f0f74b640a99988988e3a1caae, type: 3}
---- !u!1 &1653578991
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1653578994}
-  - component: {fileID: 1653578993}
-  - component: {fileID: 1653578992}
-  m_Layer: 5
-  m_Name: Minimap Camera
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!81 &1653578992
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1653578991}
-  m_Enabled: 1
---- !u!20 &1653578993
-Camera:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1653578991}
-  m_Enabled: 1
-  serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 1, g: 1, b: 1, a: 0}
-  m_projectionMatrixMode: 1
-  m_SensorSize: {x: 36, y: 24}
-  m_LensShift: {x: 0, y: 0}
-  m_GateFitMode: 2
-  m_FocalLength: 50
-  m_NormalizedViewPortRect:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 1
-    height: 1
-  near clip plane: 0.3
-  far clip plane: 1000
-  field of view: 54
-  orthographic: 1
-  orthographic size: 16.21
-  m_Depth: 0
-  m_CullingMask:
-    serializedVersion: 2
-    m_Bits: 12288
-  m_RenderingPath: -1
-  m_TargetTexture: {fileID: 8400000, guid: aa10b383c43e24cbf8c4d80ad0ae53e3, type: 2}
-  m_TargetDisplay: 0
-  m_TargetEye: 3
-  m_HDR: 1
-  m_AllowMSAA: 1
-  m_AllowDynamicResolution: 0
-  m_ForceIntoRT: 0
-  m_OcclusionCulling: 1
-  m_StereoConvergence: 10
-  m_StereoSeparation: 0.022
---- !u!224 &1653578994
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1653578991}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -20.8}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -68.71045, y: 4.98}
-  m_SizeDelta: {x: 114.66, y: 94.8}
-  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1656277658
 GameObject:
   m_ObjectHideFlags: 0
@@ -3443,7 +3568,7 @@ PrefabInstance:
     - target: {fileID: 5063218916052873963, guid: eb8d73f0f74b640a99988988e3a1caae,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -5.4670634
+      value: -5.8140635
       objectReference: {fileID: 0}
     - target: {fileID: 5063218916052873963, guid: eb8d73f0f74b640a99988988e3a1caae,
         type: 3}
@@ -3681,6 +3806,7 @@ MonoBehaviour:
   jumpSpeed: 6.3
   doubleJumpSpeed: 0.6
   totalJumps: 2
+  totalGrips: 0
   layerMask: 0
   useWallSlippy: 0
   useWallGrippy: 0
@@ -3864,7 +3990,7 @@ PrefabInstance:
     - target: {fileID: 5063218916052873963, guid: 36dae663a273a4bdf84eceba371463b3,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.99
+      value: -1.3370001
       objectReference: {fileID: 0}
     - target: {fileID: 5063218916052873963, guid: 36dae663a273a4bdf84eceba371463b3,
         type: 3}
@@ -3993,7 +4119,7 @@ PrefabInstance:
     - target: {fileID: 5063218916052873963, guid: eb8d73f0f74b640a99988988e3a1caae,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -5.52
+      value: -5.867
       objectReference: {fileID: 0}
     - target: {fileID: 5063218916052873963, guid: eb8d73f0f74b640a99988988e3a1caae,
         type: 3}
@@ -11149,7 +11275,7 @@ PrefabInstance:
     - target: {fileID: 5063218916052873963, guid: eb8d73f0f74b640a99988988e3a1caae,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -12.25
+      value: -12.597
       objectReference: {fileID: 0}
     - target: {fileID: 5063218916052873963, guid: eb8d73f0f74b640a99988988e3a1caae,
         type: 3}
@@ -11278,7 +11404,7 @@ PrefabInstance:
     - target: {fileID: 5063218916052873963, guid: 36dae663a273a4bdf84eceba371463b3,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 5
+      value: 4.653
       objectReference: {fileID: 0}
     - target: {fileID: 5063218916052873963, guid: 36dae663a273a4bdf84eceba371463b3,
         type: 3}
@@ -11412,7 +11538,7 @@ PrefabInstance:
     - target: {fileID: 5063218916052873963, guid: eb8d73f0f74b640a99988988e3a1caae,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -12.25
+      value: -12.597
       objectReference: {fileID: 0}
     - target: {fileID: 5063218916052873963, guid: eb8d73f0f74b640a99988988e3a1caae,
         type: 3}

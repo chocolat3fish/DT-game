@@ -656,6 +656,7 @@ public class NPCMonitor : MonoBehaviour
             {
                 yield return null;
             }
+
             
         }
     }

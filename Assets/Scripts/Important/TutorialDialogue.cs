@@ -106,11 +106,32 @@ public class TutorialDialogue : MonoBehaviour
         bool shouldWait = false;
         foreach (char ch in sentence)
         {
+            if(previousChar == "/"[0])
+            {
+                switch(ch.ToString())
+                {
+                    case "w":
+                        yield return new WaitForSecondsRealtime(0.5f);
+                        previousChar = "a"[0];
+                        shouldWait = true;
+                        continue;
+
+                    case "d":
+                        canContinueDialogue = true;
+                        continue;
+
+                    case "r":
+                        yield return new WaitForSecondsRealtime(1f);
+                        text.text = "";
+                        continue;
+                }
+            }
             if (ch == "/"[0])
             {
                 previousChar = ch;
                 continue;
             }
+            /*
             if (ch == "w"[0] && previousChar == "/"[0])
             {
                 yield return new WaitForSecondsRealtime(0.5f);
@@ -129,13 +150,16 @@ public class TutorialDialogue : MonoBehaviour
                 text.text = "";
                 continue;
             }
+            */
+           
             previousChar = ch;
             text.text += ch;
-            yield return new WaitForSecondsRealtime(0.005f);
-
+            yield return null;
+            
 
             if (shouldWait)
             {
+                print("waiting");
                 yield return null;
             }
 
