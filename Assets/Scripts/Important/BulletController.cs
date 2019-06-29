@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//This script makes a game object fly towards the player
 public class BulletController : MonoBehaviour
 {
     private GameObject player;
@@ -15,14 +16,20 @@ public class BulletController : MonoBehaviour
     private void Awake()
     {
         player = FindObjectOfType<PlayerControls>().gameObject;
+        startPosition = transform.position;
+        //specified where the projectile should go to
         launchAtPos = (player.transform.position - transform.position) * 100;
+        //Starts the projectiles movement
         transform.position = Vector2.MoveTowards(transform.position, launchAtPos, Time.deltaTime * speed);
     }
 
     private void Update()
     {
+        //Keeps the projectile moving
         transform.position = Vector2.MoveTowards(transform.position, launchAtPos, Time.deltaTime * speed);
 
+
+        //If the projectile is to far away from the enemy it disappers or if the enemy is dead if it is too far away from the start position
         try
         {
             if (Vector2.Distance(transform.position, enemyWhoFiredThis.transform.position) > range)
@@ -45,6 +52,7 @@ public class BulletController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        //If it hits the player deal damage
         if (collision.gameObject == player)
         {
             if (Time.timeScale != 0f)
@@ -67,11 +75,14 @@ public class BulletController : MonoBehaviour
          
 
         }
+        //If it hits anything other than the enemy that fired it destroys itself
         else if (collision.gameObject != enemyWhoFiredThis)
         {
             Destroy(gameObject);
         }
     }
+
+    //Some math for calculating angles, returns a number which is the angle between 2 points
     private float FindAngleBetweenPoints(Vector2 A, Vector2 B)
     {
         Vector2 C = B - A;

@@ -7,6 +7,7 @@ using System.IO;
 using System;
 using System.Runtime.Serialization.Formatters.Binary;
 
+//This script controls saving and loading
 public class LoadAndSave : MonoBehaviour
 {
     public Text L1T, L2T, L3T;

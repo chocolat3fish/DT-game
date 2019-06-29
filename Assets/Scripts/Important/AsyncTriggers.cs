@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+
+//This Script adds scenes from the async scenes folder
 public class AsyncTriggers : MonoBehaviour
 {
     public GameObject dialoguePanel;
     private void Start()
     {
+        //opens the main canvas this has all the normal player data
         StartCoroutine(PersistantGameManager.Instance.loadMainCanvas());
     }
     private void Update()
@@ -14,6 +17,7 @@ public class AsyncTriggers : MonoBehaviour
         //Open Menu Canvas
         if (Input.GetKeyDown(KeyCode.Tab) && !PersistantGameManager.Instance.menuCanvasOpen && Time.timeScale != 0 && !PersistantGameManager.Instance.bugReportSceneIsOpen && !PersistantGameManager.Instance.saveAndLoadSceneIsOpen)
         {
+            //Disables the dialogue canvas but keeps it there to be turned on at the end
             if (PersistantGameManager.Instance.dialogueSceneIsOpen)
             {
                 if (dialoguePanel == null)
@@ -32,7 +36,6 @@ public class AsyncTriggers : MonoBehaviour
             if(PersistantGameManager.Instance.bugReportSceneIsOpen)
             {
                 CloseBugReportCanvas();
-                
             }
             else if(PersistantGameManager.Instance.saveAndLoadSceneIsOpen)
             {
@@ -74,6 +77,7 @@ public class AsyncTriggers : MonoBehaviour
         //Open Character Canvas
         else if (Input.GetKeyDown(KeyCode.U) && Time.timeScale != 0 && !PersistantGameManager.Instance.characterScreenOpen && !PersistantGameManager.Instance.bugReportSceneIsOpen && !PersistantGameManager.Instance.saveAndLoadSceneIsOpen)
         {
+
             if (PersistantGameManager.Instance.dialogueSceneIsOpen)
             {
                 if (dialoguePanel == null)
@@ -101,6 +105,7 @@ public class AsyncTriggers : MonoBehaviour
                 dialoguePanel = null;
             }
         }
+        //Makes sure that the menu canvas and character screen are not open at the same time
         if (PersistantGameManager.Instance.menuCanvasOpen && PersistantGameManager.Instance.characterScreenOpen)
         {
 
@@ -109,7 +114,8 @@ public class AsyncTriggers : MonoBehaviour
             PersistantGameManager.Instance.skillsScreenOpen = false;
         }
     } 
-
+    
+    //Opens the compare canvas with the weapon specified
     public void OpenCompareCanvas(Weapon compareWeapon)
     {
         if (PersistantGameManager.Instance.dialogueSceneIsOpen && dialoguePanel == null)
@@ -125,6 +131,10 @@ public class AsyncTriggers : MonoBehaviour
         SceneManager.LoadSceneAsync("Compare Canvas", LoadSceneMode.Additive);
         Time.timeScale = 0;
     }
+
+
+
+    //Obviously named
     public void OpenBugReportCanvas()
     {
         PersistantGameManager.Instance.bugReportSceneIsOpen = true;

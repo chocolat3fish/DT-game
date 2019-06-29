@@ -6,12 +6,13 @@ public class DetectorSensors : MonoBehaviour
 {
     public PlayerControls player;
 
-    //Stores what beats what in the element paper-scissors-rock
+    //Stores what beats what in the element paper-scissors-rock format
     public static List<string> bloodBeats = new List<string> { "Venom", "Shadow" };
     public static List<string> venomBeats = new List<string> { "Shadow", "Void" };
     public static List<string> waterBeats = new List<string> { "Blood", "Venom" };
     public static List<string> shadowBeats = new List<string> { "Water", "Void" };
     public static List<string> voidBeats = new List<string> { "Blood", "Water" };
+
     public static Dictionary<string, List<string>> weaponElements = new Dictionary<string, List<string>>
     {
         {"Blood", bloodBeats},
@@ -50,10 +51,14 @@ public class DetectorSensors : MonoBehaviour
                 elementDamage = 0.5f;
             }
 
+            //Calculates damage then calculates the healing the player does
             double newPlayerDamage = player.CalculatePlayerDamage(elementDamage);
             float playerHealthSteal = player.CalculatePlayerHealing();
+
+            //Deals damage and adds health
             enemy.currentHealth -= newPlayerDamage;
             player.currentHealth += playerHealthSteal;
+
             player.attackTime = Time.time;
             if (player.currentHealth > player.totalHealth)
             {

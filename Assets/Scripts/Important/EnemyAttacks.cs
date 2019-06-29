@@ -69,34 +69,40 @@ public class EnemyAttacks : MonoBehaviour
     {
         enemy = gameObject.transform.Find("Enemy").gameObject;
         enemyMonitor = enemy.GetComponent<EnemyMonitor>();
+        player = FindObjectOfType<PlayerControls>().gameObject;
+        rb = enemy.GetComponent<Rigidbody2D>();
+        Physics2D.IgnoreCollision(player.GetComponent<BoxCollider2D>(), enemy.GetComponent<BoxCollider2D>());
 
-
+        //If the attack type needs patrol points it finds them, for redundency if it fails then debug it then destroy itself
         if (patrol || charge)
         {
-            patrolPoints.Add(gameObject.transform.Find("Left Point"));
-            patrolPoints.Add(gameObject.transform.Find("Right Point"));
+            try
+            {
+                patrolPoints.Add(gameObject.transform.Find("Left Point"));
+                patrolPoints.Add(gameObject.transform.Find("Right Point"));
+            }
+            catch
+            {
+                Debug.Log("!!!!!No Patrol Points for " + gameObject.name + "!!!!!");
+                Destroy(gameObject);
+            }
+            
             distanceBetweenPoints = Vector2.Distance(patrolPoints[0].position, patrolPoints[1].position);
         }
-        player = FindObjectOfType<PlayerControls>().gameObject;
+
+        //if it is a charge enemy set it to the left most point then set it to move right
         if (charge)
         {
             enemy.transform.position = patrolPoints[0].transform.position;
             currentPointIndex = 1;
         }
-        rb = enemy.GetComponent<Rigidbody2D>();
-        Physics2D.IgnoreCollision(player.GetComponent<BoxCollider2D>(), enemy.GetComponent<BoxCollider2D>());
+
         if (patrol)
         {
             patrolling = true;
-          }
+        }
 
     }
-
-    void Start()
-    {
-       
-    }
-
 
 
     void Update()
@@ -104,18 +110,20 @@ public class EnemyAttacks : MonoBehaviour
 
         if (patrolling)
         {
+            //Move Back and forth between points
             enemy.transform.position = Vector2.MoveTowards(enemy.transform.position, patrolPoints[currentPointIndex].transform.position, Time.deltaTime * moveSpeed);
             if (Vector2.Distance(enemy.transform.position, patrolPoints[currentPointIndex].position) < .2f)
             {
-
-                if (currentPointIndex == 0) { currentPointIndex = 1; }
-                else if (currentPointIndex == 1) { currentPointIndex = 0; }
+                //Makes the enemy face the right way and make it move towards the correct point
+                if (currentPointIndex == 0) { currentPointIndex = 1; enemy.GetComponent<SpriteRenderer>().flipX = false; }
+                else if (currentPointIndex == 1) { currentPointIndex = 0; enemy.GetComponent<SpriteRenderer>().flipX = true; }
             }
 
         }
 
         if (projectile)
         {
+            //Face towards the player
             if (player.transform.position.x > enemy.transform.position.x)
             {
                 enemy.GetComponent<SpriteRenderer>().flipX = false;
@@ -125,6 +133,7 @@ public class EnemyAttacks : MonoBehaviour
                 enemy.GetComponent<SpriteRenderer>().flipX = true;
             }
 
+            //Launch shot at the correct delay
             if (Time.time > timeOfShot + shootSpeed)
             {
                 Fire();
@@ -132,22 +141,31 @@ public class EnemyAttacks : MonoBehaviour
 
             }
         }
+        //If is preparing for a charge
         if (charge && !inFlight)
         {
+            //Check if the player is within the enemies zone
             float distanceFromZero = Vector2.Distance(patrolPoints[0].transform.position, player.transform.position);
             float distanceFromOne = Vector2.Distance(patrolPoints[1].transform.position, player.transform.position);
             bool isInYOfPointZero = patrolPoints[0].position.y + 2 > player.transform.position.y && patrolPoints[0].position.y - 2 < player.transform.position.y;
             bool isInYOfPointOne = patrolPoints[1].position.y + 2 > player.transform.position.y && patrolPoints[1].position.y - 2 < player.transform.position.y;
             isInZone = distanceFromZero < distanceBetweenPoints && distanceFromOne < distanceBetweenPoints && isInYOfPointZero && isInYOfPointOne;
+
+            //If the player is in zone and hasn't jumped yet and should
             if (isInZone && !hasJumped && Time.time > timeOfCharge + chargeCoolDown)
             {
+                //Stop moving if moving
                 if (patrol)
                 {
                     patrolling = false;
                 }
                 hasJumped = true;
                 timeOfJump = Time.time;
+
+                //Shake
                 StartCoroutine(Shake());
+
+                //Save the player position and works out the direction to charge or charge
                 if (player.transform.position.x < enemy.transform.position.x)
                 {
                     if (!JumpCharge)
@@ -175,11 +193,13 @@ public class EnemyAttacks : MonoBehaviour
                     }
 
                 }
+                //Do a small jump if wanted
                 if (doJump)
                 {
                     rb.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
                 }
             }
+            //Charge to the left
             if (chargingLeft && Time.time > timeOfJump + timeBetweenJumpAndCharge)
             {
                 timeOfCharge = Time.time;
@@ -196,6 +216,7 @@ public class EnemyAttacks : MonoBehaviour
                 }
 
             }
+            //Charge to the right
             if (chargingRight && Time.time > timeOfJump + timeBetweenJumpAndCharge)
             {
                 timeOfCharge = Time.time;
@@ -211,18 +232,14 @@ public class EnemyAttacks : MonoBehaviour
                 }
 
             }
+
+            //Proform the jump charge
             if (jumpCharging && Time.time > timeOfJump + timeBetweenJumpAndCharge)
-            {
-                distanceFromZero = Vector2.Distance(patrolPoints[0].transform.position, player.transform.position);
-                distanceFromOne = Vector2.Distance(patrolPoints[1].transform.position, playerPos);
-                isInYOfPointZero = patrolPoints[0].position.y + 2 > playerPos.y && patrolPoints[0].position.y - 2 < playerPos.y;
-                isInYOfPointOne = patrolPoints[1].position.y + 2 > playerPos.y && patrolPoints[1].position.y - 2 < playerPos.y;
-                isInZone = distanceFromZero < distanceBetweenPoints && distanceFromOne < distanceBetweenPoints && isInYOfPointZero && isInYOfPointOne;
+            { 
                 float targetDistance = Vector3.Distance(enemy.transform.position, playerPos);
-                print("no");
-                if((enemy.transform.position.x - playerPos.x < -0.5 || enemy.transform.position.x - playerPos.x > 0.5) && isInZone )
+
+                if((enemy.transform.position.x - playerPos.x < -0.5 || enemy.transform.position.x - playerPos.x > 0.5))
                 {
-                    print("yes");
                     timeOfCharge = Time.time;
                     jumpCharging = false;
                     hasJumped = false;
@@ -257,12 +274,13 @@ public class EnemyAttacks : MonoBehaviour
 
                     Vector2 vel = new Vector2(Vx * direction.x, Vy);
 
+                    //Stops errors which randomly occur
                     if(!float.IsPositiveInfinity(vel.x) && !float.IsPositiveInfinity(vel.y) && !float.IsNegativeInfinity(vel.x) && !float.IsNegativeInfinity(vel.y))
                     {
                         rb.AddForce(vel, ForceMode2D.Impulse);
                         rb.GetComponent<Rigidbody2D>().AddTorque(torque);
                     }
-
+                    //makes the enemy not move for a little bit after jumping
                     if (patrol)
                     {
                         StartCoroutine(TurnOffPatrollingForTime(2.5f));
@@ -288,6 +306,7 @@ public class EnemyAttacks : MonoBehaviour
 
 
         }
+        //Freezes the enemy when it touches down after a jump
         if (jumpChargeCollision)
         {
             rb.velocity = Vector3.zero;
@@ -295,11 +314,11 @@ public class EnemyAttacks : MonoBehaviour
         }
     }
 
-
+        //Launches Projectile
         private void Fire()
         {
-            float multiplier = 1;
 
+            float multiplier = 1;
             switch (enemyMonitor.enemyStats.enemyTier)
             {
                 case "Light":
@@ -324,6 +343,7 @@ public class EnemyAttacks : MonoBehaviour
 
                 projectileDamage = (float)(multiplier * (5 * Math.Pow(enemyMonitor.enemyStats.enemyLevel, 2) + 10));
             }
+            //Creates the bullet then assigns its stats
             GameObject bullet = Instantiate((GameObject)Resources.Load("Bullet"), enemy.transform.position, Quaternion.identity);
             BulletController bulletStats = bullet.GetComponent<BulletController>();
             bulletStats.range = range;
@@ -359,60 +379,5 @@ public class EnemyAttacks : MonoBehaviour
         yield return new WaitForSeconds(time);
         patrolling = true;
     }
-    /*
-    IEnumerator DoJumpCharge(Vector3 target, bool left)
-    {
-        int leftMultiplier;
-        if(left)
-        {
-            leftMultiplier = -1;
-        }
-        else
-        {
-            leftMultiplier = 1;
-        }
-        waitingForCollision = true;
-        inFlight = true;
-        // Calculate distance to target
-        float target_Distance = Vector3.Distance(enemy.transform.position, target);
-
-        // Calculate the velocity needed to throw the object to the target at specified angle.
-        float projectile_Velocity = target_Distance / (Mathf.Sin(2 * firingAngle * Mathf.Deg2Rad) / gravity);
-
-        // Extract the X  Y componenent of the velocity
-        float Vx = Mathf.Sqrt(projectile_Velocity) * Mathf.Cos(firingAngle * Mathf.Deg2Rad);
-        float Vy = Mathf.Sqrt(projectile_Velocity) * Mathf.Sin(firingAngle * Mathf.Deg2Rad);
-
-        // Calculate flight time.
-        float flightDuration = target_Distance / Vx;
-
-
-        float elapse_time = 0;
-
-        while (elapse_time < flightDuration)
-        {
-            if (jumpChargeCollison)
-            {
-                rb.velocity = new Vector3(0, 0, 0);
-                jumpChargeCollison = false;
-                inFlight = false;
-                patrolling = true;
-                break;
-            }
-            enemy.transform.Translate(((Vy - (gravity * elapse_time)) * Time.deltaTime), Vx * Time.deltaTime, 0);
-
-            elapse_time += Time.deltaTime;
-
-            yield return null;
-        }
-
-        rb.velocity = new Vector3(0, 0, 0);
-        jumpChargeCollison = false;
-
-        inFlight = false;
-        patrolling = true;
-
-        Debug.Log("Finished Jump Charge");
-    }
-    */
+   
 }

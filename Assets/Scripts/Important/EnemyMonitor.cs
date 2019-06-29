@@ -243,21 +243,7 @@ public class EnemyMonitor : MonoBehaviour
             //runs the death method
             EnemyDeath();
         }
-        /*
-        //gets the distance to player
-        distanceToPlayer = Vector2.Distance(transform.position, player.transform.position);
-
-        //if the enemy is in range start the attacking part of the the attack coroutine by settign attacking to true
-        if(distanceToPlayer <= enemyStats.attackRange && !attacking)
-        {
-            attacking = true;
-        }
-        //if the enemy is still attaking and out of range turns off the attacking
-        else if(distanceToPlayer > enemyStats.attackRange && attacking)
-        {
-            attacking = false;
-        }
-        */
+       
 
     }
 
@@ -310,13 +296,7 @@ public class EnemyMonitor : MonoBehaviour
                 lootDropInstanceMonitor.type = 0;
                 lootDropInstanceMonitor.itemStats = newItem.newWeapon;
             }
-            /*
-            else if(newItem.type == 1)
-            {
-                lootDropInstanceMonitor.type = 1;
-                lootDropInstanceMonitor.consumable= newItem.consumable;
-            }
-            */
+            
 
             if (droppedQuestItem == true)
             {
@@ -347,43 +327,7 @@ public class EnemyMonitor : MonoBehaviour
 
 
     }
-    //Obselete
-    /*
-    //The Attack Co-Routine Temporary will be revised eventully
-    IEnumerator Attack()
-    {
-        //Keeps running infinitly
-        while (true) 
-        {
-            //Stops the program from freezing as it loops for ever is the attacking variable is not true
-            yield return new WaitForSeconds(.1f);
-            
-            //if the attacking variable is true and the compare canvas has not frozen everything
-            if (attacking && Time.timeScale != 0)
-            {
-                //wait however long the enemy attack speed is 
-                yield return new WaitForSeconds(enemyStats.attackSpeed);
-
-                //check to make sure the player hasnt left the hit box
-                if(attacking && Time.timeScale != 0)
-                {
-                    //calculates how much damage to apply to the character
-                    float enemyAtackDamage = enemyStats.enemyDamage - playerControls.defence;
-
-                    // if the players defence cancels out the enemys attack to much i.e. making it negative sets the damage to 0.1
-                    if (enemyAtackDamage < 0.1)
-                    {
-                        enemyAtackDamage = 0.1f;
-                    }
-
-                    //Applys the Damage
-                    playerControls.currentHealth -= enemyAtackDamage;
-                }
-                
-            }
-        }
-    }
-    */
+   
     public void GiveExp(string enemyClass, int enemyLevel)
     {
         //Will add Calculation here when ready to balance
