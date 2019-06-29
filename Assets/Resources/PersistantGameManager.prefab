@@ -44,23 +44,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4cd19ec11e1dbbd41ac1db47758d69a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  possibleConsumables:
-  - 20%H
-  - 50%H
-  - 100%H
-  - 20%A
-  - 50%A
-  - 100%A
-  - 20%L
   possibleItems:
   - Dagger of Kaliphase
   - Amulet of Honour
   - Hood of Sartuka
   - Claw of Straphagus
   - Jason's Belt
+  - Steve's Wristband
+  - Corrupt Key
+  - Kindred Relic
+  - Drowned Relic
+  - Magic Potion
+  - Strange Mechanism
   currentDialogueQuest:
     questName: 
-    questType: 
     sentencesBeforeQuest1stTime: []
     sentencesBeforeQuest2ndTime: []
     questStatment: 
@@ -68,8 +65,27 @@ MonoBehaviour:
     sentencesAfterQuest: []
     questDescription: 
     sentencesAfterQuestEnd: []
+    killEnemies: 0
+    enemyToKill: 
+    killRequirement: 0
+    enemiesKilled: 0
+    initialEnemiesKilled: 0
+    definedInitialKills: 0
+    returnItem: 0
     questItemName: 
     questKey: 
+    levelUp: 0
+    levelToReach: 0
+    instantComplete: 0
+    questReward: 
+    weaponType: 
+    itemName: 
+    XPMultiplier: 0
+    giveWeapon: 0
+    giveItem: 0
+    weaponValue: 0
+    questExperience: 0
+    levelClaimedAt: 0
   activeQuests: []
   attackSpeedMulti: 1
   attackRangeMulti: 1
@@ -95,6 +111,8 @@ MonoBehaviour:
   comparingWeapon:
     itemName: 
     itemPrefix: 
+    itemElement: 
+    itemSuffix: 
     itemDamage: 0
     stockItemSpeed: 0
     trueItemSpeed: 0
@@ -108,6 +126,7 @@ MonoBehaviour:
   player: {fileID: 0}
   _camera: {fileID: 0}
   magicBar: {fileID: 0}
+  levelUpController: {fileID: 0}
   hasMagic: 0
   currentActiveAbility: 
   abilityIsActive: 0
@@ -118,15 +137,19 @@ MonoBehaviour:
   checkSkills: 0
   checkExp: 0
   currentScene: 
+  previousScene: 
   currentIndex: 0
   previousIndex: 0
   tutorialComplete: 0
   lastEnemyLevel: 0
   totalExperience: 100
+  levellingUp: 0
   GodMode: 0
   currentWeapon:
     itemName: 
     itemPrefix: 
+    itemElement: 
+    itemSuffix: 
     itemDamage: 0
     stockItemSpeed: 0
     trueItemSpeed: 0
@@ -160,9 +183,8 @@ MonoBehaviour:
   gripWalls: 0
   maxedSpeed: 0
   damageResist: 0
-  equippedItemOne: 
-  equippedItemTwo: 
   justReloaded: 0
+  completedQuests: []
 --- !u!114 &4344124287774354199
 MonoBehaviour:
   m_ObjectHideFlags: 0

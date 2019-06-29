@@ -141,6 +141,7 @@ public class LootDropMonitor : MonoBehaviour
                 if (!PersistantGameManager.Instance.itemInventory.ContainsKey(item))
                 {
                     PersistantGameManager.Instance.itemInventory.Add(item, 0);
+                    print("added");
                 }
                 PersistantGameManager.Instance.itemInventory[item] += 1;
                 TextMeshProUGUI text = GameObject.FindGameObjectWithTag("Updates").GetComponent<TextMeshProUGUI>();

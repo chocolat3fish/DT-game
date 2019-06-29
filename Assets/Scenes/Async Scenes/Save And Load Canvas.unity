@@ -1697,6 +1697,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4cd19ec11e1dbbd41ac1db47758d69a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  possibleItems:
+  - Dagger of Kaliphase
+  - Amulet of Honour
+  - Hood of Sartuka
+  - Claw of Straphagus
+  - Jason's Belt
+  - Steve's Wristband
+  - Corrupt Key
+  - Kindred Relic
+  - Drowned Relic
+  - Magic Potion
+  - Strange Mechanism
   currentDialogueQuest:
     questName: 
     sentencesBeforeQuest1stTime: []
@@ -3969,10 +3981,10 @@ MonoBehaviour:
   m_Script: {fileID: 1980459831, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 960, y: 540}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3

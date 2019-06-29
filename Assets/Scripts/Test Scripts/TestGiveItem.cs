@@ -24,9 +24,9 @@ public class TestGiveItem : MonoBehaviour
         //PersistantGameManager.Instance.currentArmour = new Armour("Wooden", 0.5f);
         if(SceneManager.GetActiveScene().name == "Tutorial")
         {
-            PersistantGameManager.Instance.playerWeaponInventory[0] = new Weapon("Nothing", "", "", "", 0f, 0.00f, 0.00f, 0, 0);
-            PersistantGameManager.Instance.playerWeaponInventory[1] = new Weapon("More Nothing", "", "", "", 0f, 0.00f, 0.00f, 0, 0);
-            PersistantGameManager.Instance.playerWeaponInventory[2] = new Weapon("And More Nothing", "", "", "", 0f, 0.00f, 0.00f, 0, 0);
+            PersistantGameManager.Instance.playerWeaponInventory[0] = new Weapon("Empty", "", "", "", 0f, 0.00f, 0.00f, 0, 0);
+            PersistantGameManager.Instance.playerWeaponInventory[1] = new Weapon("Empty", "", "", "", 0f, 0.00f, 0.00f, 0, 0);
+            PersistantGameManager.Instance.playerWeaponInventory[2] = new Weapon("Empty", "", "", "", 0f, 0.00f, 0.00f, 0, 0);
         }
         else
         {

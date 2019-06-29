@@ -7,6 +7,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System;
+using TMPro;
 
 //******MUST BE CHILDED TO A GAMEOBJECT ACTING AS A NPC IT MUST HAVE A TO TALK CANVAS******\\
 
@@ -468,6 +469,12 @@ public class NPCMonitor : MonoBehaviour
                     {
                         PersistantGameManager.Instance.activeQuests.Add(currentQuest.questKey);
                         PersistantGameManager.Instance.possibleQuests.Add(currentQuest.questKey, currentQuest);
+                        TextMeshProUGUI text = GameObject.FindGameObjectWithTag("Updates").GetComponent<TextMeshProUGUI>();
+                        if (!currentQuest.instantComplete)
+                        {
+                            text.text = "Started " + currentQuest.questName;
+                        }
+
                     }
                     /*
                     Debug.Log("Killed Prior: " + currentQuest.initialEnemiesKilled);
@@ -699,6 +706,11 @@ public class NPCMonitor : MonoBehaviour
         PersistantGameManager.Instance.activeQuests.Remove(currentQuest.questKey);
         PersistantGameManager.Instance.possibleQuests.Remove(currentQuest.questKey);
         PersistantGameManager.Instance.completedQuests.Add(currentQuest.questKey);
+        TextMeshProUGUI text = GameObject.FindGameObjectWithTag("Updates").GetComponent<TextMeshProUGUI>();
+        if (!currentQuest.instantComplete)
+        {
+            text.text = "Completed " + currentQuest.questName;
+        }
         hasTalkedBefore = false;
         currentQuest = null;
         EndDialogue();

@@ -648,7 +648,7 @@ MonoBehaviour:
   playerPos: {x: 0, y: 0, z: 0}
   jumpChargeCollision: 0
   projectile: 1
-  patrol: 0
+  patrol: 1
   charge: 0
   JumpCharge: 0
   moveSpeed: 1

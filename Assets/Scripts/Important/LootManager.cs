@@ -152,7 +152,7 @@ public class LootManager : MonoBehaviour
 
         //Decides dictionary to choose prefixes from
         string prefixType = "";
-        int randomImprove = random.Next(1, 3);
+        int randomImprove = random.Next(1, 4);
         switch (randomImprove)
         {
             case 1:

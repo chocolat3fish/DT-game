@@ -17,7 +17,7 @@ public class PersistantGameManager : MonoBehaviour
 
     public Dictionary<string, int> itemInventory = new Dictionary<string, int>();
 
-    [NonSerialized]
+    //[NonSerialized]
     public List<string> possibleItems = new List<string> 
     {"Dagger of Kaliphase",
      "Amulet of Honour",
@@ -27,7 +27,9 @@ public class PersistantGameManager : MonoBehaviour
      "Steve's Wristband",
      "Corrupt Key",
      "Kindred Relic",
-     "Drowned Relic"};
+     "Drowned Relic",
+     "Magic Potion",
+     "Strange Mechanism"};
 
     public Quest currentDialogueQuest;
 

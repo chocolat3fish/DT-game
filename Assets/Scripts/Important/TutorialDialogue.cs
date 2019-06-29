@@ -71,7 +71,7 @@ public class TutorialDialogue : MonoBehaviour
         }
         yield return new WaitForSecondsRealtime(1f);
         StopAllCoroutines();
-        StartCoroutine(AddChars("Hello Player, \nMy name is Jason welcome to the incredible world of [insert].../d", canvasMainText));
+        StartCoroutine(AddChars("Hello\nMy name is Jason, you've been asleep for a while./d", canvasMainText));
     }
 
     // Update is called once per frame
@@ -174,7 +174,7 @@ public class TutorialDialogue : MonoBehaviour
                 if(currentSentenceIndex == 0)
                 {
                     StopAllCoroutines();
-                    StartCoroutine(AddChars("Let me show you how to play.../d", canvasMainText));
+                    StartCoroutine(AddChars("Let me get you up to speed, you look new here after all./d", canvasMainText));
                     currentSentenceIndex = 1;
                 }
                 else if(currentSentenceIndex == 1)
@@ -190,7 +190,7 @@ public class TutorialDialogue : MonoBehaviour
                 else if(currentSentenceIndex == 2)
                 {
                     StopAllCoroutines();
-                    StartCoroutine(AddChars("Now try a jump then a double jump with the space bar...", canvasMainText));
+                    StartCoroutine(AddChars("Now try a jump, and then a double jump with the space bar...", canvasMainText));
                     canvasContinueButton.gameObject.SetActive(false);
                     canContinueDialogue = false;
                     StartCoroutine(WaitForPlayerJump());
@@ -199,7 +199,7 @@ public class TutorialDialogue : MonoBehaviour
                 else if(currentSentenceIndex == 3)
                 {
                     StopAllCoroutines();
-                    StartCoroutine(AddChars("Head to your right and grab that item on the topmost platform,\nUse ‘E’ to interact with items...", canvasMainText));
+                    StartCoroutine(AddChars("Head to your right and grab that item on the topmost platform, \nUse ‘E’ to interact with items...", canvasMainText));
                     canvasContinueButton.gameObject.SetActive(false);
                     canContinueDialogue = false;
                     StartCoroutine(WaitForPlayerPickup());
@@ -249,7 +249,7 @@ public class TutorialDialogue : MonoBehaviour
                 {
                     dialogueCanvas.SetActive(true);
                     StopAllCoroutines();
-                    StartCoroutine(AddChars("Nice, you figured out how to talk to me using ‘m’.../d", canvasMainText));
+                    StartCoroutine(AddChars("If you find others around, this is how you'll greet them. They will give you quests and rewards should you choose to help them./d", canvasMainText));
                     canContinueDialogue = false;
                     currentSentenceIndex = 2;
                 }
@@ -257,14 +257,14 @@ public class TutorialDialogue : MonoBehaviour
                 {
                     canContinueDialogue = false;
                     StopAllCoroutines();
-                    StartCoroutine(AddChars("This is the way you talk to other [insert]ians like me\nThey will give you quests and rewards this way.../d", canvasMainText));
+                    StartCoroutine(AddChars("If you're struggling to find your way around, you can use your minimap by pressing 'P'./d", canvasMainText));
                     currentSentenceIndex = 3;
                 }
                 else if (currentSentenceIndex == 3)
                 {
                     canContinueDialogue = false;
                     StopAllCoroutines();
-                    StartCoroutine(AddChars("Hmmm, I just had a look at your weapons you have,\nNothing, More Nothing, And More Nothing.../d", canvasMainText));
+                    StartCoroutine(AddChars("It seems like you don't have any weapons. You're going to need one in here./d", canvasMainText));
 
                     currentSentenceIndex = 4;
                 }
@@ -272,7 +272,7 @@ public class TutorialDialogue : MonoBehaviour
                 {
                     canContinueDialogue = false;
                     StopAllCoroutines();
-                    StartCoroutine(AddChars("We better do something about that.../d", canvasMainText));
+                    StartCoroutine(AddChars("You'll find a few different types of weapons around, some more effective than others./d", canvasMainText));
                     currentSentenceIndex = 5;
                 }
                 else if (currentSentenceIndex == 5)
@@ -282,7 +282,7 @@ public class TutorialDialogue : MonoBehaviour
                     GameObject questDrop = Instantiate(Resources.Load("Loot Drop"), player.transform.position, Quaternion.identity) as GameObject;
                     LootDropMonitor questDropMonitor = questDrop.GetComponent<LootDropMonitor>();
                     questDropMonitor.type = 0;
-                    questDropMonitor.itemStats = new Weapon("Jason's Dagger", "", "", "", 5, 0.5f, 0.5f, 1, 1.5f);
+                    questDropMonitor.itemStats = new Weapon("Dagger", "Jason's ", "", "", 5, 0.5f, 0.5f, 1, 1.5f);
                     StartCoroutine(AddChars("Here's my dagger, I don't use it much anyway, Use 'e' to pick up a weapon. Pressing 1, 2 or 3 will change the slot you are comparing and switching into.../d", canvasMainText));
                     currentSentenceIndex = 6;
                 }
@@ -293,7 +293,7 @@ public class TutorialDialogue : MonoBehaviour
 
                     foreach (Weapon weapon in PersistantGameManager.Instance.playerWeaponInventory)
                     {
-                        if (weapon.itemName == "Jason's Dagger")
+                        if (weapon.itemPrefix == "Jason's ")
                         {
                             hasPickedItUp = true;
                             break;
@@ -321,7 +321,8 @@ public class TutorialDialogue : MonoBehaviour
                     StopAllCoroutines();
                     Instantiate(Resources.Load("Tutorial Enemy"));
                     canvasContinueButton.gameObject.SetActive(false);
-                    StartCoroutine(AddChars("You can see the equipped weapon slot in the bottom left of the screen. Pressing 1, 2, or 3 will change the weapon you are using. An enemy has appeared on the right. Use 'W' to attack, but try not to touch it...", canvasMainText));
+                    StartCoroutine(AddChars("You can see the equipped weapon slot in the bottom left of the screen. Pressing 1, 2, or 3 will change the weapon you are using. " +
+                    	"\nAn enemy has appeared on the right. Use 'W' to attack, but try not to touch it...", canvasMainText));
                     StartCoroutine(WaitForPlayerToKillEnemy());
                     currentSentenceIndex = 8;
                 }
@@ -337,7 +338,7 @@ public class TutorialDialogue : MonoBehaviour
                     else
                     {
                         canvasContinueButton.gameObject.SetActive(false);
-                        StartCoroutine(AddChars("Oosh you took some hard hits, Just wait a few seconds without taking damage or attacking and your health will soon come back...", canvasMainText));
+                        StartCoroutine(AddChars("Oosh, you took some hard hits, Just wait a few seconds without taking damage or attacking and your health will soon come back...", canvasMainText));
                         StartCoroutine(WaitForPlayerFullHealth());
                         currentSentenceIndex = 10;
                     }
@@ -403,23 +404,23 @@ public class TutorialDialogue : MonoBehaviour
                 {
                     StopAllCoroutines();
                     canContinueDialogue = false;
-                    StartCoroutine(AddChars("Ok, quick test before you leave.../d", canvasMainText));
+                    StartCoroutine(AddChars("Just to make sure you remember.../d", canvasMainText));
                     currentSentenceIndex = 16;
                 }
                 else if(currentSentenceIndex == 16)
                 {
                     StopAllCoroutines();
                     canContinueDialogue = false;
-                    canvasContinueButton.gameObject.SetActive(false);
-                    StartCoroutine(AddChars("Try to arrange your weapons so my dagger is in slot 1, and the weapon the enemy dropped in slot 2, by switching with the weapon on the ground.", canvasMainText));
-                    StartCoroutine(WaitForPlayerToArrangeWeapons());
+                    //canvasContinueButton.gameObject.SetActive(false);
+                    StartCoroutine(AddChars("You hold 3 weapons, and can switch them with 1, 2, and 3, the order can be arranged in your weapons menu. If you need to save your game or load an old one, click the button in the menu./d", canvasMainText));
+                    //StartCoroutine(WaitForPlayerToArrangeWeapons());
                     currentSentenceIndex = 17;
                 }
                 else if(currentSentenceIndex == 17)
                 {
                     StopAllCoroutines();
                     canContinueDialogue = false;
-                    StartCoroutine(AddChars("I have taught you all I can, you have done well in the short amount of time we had.../d", canvasMainText));
+                    StartCoroutine(AddChars("As you explore and complete quests, the world will change around you. Be sure to check for areas you may have not been able to reach before, and to click on strange looking terrain./d", canvasMainText));
                     currentSentenceIndex = 18;
                 }
                 else if (currentSentenceIndex == 18)
@@ -427,7 +428,7 @@ public class TutorialDialogue : MonoBehaviour
                     StopAllCoroutines();
                     canContinueDialogue = false;
                     canvasContinueButton.gameObject.SetActive(false);
-                    StartCoroutine(AddChars("Use 'enter' to go through doors, now begone and explore the world. Goodbye", canvasMainText));
+                    StartCoroutine(AddChars("I've taught you all I can. Use [enter] to go through doors. Goodbye", canvasMainText));
 
                     PersistantGameManager.Instance.activeQuests.Remove("Tutorial");
                     PersistantGameManager.Instance.possibleQuests.Remove("Tutorial");

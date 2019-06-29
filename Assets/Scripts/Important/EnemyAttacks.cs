@@ -94,32 +94,7 @@ public class EnemyAttacks : MonoBehaviour
 
     void Start()
     {
-        float multiplier = 1;
-
-        switch (enemyMonitor.enemyStats.enemyTier)
-        {
-            case "Light":
-                multiplier *= 0.8f;
-                break;
-
-            case "Medium":
-                multiplier *= 1f;
-                break;
-
-            case "Heavy":
-                multiplier *= 1.2f;
-                break;
-        }
-
-        if (PersistantGameManager.Instance.playerStats.playerLevel < 0)
-        {
-            projectileDamage = (float)(multiplier * (5 * Math.Pow(enemyMonitor.enemyStats.enemyLevel, 2) + 10) * 0.4f);
-        }
-        else
-        {
-
-            projectileDamage = (float)(multiplier * (5 * Math.Pow(enemyMonitor.enemyStats.enemyLevel, 2) + 10));
-        }
+       
     }
 
 
@@ -288,11 +263,6 @@ public class EnemyAttacks : MonoBehaviour
                         rb.GetComponent<Rigidbody2D>().AddTorque(torque);
                     }
 
-
-
-
-
-
                     if (patrol)
                     {
                         StartCoroutine(TurnOffPatrollingForTime(2.5f));
@@ -328,6 +298,32 @@ public class EnemyAttacks : MonoBehaviour
 
         private void Fire()
         {
+            float multiplier = 1;
+
+            switch (enemyMonitor.enemyStats.enemyTier)
+            {
+                case "Light":
+                    multiplier *= 0.8f;
+                    break;
+
+                case "Medium":
+                    multiplier *= 1f;
+                    break;
+
+                case "Heavy":
+                    multiplier *= 1.2f;
+                    break;
+            }
+
+            if (PersistantGameManager.Instance.playerStats.playerLevel < 0)
+            {
+                projectileDamage = (float)(multiplier * (5 * Math.Pow(enemyMonitor.enemyStats.enemyLevel, 2) + 10) * 0.4f);
+            }
+            else
+            {
+
+                projectileDamage = (float)(multiplier * (5 * Math.Pow(enemyMonitor.enemyStats.enemyLevel, 2) + 10));
+            }
             GameObject bullet = Instantiate((GameObject)Resources.Load("Bullet"), enemy.transform.position, Quaternion.identity);
             BulletController bulletStats = bullet.GetComponent<BulletController>();
             bulletStats.range = range;
