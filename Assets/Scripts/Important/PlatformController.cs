@@ -244,19 +244,19 @@ public class PlatformController : MonoBehaviour
                 panel.SetActive(true);
                 if(Input.mousePosition.x >= Camera.main.pixelWidth/2)
                 {
-                    panel.GetComponent<AreaRequirements>().offest.x = -110;
+                    panel.GetComponent<AreaRequirements>().offest.x = -110*2;
                 }
                 else
                 {
-                    panel.GetComponent<AreaRequirements>().offest.x = 110;
+                    panel.GetComponent<AreaRequirements>().offest.x = 110*2;
                 }
                 if (Input.mousePosition.y >= Camera.main.pixelHeight / 2)
                 {
-                    panel.GetComponent<AreaRequirements>().offest.y = -55;
+                    panel.GetComponent<AreaRequirements>().offest.y = -55*2;
                 }
                 else
                 {
-                    panel.GetComponent<AreaRequirements>().offest.y = 55;
+                    panel.GetComponent<AreaRequirements>().offest.y = 55*2;
                 }
 
                 if(type == 5)
