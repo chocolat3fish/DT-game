@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/Menu.unity
+    guid: 6224717dd284f43b8bbbba94640c8e99
+  - enabled: 1
     path: Assets/Scenes/Tutorial.unity
     guid: d6828238d3a58465fa46cb1017e556cf
   - enabled: 1
@@ -23,54 +26,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Main Room.unity
     guid: 002a7a20f4a2c42f9a5b47f145c2e57f
-  - enabled: 0
-    path: 
-    guid: 02d2e98a427a543c5a7da41653f5c5f3
-  - enabled: 0
-    path: 
-    guid: c665ad284d48e40e89b62d21f3027acb
-  - enabled: 0
-    path: 
-    guid: fb85e97c47cc949c58ab6c20a09c64dd
-  - enabled: 0
-    path: 
-    guid: 15dcfbfb0cb4b46b6851ba97dccca78b
-  - enabled: 0
-    path: 
-    guid: e0202ffe0c19a49e28c7456303fe9c96
-  - enabled: 0
-    path: 
-    guid: 2e770d6f10bb9452881bec4e07e0285a
-  - enabled: 0
-    path: 
-    guid: 923df017ac4c841468299469c9aae56d
-  - enabled: 0
-    path: 
-    guid: 805c8b071e146451495565dc23e605cf
-  - enabled: 0
-    path: 
-    guid: 7adbdace9087a4c179d34f094980e84f
-  - enabled: 0
-    path: 
-    guid: d3ae6a6d239ea4d1da39d233027b2ad4
-  - enabled: 0
-    path: 
-    guid: 233815ef2a34d4fd2b365d3291f02bb5
-  - enabled: 0
-    path: 
-    guid: f2bb36a989d5d48008b40823515e592c
-  - enabled: 0
-    path: 
-    guid: 64417f84423e0480882cd338261ed81a
-  - enabled: 0
-    path: 
-    guid: 257e1a9004cb94bf0a0411c5b35c05ed
-  - enabled: 0
-    path: 
-    guid: 45f6988c89db14e6a96324d336a75262
-  - enabled: 0
-    path: 
-    guid: 57b528fac8a9041d8ae00bda98edef28
   - enabled: 1
     path: Assets/Scenes/Old/Character Control 3 Weapons.unity
     guid: 38479f28373f749ebb0e3fcca6858a90
@@ -108,6 +63,9 @@ EditorBuildSettings:
     path: Assets/Scenes/You lost.unity
     guid: 6efb579afa5c84864885bec821090b5a
   - enabled: 1
+    path: Assets/Scenes/Async Scenes/Main Canvas.unity
+    guid: a6c3031bdbf5c44cfa4f9fa6d279e6de
+  - enabled: 1
     path: Assets/Scenes/Async Scenes/Compare Canvas.unity
     guid: 9ab360fb5c5da4f888ccb2569d13f24e
   - enabled: 1
@@ -134,7 +92,4 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Corrupt.unity
     guid: 2c414965528234102bb46355cb1b6efd
-  - enabled: 1
-    path: Assets/Scenes/Async Scenes/Main Canvas.unity
-    guid: a6c3031bdbf5c44cfa4f9fa6d279e6de
   m_configObjects: {}

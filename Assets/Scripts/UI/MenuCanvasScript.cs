@@ -32,8 +32,6 @@ public class MenuCanvasScript : MonoBehaviour
     private Text wR1Output, wR2Output, wR3Output;
     private Text sL1Output, sL2Output, sL3Output;
 
-    private Text cSThreeName, cSTwoName, cSOneName, cSSixName, cSFiveName, cSFourName, cSSevenName, cSEightName, cSNineName;
-    private Text cSOneOutput, cSTwoOutput, cSThreeOutput, cSFourOutput, cSFiveOutput, cSSixOutput, cSSevenOutput, cSEightOutput, cSNineOutput;
     private Text iSThreeName, iSTwoName, iSOneName, iSSixName, iSFiveName, iSFourName, iSSevenName, iSEightName, iSNineName;
     private Text iSOneOutput, iSTwoOutput, iSThreeOutput, iSFourOutput, iSFiveOutput, iSSixOutput, iSSevenOutput, iSEightOutput, iSNineOutput;
     private Text qSThreeName, qSTwoName, qSOneName, qSSixName, qSFiveName, qSFourName, qSSevenName, qSEightName, qSNineName;
@@ -82,31 +80,6 @@ public class MenuCanvasScript : MonoBehaviour
         sL1Output = weaponsPanel.transform.Find("SL1").gameObject.GetComponent<Text>();
         sL2Output = weaponsPanel.transform.Find("SL2").gameObject.GetComponent<Text>();
         sL3Output = weaponsPanel.transform.Find("SL3").gameObject.GetComponent<Text>();
-
-
-        cSOneName = consumablesPanel.transform.Find("Slot 1").gameObject.GetComponent<Text>();
-        cSTwoName = consumablesPanel.transform.Find("Slot 2").gameObject.GetComponent<Text>();
-        cSThreeName = consumablesPanel.transform.Find("Slot 3").gameObject.GetComponent<Text>();
-
-        cSFourName = consumablesPanel.transform.Find("Slot 4").gameObject.GetComponent<Text>();
-        cSFiveName = consumablesPanel.transform.Find("Slot 5").gameObject.GetComponent<Text>();
-        cSSixName = consumablesPanel.transform.Find("Slot 6").gameObject.GetComponent<Text>();
-
-        cSSevenName = consumablesPanel.transform.Find("Slot 7").gameObject.GetComponent<Text>();
-        cSEightName = consumablesPanel.transform.Find("Slot 8").gameObject.GetComponent<Text>();
-        cSNineName = consumablesPanel.transform.Find("Slot 9").gameObject.GetComponent<Text>();
-
-        cSOneOutput = consumablesPanel.transform.Find("Q1").gameObject.GetComponent<Text>();
-        cSTwoOutput = consumablesPanel.transform.Find("Q2").gameObject.GetComponent<Text>();
-        cSThreeOutput = consumablesPanel.transform.Find("Q3").gameObject.GetComponent<Text>();
-
-        cSFourOutput = consumablesPanel.transform.Find("Q4").gameObject.GetComponent<Text>();
-        cSFiveOutput = consumablesPanel.transform.Find("Q5").gameObject.GetComponent<Text>();
-        cSSixOutput = consumablesPanel.transform.Find("Q6").gameObject.GetComponent<Text>();
-
-        cSSevenOutput = consumablesPanel.transform.Find("Q7").gameObject.GetComponent<Text>();
-        cSEightOutput = consumablesPanel.transform.Find("Q8").gameObject.GetComponent<Text>();
-        cSNineOutput = consumablesPanel.transform.Find("Q9").gameObject.GetComponent<Text>();
 
         iSOneName = itemsPanel.transform.Find("Slot 1").gameObject.GetComponent<Text>();
         iSTwoName = itemsPanel.transform.Find("Slot 2").gameObject.GetComponent<Text>();
@@ -1012,6 +985,11 @@ public class MenuCanvasScript : MonoBehaviour
             asyncTriggers.dialoguePanel = null;
         }
         SceneManager.UnloadSceneAsync("Menu Canvas");
+    }
+
+    public void QuitToMenu()
+    {
+        SceneManager.LoadScene("Menu");
     }
 
 
