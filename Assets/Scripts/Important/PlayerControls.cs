@@ -182,6 +182,7 @@ public class PlayerControls : MonoBehaviour
             SceneManager.LoadScene(deathScene);
         }
 
+        /*
         if (Input.GetMouseButtonDown(1))
         {
             transform.position = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.nearClipPlane));
@@ -189,9 +190,11 @@ public class PlayerControls : MonoBehaviour
             /*Vector2 mousePos = Input.mousePosition;
             Vector2 newPos = mousePos / (new Vector2(18, 10));
             newPos = newPos -
-            */
+            
 
         }
+        */
+        
 
         if (PersistantGameManager.Instance.tripleJump == true && !givenTripleJump)
         {

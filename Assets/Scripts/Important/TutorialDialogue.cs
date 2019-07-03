@@ -598,7 +598,7 @@ public class TutorialDialogue : MonoBehaviour
     {
         while(true)
         {
-            if(PersistantGameManager.Instance.currentWeapon.itemName == "Jason's Dagger")
+            if(PersistantGameManager.Instance.currentWeapon.itemPrefix == "Jason's ")
             {
                 canContinueDialogue = true;
                 canvasContinueButton.gameObject.SetActive(true);
