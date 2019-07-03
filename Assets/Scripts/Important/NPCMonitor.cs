@@ -221,7 +221,7 @@ public class NPCMonitor : MonoBehaviour
             StartCoroutine(AddChars(currentQuest.sentencesBeforeQuest2ndTime[0], overlayMainText));
         }
 
-        //Run the normal respone 
+        //If there are no more sentences for the NPC to say then the NPC will say the waiting plan       
         else
         {
             try
@@ -263,7 +263,6 @@ public class NPCMonitor : MonoBehaviour
         //Runs if player is allowed to continue
         else if (canContinueDialouge)
         {
-            print("Continue Dialogue: " + stageOfConvo);
             canContinueDialouge = false;
             dialogueBoxQuery = true;
             dialogueBoxQueryTime = Time.time;
@@ -273,12 +272,10 @@ public class NPCMonitor : MonoBehaviour
                 currentSentenceIndex++;
                 if (hasTalkedBefore)
                 {
+                    //If there are no more lines to say the NPC will move to the next section
                     if (currentSentenceIndex >= currentQuest.sentencesBeforeQuest2ndTime.Length)
                     {
-
                         stageOfConvo = 1;
-                        print("Done");
-
                     }
                     else
                     {
@@ -310,25 +307,7 @@ public class NPCMonitor : MonoBehaviour
             //Gives the main quest statment
             if(stageOfConvo == 1)
             {
-                /*
-                if (hasTalkedBefore && currentQuest.instantComplete)
-                {
-                    StopAllCoroutines();
-                    StartCoroutine(AddChars(currentQuest.questStatment, overlayMainText));
-                    if (currentQuest.giveItem == true)
-                    {
-                        currentQuest.questReward = currentQuest.itemName;
-                        StartCoroutine(AddChars(currentQuest.questReward, overlayRewardText));
-                    }
-
-
-                    stageOfConvo = 2;
-                    currentSentenceIndex = -1;
-                    OpenNewButtons(1);
-                    return;
-
-                }
-                else */
+                //If the quest is a fetch quest and is complete it tells the player to give it to them 
                 if (hasTalkedBefore && currentQuest.returnItem && PersistantGameManager.Instance.itemInventory[currentQuest.questItemName] > 0)                
                 {
                     StopAllCoroutines();
@@ -349,10 +328,13 @@ public class NPCMonitor : MonoBehaviour
                     return;
 
                 }
+                //If the quest is a kill enemies or level up quest
                 else if(hasTalkedBefore && (currentQuest.killEnemies || currentQuest.levelUp))
                 {
+                    //For kill enemies quest
                     if(currentQuest.killEnemies)
                     {
+                        //If the player has killed enough enemies yet tells them to retreive their reward
                         if (((currentQuest.killRequirement - (PersistantGameManager.Instance.currentEnemyKills[currentQuest.enemyToKill] - currentQuest.initialEnemiesKilled) <= 0)))
                         {
                             StopAllCoroutines();
@@ -372,6 +354,7 @@ public class NPCMonitor : MonoBehaviour
                             OpenNewButtons(1);
                             return;
                         }
+                        //If the player hasn't killed enough enemies yet tells them who and how many to kill
                         else
                         {
                             StopAllCoroutines();
@@ -391,6 +374,7 @@ public class NPCMonitor : MonoBehaviour
                             return;
                         }
                     }
+                    //If it is a level up quest and it is complete asks the player to collect their reward
                     else if (currentQuest.levelUp == true && PersistantGameManager.Instance.playerStats.playerLevel >= currentQuest.levelToReach)
                     {
                         StopAllCoroutines();
@@ -411,6 +395,7 @@ public class NPCMonitor : MonoBehaviour
                         return;
 
                     }
+                    //If neither are complete then state what they need to do
                     else
                     {
                         StopAllCoroutines();
@@ -432,27 +417,32 @@ public class NPCMonitor : MonoBehaviour
 
 
                 }
+                //Runs the first time we reach this stage for a quest
                 else
                 {
-                    if (currentQuest.giveWeapon == true)
+                    //Assigns the reward for the quest
+                    if (currentQuest.giveWeapon)
                     {
                         currentQuest.questReward = currentQuest.weaponType;
                     }
-
-                    if (currentQuest.killEnemies == true) 
+                    
+                    if (currentQuest.killEnemies) 
                     {
-                        if(!PersistantGameManager.Instance.currentEnemyKills.ContainsKey(currentQuest.enemyToKill))
+                        //Makes sure the enemy is in the dictionary containing the amount of enemies killed so it does not cause error later
+                        if (!PersistantGameManager.Instance.currentEnemyKills.ContainsKey(currentQuest.enemyToKill))
                         {
                             PersistantGameManager.Instance.currentEnemyKills.Add(currentQuest.enemyToKill, 0);
                         }
+                        //Sets the intial amount of enemies to kill to the amount so it can work out how many enemies have been killed scince starting this quest
                         currentQuest.initialEnemiesKilled = PersistantGameManager.Instance.currentEnemyKills[currentQuest.enemyToKill];
-                        //Debug.Log(currentQuest.initialEnemiesKilled);
                     }
-                    //this is bad code
+                    //Calculates how much experenice to give the player at the end of the quest
                     currentQuest.questExperience = (float)(1.1f * (0.04 * Math.Pow(currentQuest.levelClaimedAt, 3) + (0.8 * Math.Pow(currentQuest.levelClaimedAt, 2) + 100))) * currentQuest.XPMultiplier;
-                    StopAllCoroutines();
                     hasTalkedBefore = true;
+                    StopAllCoroutines();
+                    //Gives the quest statment
                     StartCoroutine(AddChars(currentQuest.questStatment, overlayMainText));
+                    //Sets the output in the reward slot to the reward
                     if (currentQuest.questReward == "")
                     {
                         StartCoroutine(AddChars(currentQuest.questExperience + " XP", overlayRewardText));
@@ -464,8 +454,8 @@ public class NPCMonitor : MonoBehaviour
                     stageOfConvo = 2;
                     currentSentenceIndex = -1;
 
-
-                    if (PersistantGameManager.Instance.activeQuests.Contains(currentQuest.questKey) == false)
+                    //If quest has not been submited as an active quest then it submits it
+                    if (!PersistantGameManager.Instance.activeQuests.Contains(currentQuest.questKey))
                     {
                         PersistantGameManager.Instance.activeQuests.Add(currentQuest.questKey);
                         PersistantGameManager.Instance.possibleQuests.Add(currentQuest.questKey, currentQuest);
@@ -476,17 +466,15 @@ public class NPCMonitor : MonoBehaviour
                         }
 
                     }
-                    /*
-                    Debug.Log("Killed Prior: " + currentQuest.initialEnemiesKilled);
-                    Debug.Log("Needed: " + (currentQuest.killRequirement - (PersistantGameManager.Instance.currentEnemyKills[currentQuest.enemyToKill] - currentQuest.initialEnemiesKilled)) + " Killed: " + PersistantGameManager.Instance.currentEnemyKills[currentQuest.enemyToKill]);
-                    */                   
+                    
+                    //Opens the correct buttons
+                    //0 is normal, 1 is to complete a quest and 3 is for instant complete quests
                     if (currentQuest.instantComplete == true)
                     {
                         OpenNewButtons(3);
                     }
                     else if (currentQuest.killEnemies == true && PersistantGameManager.Instance.currentEnemyKills[currentQuest.enemyToKill] >= (currentQuest.killRequirement + currentQuest.initialEnemiesKilled))
                     {
-                        //Debug.Log("Passed");
                         OpenNewButtons(1);
                     }
                     else if (currentQuest.returnItem == true && PersistantGameManager.Instance.itemInventory[currentQuest.questItemName] > 0)
@@ -495,16 +483,15 @@ public class NPCMonitor : MonoBehaviour
                     }
                     else
                     {
-
                         OpenNewButtons(0);
                     }
                     return;
                 }
             }
-
+            //Gives the closing statements
             if(stageOfConvo == 2)
             {
-                print(currentQuest == null);
+                //If the quest is complete then give the final closing statement
                 if (characterQuests.Length - 1 >= PersistantGameManager.Instance.characterQuests[nameOfNpc])
                 {
                     if (characterQuests[PersistantGameManager.Instance.characterQuests[nameOfNpc]].questKey != currentQuest.questKey)
@@ -523,6 +510,7 @@ public class NPCMonitor : MonoBehaviour
                             StartCoroutine(AddChars(currentQuest.sentencesAfterQuestEnd[currentSentenceIndex], overlayMainText));
                         }
                     }
+                    //Otherwise give the normal closer
                     else
                     {
                         overlayRewardText.text = "";
@@ -540,6 +528,7 @@ public class NPCMonitor : MonoBehaviour
                         }
                     }
                 }
+                //If there are no more quests
                 else if(currentQuest == null)
                 {
                     if(currentSentenceIndex == 1)
@@ -548,6 +537,7 @@ public class NPCMonitor : MonoBehaviour
                     }
                     return;
                 }
+                //Gives normal closer
                 else
                 {
                     overlayRewardText.text = "";
@@ -565,30 +555,7 @@ public class NPCMonitor : MonoBehaviour
                     }
 
                 }
-
-
-
-
-
             }
-
-
-            /*
-                currentSentenceIndex++;
-                if (currentSentenceIndex == dialogue.sentences.Length)
-                {
-                    EndDialouge();
-                }
-                else
-                {
-                    StopAllCoroutines();
-                    StartCoroutine(AddChars(dialogue.sentences[currentSentenceIndex], overlayMainText));
-                    canContinueDialouge = false;
-                    dialougeBoxQuery = true;
-                    dialougeBoxQueryTime = Time.time;
-
-                }
-                */
         }
     }
 
@@ -618,6 +585,7 @@ public class NPCMonitor : MonoBehaviour
         }
     }
 
+    //Sets buttons to defualt
     private void CloseNewButtons()
     {
         mGiveItem = false;
@@ -625,8 +593,6 @@ public class NPCMonitor : MonoBehaviour
         overlayContinueButton.gameObject.SetActive(true);
         overlayInstantCompleteButton.gameObject.SetActive(false);
     }
-
-
 
     private void EndDialogue()
     {
@@ -667,53 +633,55 @@ public class NPCMonitor : MonoBehaviour
             
         }
     }
+    //Gives the reward for completing a quest
     public void GiveItem()
     {
-        /*
-        if(PersistantGameManager.Instance.itemInventory[currentQuest.questItemName] > 0)
-        {
-            GiveReward(currentQuest.questKey);
-        }
-        */
+        //Gives a weapon
         if (currentQuest.giveWeapon == true)
         {
             GameObject questDrop = Instantiate(Resources.Load("Loot Drop"), player.transform.position, Quaternion.identity) as GameObject;
             LootDropMonitor questDropMonitor = questDrop.GetComponent<LootDropMonitor>();
 
             questDropMonitor.type = 0;
-            //questDropMonitor.item = PersistantGameManager.Instance.questTargets[nPCMonitor.currentQuest.questKey];
             questDropMonitor.itemStats = LootManager.GenerateSpecificWeapon(currentQuest.weaponType, currentQuest.weaponValue);
 
         }
+        //Give an Item
         if (currentQuest.giveItem == true)
         {
             GameObject questDrop = Instantiate(Resources.Load("Loot Drop"), player.transform.position, Quaternion.identity) as GameObject;
             LootDropMonitor questDropMonitor = questDrop.GetComponent<LootDropMonitor>();
 
             questDropMonitor.type = 2;
-            //questDropMonitor.item = PersistantGameManager.Instance.questTargets[nPCMonitor.currentQuest.questKey];
             questDropMonitor.item = currentQuest.itemName;
         }
-
-        PersistantGameManager.Instance.playerStats.playerExperience += PersistantGameManager.Instance.totalExperience / 4;
+        //Gives Xp for quest
+        PersistantGameManager.Instance.playerStats.playerExperience += currentQuest.questExperience;
+        //Removes item from inventory
         if (!currentQuest.instantComplete && currentQuest.returnItem)
         {
             PersistantGameManager.Instance.itemInventory[currentQuest.questItemName]--;
         }
-
+        //Tells PGM to move onto the next quest
         PersistantGameManager.Instance.characterQuests[nameOfNpc]++;
 
+        //Removes quest from PGM
         PersistantGameManager.Instance.activeQuests.Remove(currentQuest.questKey);
         PersistantGameManager.Instance.possibleQuests.Remove(currentQuest.questKey);
         PersistantGameManager.Instance.completedQuests.Add(currentQuest.questKey);
+
+        //Tells player they have completed the quest
         TextMeshProUGUI text = GameObject.FindGameObjectWithTag("Updates").GetComponent<TextMeshProUGUI>();
         if (!currentQuest.instantComplete)
         {
             text.text = "Completed " + currentQuest.questName;
         }
+
         hasTalkedBefore = false;
         currentQuest = null;
         EndDialogue();
+
+        //If instant complete then loop to next dialogue
         if (mGiveItem)
         {
             StartCoroutine(CreateDialogueBox());
@@ -722,51 +690,6 @@ public class NPCMonitor : MonoBehaviour
 
 
 
-    }
-    /*
-    public void GiveReward(string key)
-    {
-        if (key == "Ja00")
-        {
-            ReceiveWeapon("Short Sword", 10);
-            PersistantGameManager.Instance.playerStats.playerExperience += PersistantGameManager.Instance.totalExperience / 4;
-            PersistantGameManager.Instance.itemInventory["Claw of Straphagus"] --;
-
-           
-        }
-
-        if (key == "Ja01")
-        {
-            ReceiveWeapon("Lance", 10);
-            PersistantGameManager.Instance.playerStats.playerExperience += PersistantGameManager.Instance.totalExperience / 4;
-            PersistantGameManager.Instance.itemInventory["Amulet of Honour"]--;
-
-        }
-
-        if (key == "Ja03")
-        {
-            ReceiveWeapon("Long Sword", 10);
-            PersistantGameManager.Instance.playerStats.playerExperience += PersistantGameManager.Instance.totalExperience / 4;
-        }
-
-
-        PersistantGameManager.Instance.characterQuests[nameOfNpc]++;
-        
-        PersistantGameManager.Instance.activeQuests.Remove(key);
-        PersistantGameManager.Instance.possibleQuests.Remove(key);
-        PersistantGameManager.Instance.completedQuests.Add(currentQuest.questKey);
-        hasTalkedBefore = false;
-    }
-    */
-
-    public void ReceiveWeapon(string weaponType, int weaponValue)
-    {
-        GameObject questDrop = Instantiate(Resources.Load("Loot Drop"), player.transform.position, Quaternion.identity) as GameObject;
-        LootDropMonitor questDropMonitor = questDrop.GetComponent<LootDropMonitor>();
-
-        questDropMonitor.type = 0;
-        //questDropMonitor.item = PersistantGameManager.Instance.questTargets[nPCMonitor.currentQuest.questKey];
-        questDropMonitor.itemStats = LootManager.GenerateSpecificWeapon(weaponType, weaponValue);
     }
 
 }

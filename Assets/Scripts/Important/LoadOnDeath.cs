@@ -1,12 +1,10 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using Newtonsoft.Json;
 using System.IO;
-using System;
 using System.Runtime.Serialization.Formatters.Binary;
 
+//This script controlls load from the death scene
 public class LoadOnDeath : MonoBehaviour
 {
     public Text L1T, L2T, L3T, L4T;
@@ -14,6 +12,7 @@ public class LoadOnDeath : MonoBehaviour
     Timestamps timestamps = new Timestamps();
     Color32 emptyC = new Color32(192, 0, 0, 255);
     Color32 defaultC = new Color32(50, 50, 50, 255);
+
     private void Awake()
     {
         L1T = transform.Find("L1T").GetComponent<Text>();
@@ -21,7 +20,7 @@ public class LoadOnDeath : MonoBehaviour
         L3T = transform.Find("L3T").GetComponent<Text>();
         L4T = transform.Find("L4T").GetComponent<Text>();
 
-
+        //If the directory containing save information doesn't exist then it creates it
         if (!File.Exists(Application.persistentDataPath + "/SavedData/Timestamps.txt"))
         {
             Directory.CreateDirectory(Application.persistentDataPath + "/SavedData");
@@ -43,6 +42,7 @@ public class LoadOnDeath : MonoBehaviour
 
         UpdateTimestamps();
 
+        //Adds the on click listener to the buttons
         transform.Find("Slot1").GetComponent<Button>().onClick.AddListener(delegate { Load(1); });
         transform.Find("Slot2").GetComponent<Button>().onClick.AddListener(delegate { Load(2); });
         transform.Find("Slot3").GetComponent<Button>().onClick.AddListener(delegate { Load(3); });
@@ -65,6 +65,7 @@ public class LoadOnDeath : MonoBehaviour
         bF.Serialize(file, data);
         file.Close();
     }
+    //Perform the load
     public void Load(int slot)
     {
         timestamps = GetTimestamps();

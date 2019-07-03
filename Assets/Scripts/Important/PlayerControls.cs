@@ -388,18 +388,6 @@ public class PlayerControls : MonoBehaviour
             currentJumps++;
             StartCoroutine(ActivateJustJumped());
         }
-        /*
-        if (Input.GetKeyDown(KeyCode.H) && PersistantGameManager.Instance.amountOfConsumables[PersistantGameManager.Instance.equippedItemOne] > 0 && Time.time > (TimeOfItemOneUse + itemOneCooldown))
-        {
-            TimeOfItemOneUse = Time.time;
-            UseItem(PersistantGameManager.Instance.equippedItemOne);
-        }
-        if (Input.GetKeyDown(KeyCode.J) && PersistantGameManager.Instance.amountOfConsumables[PersistantGameManager.Instance.equippedItemTwo] > 0 && Time.time > (TimeOfItemTwoUse + itemTwoCooldown))
-        {
-            TimeOfItemTwoUse = Time.time;
-            UseItem(PersistantGameManager.Instance.equippedItemTwo);
-        }
-        */
 
 
 
@@ -418,86 +406,6 @@ public class PlayerControls : MonoBehaviour
         justJumped = false;
     }
 
-    //detects if player hits ground, which re enables ability to jump
-    /*
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.tag == "Collider")
-        {
-            bool groundCheck1 = Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y - colliderHeight), -Vector2.up, rayCastLength);
-            bool groundCheck2 = Physics2D.Raycast(new Vector2(transform.position.x + (colliderWidth - 0.2f), transform.position.y - colliderHeight), -Vector2.up, rayCastLength);
-            bool groundCheck3 = Physics2D.Raycast(new Vector2(transform.position.x - (colliderWidth - 0.2f), transform.position.y - colliderHeight), -Vector2.up, rayCastLength);
-            if ((groundCheck1 || groundCheck2 || groundCheck3))
-            {
-                canJump = true;
-                shouldJump = false;
-                currentJumps = 0;
-                // tells animator to stop playing Jump animation
-                animator.SetBool("IsJumping", false);
-            }
-            bool wallOnLeft = Physics2D.Raycast(new Vector2(transform.position.x - colliderWidth, transform.position.y), -Vector2.right, rayCastLength);
-            bool wallOnRight = Physics2D.Raycast(new Vector2(transform.position.x + colliderWidth, transform.position.y), Vector2.right, rayCastLength);
-            if ((wallOnRight || wallOnLeft) && PersistantGameManager.Instance.gripWalls)
-            {
-                canJump = true;
-                shouldJump = false;
-                currentJumps = 0;
-                // tells animator to stop playing Jump animation
-                animator.SetBool("IsJumping", false);
-            }
-            if ((wallOnRight || wallOnLeft) && !PersistantGameManager.Instance.gripWalls)
-            {
-                shouldJump = false;
-            }
-
-
-
-        }
-        else if (collision.gameObject.tag == "Wall" && PersistantGameManager.Instance.gripWalls)
-        {
-            collision.collider.sharedMaterial = (PhysicsMaterial2D)Resources.Load("PhysicsMaterials/WallGrippy");
-            canJump = true;
-            shouldJump = false;
-            currentJumps = 0;
-            // tells animator to stop playing Jump animation
-            animator.SetBool("IsJumping", false);
-
-        }
-        else if (collision.gameObject.tag == "Wall" && !PersistantGameManager.Instance.gripWalls)
-        {
-            collision.collider.sharedMaterial = (PhysicsMaterial2D)Resources.Load("PhysicsMaterials/WallSlippery");
-            shouldJump = false;
-
-        }
-           
-
-        if (PlayerIsOnGround())
-        {
-            canJump = true;
-            shouldJump = false;
-            currentJumps = 0;
-            // tells animator to stop playing Jump animation
-            animator.SetBool("IsJumping", false);
-
-        }
-
-
-        if (PlayerIsOnWall())
-        {
-            if (PersistantGameManager.Instance.gripWalls == true)
-            {
-                canJump = true;
-                currentJumps = 0;
-                // tells animator to stop playing Jump animation
-                animator.SetBool("IsJumping", false);
-            }
-            shouldJump = false;
-        }
-        
-
-
-    }
-    */
     private void OnCollisionExit2D(Collision2D collision)
     {
         animator.SetBool("IsJumping", true);

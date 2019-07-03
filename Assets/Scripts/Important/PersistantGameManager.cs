@@ -317,7 +317,7 @@ public class PersistantGameManager : MonoBehaviour
             totalExperience = (float)((0.04 * Math.Pow(playerStats.playerLevel, 3)) + (0.8 * Math.Pow(playerStats.playerLevel, 2)) + 100);
             totalHealthMulti = 0.05f * skillLevels["HealthBonus"];
         }
-        StartCoroutine(Autosave());
+        StartCoroutine(AutosaveCoroutine());
     }
     void Update()
     {
@@ -345,43 +345,7 @@ public class PersistantGameManager : MonoBehaviour
             ChangeItem(currentIndex);
         }
 
-        /*
-        if (Time.time > timeOfAttackMultiplierChange + 30 && activePotionType == "Attack")
-        {
-            currentAttackMultiplier = 1;
-            potionIsActive = false;
-
-        }
-        if (Time.time > timeOfLeechMultiplierChange + 30 && activePotionType == "Leech")
-        {
-            currentLeechMultiplier = 0;
-            potionIsActive = false;
-
-        }
-
-
-        if (Input.GetKeyDown(KeyCode.Z))
-        {
-            changeItemOne = true;
-        }
-        else if (Input.GetKeyDown(KeyCode.X))
-        {
-            changeItemTwo = true;
-        }
-
-            //Shortened to 3 items
-
-            else if (Input.GetKeyDown(KeyCode.Alpha4))
-            {
-                currentIndex = 3;
-                ChangeItem(currentIndex);
-            }
-            else if (Input.GetKeyDown(KeyCode.Alpha5))
-            {
-                currentIndex = 4;
-                ChangeItem(currentIndex);
-            }
-            */
+    
 
         //Hides the magic cooldown if player has not unlocked any magic skills
         if (hasMagic == true)
@@ -567,23 +531,6 @@ public class PersistantGameManager : MonoBehaviour
         new GameObject("PersistantGameManager - Reload").AddComponent<PersistantGameManager>();
         print("done");
         Destroy(gameObject);
-        
-
-
-
-
-        /*
-        
-        currentIndex = data.currentIndex;
-        playerWeaponInventory = data.playerWeaponInventory;
-        currentArmour = data.currentArmour;
-        playerStats = data.playerStats;
-        totalExperience = data.totalExperience;
-        SceneManager.LoadScene(data.currentScene);
-        currentScene = data.currentScene;
-        checkExp = true;
-        Debug.Log("Load");
-        */
     }
 
 
@@ -601,6 +548,7 @@ public class PersistantGameManager : MonoBehaviour
         {
             if (door.gameObject.name.Replace(" Door","") == previousScene)
             {
+                StartCoroutine(Autosave());
                 player.transform.position = door.transform.position;
                 _camera.transform.position = new Vector3(player.transform.position.x, player.transform.position.y , -10f);
             }
@@ -711,45 +659,47 @@ public class PersistantGameManager : MonoBehaviour
 
 
     }
-    public IEnumerator Autosave()
+    public IEnumerator AutosaveCoroutine()
     {
         while(true)
         {
             yield return new WaitForSecondsRealtime(120);
-
-            if (!File.Exists(Application.persistentDataPath + "/SavedData/Timestamps.txt"))
-            {
-                Directory.CreateDirectory(Application.persistentDataPath + "/SavedData");
-
-                FileStream file;
-                file = File.Create(Application.persistentDataPath + "/SavedData/Timestamps.txt");
-                file.Close();
-
-                file = File.Create(Application.persistentDataPath + "/SavedData/Slot1.txt");
-                file.Close();
-                file = File.Create(Application.persistentDataPath + "/SavedData/Slot2.txt");
-                file.Close();
-                file = File.Create(Application.persistentDataPath + "/SavedData/Slot3.txt");
-                file.Close();
-                file = File.Create(Application.persistentDataPath + "/SavedData/Slot4.txt");
-                file.Close();
-                Reset();
-            }
-            Timestamps timestamps = GetTimestamps();
-            timestamps.S4T = "Autosave\n " + DateTime.Now.ToString().Substring(0, DateTime.Now.ToString().Length - 8);
-            SaveTimestamps(timestamps);
-            SaveGameManagerData(4);
-            TextMeshProUGUI text = GameObject.FindGameObjectWithTag("Updates").GetComponent<TextMeshProUGUI>();
-            for(int i = 0; i <= 5; i ++)
-            {
-                text.text = "Autosaving" + new string('.', i);
-                yield return new WaitForSecondsRealtime(0.2f);
-            }
-            text.text = "";
-
+            StartCoroutine(Autosave());
         }
-
     }
+    public IEnumerator Autosave()
+    {
+        if (!File.Exists(Application.persistentDataPath + "/SavedData/Timestamps.txt"))
+        {
+            Directory.CreateDirectory(Application.persistentDataPath + "/SavedData");
+
+            FileStream file;
+            file = File.Create(Application.persistentDataPath + "/SavedData/Timestamps.txt");
+            file.Close();
+
+            file = File.Create(Application.persistentDataPath + "/SavedData/Slot1.txt");
+            file.Close();
+            file = File.Create(Application.persistentDataPath + "/SavedData/Slot2.txt");
+            file.Close();
+            file = File.Create(Application.persistentDataPath + "/SavedData/Slot3.txt");
+            file.Close();
+            file = File.Create(Application.persistentDataPath + "/SavedData/Slot4.txt");
+            file.Close();
+            Reset();
+        }
+        Timestamps timestamps = GetTimestamps();
+        timestamps.S4T = "Autosave\n " + DateTime.Now.ToString().Substring(0, DateTime.Now.ToString().Length - 8);
+        SaveTimestamps(timestamps);
+        SaveGameManagerData(4);
+        TextMeshProUGUI text = GameObject.FindGameObjectWithTag("Updates").GetComponent<TextMeshProUGUI>();
+        for (int i = 0; i <= 5; i++)
+        {
+            text.text = "Autosaving" + new string('.', i);
+            yield return new WaitForSecondsRealtime(0.2f);
+        }
+        text.text = "";
+    }
+
     public void SaveTimestamps(Timestamps data)
     {
         BinaryFormatter bF = new BinaryFormatter();
