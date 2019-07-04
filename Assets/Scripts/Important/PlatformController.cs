@@ -40,6 +40,9 @@ public class PlatformController : MonoBehaviour
     public void Start()
     {
         active = false;
+
+        //Checks if the are already active and sets the message for each type
+        //The message is what appears on the panel when it is clicked
         switch (type)
         {
             case 1:
@@ -47,28 +50,28 @@ public class PlatformController : MonoBehaviour
                 {
                     active = true;
                 }
-                myMessage = "Must Reach Level " + neededLevel;
+                myMessage = "Must reach Level " + neededLevel;
                 break;
              case 2:
                 if(PersistantGameManager.Instance.skillLevels[skill] >= skillLevel)
                 {
                     active = true;
                 }
-                myMessage = "Must Get " + AddSpacesToSentence(skill) + " To Level " + skillLevel;
+                myMessage = "Must get " + AddSpacesToSentence(skill) + " to Level " + skillLevel;
                 break;
             case 3:
                 if(PersistantGameManager.Instance.completedQuests.Contains(questKey))
                 {
                     active = true;
                 }
-                myMessage = "Must Complete " + questName + " From " + NPCName;
+                myMessage = "Must complete " + questName + " from " + NPCName;
                 break;
             case 4:
                 if(PersistantGameManager.Instance.completedQuests.Contains(questKey) || PersistantGameManager.Instance.activeQuests.Contains(questKey))
                 {
                     active = true;
                 }
-                myMessage = "Must Start " + questName + " From " + NPCName;
+                myMessage = "Must start " + questName + " from " + NPCName;
                 break;
             case 5:
                 try
@@ -84,22 +87,36 @@ public class PlatformController : MonoBehaviour
                 }
                 myMessage = "Must kill " + ammountNeeded + " " + AddSpacesToSentence(typeOfEnemy) + "s,\n";
                 break;
+            case 6:
+                if (PersistantGameManager.Instance.itemInventory[itemNeeded] > 0)
+                {
+                    active = true;
+                }
+                myMessage = "Must have " + itemNeeded;
+                break;
+
 
         }
         if (!active)
         {
+            //Sets it as a solid that will get turned off
             if (opposite)
             {
+                //Lets player iteract with it
                 gameObject.layer = LayerMask.NameToLayer("Map");
                 normalC = GetComponent<Tilemap>().color;
+                //slightly darker color
                 GetComponent<Tilemap>().color = new Color32(192, 192, 192, 255);
                 compCollider2D = GetComponent<CompositeCollider2D>();
                 compCollider2D.isTrigger = false;
             }
+            //Sets it as transparent that will get turned on
             else
             {
+                //Makes it so player cannot jump off it
                 gameObject.layer = LayerMask.NameToLayer("Default");
                 normalC = GetComponent<Tilemap>().color;
+                //Sets it to a greyed out color
                 GetComponent<Tilemap>().color = greyedOutC;
                 compCollider2D = GetComponent<CompositeCollider2D>();
                 compCollider2D.isTrigger = true;
@@ -107,6 +124,7 @@ public class PlatformController : MonoBehaviour
         }
         if (active)
         {
+            //Sets it to is good state
             if (opposite)
             {
                 gameObject.layer = LayerMask.NameToLayer("Default");
@@ -130,7 +148,7 @@ public class PlatformController : MonoBehaviour
     {
         if (!active)
         {
-
+            //Checks it is is complete then activates it
             switch (type)
             {
                 case 1:
@@ -182,6 +200,8 @@ public class PlatformController : MonoBehaviour
         }
 
     } 
+
+    //Activates it sets it to is turned on state
     void Activate()
     {
         if (opposite)
@@ -235,6 +255,7 @@ public class PlatformController : MonoBehaviour
         return newText.ToString();
     }
 
+    //When the mouse hovers over the platform and clicks a panel ops up with info on the panel
     private void OnMouseOver()
     {
         if (Input.GetKeyDown(KeyCode.Mouse0) && panel != null)
@@ -242,6 +263,8 @@ public class PlatformController : MonoBehaviour
             if (!active && !panelOpen)
             {
                 panel.SetActive(true);
+
+                //Offsets the panel the right dirrection
                 if(Input.mousePosition.x >= Camera.main.pixelWidth/2)
                 {
                     panel.GetComponent<AreaRequirements>().offest.x = -110*2;
@@ -259,6 +282,7 @@ public class PlatformController : MonoBehaviour
                     panel.GetComponent<AreaRequirements>().offest.y = 55*2;
                 }
 
+                //Assigns the message  to the panel
                 if(type == 5)
                 {
                     int numberNeeded;
@@ -286,6 +310,7 @@ public class PlatformController : MonoBehaviour
         }
 
     }
+    //closes panel
     private void OnMouseExit()
     {
         if(panelOpen && panel != null) 

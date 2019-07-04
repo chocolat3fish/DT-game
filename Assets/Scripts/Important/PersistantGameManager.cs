@@ -161,6 +161,7 @@ public class PersistantGameManager : MonoBehaviour
 
     private void Awake()
     {
+        //If the persistant game manager is created from a reload then it loads data from this object called Load Scene Monitor
         if(Instance == null || gameObject.name == "PersistantGameManager - Reload")
         {
             if (gameObject.name == "PersistantGameManager - Reload")
@@ -168,6 +169,7 @@ public class PersistantGameManager : MonoBehaviour
                 gameObject.name = "PersistantGameManager";
                 GameManagerData data = FindObjectOfType<LoadSceneMonitor>().data;
                 Destroy(FindObjectOfType<LoadSceneMonitor>().gameObject);
+                //Loads the data
                 #region UpdateData
                 itemInventory = data.itemInventory;
                 possibleItems = data.possibleItems;
@@ -238,6 +240,7 @@ public class PersistantGameManager : MonoBehaviour
 
                 StartCoroutine(TurnOnAndOffJustLoaded());
 
+                //Sets the singleton
                 Instance = this;
                 DontDestroyOnLoad(gameObject);
                 LoadNewScene(data.currentScene);
@@ -245,6 +248,7 @@ public class PersistantGameManager : MonoBehaviour
             }
             else
             {
+                //Sets the singleton
                 Instance = this;
                 DontDestroyOnLoad(gameObject);
             }
@@ -265,11 +269,13 @@ public class PersistantGameManager : MonoBehaviour
         justReloaded = false;
     }
 
+
     void LoadNewScene(string sceneName)
     {
         SceneManager.LoadScene(sceneName);
         currentScene = sceneName;
         LootDropMonitor[] lootDropMonitors = FindObjectsOfType<LootDropMonitor>();
+        //If the item is already in the players inventory then destory it 
         foreach(LootDropMonitor lDM in lootDropMonitors)
         {
             if(lDM.type == 2)
@@ -289,14 +295,15 @@ public class PersistantGameManager : MonoBehaviour
     {
         yield return new WaitForSecondsRealtime(time);
         Destroy(gameObject);
-        print("die");
     }
     private void Start()
     {
         if (SceneManager.GetActiveScene().name != "Loading" && !justReloaded)
         {
+            //Sets things to deafualt settings
             timeOfAbility -= 30f;
-            //Shortened to 3 weapons
+            
+            //Adds the 3 slots of a player inventory
             for (int i = 0; i < 3; i++)
             {
                 playerWeaponInventory.Add(null);
@@ -310,9 +317,6 @@ public class PersistantGameManager : MonoBehaviour
                 itemInventory.Add(element, 0);
             }
 
-
-            //LoadDataFromSave();
-
             //Generates total xp (Cubic graph) based on level
             totalExperience = (float)((0.04 * Math.Pow(playerStats.playerLevel, 3)) + (0.8 * Math.Pow(playerStats.playerLevel, 2)) + 100);
             totalHealthMulti = 0.05f * skillLevels["HealthBonus"];
@@ -321,6 +325,7 @@ public class PersistantGameManager : MonoBehaviour
     }
     void Update()
     {
+        //if the players ability has timed out 
         if (Time.time > (timeOfAbility + abilityDuration) && (damageResistMulti < 1 || currentAttackMultiplier > 1))
         {
             damageResistMulti = 1;
@@ -329,6 +334,7 @@ public class PersistantGameManager : MonoBehaviour
             abilityIsActive = false;
         }
 
+        //IF player clicks 1,2 or 3 then get to that weapon
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             currentIndex = 0;
@@ -352,33 +358,30 @@ public class PersistantGameManager : MonoBehaviour
         {
             magicBar.SetActive(true);
         }
-
         else if ((magicBar != null) && (hasMagic == false))
         {
             magicBar.SetActive(false);
         }
 
 
-
+        //If the player has no weapons
         if (currentWeapon == null)
         {
             ChangeItem(99);
         }
 
+        //Dectects wether the scene has changed
         if(currentScene != SceneManager.GetActiveScene().name && SceneManager.GetActiveScene().name != "You lost")
         {
             OnSceneChange();
         }
 
-        //if (checkExp){}
-
-
-            //Temporary values
+        //On level up
         if (playerStats.playerExperience >= totalExperience)
         {
-            //int levels = 0;
+          
             int skillPoints = 0;
-
+            //Levels the player up untill he reachs the correct level
             while (playerStats.playerExperience > totalExperience)
             {
                 float oldTotalExperience = totalExperience;
@@ -392,15 +395,14 @@ public class PersistantGameManager : MonoBehaviour
                 playerStats.playerExperience -= oldTotalExperience;
             }
 
-
             playerStats.playerSkillPoints += skillPoints;
-            //playerStats.playerLevel += levels;
+           
         }
 
 
     }
 
-
+    //Changes the weapon to the the index provided
     public void ChangeItem(int index)
     {
         if(index == 99)
@@ -408,7 +410,6 @@ public class PersistantGameManager : MonoBehaviour
             currentWeapon = playerWeaponInventory[0];
             previousIndex = 0;
         }
-        //shortened to 3 items
         else if(index != previousIndex && index < 3 && index > -1)
         {
 
@@ -420,10 +421,13 @@ public class PersistantGameManager : MonoBehaviour
 
         }
     }
+
+   //Saves all the data in PGM to a file
    public void SaveGameManagerData(int slot)
     {
         BinaryFormatter bF = new BinaryFormatter();
         FileStream file;
+        //Makes sure the file to save to exists
         if (File.Exists(Application.persistentDataPath + "/SavedData/slot" + slot + ".txt"))
         {
             file = File.Open(Application.persistentDataPath + "/SavedData/slot" + slot + ".txt", FileMode.Open);
@@ -432,8 +436,9 @@ public class PersistantGameManager : MonoBehaviour
         {
             file = File.Create(Application.persistentDataPath + "/SavedData/slot" + slot + ".txt");
         }
+        //GameManagerData Holds all of the info in PGM
         GameManagerData data = new GameManagerData();
-
+        #region Data
         data.currentScene = currentScene;
         data.previousScene = previousScene;
 
@@ -500,22 +505,23 @@ public class PersistantGameManager : MonoBehaviour
 
         data.completedQuests = completedQuests;
         data.currentEnemyKills = currentEnemyKills;
-
+        #endregion
         bF.Serialize(file, data);
         file.Close();
-        Debug.Log("Saved");
 
     }
 
+    //Loads data from the save file
     public void LoadDataFromSave(int slot)
     {
         SceneManager.LoadScene("Loading");
-        print("done");
+        //Creates an object to hold the data so the new PGM can use it
         GameObject empty = new GameObject("Load Scene Controller");
         LoadSceneMonitor load = empty.AddComponent<LoadSceneMonitor>();
 
         BinaryFormatter bF = new BinaryFormatter();
         FileStream file;
+        //Makes sure the file exists
         if (File.Exists(Application.persistentDataPath + "/SavedData/slot" + slot + ".txt"))
         {
             file = File.Open(Application.persistentDataPath + "/SavedData/slot" +slot + ".txt", FileMode.Open);
@@ -524,19 +530,18 @@ public class PersistantGameManager : MonoBehaviour
         {
             file = File.Create(Application.persistentDataPath + "/SavedData/SavedData/slot" + slot + ".txt");
         }
-
+        //Gets the data from the save
         GameManagerData data = (GameManagerData)bF.Deserialize(file);
-
+        //transfers to the holding object
         load.data = data;
         new GameObject("PersistantGameManager - Reload").AddComponent<PersistantGameManager>();
-        print("done");
         Destroy(gameObject);
     }
 
-
+    //Runs when the scene changes
     private void OnSceneChange()
     {
-        print("OnSceneChange");
+        //Finds everything nessescary for PGM to run
         player = FindObjectOfType<PlayerControls>();
         _camera = FindObjectOfType<CameraMovement>().gameObject;
         DoorMonitor[] doors = FindObjectsOfType<DoorMonitor>();
@@ -544,6 +549,7 @@ public class PersistantGameManager : MonoBehaviour
         {
             previousScene = currentScene;
         }
+        //transports the player to the door that relates to where they came from
         foreach (DoorMonitor door in doors)
         {
             if (door.gameObject.name.Replace(" Door","") == previousScene)
@@ -555,6 +561,7 @@ public class PersistantGameManager : MonoBehaviour
         }
         currentScene = SceneManager.GetActiveScene().name;
     }
+    //Wipes everything and restarts the game
     public void Restart(string SceneName)
     {
         Instance = null;
@@ -659,6 +666,7 @@ public class PersistantGameManager : MonoBehaviour
 
 
     }
+    //Autosaves every 2 minutes
     public IEnumerator AutosaveCoroutine()
     {
         while(true)
@@ -669,6 +677,7 @@ public class PersistantGameManager : MonoBehaviour
     }
     public IEnumerator Autosave()
     {
+        //Makes sure all the files exist
         if (!File.Exists(Application.persistentDataPath + "/SavedData/Timestamps.txt"))
         {
             Directory.CreateDirectory(Application.persistentDataPath + "/SavedData");
@@ -688,9 +697,12 @@ public class PersistantGameManager : MonoBehaviour
             Reset();
         }
         Timestamps timestamps = GetTimestamps();
+        //Saves the time of the autosave
         timestamps.S4T = "Autosave\n " + DateTime.Now.ToString().Substring(0, DateTime.Now.ToString().Length - 8);
         SaveTimestamps(timestamps);
+        //Save
         SaveGameManagerData(4);
+        //Give player indication of save
         TextMeshProUGUI text = GameObject.FindGameObjectWithTag("Updates").GetComponent<TextMeshProUGUI>();
         for (int i = 0; i <= 5; i++)
         {
