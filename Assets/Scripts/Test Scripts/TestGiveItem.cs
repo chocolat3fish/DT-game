@@ -22,7 +22,7 @@ public class TestGiveItem : MonoBehaviour
         //PersistantGameManager.Instance.playerWeaponInventory[3] = new Weapon("Long Sword", 3f, 0.6f, 1.5f);
         //PersistantGameManager.Instance.playerWeaponInventory[4] = new Weapon("Axe", 10f, 2f, 1.5f);
         //PersistantGameManager.Instance.currentArmour = new Armour("Wooden", 0.5f);
-        if(SceneManager.GetActiveScene().name == "Tutorial")
+        if(SceneManager.GetActiveScene().name == "Tutorial" || SceneManager.GetActiveScene().name == "Menu")
         {
             PersistantGameManager.Instance.playerWeaponInventory[0] = new Weapon("Empty", "", "", "", 0f, 0.00f, 0.00f, 0, 0);
             PersistantGameManager.Instance.playerWeaponInventory[1] = new Weapon("Empty", "", "", "", 0f, 0.00f, 0.00f, 0, 0);

@@ -599,15 +599,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cec4dd2ebf7bc42cb9153af8735b21a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tough:
-    serializedVersion: 2
-    rgba: 4278190335
-  average:
-    serializedVersion: 2
-    rgba: 4278255615
-  easy:
-    serializedVersion: 2
-    rgba: 4278255360
 --- !u!1 &7759758608499189178
 GameObject:
   m_ObjectHideFlags: 0
@@ -1007,7 +998,7 @@ MonoBehaviour:
     enemyMaxLevel: 0
     enemyClass: Medium
   itemChance: 100
-  weaponValue: 1
+  weaponValue: 100
   itemValue: 0
   questTarget: 0
   questReward: 
