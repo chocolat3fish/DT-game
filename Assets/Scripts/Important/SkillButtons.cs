@@ -44,19 +44,20 @@ public class SkillButtons : MonoBehaviour
         descriptionPanel.gameObject.SetActive(true);
         if (up)
         {
-            descriptionPanel.offest.y = 255;
+            descriptionPanel.offest.y = Screen.height / (1920/470);
         }
         else
         {
-            descriptionPanel.offest.y = -255;
+            descriptionPanel.offest.y = -Screen.height / (1920 / 470);
         }
         if (right)
         {
-            descriptionPanel.offest.x = 230;
+            descriptionPanel.offest.x = Screen.width / (1080/130);
         }
         else
         {
-            descriptionPanel.offest.x = -230;
+            descriptionPanel.offest.x = -Screen.width / (1080 / 130);
+          
         }
         descriptionPanel.transform.position = Input.mousePosition + descriptionPanel.offest;
         descriptionPanel.transform.Find("Title").GetComponent<Text>().text = AddSpacesToSentence(_name);
