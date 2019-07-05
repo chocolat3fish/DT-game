@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+
+//Controls the dialogue during the tutorial
 public class TutorialDialogue : MonoBehaviour
 {
     GameObject dialogueCanvas, toTalkPanel;
@@ -12,6 +14,7 @@ public class TutorialDialogue : MonoBehaviour
     int stageOfConvo, currentSentenceIndex;
     bool isTalking, canContinueDialogue;
     PlayerControls player;
+
     void Awake()
     {
         
@@ -25,6 +28,7 @@ public class TutorialDialogue : MonoBehaviour
     IEnumerator StartDialogue()
     {
         AsyncOperation loadDialogueCanvas = SceneManager.LoadSceneAsync("Dialogue Canvas", LoadSceneMode.Additive);
+        //Loading of the canvas
         while (true)
         {
             if (loadDialogueCanvas.isDone)
@@ -54,6 +58,8 @@ public class TutorialDialogue : MonoBehaviour
                 yield return new WaitForSecondsRealtime(0.01f);
             }
         }
+
+        //Sets defaults
         canvasNameText.text = "Jason";
         stageOfConvo = 0;
         currentSentenceIndex = 0;
@@ -64,12 +70,13 @@ public class TutorialDialogue : MonoBehaviour
         canvasRewardText.text = "";
         PersistantGameManager.Instance.dialogueSceneIsOpen = true;
         toTalkPanel.SetActive(false);
+        //Puts the quest in the active quest menu
         if (!PersistantGameManager.Instance.activeQuests.Contains(tutorialQuest.questKey))
         {
             PersistantGameManager.Instance.activeQuests.Add(tutorialQuest.questKey);
             PersistantGameManager.Instance.possibleQuests.Add(tutorialQuest.questKey, tutorialQuest);
         }
-        yield return new WaitForSecondsRealtime(1f);
+        yield return new WaitForSecondsRealtime(0.5f);
         StopAllCoroutines();
         StartCoroutine(AddChars("Hello\nMy name is Jason, you've been asleep for a while./d", canvasMainText));
     }
@@ -77,11 +84,12 @@ public class TutorialDialogue : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        //Continues dialogue
         if(Input.GetKeyDown(KeyCode.M) && !(stageOfConvo == 1 && currentSentenceIndex == 0))
         {
             ContinueDialogue();
         }
+        //Opens the 'to talk panel' when at a certain stage during the tutorial
         if(stageOfConvo == 1 && currentSentenceIndex == 0)
         {
             float distance = Vector2.Distance(player.transform.position, transform.position);
@@ -98,21 +106,23 @@ public class TutorialDialogue : MonoBehaviour
         }
     }
 
+    //Adds the letters to the text specified
     IEnumerator AddChars(string sentence, Text text)
     {
         canContinueDialogue = false;
         text.text = "";
-        char previousChar = "a"[0];
+        char previousChar = 'a';
         bool shouldWait = false;
         foreach (char ch in sentence)
         {
-            if(previousChar == "/"[0])
+
+            if(previousChar == '/')
             {
                 switch(ch.ToString())
                 {
                     case "w":
                         yield return new WaitForSecondsRealtime(0.5f);
-                        previousChar = "a"[0];
+                        previousChar = 'a';
                         shouldWait = true;
                         continue;
 
@@ -126,37 +136,17 @@ public class TutorialDialogue : MonoBehaviour
                         continue;
                 }
             }
-            if (ch == "/"[0])
+            if (ch == '/')
             {
                 previousChar = ch;
                 continue;
             }
-            /*
-            if (ch == "w"[0] && previousChar == "/"[0])
-            {
-                yield return new WaitForSecondsRealtime(0.5f);
-                previousChar = "a"[0];
-                shouldWait = true;
-                continue;
-            }
-            if(ch == "d"[0] && previousChar == "/"[0])
-            {
-                canContinueDialogue = true;
-                continue;
-            }
-            if(ch == "r"[0] && previousChar == "/"[0])
-            {
-                yield return new WaitForSecondsRealtime(1f);
-                text.text = "";
-                continue;
-            }
-            */
-           
+
             previousChar = ch;
             text.text += ch;
             yield return null;
             
-
+            //slows down text
             if (shouldWait)
             {
                 print("waiting");
@@ -165,6 +155,8 @@ public class TutorialDialogue : MonoBehaviour
 
         }
     }
+    //Runs through each sentence moving onto the next one when the player clicks
+    //Some will start a co-routine that waits for the player to complete a certian task before conintuing
     public void ContinueDialogue()
     {
         if(canContinueDialogue)
@@ -279,6 +271,7 @@ public class TutorialDialogue : MonoBehaviour
                 {
                     canContinueDialogue = false;
                     StopAllCoroutines();
+                    //Drops jasons dagger
                     GameObject questDrop = Instantiate(Resources.Load("Loot Drop"), player.transform.position, Quaternion.identity) as GameObject;
                     LootDropMonitor questDropMonitor = questDrop.GetComponent<LootDropMonitor>();
                     questDropMonitor.type = 0;
@@ -288,7 +281,6 @@ public class TutorialDialogue : MonoBehaviour
                 }
                 else if (currentSentenceIndex == 6)
                 {
-                    print("Continued");
                     bool hasPickedItUp = false;
 
                     foreach (Weapon weapon in PersistantGameManager.Instance.playerWeaponInventory)
@@ -411,9 +403,7 @@ public class TutorialDialogue : MonoBehaviour
                 {
                     StopAllCoroutines();
                     canContinueDialogue = false;
-                    //canvasContinueButton.gameObject.SetActive(false);
                     StartCoroutine(AddChars("You hold 3 weapons, and can switch them with 1, 2, and 3, the order can be arranged in your weapons menu. If you need to save your game or load an old one, click the button in the menu./d", canvasMainText));
-                    //StartCoroutine(WaitForPlayerToArrangeWeapons());
                     currentSentenceIndex = 17;
                 }
                 else if(currentSentenceIndex == 17)
@@ -432,7 +422,6 @@ public class TutorialDialogue : MonoBehaviour
 
                     PersistantGameManager.Instance.activeQuests.Remove("Tutorial");
                     PersistantGameManager.Instance.possibleQuests.Remove("Tutorial");
-                    //PersistantGameManager.Instance.itemInventory.Remove("Jason's Belt");
                     PersistantGameManager.Instance.tutorialComplete = true;
                 }
 
