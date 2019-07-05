@@ -277,10 +277,16 @@ public class EnemyMonitor : MonoBehaviour
 
         // Sets most recent killed enemy's level to the enemy level for loot to level based on enemy stats rather than the player.
         PersistantGameManager.Instance.lastEnemyLevel = enemyStats.enemyLevel;
+
+        
         //Gets the new weapon based off the drop chance and the value of weapon, if a weapon is not going to be droped it returns null
         LootItem newItem = LootManager.DropItem(itemChance, weaponValue);
 
-
+        int chance = random.Next(0, 3);
+        if (chance > 0)
+        {
+            newItem = null;
+        }
 
         //runs if there is a weapon stored in new weapon
         if (newItem != null)

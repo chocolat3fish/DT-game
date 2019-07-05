@@ -677,6 +677,7 @@ public class PersistantGameManager : MonoBehaviour
     }
     public IEnumerator Autosave()
     {
+        yield return new WaitForSecondsRealtime(1);
         //Makes sure all the files exist
         if (!File.Exists(Application.persistentDataPath + "/SavedData/Timestamps.txt"))
         {
