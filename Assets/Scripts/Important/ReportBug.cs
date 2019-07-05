@@ -11,6 +11,7 @@ public class ReportBug : MonoBehaviour
     GameObject successText, continueButton, reportBugTitle, sendButton, backButton;
     private void Awake()
     {
+        //Finds nessecary components
         Title = transform.Find("Title").GetComponent<InputField>();
         Description = transform.Find("Description").GetComponent<InputField>();
 
@@ -28,8 +29,10 @@ public class ReportBug : MonoBehaviour
         backButton.GetComponent<Button>().onClick.AddListener(asyncTriggers.CloseBugReportCanvas);
 
     }
+    //Emails the account bugreporterforjanda@gmail.com with the bug info
     public void sendMessage()
     {
+        //Makes sure the textboxs are full then send the mail
         if (Title.text != "" && Description.text != "")
         {
             SmtpClient client = new SmtpClient();
@@ -56,6 +59,7 @@ public class ReportBug : MonoBehaviour
             sendButton.SetActive(false);
             backButton.SetActive(false);
         }
+        //Gives the player a message if it isnt full
         else
         {
             if(Title.text == "")
