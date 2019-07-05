@@ -9076,12 +9076,17 @@ PrefabInstance:
     - target: {fileID: 4761653873820443592, guid: 65da966ae40fc4190be9ad0efe7db603,
         type: 3}
       propertyPath: characterQuests.Array.data[0].questKey
-      value: Kr00
+      value: Ki00
       objectReference: {fileID: 0}
     - target: {fileID: 4761653873820443592, guid: 65da966ae40fc4190be9ad0efe7db603,
         type: 3}
       propertyPath: characterQuests.Array.data[0].questName
       value: Missing Relic
+      objectReference: {fileID: 0}
+    - target: {fileID: 4761653873820443592, guid: 65da966ae40fc4190be9ad0efe7db603,
+        type: 3}
+      propertyPath: characterQuests.Array.data[0].sentencesAfterQuest.Array.data[0]
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 65da966ae40fc4190be9ad0efe7db603, type: 3}
