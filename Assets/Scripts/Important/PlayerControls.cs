@@ -65,13 +65,14 @@ public class PlayerControls : MonoBehaviour
         get { return _currentHealth; }
         set
         {
+            //If godmode is enabled don't let any damage through
             if (!PersistantGameManager.Instance.GodMode)
             {
                 _currentHealth = value;
             }
             if (value < _currentHealth)
             {
-                //StartCoroutine(Shake());
+
             }
 
         }
@@ -102,6 +103,7 @@ public class PlayerControls : MonoBehaviour
 
     private void Awake()
     {
+        //Finds the nessecary componets
         animator = gameObject.GetComponent<Animator>();
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         cameraMovement = FindObjectOfType<CameraMovement>();
@@ -109,6 +111,8 @@ public class PlayerControls : MonoBehaviour
         collider = gameObject.GetComponent<BoxCollider2D>();
         leftDetector = gameObject.transform.Find("Left Detector").GetComponent<BoxCollider2D>();
         rightDetector = gameObject.transform.Find("Right Detector").GetComponent<BoxCollider2D>();
+
+        //Finds all the enemies and disables the collisons between them and this enemy
         EnemyMonitor[] enemyColliders = FindObjectsOfType<EnemyMonitor>();
         StartCoroutine(HealthRegen());
         foreach (EnemyMonitor m in enemyColliders)
@@ -121,12 +125,11 @@ public class PlayerControls : MonoBehaviour
         colliderHeight = GetComponent<Collider2D>().bounds.extents.y; // + 0.2f;
 
     }
+    //Sets values to default
     void Start()
     {
         playerRigidbody = GetComponent<Rigidbody2D>();
-
-
-        // stops player from flipping everywhere
+        //Stops player from flipping everywhere
         playerRigidbody.freezeRotation = true;
         leftDetector.enabled = false;
         rightDetector.enabled = false;
@@ -140,7 +143,7 @@ public class PlayerControls : MonoBehaviour
 
     void Update()
     {
-
+        //When player is on the ground
         if (PlayerIsOnGround() && !justJumped)
         {
             canJump = true;
@@ -153,6 +156,7 @@ public class PlayerControls : MonoBehaviour
             collider.sharedMaterial = (PhysicsMaterial2D)Resources.Load("PhysicsMaterials/FloorGrippy");
         }
 
+        //When the player is on the wall
         if (PlayerIsOnWall() && !justJumped)
         {
             if (PersistantGameManager.Instance.gripWalls == true && canGrip == true && !PlayerIsOnGround())
@@ -170,32 +174,21 @@ public class PlayerControls : MonoBehaviour
             shouldJump = false;
 
         }
+        //When the player is on the wall and can't grip walls any more
         if (!PlayerIsOnWall() && totalGrips > 0)
         {
             canGrip = false;
             animator.Play("Jumping");
         }
 
+        //If the player dies
         if (currentHealth <= 0)
         {
             // when player dies, loads the game over scene
             SceneManager.LoadScene(deathScene);
         }
 
-        /*
-        if (Input.GetMouseButtonDown(1))
-        {
-            transform.position = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.nearClipPlane));
-            playerRigidbody.velocity = new Vector2(0, 0);
-            /*Vector2 mousePos = Input.mousePosition;
-            Vector2 newPos = mousePos / (new Vector2(18, 10));
-            newPos = newPos -
-            
-
-        }
-        */
-        
-
+        //Gives the triple jump ability
         if (PersistantGameManager.Instance.tripleJump == true && !givenTripleJump)
         {
             totalJumps += 1;
@@ -212,6 +205,7 @@ public class PlayerControls : MonoBehaviour
             shouldJump = true;
         }
 
+        //Runs the attack and plays the attack animation
         if (Input.GetKeyDown(KeyCode.W))
         {
             switch (PersistantGameManager.Instance.currentWeapon.itemName)
@@ -242,7 +236,7 @@ public class PlayerControls : MonoBehaviour
 
 
         }
-
+        //Smite
         if (Input.GetKeyDown(KeyCode.Q) && PersistantGameManager.Instance.hasSmite && Time.time >= timeOfMagic + magicCooldown)
         {
             //on attack press, fireball function and set cooldown
@@ -255,7 +249,7 @@ public class PlayerControls : MonoBehaviour
                 SmiteDuration();
             }
         }
-
+        //Turtle mode
         if (Input.GetKeyDown(KeyCode.R) && PersistantGameManager.Instance.damageResist && Time.time >= timeOfMagic + magicCooldown)
         {
             //activate damage resist and record time
@@ -304,18 +298,13 @@ public class PlayerControls : MonoBehaviour
             }
 
         }
-
+        //If they are moving then activate defence with movment
         if (playerRigidbody.velocity.x < -0.01 && PersistantGameManager.Instance.skillLevels["DefenceWithMovement"] > 0)
         {
             if (PersistantGameManager.Instance.currentActiveAbility == "Turtle")
             {
-                //float stockDamageResist = PersistantGameManager.Instance.turtleResistMulti;
-                //float newMoveResist = (PersistantGameManager.Instance.movementResistMulti * (playerRigidbody.velocity.x / 10) * -1);
-
-                //PersistantGameManager.Instance.damageResistMulti = (stockDamageResist * newMoveResist);
                 PersistantGameManager.Instance.damageResistMulti = (1 - PersistantGameManager.Instance.movementResistMulti * (playerRigidbody.velocity.x / 10) * -1) * (PersistantGameManager.Instance.turtleResistMulti * PersistantGameManager.Instance.turtleMultiMulti);
             }
-
             else
             {
                 PersistantGameManager.Instance.damageResistMulti = 1 - PersistantGameManager.Instance.movementResistMulti * (playerRigidbody.velocity.x / 10) * -1;
@@ -323,7 +312,6 @@ public class PlayerControls : MonoBehaviour
         }
 
         //makes the character face the correct direction. and offests the camera depening on which way you are moving
-        //determines whether facing left or right
         if (playerRigidbody.velocity.x < -0.01)
         {
             spriteRenderer.flipX = true;
@@ -331,7 +319,6 @@ public class PlayerControls : MonoBehaviour
 
             facingRight = false;
             facingLeft = true;
-
         }
         if (playerRigidbody.velocity.x > 0.01)
         {
@@ -340,7 +327,6 @@ public class PlayerControls : MonoBehaviour
 
             facingLeft = false;
             facingRight = true;
-
         }
 
         //if player moving exceedingly fast, pushes the camera ahead to keep player visible

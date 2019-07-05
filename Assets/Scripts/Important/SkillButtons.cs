@@ -23,16 +23,21 @@ public class SkillButtons : MonoBehaviour
     public Color32 unlockedC = new Color32(0, 245, 7, 255);
     public Color32 notUnlockedC = new Color32(245, 0, 29, 255);
     public bool right, up;
+
     private void Awake()
     {
+        //Assigns the nessecary variables
         unlockedC = new Color32(13, 147, 0, 255);
         notUnlockedC = new Color32(245, 0, 29, 255);
         descriptionPanel = FindObjectOfType<skillDescription>();
         EventTrigger trigger = gameObject.AddComponent<EventTrigger>();
         EventTrigger.Entry entry = new EventTrigger.Entry();
+
+        //Asigns the method that runs when the mouse hovers over it
         entry.eventID = EventTriggerType.PointerEnter;
         entry.callback.AddListener((data) => { OpenSkillDescription((PointerEventData)data); });
         trigger.triggers.Add(entry);
+        //When the mouse exits it
         EventTrigger.Entry entry2 = new EventTrigger.Entry();
         entry2.eventID = EventTriggerType.PointerExit;
         entry2.callback.AddListener((data) => { CloseSkillDescription((PointerEventData)data); });
@@ -42,32 +47,36 @@ public class SkillButtons : MonoBehaviour
     public void OpenSkillDescription(PointerEventData data)
     {
         descriptionPanel.gameObject.SetActive(true);
+        //Calculates the offest to apply to panel
         if (up)
         {
-            descriptionPanel.offest.y = Screen.height / (1920/470);
+            descriptionPanel.offest.y = Screen.height / (1920f/450f);
         }
         else
         {
-            descriptionPanel.offest.y = -Screen.height / (1920 / 470);
+            descriptionPanel.offest.y = -Screen.height / (1920f / 450f);
         }
         if (right)
         {
-            descriptionPanel.offest.x = Screen.width / (1080/130);
+            descriptionPanel.offest.x = Screen.width / (1080f/130f);
         }
         else
         {
-            descriptionPanel.offest.x = -Screen.width / (1080 / 130);
-          
+            descriptionPanel.offest.x = -Screen.width / (1080f / 130f);
         }
+        //Moves the pane;
         descriptionPanel.transform.position = Input.mousePosition + descriptionPanel.offest;
         descriptionPanel.transform.Find("Title").GetComponent<Text>().text = AddSpacesToSentence(_name);
         descriptionPanel.transform.Find("Desc").GetComponent<Text>().text = skillDescription;
+        //Default values
         bool go = false;
-        bool something = false;
+        bool hasRequirements = false;
         string output = "";
+
+        //Runs through each of the nessecary skill to unclock it and gets the names and puts it onto the panel with its level
         foreach(string s in toBeUnlocked)
         {
-            something = true;
+            hasRequirements = true;
             if(PersistantGameManager.Instance.skillLevels[s] >= levelToUnlock)
             {
                 go = true;
@@ -83,14 +92,17 @@ public class SkillButtons : MonoBehaviour
             }
 
         }
-        if (something)
+        //If needs to output then output
+        if (hasRequirements)
         {
             descriptionPanel.transform.Find("Requirements").GetComponent<Text>().text = output;
         }
         else
         {
+            //If you must be a certain level
             if (nessesaryXPLevel > 0)
             {
+
                 descriptionPanel.transform.Find("Requirements").GetComponent<Text>().text = "Lvl: " + nessesaryXPLevel;
                 if(PersistantGameManager.Instance.playerStats.playerLevel >= nessesaryXPLevel)
                 {
@@ -101,6 +113,7 @@ public class SkillButtons : MonoBehaviour
                     descriptionPanel.transform.Find("Requirements").GetComponent<Text>().color = notUnlockedC;
                 }
             }
+            //If there are no requirements
             else
             {
                 descriptionPanel.transform.Find("Requirements").GetComponent<Text>().text = "None";
@@ -108,14 +121,11 @@ public class SkillButtons : MonoBehaviour
             }
             go = true;
         }
-
         if (!go)
         {
             descriptionPanel.transform.Find("Requirements").GetComponent<Text>().color = notUnlockedC;
         }
-
-       
-
+        //Output text
         descriptionPanel.transform.Find("Lvl").GetComponent<Text>().text = "Level: " + PersistantGameManager.Instance.skillLevels[_name] + "/" + maxLevel + ".";
     }
     public void CloseSkillDescription(PointerEventData data)

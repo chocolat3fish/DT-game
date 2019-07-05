@@ -116,6 +116,8 @@ public class SkillManager2 : MonoBehaviour
         CheckButtons();
 
     }
+
+    //Updates all buttons and sets all buttons to their correct state.
     void CheckButtons()
     {
 
@@ -186,6 +188,7 @@ public class SkillManager2 : MonoBehaviour
             }
            
         }
+        //Sets Locks to correct number
         //Health Regen To Turtle
         int HR2TuV = TurtleB.GetComponent<SkillButtons>().levelToUnlock - PersistantGameManager.Instance.skillLevels["HealthBonus"];
         if (HR2TuV < 1 || TurtleB.GetComponent<SkillButtons>().unlocked)
@@ -372,7 +375,7 @@ public class SkillManager2 : MonoBehaviour
 
     }
 
-
+    //Add all the buttons to the list of buttons
     void AddButtons(Button b1, Button b2, Button b3, Button b4, Button b5, Button b6, Button b7, Button b8, Button b9, Button b10, Button b11, Button b12, Button b13, Button b14, Button b15, Button b16, Button b17)
     {
         buttons.Add(b1);
@@ -401,6 +404,7 @@ public class SkillManager2 : MonoBehaviour
 
 
     }
+    //Returns the corresponding button
     Button Translate(string _name)
     {
         switch (_name)
