@@ -283,7 +283,7 @@ public class EnemyMonitor : MonoBehaviour
         LootItem newItem = LootManager.DropItem(itemChance, weaponValue);
 
         int chance = random.Next(0, 3);
-        if (chance > 0)
+        if (chance > 0 && enemyStats.enemyName != "Evil Door")
         {
             newItem = null;
         }
